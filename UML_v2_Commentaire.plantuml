@@ -1,0 +1,130 @@
+@startuml
+
+title Class Diagram - LO21 Project
+
+
+
+class Jeu{
+}
+
+
+class Carte {
+}
+
+class Monument {
+}
+
+class  Etablissement{
+}
+
+
+class  Partie{
+}
+
+class  Réserve{
+}
+
+class  Main{
+}
+
+
+class Pile{
+}
+
+class  Joueur{
+}
+
+
+class Vert {
+}
+class Violet {
+}
+Jeu "1" *-- "*" Carte 
+Carte <|-- Etablissement
+Carte <|-- Monument
+Partie "1" -- "1..4" Joueur
+Joueur "1" -- "1" Main
+Jeu "1" --o "1" Partie
+Réserve "1" --o "1" Partie
+Etablissement <|-- Rouge 
+Etablissement <|-- Bleu
+Etablissement <|-- Vert
+Etablissement <|-- Violet
+Pile "*" o-- "*" Etablissement
+Réserve "1" o-- "*" Pile
+Main "1" o-- "*" Monument
+Main "1" o-- "*" Pile
+
+note bottom of Monument
+- Il y a 4 sortes de 
+Monuments par joueur
+- Tous les monuments sont initialisés 
+comme "En construction"
+- S'active uniquement au 
+tour du joueur courant
+end note
+note top of Etablissement 
+- 12 sortes d'Etablissements de base
+- 3 sortes d'Etablissements spéciaux
+- Construit jusqu'à épuisement de la carte
+end note
+
+
+note top of Partie
+- Le joueur ayant visité un parc 
+d'attraction le plus récemment commence.
+- On applique le sens horaire
+Utilisation d'un seul dé lorsque la gare est 
+en construction et 2 dé quand la gare est construite
+
+Ordre des actions:
+1) Le joueur courant lance le dé
+2) Déclenchement des effets suivant la valeur du dé
+(Le joueur paye ce qu'il doit avant de recevoir de la banque)
+3) Le joueur peut construire un établissement 
+ou un monument ou passer son tour
+end note
+
+
+note bottom of Vert
+S'active au tour de
+n'importe quel joueur
+end note
+
+note bottom of Bleu
+S'active uniquement au 
+tour du joueur courant
+end note
+
+note bottom of Rouge
+Recevez des pièces dues 
+joueur qui a lancé le dé
+end note
+
+note left of Joueur
+-Les paiements entre joueurs s'effectuent
+avant la réception des pièces de la banque
+-Si le joueur ne peut pas tout payer,
+il est exempté du reste
+-Transactions multiples : payer dans le 
+sens inverse des aiguilles d'une montre
+-Ne peut construire qu'une seule carte par tour
+- Chaque joueur commence
+ avec 3 pièces
+- Pas de limite du nombre de pièces
+end note
+
+note left of Violet
+Violets -> Sont uniques
+Il ne peut y en avoir 
+qu'un dans chaque ville
+end note
+
+note left of Réserve
+Si une carte n'est plus dans la 
+réserve, on ne peut plus la construire
+end note
+
+hide @unlinked
+@enduml
+

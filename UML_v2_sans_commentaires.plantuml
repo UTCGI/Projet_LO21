@@ -1,4 +1,3 @@
-
 @startuml
 
 title Class Diagram - LO21 Project
@@ -36,6 +35,13 @@ class  Partie{
  manche : int
  joueur_actif:*Joueur
  num_dé :int
+ jeu : *Jeu
+ joueurs : *Joueur
+ réserve : *Réserve
+ extension : Extension
+ nb_joueurs : int
+ nb_monuments :int
+ nb_etablissements
 }
 Partie : +tour_joueur(joueur : Joueur)
 Partie : +regarder_etablissements (joueur : Joueur, couleur : Couleur)
@@ -44,6 +50,9 @@ Partie : +application_regle_speciale (pile_joueur : Pile)
 Partie : +transaction_pièce(émetteur : Joueur, destinataire : Joueur, montant : int)
 Partie : +transaction_carte(émetteur : Joueur, destinataire : Joueur, pile : Pile)
 Partie : +achat_carte (joueur : Joueur, pile_réserve : Pile)
+Partie : distribuer()
+
+
 class  Réserve{
 }
 Réserve : Réserve (extension : Extension)
@@ -84,16 +93,6 @@ Joueur : +encaisser(montant:int)
 Joueur : +victoire():bool
 Joueur : +lancerDés() : int
 
-class  Controleur{
- jeu : *Jeu
- joueurs : *Joueur
- réserve : *Réserve
- extension : Extension
- nb_joueurs : int
- nb_monuments :int
- nb_etablissements
-}
-Controleur : distribuer()
 
 class Vert {
 type_effet : Type
@@ -101,26 +100,23 @@ type_effet : Type
 class Violet {
 payeur : {all=0,one=1}
 }
-Jeu *-- "*" Carte 
+Jeu "1" *-- "*" Carte 
 Carte <|-- Etablissement
 Carte <|-- Monument
-Partie -- Joueur
-Partie -- Controleur
-Jeu -- Controleur
-Réserve -- Controleur
+Partie "1" -- "1..4" Joueur
 Joueur "1" -- "1" Main
-
+Jeu "1" --o "1" Partie
+Réserve "1" --o "1" Partie
 Etablissement <|-- Rouge 
 Etablissement <|-- Bleu
 Etablissement <|-- Vert
 Etablissement <|-- Violet
-Pile o-- Etablissement
-Réserve o-- Pile
-Main o--Monument
-Main o--Pile
+Pile "*" o-- "*" Etablissement
+Réserve "1" o-- "*" Pile
+Main "1" o-- "*" Monument
+Main "1" o-- "*" Pile
 
-
-
+' Creer un lien avec jeu et reserve entre la partie
 hide @unlinked
 @enduml
 
