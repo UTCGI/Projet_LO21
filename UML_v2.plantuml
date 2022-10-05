@@ -1,0 +1,126 @@
+
+@startuml
+
+title Class Diagram - LO21 Project
+
+
+
+class Jeu{
+
+}
+Jeu : +Jeu(extension : Extension)
+
+class Carte {
+ -id : string
+ -nom : string
+ -effet : string
+ -coût : int
+}
+Carte : +getNom()
+Carte : +getEffet()
+Carte : +getCoût()
+
+class Monument {
+ -construit : bool
+ 
+}
+Monument : +estConstruit():bool
+Monument : +construire()
+
+class  Etablissement{
+
+}
+
+
+class  Partie{
+ manche : int
+ joueur_actif:*Joueur
+ num_dé :int
+}
+Partie : +tour_joueur(joueur : Joueur)
+Partie : +regarder_etablissements (joueur : Joueur, couleur : Couleur)
+Parite : +application_regle_standard (couleur : Couleur)
+Partie : +application_regle_speciale (pile_joueur : Pile)
+Partie : +transaction_pièce(émetteur : Joueur, destinataire : Joueur, montant : int)
+Partie : +transaction_carte(émetteur : Joueur, destinataire : Joueur, pile : Pile)
+Partie : +achat_carte (joueur : Joueur, pile_réserve : Pile)
+class  Réserve{
+}
+Réserve : Réserve (extension : Extension)
+Réserve : retirer_carte(Pile pile)
+
+class  Main{
+-*Monument monuments[nb_monuments]
+-*Etablissement etablissements[]
+}
+
+
+class Pile{
+effectif : int
+ num_dé : int
+ type : Type
+ nb_pièces: int
+}
+Pile : +getnb_type(couleur:Couleur,type : Type):int
+Pile : +ajouter_etablissement(etablissement : *Etablissement)
+Pile : +retirer_etablissement(etablissement : *Etablissement)
+Pile : +estActif(num_dé : int):bool
+Pile : +estSpecial()
+
+class  Joueur{
+ -id : int
+ -pseudo : string
+ -dés : 1..2
+ -dés_lancés : 1..2
+ -main : Main
+ -compte : int
+}
+
+Joueur : +getNbDés()
+Joueur : +setNbDés()
+Joueur : +getCompte()
+Joueur : +payer(montant:int)
+Joueur : +encaisser(montant:int)
+Joueur : +victoire():bool
+Joueur : +lancerDés() : int
+
+class  Controleur{
+ jeu : *Jeu
+ joueurs : *Joueur
+ réserve : *Réserve
+ extension : Extension
+ nb_joueurs : int
+ nb_monuments :int
+ nb_etablissements
+}
+Controleur : distribuer()
+
+class Vert {
+type_effet : Type
+}
+class Violet {
+payeur : {all=0,one=1}
+}
+Jeu *-- "*" Carte 
+Carte <|-- Etablissement
+Carte <|-- Monument
+Partie -- Joueur
+Partie -- Controleur
+Jeu -- Controleur
+Réserve -- Controleur
+Joueur "1" -- "1" Main
+
+Etablissement <|-- Rouge 
+Etablissement <|-- Bleu
+Etablissement <|-- Vert
+Etablissement <|-- Violet
+Pile o-- Etablissement
+Réserve o-- Pile
+Main o--Monument
+Main o--Pile
+
+
+
+hide @unlinked
+@enduml
+
