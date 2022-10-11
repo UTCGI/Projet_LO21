@@ -79,7 +79,7 @@ class Vert {
 type_effet : Type
 }
 class Violet {
-payeur : {all=0,one=1}
+payeur : bool {all=0,one=1}
 }
 class Rouge{
 }
