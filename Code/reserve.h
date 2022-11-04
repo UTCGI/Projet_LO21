@@ -5,7 +5,7 @@
 #include "pile.h"
 
 class Reserve{
-    Extension extention;
+    Extension extension;
 
 public:
     Reserve();
