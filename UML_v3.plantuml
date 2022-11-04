@@ -1,0 +1,141 @@
+@startuml
+enum Type
+enum Extension
+enum Couleur
+class Partie
+class Jeu
+class Carte
+class Monument
+class Etablissement
+class Vert
+class Rouge
+class Bleu 
+class Violet
+class Réserve
+class Joueur
+class Main
+class Pile
+
+enum Type{
+elevage
+agriculture
+commerce
+ect
+}
+enum Couleur {
+Bleu
+Vert
+Rouge
+Violet
+}
+enum Extension {
+marina
+greenVille
+deluxe
+}
+
+class  Partie{
+ manche : int
+ joueur_actif:Joueur
+ num_dé :int
+ jeu : Jeu
+ joueurs : Joueur
+ réserve : Réserve
+ extension : Extension
+ nb_joueurs : int
+ nb_monuments :int
+ nb_etablissements
+}
+Partie : +tour_joueur(joueur : Joueur)
+Partie : +regarder_etablissements (joueur : Joueur, couleur : Couleur)
+Partie : +application_regle_standard (couleur : Couleur)
+Partie : +application_regle_speciale (pile_joueur : Pile)
+Partie : +transaction_pièce(émetteur : Joueur, destinataire : Joueur, montant : int)
+Partie : +transaction_carte(émetteur : Joueur, destinataire : Joueur, pile : Pile)
+Partie : +achat_carte (joueur : Joueur, pile_réserve : Pile)
+Partie : distribuer()
+
+class Jeu{
+
+}
+Jeu : +Jeu(extension : Extension)
+
+
+class Monument {
+
+ -construit : bool
+ 
+}
+Monument : +estConstruit():bool
+Monument : +construire()
+
+
+class Vert {
+type_effet : Type
+}
+class Violet {
+payeur : {all=0,one=1}
+}
+class Rouge{
+}
+class Bleu{
+}
+class  Réserve{
+}
+Réserve : Réserve (extension : Extension)
+Réserve : retirer_carte(Pile pile)
+class  Joueur{
+ -id : int
+ -pseudo : string
+ -dés : 1..2
+ -dés_lancés : 1..2
+ -main : Main
+ -compte : int
+ -placement_StarUp
+}
+Joueur : +getNbDés()
+Joueur : +setNbDés()
+Joueur : +getCompte()
+Joueur : +payer(montant:int)
+Joueur : +encaisser(montant:int)
+Joueur : +victoire():bool
+Joueur : +lancerDés() : int
+Joueur : +Joueur(Extension e)
+
+class Pile_Etablissement{
+ -couleur : Couleur
+ -nom : string
+ -effet : string
+ -coût : int
+ -num_dé : int
+ -type : Type
+ -nb_pièces: int
+ -effectif : int
+ -type_effet : Type
+ -payeur : bool
+}
+Pile_Etablissement : +getnb_type(couleur:Couleur,type : Type):int
+Pile_Etablissement : +ajouter_etablissement(etablissement : Etablissement)
+Pile_Etablissement : +retirer_etablissement(etablissement : Etablissement)
+Pile_Etablissement : +estActif(num_dé : int):bool
+Pile_Etablissement : +estSpecial()
+class  Main{
+-Monument* monuments[nb_monuments]
+-Pile_Etablissement* pileRouge[]
+-Pile_Etablissement* pileBleu[]
+-Pile_Etablissement* pileVert[]
+-Pile_Etablissement* pileViolet[]
+}
+
+Jeu "1" <--o Partie:"gère"
+Réserve "1" <--o Partie:"gère"
+Partie "1..*" <-- "2..4" Joueur :"joue"
+Partie o--> "nb_joueurs" Main :"gère"
+Jeu "1" *-- Etablissement
+Jeu "1" *-- Monument
+Joueur "1" --> "1" Main : "possède"
+Main o-- "4..6" Monument
+Main  o-- "2..*" Pile_Etablissement
+Réserve o-- "15..*" Pile_Etablissement
+
+@endUML
