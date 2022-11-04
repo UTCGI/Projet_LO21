@@ -8,18 +8,17 @@
 class Joueur{
     int id;
     char* pseudo;
-    int de;
+    int de=1;
     int de_lance;
     Main main;
-    int compte;
+    int compte=3;
 
     public:
     Joueur();
     ~Joueur();
     int getNbDes();
     int getCompte();
-    void payer(int montant);
-    void encaisser(int montant);
+    void ajouterMontant(int montant);
     bool victoire();
     int lancerDés();
 };
