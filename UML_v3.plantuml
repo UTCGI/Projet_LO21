@@ -17,11 +17,29 @@ class Main
 class Pile
 
 enum Type{
-elevage
 agriculture
+elevage
+ressources
+maritime
 commerce
-ect
+industrie
+maraichage
+entreprise
+restauration
+spécial
 }
+/'enum Type{
+epi
+vache
+engrenage
+bateau
+carton
+usine
+pomme
+valise
+tasse
+tour 'ça ressemble à une tour non ?
+}'/
 enum Couleur {
 Bleu
 Vert
