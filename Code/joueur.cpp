@@ -8,12 +8,25 @@ int Joueur::getCompte() const{
     return compte;
 }
 
-void ajouterMontant(int montant){
+int Joueur::getPlacement_StartUp() const {
+    return placement_StartUp;
+}
+
+void Joueur::ajouterMontant(int montant){
     compte+= montant;
 }
 
 bool Joueur::victoire(){
-
+    int somme=0;
+    for (size_t i=0;i<nb_monuments;i++){
+        somme += monuments[i].construit;
+    }
+    
+    if(somme==nb_monuments) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 int Joueur::lancerDés(){
