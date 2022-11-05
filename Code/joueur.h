@@ -10,14 +10,15 @@ class Joueur{
     char* pseudo;
     int de=1;
     int de_lance;
-    Main main;
     int compte=3;
+    int placement_StartUp;
 
     public:
     Joueur();
     ~Joueur();
     int getNbDes() const;
     int getCompte() const;
+    int getPlacement_StartUp() const;
     void ajouterMontant(int montant);
     bool victoire();
     int lancerDés();
