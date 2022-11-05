@@ -12,6 +12,7 @@ class Joueur{
     int de_lance;
     int compte=3;
     int placement_StartUp;
+    Monument* monuments[nb_monuments];
 
     public:
     Joueur();
