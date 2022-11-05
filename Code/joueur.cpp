@@ -18,8 +18,8 @@ bool Joueur::victoire(){
 
 int Joueur::lancerDés(){
     if (de==1) {
-        return rand() % 6 + 1
+        return rand() % 6 + 1;
     } else if (de==2) {
-        return rand() % 12 + 1
+        return rand() % 12 + 2;
     }
 }
