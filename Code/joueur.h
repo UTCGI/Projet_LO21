@@ -16,8 +16,8 @@ class Joueur{
     public:
     Joueur();
     ~Joueur();
-    int getNbDes();
-    int getCompte();
+    int getNbDes() const;
+    int getCompte() const;
     void ajouterMontant(int montant);
     bool victoire();
     int lancerDés();
