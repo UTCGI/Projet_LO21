@@ -4,39 +4,39 @@
 // ----------------------------------------------------------------
 // Getter functions
 // ----------------------------------------------------------------
-int Partie::getManche() { 
+int Partie::getManche() const { 
     return manche; 
 }
 
-int Partie::getNumDe() {
+int Partie::getNumDe() const{
     return num_de; 
 }
 
-int Partie::getNbJoueurs() { 
+int Partie::getNbJoueurs() const{ 
     return nb_joueurs; 
 }
 
-int Partie::getNbMonuments() { 
+int Partie::getNbMonuments() const{ 
     return nb_monuments; 
 }
 
-int Partie::getNbEtablissements() { 
+int Partie::getNbEtablissements() const{ 
     return nb_etablissements; 
 }
 
-Jeu* Partie::getJeu() { 
+Jeu* Partie::getJeu() const{ 
     return jeu; 
 }
 
-Joueur* Partie::getJoueurActif() { 
+Joueur* Partie::getJoueurActif() const{ 
     return joueur_actif; 
 }
 
-Joueur* Partie::getEnsenbleJoueurs() { 
+Joueur* Partie::getEnsenbleJoueurs() const{ 
     return joueurs; 
 }
 
-Reserve* Partie::getReserve() {
+Reserve* Partie::getReserve() const{
     return reserve;
 }
 

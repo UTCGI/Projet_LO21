@@ -19,15 +19,15 @@ class Partie{
     public:
 
     // Getter functions
-    int getManche();
-    int getNumDe();
-    int getNbJoueurs();
-    int getNbMonuments();
-    int getNbEtablissements();
-    Jeu *getJeu();
-    Joueur* getJoueurActif();
-    Joueur* getEnsenbleJoueurs();
-    Reserve* getReserve();
+    int getManche() const;
+    int getNumDe() const;
+    int getNbJoueurs() const;
+    int getNbMonuments() const;
+    int getNbEtablissements() const;
+    Jeu *getJeu() const;
+    Joueur* getJoueurActif() const;
+    Joueur* getEnsenbleJoueurs() const;
+    Reserve* getReserve() const;
     
     // Setter functions
     int setManche(int nbManche);
