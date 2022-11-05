@@ -102,6 +102,7 @@ class  Joueur{
 Joueur : +getNbDés()
 Joueur : +setNbDés()
 Joueur : +getCompte()
+Joueur : +getPlacement_StartUp()
 Joueur : +actualiserCompte(montant:int)
 Joueur : +victoire():bool
 Joueur : +lancerDés() : int
