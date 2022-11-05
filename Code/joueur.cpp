@@ -1,10 +1,10 @@
 #include "joueur.h"
 
-int Joueur::getNbDes(){
+int Joueur::getNbDes() const{
     return de;
 }
 
-int Joueur::getCompte(){
+int Joueur::getCompte() const{
     return compte;
 }
 
