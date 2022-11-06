@@ -2,6 +2,7 @@
 #define JOUEUR_H
 
 #include <string.h>
+#include <random>
 
 #include "Main.h"
 
@@ -21,6 +22,10 @@ class Joueur{
     ~Joueur();
     int getNbDes() const;
     int getCompte() const;
+    static int getNbMaxJoueurs();
+    static int getNbMaxJoueurs();
+    int setNbDes(int nbDe);
+    int setCompte(int montant);
     int getPlacement_StartUp() const;
     void ajouterMontant(int montant);
     bool victoire();

@@ -1,5 +1,6 @@
 #include "joueur.h"
 
+
 int Joueur::getNbDes() const{
     return de;
 }
@@ -35,5 +36,11 @@ int Joueur::lancerDés(){
         return rand() % 6 + 1;
     } else if (de==2) {
         return rand() % 6 + rand() % 6 + 2;
+    } 
+    // Code d'erreur si on envoie un mauvais nombre ?
+    /*
+    else {
+        return -1;
     }
+    */
 }
