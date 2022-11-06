@@ -21,7 +21,8 @@ bool Joueur::victoire(){
     for (size_t i=0;i<nb_monuments;i++){
         somme += monuments[i].construit;
     }
-    
+    // Utiliser directement le return du booléen 
+    // return (somme == nb_monuments);
     if(somme==nb_monuments) {
         return 1;
     } else {

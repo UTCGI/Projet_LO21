@@ -12,8 +12,10 @@ class Joueur{
     int de_lance;
     int compte=3;
     int placement_StartUp;
+    static const int max_joueurs = 4;
+    static const int min_joueurs = 2;
     Monument* monuments[nb_monuments];
-
+    friend Partie;
     public:
     Joueur();
     ~Joueur();

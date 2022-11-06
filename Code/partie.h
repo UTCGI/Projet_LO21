@@ -4,6 +4,7 @@
 #include "joueur.h"
 #include "jeu.h"
 #include "reserve.h"
+#include "TypesEnum.h"
 
 class Partie{
     int manche;
@@ -13,8 +14,8 @@ class Partie{
     int nb_etablissements;
     // Est ce qu'on a besoin de pointeurs ou pas ??
     Jeu* jeu;
-    Joueur *joueur_actif;
-    Joueur *joueurs;
+    Joueur* joueur_actif;
+    Joueur* joueurs;
     Reserve *reserve;
     public:
 
@@ -27,6 +28,7 @@ class Partie{
     Jeu *getJeu() const;
     Joueur* getJoueurActif() const;
     Joueur* getEnsenbleJoueurs() const;
+    Joueur getJoueurI(const int i);
     Reserve* getReserve() const;
     
     // Setter functions
@@ -82,11 +84,11 @@ class Partie{
     /*
     SPECIFICATION : Partie::tour_joueur(Joueur joueur)
         Entree: Joueur joueur
-        Sortie: None
+        Sortie: Retourne le joueur suivant
         Objectif: Cette fonction revoie le joueur suivant du joueur passé en argument 
         Elle permet de passer d'un joueur à l'autre.
     */
-    void tour_joueur(Joueur joueur);
+    Joueur tour_joueur(Joueur joueur);
 
     /*
     SPECIFICATION : Partie::regarder_etablissements(Joueur joueur, Couleur couleur)
@@ -122,7 +124,7 @@ class Partie{
         Objectif: Cette fonction effectue une transaction entre le joueur emeteur et le joueur destinataire
         Le joueur emeteur perd une somme correspondante au montant et le joueur destinataire gagne cette somme.
     */
-    void transaction_piece(Joueur emeteur, Joueur destinataire, int montant);
+    void transaction_piece(Joueur& emeteur, Joueur& destinataire, int montant);
 
     /*
     SPECIFICATION : Partie::transaction_carte(Joueur emeteur, Joueur destinataire, Pile pile)
@@ -131,7 +133,7 @@ class Partie{
         Objectif: Cette fonction effectue une transaction entre le joueur emeteur et le joueur destinataire
         Le joueur emeteur perd la carte représentée dans la pile et le joueur destinataire la gagne.
     */
-    void transaction_carte(Joueur emeteur, Joueur destinataire, Pile pile);
+    void transaction_carte(Joueur& emeteur, Joueur& destinataire, Pile& pile);
 
     /*
     SPECIFICATION : Partie::achat_carte(Joueur joueur, Pile pile_reserve)
@@ -142,7 +144,7 @@ class Partie{
         qu'elle ajoutera ensuite dans la pile correpondante au joueur
         Et retirera la somme équivalente au montant de la carte demandée.
     */
-    void achat_carte(Joueur joueur, Pile pile_reserve);
+    void achat_carte(Joueur& joueur, Pile& pile_reserve);
 
 
 };
