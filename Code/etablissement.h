@@ -46,8 +46,8 @@ bool estActif(unsigned int n){return num_de==n;}
 };
 
 
-ostream& operator<<(ostream& f,Etablissement* Etablissement){
-f<<"Etablissement : "<<Etablissement->getNom()<<endl
+ostream& operator<<(ostream& f,const Etablissement* Etablissement){
+f<<"Nom : "<<Etablissement->getNom()<<endl
 <<"Effet : "<<Etablissement->getEffet()<<endl
 <<"Cout : "<<Etablissement->getPrix()<<endl
 <<"Numero de de : "<<Etablissement->getNumDe()<<endl
