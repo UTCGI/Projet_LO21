@@ -1,11 +1,14 @@
 #include <iostream>
-#include "etablissement.h"
+#include "pile_etablissement.h"
 #include <string>
 
 int main()
 {
+    /* création et actualisation d'une pile d'établissements*/
     const string& txt = "Pendant le tour de n'importe quel joueur recevez une piece de la banque.";
     Etablissement e0=Etablissement("Ferme",txt,Couleur::bleu,1,2,Type::agriculture,1);
-    cout<<&e0<<endl;
+    Pile_Etablissement p0=Pile_Etablissement(&e0,6);
+    p0.retirerCarte(1);
+    cout<<p0;
     return 0;
 };
