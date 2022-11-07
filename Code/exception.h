@@ -8,7 +8,7 @@ class SetException{
 private:
 string info;
 public:
-SetException(const string& s):info(s){};
+SetException(const string& s):info(s){cout<<info<<endl;};
 string getException(){return info;}
 };
 
