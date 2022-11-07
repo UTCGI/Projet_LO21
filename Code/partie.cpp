@@ -49,6 +49,7 @@ Reserve* Partie::getReserve() const{
 // Setter functions
 // ----------------------------------------------------------------
 
+//ce n'est pas plutôt des void le type de retour des setters ?
 int Partie::setManche(int nbManche){
     manche = nbManche;
 }
