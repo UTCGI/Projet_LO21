@@ -1,6 +1,5 @@
 #ifndef TYPESENUM_H
 #define TYPESENUM_H
-<<<<<<< HEAD
 
 enum class Type {
     agriculture,
@@ -14,11 +13,6 @@ enum class Type {
     restauration,
     special,
 }
-=======
-#include<string>
-#include "exception.h"
-using namespace std;
->>>>>>> 3843fe0ccd43655656d799e059e79e98ad6b8a9a
 
 enum class Extension {
     Aucune,
