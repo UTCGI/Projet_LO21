@@ -5,6 +5,7 @@
 using namespace std;
 
 enum class Extension {
+    Aucune,
     Marina,
     GreenValley,
     Deluxe
