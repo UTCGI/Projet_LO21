@@ -35,13 +35,22 @@ void Joueur::ajouterMontant(int montant){
     compte+= montant;
 }
 
-bool Joueur::victoire(){
+int Joueur::getNombreMonumentsConstruits () {
+    int somme=0;
+    for (size_t i=0;i<nb_monuments;i++){
+        somme += monuments[i].construit;
+    }
+    return somme;
+}
+
+//Partie
+/*bool Joueur::victoire(){
     int somme=0;
     for (size_t i=0;i<nb_monuments;i++){
         somme += monuments[i].construit;
     }
     return (somme == nb_monuments);
-}
+}*/
 
 int Joueur::lancerDés(){
     if (de==1) {
