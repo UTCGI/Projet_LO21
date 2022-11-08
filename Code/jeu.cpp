@@ -1,7 +1,7 @@
 #include "jeu.h"
 
 Jeu::Jeu() {
-	//Etablissement(nom,couleur,effet,cout,num_de[],type,nb_piece,type_effet,payeur,nb_exemplaire);
+	//Etablissement(nom,couleur,effet,prix,num_de[],type,nb_piece,type_effet,payeur,nb_exemplaire);
 	//rajout num_de[]
 	//type_effet=null : possible ?
 	//payeur un_joueur:0 tous_les_joueurs:1 la_banque:null
@@ -40,11 +40,12 @@ Jeu::Jeu() {
 	//type d'un Monument : special mais inutile à mon avis, on le met quand même ?
 	//Tour radio, comment interpréter effet : un tour en plus ou alors remplacer un lancer de dés ?
 	//rajout cout, nb_piece, type_effet[], payeur
-	//Monument(nom,effet,cout,nb_piece,type_effet[],payeur,nb_exemplaire);
-	Monument gare = new Monument("Gare", "Vous pouvez lancer deux des", 4, 0, null, null, 4);
-	Monument centre_commercial = new Monument("Centre commercial", "Vos etablissement de type restauration et commerce rapportent une piece de plus", 10, 1, { Type::restauration, Type::commerce}, null, 4);
+	//Monument(nom,effet,prix,//nb_piece,//type_effet[],//payeur,nb_exemplaire);
+	Monument gare = new Monument("Gare", "Vous pouvez lancer deux des", 4, 4);
+	Monument centre_commercial = new Monument("Centre commercial", "Vos etablissement de type restauration et commerce rapportent une piece de plus", 10, 4);
+	/*1, { Type::restauration, Type::commerce}, null, 4);*/
 	Monument tour_radio = new Monument("Tour radio", "Une fois par tour, vous pouvez choisir de relancer vos des", 22, 0, null, null, 4);
-	Monument parc_d_attractions = new Monument("Parc d'attractions", "Si votre jet de des est un double, rejouez un tour apres celui-ci", 16, 0, null, null, 4);
+	Monument parc_d_attractions = new Monument("Parc d'attractions", "Si votre jet de des est un double, rejouez un tour apres celui-ci", 16, 4);
 	liste_monuments[0] = &gare;
 	liste_monuments[1] = &centre_commercial;
 	liste_monuments[2] = &tour_radio;
@@ -53,7 +54,7 @@ Jeu::Jeu() {
 	//rajout const Etablissement* liste_etablissements_depart[2];
 	//je ne savais pas s'il y avait des setters alors j'ai créé un nouveau champs de ble et une nouvelle boulangerie
 	//setCout(0);setNb_exemplaire(4);
-	//Etablissement(nom,couleur,effet,cout,num_de[],type,nb_piece,type_effet,payeur,nb_exemplaire);
+	//Etablissement(nom,couleur,effet,prix,num_de[],type,nb_piece,type_effet,payeur,nb_exemplaire);
 	Etablissement champs_de_ble_depart = new Etablissement("Champs de ble", Couleur::Bleu, "Recevez 1 piece de la banque", 0, 1, Type::agriculture, 1, null, null, 4);
 	Etablissement boulangerie_depart = new Etablissement("Boulangerie", Couleur::Vert, "Recevez 1 piece de la banque", 0, { 2,3 }, Type::commerce, 1, null, null, 4);
 	liste_etablissements_depart[0] = &champs_de_ble_depart;
