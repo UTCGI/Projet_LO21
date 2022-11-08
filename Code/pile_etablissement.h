@@ -15,9 +15,9 @@ class Pile_Etablissement{
     }
     const Etablissement* getEtablissement()const{return etablissement;}
     unsigned int getEffectif()const {return effectif;}
-    ~Pile_Etablissement()=default;
+    ~Pile_Etablissement()=default;//on ne doit pas supprimer le pointeur ?
     Pile_Etablissement(Etablissement* et,unsigned int ef = 1):etablissement(et),effectif(ef){};
-
+    void operator+(Pile_Etablissement& p){effectif+=p.getEffectif();}
 };
 
 ostream& operator<<(ostream& f,Pile_Etablissement& pile){
