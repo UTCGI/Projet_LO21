@@ -36,10 +36,14 @@ Etablissement(const string& n,const string& e,Couleur color,unsigned int p, unsi
     nom(n),effet(e),prix(p),num_de(d),type(t),couleur(color),montant_effet(m){
         const string& etablissement_depart1 = "Champs de ble";
         const string& etablissement_depart2 = "Boulangerie";
-    if (couleur == Couleur::violet || nom==etablissement_depart1 || nom==etablissement_depart2)
+    if (couleur == Couleur::violet)
         nb_exemplaires=4;
-        else
-            nb_exemplaires=6;
+        else{
+                if(nom==etablissement_depart1 || nom==etablissement_depart2)
+                nb_exemplaires = 8;
+                else
+                nb_exemplaires=6;
+        }
     };
 ~Etablissement()= default;
 bool estActif(unsigned int n){return num_de==n;}
