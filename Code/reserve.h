@@ -1,16 +1,11 @@
-#ifndef RESERVE_H
-#define RESERVE_H
-
-#include "TypesEnum.h"
-#include "pile.h"
-
+#include "pile_etablissement.h"
+//#include "jeu.h"
 class Reserve{
-    Extension extension;
-
-public:
-    Reserve();
-    ~Reserve();
-    void retirer_carte(Pile pile);
-};
-
-#endif
+    private:
+unsigned int nb_piles;
+unsigned int nbmax_piles;
+Pile_Etablissement* grille[];
+    public:
+Reserve(Jeu& jeu, Extension extension);//TODO
+retirer_etablissement(Etablissement* etablissement);//TODO
+}

@@ -1,0 +1,61 @@
+# depslib dependency file v1.0
+1667550666 source:c:\users\gabri\documents\hu07\lo21\projet\projet_lo21\code\etablissement.cpp
+
+1667550666 source:c:\users\gabri\documents\hu07\lo21\projet\projet_lo21\code\jeu.cpp
+
+1667550666 source:c:\users\gabri\documents\hu07\lo21\projet\projet_lo21\code\monument.cpp
+	"monument.h"
+
+1667550666 c:\users\gabri\documents\hu07\lo21\projet\projet_lo21\code\monument.h
+
+1667550666 source:c:\users\gabri\documents\hu07\lo21\projet\projet_lo21\code\pile.cpp
+
+1667550666 source:c:\users\gabri\documents\hu07\lo21\projet\projet_lo21\code\reserve.cpp
+
+1667833858 source:c:\users\gabri\documents\hu07\lo21\projet\projet_lo21\code\main.cpp
+	<iostream>
+	"etablissement.h"
+	<string>
+
+1667833879 c:\users\gabri\documents\hu07\lo21\projet\projet_lo21\code\etablissement.h
+	<string>
+	<iostream>
+	"exception.h"
+	"TypesEnum.h"
+
+1667832236 c:\users\gabri\documents\hu07\lo21\projet\projet_lo21\code\exception.h
+	<string>
+	<iostream>
+
+1667834230 c:\users\gabri\documents\hu07\lo21\projet\projet_lo21\code\typesenum.h
+	<string>
+	"exception.h"
+
+1667835513 source:c:\users\gabri\documents\hu07\lo21\projet\projet_lo21\code\joueur.cpp
+	"joueur.h"
+
+1667835642 c:\users\gabri\documents\hu07\lo21\projet\projet_lo21\code\joueur.h
+	<string>
+	<random>
+	"monument.h"
+
+1667834985 c:\users\gabri\documents\hu07\lo21\projet\projet_lo21\code\partie.h
+	"etablissement.h"
+	"jeu.h"
+	"reserve.h"
+	"TypesEnum.h"
+	"joueur.cpp"
+
+1667550666 c:\users\gabri\documents\hu07\lo21\projet\projet_lo21\code\jeu.h
+	"TypesEnum.h"
+
+1667580724 c:\users\gabri\documents\hu07\lo21\projet\projet_lo21\code\reserve.h
+	"TypesEnum.h"
+	"pile.h"
+
+1667550666 c:\users\gabri\documents\hu07\lo21\projet\projet_lo21\code\pile.h
+	"TypesEnum.h"
+
+1667835513 c:\users\gabri\documents\hu07\lo21\projet\projet_lo21\code\joueur.cpp
+	"joueur.h"
+

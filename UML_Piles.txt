@@ -1,0 +1,152 @@
+@startuml
+enum Type
+enum Extension
+enum Couleur
+class Partie
+class Jeu
+class Monument
+class Réserve
+class Joueur
+class Pile_Etablissement
+class Pioche
+class Etablissement
+
+enum Type{
+elevage
+agriculture
+commerce
+ect
+}
+enum Couleur {
+bleu
+vert
+rouge
+violet
+}
+enum Extension {
+marina
+greenValley
+deluxe
+}
+
+class  Partie{
+ manche : int
+ joueur_actif:Joueur
+ num_dé :int
+ jeu : Jeu
+ joueurs : Joueur
+ réserve : Réserve
+ nb_joueurs : int
+ nb_monuments :int
+ nb_etablissements :int
+extension : const Extension
+}
+Partie : +initialisation()
+Partie : +distribuer()
+Partie : +tour_joueur(joueur : Joueur)
+Partie : +regarder_etablissements (joueur : Joueur, couleur : Couleur)
+Partie : +application_regle_standard (couleur : Couleur)
+Partie : +application_regle_speciale (pile_joueur : Pile)
+Partie : +transaction_pièce(émetteur : Joueur, destinataire : Joueur, montant : int)
+Partie : +transaction_carte(émetteur : Joueur, destinataire : Joueur, pile : Pile)
+Partie : +achat_carte (joueur : Joueur, pile_réserve : Pile)
+
+class Jeu{
+liste_etablissements[] : const Etablissement* 
+liste_monuments[] :const Monument* 
+
+}
+Jeu : +Jeu(extension : Extension)
+
+
+class Carte_Monument {
+ -monument : *Monument
+ -construit : bool
+ 
+}
+Carte_Monument : +estConstruit():bool
+Carte_Monument : +construire()
+
+
+abstract Monument {
+ -nom :string {KEY}
+ -effet : string
+ -nb_exemplaires :string
+}
+
+class Pioche{
+ -etablissements :*Pile_Etablissement[]
+}
+
+class  Réserve{
+nb_lignes : int
+nb_colonnes : int
+Pile_Etablissement* grille[][]
+}
+Réserve : Réserve (jeu : &Jeu, extension : Extension)
+Réserve : retirer_etablissement(Pile_Etablissement* etablissement)
+class  Joueur{
+ -id : int
+ -pseudo : string
+ -dés : 1..2
+ -dés_lancés : 1..2
+ -compte : int
+ -placement_StarUp : int
+-Monument* monuments[nb_monuments]
+-Pile_Etablissement* pileRouge[]
+-Pile_Etablissement* pileBleu[]
+-Pile_Etablissement* pileVert[]
+-Pile_Etablissement* pileViolet[]
+}
+Joueur : +getNbDés()
+Joueur : +getCompte()
+Joueur : +getPlacement_StartUp()
+Joueur : +setNbDés()
+Joueur : +setCompte()
+Joueur : +setPlacement_StartUp()
+Joueur : +setPseudo()
+Joueur : +actualiserCompte(montant:int)
+Joueur : +victoire():bool
+Joueur : +lancerDés() : int
+Joueur : +Joueur(Extension e)
+Joueur : +ajouter_etablissement(etablissement : Etablissement)
+Joueur : +retirer_etablissement(etablissement : Etablissement)
+
+class Pile_Etablissement{
+ -etablissement :*Etablissement
+ -effectif : int
+}
+Pile_Etablissement : +actualiserEffectif()
+
+
+
+class Etablissement{
+ -nom : string {KEY}
+ -couleur : Couleur
+ -effet : string
+ -coût : int
+ -num_dé : int
+ -type : Type
+ -nb_pièces: int
+ -type_effet : Type
+ -payeur : bool
+ -nb_exemplaires : int
+}
+Etablissement : +getnb_type(couleur:Couleur,type : Type):int
+Etablissement : +estActif(num_dé : int):bool
+Etablissement : +estSpecial()
+
+
+Jeu "1" <--o Partie:"gère"
+Réserve "1" <--o Partie:"gère"
+Pioche "1" <--o Partie:"gère"
+Partie "1..*" <-- "2..4" Joueur :"joue"
+Jeu "1" *-- Monument
+Jeu "1" *-- Etablissement
+Joueur o-- "4..6" Carte_Monument
+Joueur  o-- "2..*" Pile_Etablissement
+Réserve o-- "15..*" Pile_Etablissement
+Etablissement  "1"<-- "*" Pile_Etablissement : "est une pile d'exemplaires de"
+Monument "1" <-- "*" Carte_Monument :"est un exemplaire de"
+
+@endUML
