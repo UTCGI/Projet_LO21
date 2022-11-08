@@ -4,8 +4,6 @@
 #include <string.h>
 #include <random>
 
-#include "Main.h"
-
 class Joueur{
     int id;
     string pseudo;

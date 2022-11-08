@@ -90,9 +90,8 @@ class  Joueur{
  -pseudo : string
  -dés : 1..2
  -dés_lancés : 1..2
- -main : Main
  -compte : int
- -placement_StarUp
+ -placement_StarUp : int
 -Monument* monuments[nb_monuments]
 -Pile_Etablissement* pileRouge[]
 -Pile_Etablissement* pileBleu[]
@@ -100,9 +99,12 @@ class  Joueur{
 -Pile_Etablissement* pileViolet[]
 }
 Joueur : +getNbDés()
-Joueur : +setNbDés()
 Joueur : +getCompte()
 Joueur : +getPlacement_StartUp()
+Joueur : +setNbDés()
+Joueur : +setCompte()
+Joueur : +setPlacement_StartUp()
+Joueur : +setPseudo()
 Joueur : +actualiserCompte(montant:int)
 Joueur : +victoire():bool
 Joueur : +lancerDés() : int
