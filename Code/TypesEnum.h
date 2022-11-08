@@ -2,10 +2,17 @@
 #define TYPESENUM_H
 
 enum class Type {
-    elevage, 
-    agriculture, 
-    commerce
-};
+    agriculture,
+    elevage,
+    ressources,
+    maritime,
+    commerce,
+    industrie,
+    maraichage,
+    entreprise,
+    restauration,
+    special,
+}
 
 enum class Extension {
     Marina, 

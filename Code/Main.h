@@ -1,5 +1,5 @@
-#ifndef Main_H
-#define Main_H
+#ifndef MAIN_H
+#define MAIN_H
 
 #include <string.h>
 
@@ -10,7 +10,7 @@
 class Main{
 
     Monument *monuments;
-    Etablissement *etablissements;
+    Pile_Etablissement *etablissements;
     public:
     Main();
     ~Main();
