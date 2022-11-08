@@ -35,7 +35,8 @@ public:
     
     //Autres méthodes
     void ajouterMontant(int montant);
-    bool victoire();
+    int getNombreMonumentsConstruits;
+    //bool victoire();
     int lancerDés();
 };
 
