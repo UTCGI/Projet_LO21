@@ -1,10 +1,5 @@
-
 #include "monument.h"
 
-bool Monument::estConstruit(){
-    return construit;
-}
-
-void Monument::construire(){
-    construit = 1;
+Monument::Monument(const string& nom, const string& effet):nom(nom),effet(effet),nb_exemplaires(4){
+ 
 }
