@@ -90,9 +90,8 @@ class  Joueur{
  -pseudo : string
  -dés : 1..2
  -dés_lancés : 1..2
- -main : Main
  -compte : int
- -placement_StarUp
+ -placement_StarUp : int
 -Monument* monuments[nb_monuments]
 -Pile_Etablissement* pileRouge[]
 -Pile_Etablissement* pileBleu[]
