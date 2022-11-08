@@ -30,7 +30,6 @@ void setPlacement_StartUp(int placement_StartUp){
     placement_StartUp=placement_StartUp;
 }
 
-
 //Autres méthodes
 void Joueur::ajouterMontant(int montant){
     compte+= montant;
