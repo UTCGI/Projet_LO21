@@ -14,7 +14,7 @@ public:
     bool estConstruit()const{
         return construit;
     }
-    void CarteMonument::construire(){
+    void construire(){
         construit = 1;
     }
 };
