@@ -2,6 +2,7 @@
 #define TYPESENUM_H
 
 enum class Type {
+	aucun,
     agriculture,
     elevage,
     ressources,
