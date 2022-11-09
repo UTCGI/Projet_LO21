@@ -4,8 +4,7 @@ Monument::Monument(const string& nom, const string& effet):nom(nom),effet(effet)
  
 }
 
-ostream& operator<<(ostream& f,Monument* m){
-    if (!m) throw SetException("Monument invalide");
-    f<<"Monument : "<<m->getNom()<<endl<<"Effet : "<<m->getEffet()<<endl;
+ostream& operator<<(ostream& f,const Monument& m){
+    f<<"Monument : "<<m.getNom()<<endl<<"Effet : "<<m.getEffet()<<endl;
     return f;
 };
