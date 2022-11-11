@@ -1,20 +1,20 @@
 #include <iostream>
 
-#include "etablissement.h"
+#include "monument.h"
 
-class Pile_Etablissement {
+class Pile_Monument {
  private:
-  const Etablissement *etablissement;
+  const Monument *monument;
   unsigned int effectif;
 
  public:
   // Getters
-  const Etablissement *getEtablissement() const;
+  const Monument *getMonument() const;
   unsigned int getEffectif() const;
 
   // Constructors and Destructors functions
-  Pile_Etablissement(Etablissement *et, unsigned int ef = 1);
-  ~Pile_Etablissement() = default;  // on ne doit pas supprimer le pointeur ?
+  Pile_Monument(Monument *mo, unsigned int ef = 1);
+  ~Pile_Monument() = default;  // on ne doit pas supprimer le pointeur ?
   // Tobias : Pour moi non, on a pas besoin de supprimer le pointeur
   // Sauf si tu veux totalement supprimer la carte du jeu
   // Dans ce cas la il faut détruire la carte pointée
@@ -24,7 +24,7 @@ class Pile_Etablissement {
   void ajouterCarte(unsigned int nb_cartes = 1);
 
   // Operators
-  void operator+(Pile_Etablissement &p);
+  void operator+(Pile_Monument &p);
 };
 
-ostream &operator<<(ostream &f, Pile_Etablissement &pile);
+ostream &operator<<(ostream &f, Pile_Monument &pile);

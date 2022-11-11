@@ -6,12 +6,17 @@ class CarteMonument {
   bool construit;
 
  public:
+  // Constructors and destructors functions
   CarteMonument(Monument* monument);
-  ~CarteMonument();
+  ~CarteMonument() = default;
+
   CarteMonument(const CarteMonument& c) = delete;
   CarteMonument& operator=(const CarteMonument& c) = delete;
 
-  bool estConstruit() const { return construit; }
-  void construire() { construit = 1; }
+  // Getters
+  bool estConstruit() const;
+
+  // Methods
+  void construire();
 };
 #endif
