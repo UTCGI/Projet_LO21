@@ -22,52 +22,33 @@ class Etablissement {
   unsigned int nb_exemplaires;  // nouveau
 
  public:
-  string getNom() const { return nom; }
-  string getEffet() const { return effet; }
-  Couleur getCouleur() const { return couleur; }
-  unsigned int getPrix() const { return prix; }
-  unsigned int getNumDe() const { return num_de; }
-  Type getType() const { return type; }
-  unsigned int getMontant() const { return montant_effet; }
-  Type getTypeEffet() const { return type_effet; }
-  bool getPayeur() const { return payeur; }
-  unsigned int getNbExemplaires() const { return nb_exemplaires; }
+  // Getters
+  string getNom() const;
+  string getEffet() const;
+  Couleur getCouleur() const;
+  unsigned int getPrix() const;
+  unsigned int getNumDe() const;
+  Type getType() const;
+  unsigned int getMontant() const;
+  Type getTypeEffet() const;
+  bool getPayeur() const;
+  unsigned int getNbExemplaires() const;
 
+  // Constructors and destructors functions
   Etablissement(const string& n, const string& e, Couleur color, unsigned int p,
-                unsigned int d, Type t, unsigned int m, unsigned int te = 0,
-                bool payeur = 0)
-      : nom(n),
-        effet(e),
-        prix(p),
-        num_de(d),
-        type(t),
-        couleur(color),
-        montant_effet(m) {
-    const string& etablissement_depart1 = "Champs de ble";
-    const string& etablissement_depart2 = "Boulangerie";
-    if (couleur == Couleur::violet)
-      nb_exemplaires = 4;
-    else {
-      if (nom == etablissement_depart1 || nom == etablissement_depart2)
-        nb_exemplaires = 8;
-      else
-        nb_exemplaires = 6;
-    }
-  };
+                unsigned int d, Type t, unsigned int m, Type te,
+                bool payeur = 0);
+
   ~Etablissement() = default;
-  bool estActif(unsigned int n) { return num_de == n; }
+
+  // Methods
+  bool estActif(unsigned int n);
+
+  // TODO : Implement estSpecial Function
+  // Queu fait cette fonction ?
+  bool estSpecial();
 };
 
-ostream& operator<<(ostream& f, const Etablissement* Etablissement) {
-  f << "Nom : " << Etablissement->getNom() << endl
-    << "Effet : " << Etablissement->getEffet() << endl
-    << "Cout : " << Etablissement->getPrix() << endl
-    << "Numero de de : " << Etablissement->getNumDe() << endl
-    << "Type : " << toString(Etablissement->getType()) << endl
-    << "Couleur : " << toString(Etablissement->getCouleur()) << endl
-    << "Montant effet : " << Etablissement->getMontant() << " piece(s)" << endl;
-  //<<"Nombre d exemplaires total : "<<Etablissement->getNbExemplaires()<<endl;
-  return f;
-};
+ostream& operator<<(ostream& f, const Etablissement* Etablissement);
 
 #endif

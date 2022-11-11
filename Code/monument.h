@@ -19,10 +19,10 @@ class Monument {
   Monument(const Monument& m) = delete;
   Monument& operator=(const Monument& m) = delete;
 
-  string getNom() const { return nom; }
-  string getEffet() const { return effet; }
-  unsigned int getPrix() const { return prix; }
-  unsigned int getExemplaire() const { return nb_exemplaires; }
+  string getNom() const;
+  string getEffet() const;
+  unsigned int getPrix() const;
+  unsigned int getExemplaire() const;
 };
 
 ostream& operator<<(ostream& f, const Monument& m);

@@ -1,5 +1,10 @@
 #include "monument.h"
 
+string Monument::getNom() const { return nom; }
+string Monument::getEffet() const { return effet; }
+unsigned int Monument::getPrix() const { return prix; }
+unsigned int Monument::getExemplaire() const { return nb_exemplaires; }
+
 Monument::Monument(const string& nom, const string& effet,
                    const unsigned int prix)
     : nom(nom), effet(effet), prix(prix), nb_exemplaires(4) {}
