@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/Users/yuanjingfang/课程/LO21/testfzq/build",
+  "command": "/usr/bin/clang++  -I/Users/yuanjingfang/课程/LO21/testfzq/build -I/Users/yuanjingfang/课程/LO21/testfzq -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17 -o CMakeFiles/Correction.dir/main.cpp.o -c /Users/yuanjingfang/课程/LO21/testfzq/main.cpp",
+  "file": "/Users/yuanjingfang/课程/LO21/testfzq/main.cpp"
+},
+{
+  "directory": "/Users/yuanjingfang/课程/LO21/testfzq/build",
+  "command": "/usr/bin/clang++  -I/Users/yuanjingfang/课程/LO21/testfzq/build -I/Users/yuanjingfang/课程/LO21/testfzq -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17 -o CMakeFiles/Correction.dir/monument.cpp.o -c /Users/yuanjingfang/课程/LO21/testfzq/monument.cpp",
+  "file": "/Users/yuanjingfang/课程/LO21/testfzq/monument.cpp"
+}
+]
