@@ -3,17 +3,17 @@
 
 #include <string.h>
 
-#include "monument.h"
 #include "Main.h"
 #include "etablissement.h"
+#include "monument.h"
 
-class Main{
+class Main {
+  Monument *monuments;
+  Pile_Etablissement *etablissements;
 
-    Monument *monuments;
-    Pile_Etablissement *etablissements;
-    public:
-    Main();
-    ~Main();
+ public:
+  Main();
+  ~Main();
 };
 
 #endif

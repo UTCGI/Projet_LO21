@@ -1,4 +1,4 @@
-# depslib dependency file v1.0
+#depslib dependency file v1 .0
 1667550666 source:c:\users\gabri\documents\hu07\lo21\projet\projet_lo21\code\etablissement.cpp
 
 1667550666 source:c:\users\gabri\documents\hu07\lo21\projet\projet_lo21\code\jeu.cpp
@@ -58,4 +58,3 @@
 
 1667835513 c:\users\gabri\documents\hu07\lo21\projet\projet_lo21\code\joueur.cpp
 	"joueur.h"
-
