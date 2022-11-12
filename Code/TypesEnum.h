@@ -1,6 +1,8 @@
 #ifndef TYPESENUM_H
 #define TYPESENUM_H
-
+#include <string>
+#include "exception.h"
+using namespace std;
 enum class Type {
   aucun,
   agriculture,
