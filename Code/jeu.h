@@ -8,8 +8,9 @@
 // Changer enum class Extension en 3 struct ????????????????
 
 class Jeu {
-  const Etablissement** liste_etablissements = new const Etablissement*[15];
-  // const Etablissement* liste_etablissements[15];
+  //const Carte* cartes[81];
+  //const Etablissement** liste_etablissements = new const Etablissement*[15];
+  const Etablissement* liste_etablissements[15];
   const Monument** liste_monuments = new const Monument*[4];
   // const Monument* liste_monuments[4];
   const Etablissement** liste_etablissements_depart =

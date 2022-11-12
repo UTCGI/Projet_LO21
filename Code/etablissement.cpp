@@ -21,43 +21,46 @@ bool Etablissement::getPayeur() const { return payeur; }
 unsigned int Etablissement::getNbExemplaires() const { return nb_exemplaires; }
 
 Etablissement::Etablissement(const string& n, const string& e, Couleur color,
-                             unsigned int p, unsigned int d, Type t,
-                             unsigned int m, Type te, bool paye = 0)
-    : nom(n),
-      effet(e),
-      couleur(color),
-      prix(p),
-      num_de(d),
-      type(t),
-      montant_effet(m),
-      type_effet(te),
-      payeur(paye) {
-  const string& etablissement_depart1 = "Champs de ble";
-  const string& etablissement_depart2 = "Boulangerie";
-  if (couleur == Couleur::violet)
-    nb_exemplaires = 4;
-  else {
-    if (nom == etablissement_depart1 || nom == etablissement_depart2)
-      nb_exemplaires = 8;
+    unsigned int p, unsigned int d, Type t,
+    unsigned int m, Type te, bool payeur) :
+    nom(n),
+    effet(e),
+    couleur(color),
+    prix(p),
+    num_de(d),
+    type(t),
+    montant_effet(m),
+    type_effet(te),
+    payeur(payeur) {
+    const string& etablissement_depart1 = "Champs de ble";
+    const string& etablissement_depart2 = "Boulangerie";
+    if ((couleur == Couleur::violet) || ((prix == 0)
+        && (nom == etablissement_depart1 || nom == etablissement_depart2)))
+        nb_exemplaires = 4;
     else
-      nb_exemplaires = 6;
-  }
+        nb_exemplaires = 6;
+    //cout << "construit";
 }
 
-bool Etablissement::estActif(unsigned int n) { return num_de == n; }
+bool Etablissement::estActif(unsigned int n) { return getNumDe() == n; }
+//1: vrai ; 0: faux
 
 bool Etablissement::estSpecial() {
-  // TODO: To Implement
+    return getType() == Type::special;
 }
+//FAUX ? -> faire une liste des etablissements 'Cas particuliers' ?
 
-ostream& operator<<(ostream& f, const Etablissement* Etablissement) {
-  f << "Nom : " << Etablissement->getNom() << endl
-    << "Effet : " << Etablissement->getEffet() << endl
-    << "Cout : " << Etablissement->getPrix() << endl
-    << "Numero de de : " << Etablissement->getNumDe() << endl
-    << "Type : " << toString(Etablissement->getType()) << endl
-    << "Couleur : " << toString(Etablissement->getCouleur()) << endl
-    << "Montant effet : " << Etablissement->getMontant() << " piece(s)" << endl;
-  //<<"Nombre d exemplaires total : "<<Etablissement->getNbExemplaires()<<endl;
-  return f;
+ostream& operator<<(ostream& f, const Etablissement& e) {
+    f << "Nom \t\t\t: " << e.getNom() << endl
+        << "Effet \t\t\t: " << e.getEffet() << endl
+        << "Prix \t\t\t: " << e.getPrix() << " piece";
+    if (e.getPrix() > 1)    f << "s";
+    f << endl << "Numero de de \t\t: " << e.getNumDe() << endl
+        << "Type \t\t\t: " << e.getType() << endl
+        << "Couleur \t\t: " << e.getCouleur() << endl
+        << "Montant effet \t\t: " << e.getMontant() << " piece";
+    if (e.getMontant() > 1)    f << "s";
+    f << endl << "Nombre d exemplaires \t: " 
+        << e.getNbExemplaires() << endl << endl;
+    return f;
 }
