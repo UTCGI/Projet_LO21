@@ -45,10 +45,11 @@ class Etablissement {
   bool estActif(unsigned int n);
 
   // TODO : Implement estSpecial Function
-  // Queu fait cette fonction ?
+  // Que fait cette fonction ?
   bool estSpecial();
 };
 
-ostream& operator<<(ostream& f, const Etablissement* Etablissement);
+// écriture d'un établissement sur un flux ostream
+ostream& operator<<(ostream& f, const Etablissement& e);
 
 #endif
