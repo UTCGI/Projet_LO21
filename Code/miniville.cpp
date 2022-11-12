@@ -1,5 +1,4 @@
 #include "miniville.h"
-#include "etablissement.h"
 
 	initializer_list<Couleur> Couleurs = { Couleur::bleu, Couleur::rouge, Couleur::violet, Couleur::vert };
 	initializer_list<Type> Types = { Type::aucun, Type::agriculture, Type::elevage, Type::ressources, Type::maritime,

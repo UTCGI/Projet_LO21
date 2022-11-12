@@ -1,7 +1,7 @@
 #ifndef JEU_H
 #define JEU_H
 
-#include "TypesEnum.h"
+#include "miniville.h"
 #include "etablissement.h"
 #include "monument.h"
 

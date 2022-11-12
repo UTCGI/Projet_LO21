@@ -1,10 +1,7 @@
 #ifndef MONUMENT_H
 #define MONUMENT_H
-#include <iostream>
-#include <string>
 
-#include "exception.h"
-using namespace std;
+#include "miniville.h"
 
 class Monument {
  private:

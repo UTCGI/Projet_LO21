@@ -1,12 +1,7 @@
 #ifndef ETABLISSEMENT_H
 #define ETABLISSEMENT_H
-#include <iostream>
-#include <string>
 
-#include "TypesEnum.h"
-#include "exception.h"
-
-using namespace std;
+#include "miniville.h"
 
 class Etablissement {
  private:
