@@ -18,6 +18,7 @@ Jeu::Jeu() {
     // Etablissement(nom,effet,couleur,prix,num_de[],type,nb_piece,
     // type_effet,payeur,nb_exemplaire);
     // TO DO : /!\ gerer nume_de[]
+    //Jingfang 13/11 : num_de peut se faire Ã  travers vector<unsigned int>
     // payeur un_joueur:0 ou /!\ la banque  |  tous_les_joueurs:1
     Etablissement* champs_de_ble = new Etablissement("Champs de ble",
         "Recevez 1 piece de la banque", Couleur::bleu, 1, 1, Type::agriculture, 
@@ -88,9 +89,9 @@ Jeu::Jeu() {
 
     /*------------------------MONUMENTS-------------------------*/
     //Monument(nom,effet,prix);
-    //type d'un Monument : special mais inutile à mon avis, on le met quand même ?
-    /*Tour radio, comment interpréter effet : un tour en plus ou alors
-    remplacer un lancer de dés ? */
+    //type d'un Monument : special mais inutile ï¿½ mon avis, on le met quand mï¿½me ?
+    /*Tour radio, comment interprï¿½ter effet : un tour en plus ou alors
+    remplacer un lancer de dï¿½s ? */
     Monument* gare = new Monument("Gare", "Vous pouvez lancer deux des", 4);
     Monument* centre_commercial = new Monument("Centre commercial",
         "Vos etablissement de type restauration et commerce "
@@ -110,10 +111,10 @@ Jeu::Jeu() {
 Jeu::Jeu(Extension e) {
   extension = Extension::Marina;
   condition_de_victoire = 6;  
-  // nombre de monuments à construire pour gagner dans le jeu Marina
-  // nombre de joueurs max dans Marina est le même que dans le jeu de base
+  // nombre de monuments ï¿½ construire pour gagner dans le jeu Marina
+  // nombre de joueurs max dans Marina est le mï¿½me que dans le jeu de base
   nb_pile_reserve_MAX = 10;
-  // nombre de piles max dans la réserve du jeu
+  // nombre de piles max dans la rï¿½serve du jeu
   // Marina : 2 lignes ; 5 colonnes
 }
 
