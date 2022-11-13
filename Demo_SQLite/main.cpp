@@ -130,6 +130,7 @@ void buildetablissement( Etablissement **liste_etablissements)
          break;
 
       case SQLITE_DONE:
+         liste_etablissements[row-1] = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
          done = true;
          break;
 
