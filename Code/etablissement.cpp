@@ -8,7 +8,7 @@ Couleur Etablissement::getCouleur() const { return couleur; }
 
 unsigned int Etablissement::getPrix() const { return prix; }
 
-unsigned int Etablissement::getNumDe() const { return num_de; }
+vector<unsigned int> Etablissement::getNumDe() const { return num_de; }
 
 Type Etablissement::getType() const { return type; }
 
@@ -21,7 +21,7 @@ bool Etablissement::getPayeur() const { return payeur; }
 unsigned int Etablissement::getNbExemplaires() const { return nb_exemplaires; }
 
 Etablissement::Etablissement(const string& n, const string& e, Couleur color,
-    unsigned int p, unsigned int d, Type t,
+    unsigned int p, vector<unsigned int> d, Type t,
     unsigned int m, Type te, bool payeur) :
     nom(n),
     effet(e),
@@ -42,7 +42,16 @@ Etablissement::Etablissement(const string& n, const string& e, Couleur color,
     //cout << "construit";
 }
 
-bool Etablissement::estActif(unsigned int n) { return getNumDe() == n; }
+bool Etablissement::estActif(unsigned int n) {
+    bool test = 0;
+    vector<unsigned int> temp_vec = getNumDe();
+    for (auto v : temp_vec){
+        if(v==n)
+            test = 1;
+    }
+    return test;
+
+}
 //1: vrai ; 0: faux
 
 bool Etablissement::estSpecial() {
@@ -50,13 +59,16 @@ bool Etablissement::estSpecial() {
 }
 //FAUX ? -> faire une liste des etablissements 'Cas particuliers' ?
 
-ostream& operator<<(ostream& f, const Etablissement& e) {
-    f << "Nom \t\t\t: " << e.getNom() << endl
+ostream& operator<<(ostream& f, const Etablissement& e) { 
+     f << "Nom \t\t\t: " << e.getNom() << endl
         << "Effet \t\t\t: " << e.getEffet() << endl
         << "Prix \t\t\t: " << e.getPrix() << " piece";
     if (e.getPrix() > 1)    f << "s";
-    f << endl << "Numero de de \t\t: " << e.getNumDe() << endl
-        << "Type \t\t\t: " << e.getType() << endl
+    f<<endl<< "Numero de de \t\t: ";
+    for (auto v : e.getNumDe()){
+        f<<v<<" ";
+    }
+    f<<endl<<"Type \t\t\t: " << e.getType() << endl
         << "Couleur \t\t: " << e.getCouleur() << endl
         << "Montant effet \t\t: " << e.getMontant() << " piece";
     if (e.getMontant() > 1)    f << "s";

@@ -21,17 +21,16 @@ class Jeu {
   Extension extension = Extension::Aucune;
 
   size_t condition_de_victoire = 4;  
-  // nombre de monuments à construire pour gagner dans le jeu de base
+  // nombre de monuments ï¿½ construire pour gagner dans le jeu de base
 
   size_t nb_joueurs_MAX = 4;  
   // nombre de joueurs max dans le jeu de base
 
   size_t nb_pile_reserve_MAX = 15;
-  // nombre de piles max dans la réserve du jeu de base : 3 lignes ; 5 colonnes
+  // nombre de piles max dans la rï¿½serve du jeu de base : 3 lignes ; 5 colonnes
 
  public:
-  Jeu();                     // pour créer Minivilles de base SANS extension
-  Jeu(Extension extension);  // pour créer Minivilles avec une extension
+  Jeu(Extension extension);  // pour crï¿½er Minivilles avec une extension
   ~Jeu();
 
   size_t getNbEtablissements_Depart() const { return 2; }
