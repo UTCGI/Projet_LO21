@@ -57,7 +57,7 @@ void buildmonument(const Monument**liste_monuments)
     sqlite3_close(db);
 }
 
-void buildetablissement(const Etablissement **liste_etablissements, Extension e = Extension::Aucune)
+void buildetablissement(const Etablissement **liste_etablissements, Extension e)
 {
     // Variable Sqlite3
     sqlite3 *db;

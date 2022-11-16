@@ -25,16 +25,6 @@ Jeu::Jeu(Extension extension) {
     buildmonument(liste_monuments);
 }
 
-Jeu::Jeu(Extension e) {
-  extension = Extension::Marina;
-  condition_de_victoire = 6;  
-  // nombre de monuments � construire pour gagner dans le jeu Marina
-  // nombre de joueurs max dans Marina est le m�me que dans le jeu de base
-  nb_pile_reserve_MAX = 10;
-  // nombre de piles max dans la r�serve du jeu
-  // Marina : 2 lignes ; 5 colonnes
-}
-
 void Jeu::printE_D(std::ostream& f) const {
     for (size_t i = 0; i < getNbEtablissements_Depart(); i++)
         f << "ETABLISSEMENTS DE DEPART" << endl << i + 1 

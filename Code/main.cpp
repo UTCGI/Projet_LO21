@@ -18,7 +18,7 @@ int main() {
     cout << toString(RU) << endl;*/
     cout << endl << endl;
 
-    Jeu* jeuuu = new Jeu();
+    Jeu* jeuuu = new Jeu(Extension::Aucune);
     cout << "Voici le contenu du jeu de base Minivilles : " << endl << endl;
     cout << *jeuuu;
     //cout << endl << endl;
