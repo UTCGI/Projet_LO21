@@ -1,6 +1,20 @@
 #include "buildfonctions.h"
 #include "sqlite3.h"
 #include <vector>
+
+
+/****************************************************
+Changer ce chemin pour chemin souhaité avant de lancer!!!!!!!!!!!!!!
+****************************************************/
+#define chemin "../projet.db"
+
+
+
+
+
+
+
+
 void buildmonument(const Monument**liste_monuments)
 {
     // Variable Sqlite3
@@ -17,7 +31,7 @@ void buildmonument(const Monument**liste_monuments)
     unsigned int prix;
 
     // rc = sqlite3_open("%s/projet.db", &db),fs::current_path();
-    rc = sqlite3_open("../projet.db", &db);
+    rc = sqlite3_open(chemin, &db);
     if (rc)
     {
         cout << "Can't open database: %s\n", sqlite3_errmsg(db);
@@ -80,7 +94,7 @@ void buildetablissement(const Etablissement **liste_etablissements, Extension e)
     bool payeur;     // nouveau
     unsigned int nb_exemplaires;
 
-    rc = sqlite3_open("../projet.db", &db);
+    rc = sqlite3_open(chemin, &db);
     if (rc)
     {
         cout << "Can't open database: %s\n", sqlite3_errmsg(db);
@@ -164,7 +178,7 @@ void builddepart(const Etablissement **liste_etablissements)
     bool payeur;     // nouveau
     unsigned int nb_exemplaires;
 
-    rc = sqlite3_open("../projet.db", &db);
+    rc = sqlite3_open(chemin, &db);
     if (rc)
     {
         cout << "Can't open database: %s\n", sqlite3_errmsg(db);
