@@ -4,9 +4,12 @@
 #include "monument.h"
 #include "jeu.h"
 
+#include "create_database.h"//Au cas où
+
 using namespace std;
 
 int main() {
+    database();
     //MAIN pour tester l'affichage !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //je sais c'est une fonction de la classe Partie...
     cout << "A quelle version du jeu souhaitez-vous jouer ?" << endl << endl;
