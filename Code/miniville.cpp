@@ -1,4 +1,5 @@
 #include "miniville.h"
+#include <cstring>
 
 initializer_list<Couleur> Couleurs = {Couleur::bleu, Couleur::rouge,
 									  Couleur::violet, Couleur::vert};

@@ -3,6 +3,7 @@
 #include "create_database.h"
 #include <vector>
 #include <filesystem>
+#include <cstring>
 #define chemin "../projet.db"
 void buildmonument(const Monument**liste_monuments)
 {
