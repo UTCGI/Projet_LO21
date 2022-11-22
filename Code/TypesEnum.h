@@ -13,11 +13,15 @@ enum class Type {
   entreprise,
   restauration,
   special,
+  rouage,
+  magasin
 };
 
-enum class Extension { Aucune, Marina, GreenValley, Deluxe };
-
-enum Type { agriculture, magasin, restauration, rouage };
+enum class Extension { Aucune, 
+                      Marina, 
+                      GreenValley, 
+                      Deluxe 
+};
 
 string toString(Type t) {
   switch (t) {
@@ -32,7 +36,7 @@ string toString(Type t) {
     default:
       throw SetException("Type inconnu");
   }
-};
+}
 
 enum Couleur { bleu, rouge, violet, vert };
 string toString(Couleur c) {
@@ -48,6 +52,6 @@ string toString(Couleur c) {
     default:
       throw SetException("Couleur inconnue");
   }
-};
+}
 
 #endif

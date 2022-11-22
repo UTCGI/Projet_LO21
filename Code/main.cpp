@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-#include "main.h"
-
-Main::Main(){}
-Main::~Main() {}
-=======
 #include <iostream>
 #include "pile_etablissement.h"
 #include <string>
@@ -18,4 +12,3 @@ int main()
     cout<<p0;
     return 0;
 };
->>>>>>> 3843fe0ccd43655656d799e059e79e98ad6b8a9a

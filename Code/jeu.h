@@ -1,6 +1,7 @@
 #ifndef JEU_H
 #define JEU_H
-
+#include <iostream>
+#include <cstdlib>
 #include "TypesEnum.h"
 #include "etablissement.h"
 #include "monument.h"
@@ -15,19 +16,19 @@ class Jeu {
   const Etablissement** liste_etablissements_depart =
       new const Etablissement*[2];
   // const Etablissement* liste_etablissements_depart[2];
-  Extension extension = null;  // Extension::Standard;
+  Extension extension = nullptr;  // Extension::Standard;
   // Extension::Marina;
   size_t condition_de_victoire =
-      4;  // nombre de monuments à construire pour gagner dans le jeu de base
+      4;  // nombre de monuments ï¿½ construire pour gagner dans le jeu de base
   //=6;
   size_t nb_joueurs_MAX = 4;  // nombre de joueurs max dans le jeu de base
   //=4;
-  size_t nb_pile_reserve_MAX = 15;  // nombre de piles max dans la réserve du
+  size_t nb_pile_reserve_MAX = 15;  // nombre de piles max dans la rï¿½serve du
                                     // jeu de base : 3 lignes ; 5 colonnes
   //=10; //2 lignes ; 5 colonnes
  public:
-  Jeu();                     // pour créer Minivilles de base SANS extension
-  Jeu(Extension extension);  // pour créer Minivilles avec une extension
+  Jeu();                     // pour crï¿½er Minivilles de base SANS extension
+  Jeu(Extension extension);  // pour crï¿½er Minivilles avec une extension
   ~Jeu();
 };
 
