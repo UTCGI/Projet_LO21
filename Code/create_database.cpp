@@ -3,7 +3,16 @@
 #include "sqlite3.h"
 using namespace std;
 
-void database()
+bool exists_test (const string name) {
+    if (FILE *file = fopen(name.c_str(), "r")) {
+        fclose(file);
+        return true;
+    } else {
+        return false;
+    }   
+}
+
+void database(const string name)
 {
     // Variable Sqlite3
     sqlite3 *db;
@@ -12,7 +21,7 @@ void database()
     int rc;
     string sql;
     // rc = sqlite3_open("%s/projet.db", &db),fs::current_path();
-    rc = sqlite3_open("../projet.db", &db);
+    rc = sqlite3_open(name.c_str(), &db);
 
     sql =   "drop table if exists monument;"
             "create table monument("

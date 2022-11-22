@@ -1,6 +1,8 @@
 #include "buildfonctions.h"
 #include "sqlite3.h"
+#include "create_database.h"
 #include <vector>
+#include <filesystem>
 #define chemin "../projet.db"
 void buildmonument(const Monument**liste_monuments)
 {
@@ -18,16 +20,15 @@ void buildmonument(const Monument**liste_monuments)
     unsigned int prix;
 
     // rc = sqlite3_open("%s/projet.db", &db),fs::current_path();
+    if (!filesystem::exists(chemin)) {
+        cout << "Database doesn't exist, creating\n";
+        database(chemin);
+    }else{
+        cout << "Success\n";
+
+    }
     rc = sqlite3_open(chemin, &db);
-    if (rc)
-    {
-        cout << "Can't open database: %s\n", sqlite3_errmsg(db);
-        exit(0);
-    }
-    else
-    {
-        cout << "Opened database successfully" << endl;
-    }
+
 
     sql = "SELECT * from monument";
     sqlite3_prepare(db, sql.data(), sql.length() * sizeof(char), &stmt, NULL);
@@ -81,8 +82,16 @@ void buildetablissement(const Etablissement **liste_etablissements, Extension e)
    bool payeur;     // nouveau
    unsigned int nb_exemplaires;
 
-   rc = sqlite3_open("../projet.db", &db);
-   if (rc)
+
+   if (!filesystem::exists(chemin)) {
+        cout << "Database doesn't exist, creating\n";
+        database(chemin);
+    }else{
+        cout << "Success\n";
+
+    }
+   rc = sqlite3_open(chemin, &db);
+   /* if (rc)
    {
       cout << "Can't open database: %s\n", sqlite3_errmsg(db);
       exit(0);
@@ -90,7 +99,7 @@ void buildetablissement(const Etablissement **liste_etablissements, Extension e)
    else
    {
       cout << "Opened database successfully" << endl;
-   }
+   } */
     
 
    //sql = "SELECT nom, effet, couleur, prix, cast(de.atom as integer), type1, montant_effet, type_effet, payeur from etablissement, json_each(etablissement.num_de) de";
@@ -112,7 +121,6 @@ void buildetablissement(const Etablissement **liste_etablissements, Extension e)
             row++;
             num_de.clear();
             nom = (const char *)sqlite3_column_text(stmt, 0);
-            cout<<"here"<<endl;
             effet = (const char *)sqlite3_column_text(stmt, 1);
             couleur = toCouleur((const char *)sqlite3_column_text(stmt, 2));
             prix = sqlite3_column_int(stmt, 3);
@@ -165,16 +173,14 @@ void builddepart(const Etablissement **liste_etablissements)
     bool payeur;     // nouveau
     unsigned int nb_exemplaires;
 
+    if (!filesystem::exists(chemin)) {
+        cout << "Database doesn't exist, creating\n";
+        database(chemin);
+    }else{
+        cout << "Success\n";
+
+    }
     rc = sqlite3_open(chemin, &db);
-    if (rc)
-    {
-        cout << "Can't open database: %s\n", sqlite3_errmsg(db);
-        exit(0);
-    }
-    else
-    {
-        cout << "Opened database successfully" << endl;
-    }
 
     // sql = "SELECT nom, effet, couleur, prix, cast(de.atom as integer), type1, montant_effet, type_effet, payeur from etablissement, json_each(etablissement.num_de) de";
     sql = "SELECT nom, effet, couleur, prix, cast(de.atom as integer), type1, montant_effet, type_effet, payeur from Depart, json_each(Depart.num_de) de";
