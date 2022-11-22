@@ -156,7 +156,7 @@ void builddepart(const Etablissement **liste_etablissements)
     // Variable Sqlite3
     sqlite3 *db;
     sqlite3_stmt *stmt;
-    char *zErrMsg = 0;
+    //char *zErrMsg = 0;
     int rc;
     int row = 0;
     string sql;

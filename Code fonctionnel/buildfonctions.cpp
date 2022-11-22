@@ -22,10 +22,10 @@ void buildmonument(const Monument**liste_monuments)
 
     // rc = sqlite3_open("%s/projet.db", &db),fs::current_path();
     if (!filesystem::exists(chemin)) {
-        cout << "Database doesn't exist, creating\n";
+        //cout << "Database doesn't exist, creating\n";
         database(chemin);
     }else{
-        cout << "Success\n";
+        //cout << "Success\n";
 
     }
     rc = sqlite3_open(chemin, &db);
@@ -36,7 +36,7 @@ void buildmonument(const Monument**liste_monuments)
     bool done = false;
     while (!done)
     {
-        printf("In select while\n");
+        //printf("In select while\n");
         switch (sqlite3_step(stmt))
         {
         case SQLITE_ROW:
@@ -85,10 +85,10 @@ void buildetablissement(const Etablissement **liste_etablissements, Extension e)
 
 
    if (!filesystem::exists(chemin)) {
-        cout << "Database doesn't exist, creating\n";
+        //cout << "Database doesn't exist, creating\n";
         database(chemin);
     }else{
-        cout << "Success\n";
+        //cout << "Success\n";
 
     }
    rc = sqlite3_open(chemin, &db);
@@ -110,7 +110,7 @@ void buildetablissement(const Etablissement **liste_etablissements, Extension e)
    bool done = false;
    while (!done)
    {
-      printf("In select while\n");
+      //printf("In select while\n");
       switch (sqlite3_step(stmt))
       {
       case SQLITE_ROW:
@@ -130,7 +130,7 @@ void buildetablissement(const Etablissement **liste_etablissements, Extension e)
             montant_effet = sqlite3_column_int(stmt, 6);
             type_effet = toType((const char *)sqlite3_column_text(stmt, 7));
             payeur = sqlite3_column_int(stmt, 8);
-           cout<<endl;
+           //cout<<endl;
          }else{
             num_de.push_back(sqlite3_column_int(stmt, 4));
          }
@@ -175,10 +175,10 @@ void builddepart(const Etablissement **liste_etablissements)
     unsigned int nb_exemplaires;
 
     if (!filesystem::exists(chemin)) {
-        cout << "Database doesn't exist, creating\n";
+        //cout << "Database doesn't exist, creating\n";
         database(chemin);
     }else{
-        cout << "Success\n";
+        //cout << "Success\n";
 
     }
     rc = sqlite3_open(chemin, &db);
@@ -190,7 +190,7 @@ void builddepart(const Etablissement **liste_etablissements)
     bool done = false;
     while (!done)
     {
-        printf("In select while\n");
+        //printf("In select while\n");
         switch (sqlite3_step(stmt))
         {
         case SQLITE_ROW:
@@ -210,7 +210,7 @@ void builddepart(const Etablissement **liste_etablissements)
                 montant_effet = sqlite3_column_int(stmt, 6);
                 type_effet = toType((const char *)sqlite3_column_text(stmt, 7));
                 payeur = sqlite3_column_int(stmt, 8);
-                cout << endl;
+                //cout << endl;
             }
             else
             {

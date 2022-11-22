@@ -132,6 +132,18 @@ insert into Aucune VALUES("Boulangerie","Recevez 1 piece de la banque", "vert", 
 insert into Aucune VALUES("Cafe","Recevez 1 piece du joueur qui a lance les des", "rouge", 2, '[3]', "restauration", 1, "aucun", 0);
 insert into Aucune VALUES("Superette","Recevez 3 pieces de la banque", "vert", 2, '[4]', "commerce", 3, "aucun", 0);
 
+insert into Aucune VALUES("Foret", "Recevez 1 piece de la banque", "bleu", 3, '[5]', "ressources", 1, "aucun", 0);
+insert into Aucune VALUES("Stade", "Recevez 2 pieces de la part de chaque autre joueur", "violet", 6, '[6]', "special", 2, "aucun", 1);
+insert into Aucune VALUES("Centre d'affaires", "Vous pouvez echanger avec le joueur de votre choix un etablissement qui ne soit pas de type special",
+"violet", 8, '[6]', "special", 0, "aucun");
+insert into Aucune VALUES("Chaine de television", "Recevez 5 pieces du joueur de votre choix", "violet", 7, '[6]', "special", 5, "aucun", 0);
+insert into Aucune VALUES("Fromagerie", "Recevez 3 pieces de la banque pour chaque etablissement de type elevage que vous possedez", "vert", 5, '[7]',
+"industrie", 3, "elevage", 0);
+insert into etablissement VALUES("Fabrique de meubles", "Recevez 3 pieces de la banque pour chaque etablissement de type ressources que vous possedez", "vert",3, '[8]', "industrie", 3, "ressources", 0);
+insert into etablissement VALUES("Mine", "Recevez 5 pieces de la banque","bleu", 6, '[9]', "ressources", 5, "aucun", 0);
+insert into etablissement VALUES("Restaurant", "Recevez 2 pieces du joueur qui a lance les des","rouge", 3, '[9, 10]', "restauration", 2, "aucun", 0);
+insert into etablissement VALUES("Verger", "Recevez 3 pieces de la banque", "bleu", 3, '[10]',"agriculture", 3, "aucun", 0);
+insert into etablissement VALUES("Marche de fruits et legumes", "Recevez 2 pieces de la banque pour chaque etablissement de type agriculture que vous possedez", "vert", 2, '[11, 12]', "maraichage", 2, "agriculture", 0);
 
 
 insert into Marina1 VALUES("Chaine de television","Recevez 5 pieces du joueur de votre choix", "violet", 7, '[6]', "special", 5, "aucun", 0);
