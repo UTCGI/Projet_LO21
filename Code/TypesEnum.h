@@ -1,6 +1,8 @@
 #ifndef TYPESENUM_H
 #define TYPESENUM_H
-
+#include <string>
+#include "exception.h"
+using namespace std;
 enum class Type {
   aucun,
   agriculture,
@@ -25,14 +27,28 @@ enum class Extension { Aucune,
 
 string toString(Type t) {
   switch (t) {
-    case Type::agriculture:
+  case Type::aucun:
+      return "";
+  case Type::agriculture:
       return "agriculture";
-    case Type::magasin:
-      return "magasin";
-    case Type::restauration:
+  case Type::elevage:
+      return "elevage";
+  case Type::ressources:
+      return "ressources";
+  case Type::maritime:
+      return "maritime";
+  case Type::commerce:
+      return "commerce";
+  case Type::industrie:
+      return "industrie";
+  case Type::maraichage:
+      return "maraichage";
+  case Type::entreprise:
+      return "entreprise";
+  case Type::restauration:
       return "restauration";
-    case Type::rouage:
-      return "rouage";
+  case Type::special:
+      return "special";
     default:
       throw SetException("Type inconnu");
   }

@@ -1,20 +1,16 @@
 #ifndef ETABLISSEMENT_H
 #define ETABLISSEMENT_H
-#include <iostream>
-#include <string>
 
-#include "TypesEnum.h"
-#include "exception.h"
-
-using namespace std;
-
+#include "miniville.h"
+#include <vector>
 class Etablissement {
  private:
   string nom;
   string effet;
   Couleur couleur;
   unsigned int prix;
-  unsigned int num_de;  // from_1_to_12
+  //unsigned int num_de;  // from_1_to_12
+  vector<unsigned int> num_de;
   Type type;
   unsigned int montant_effet;
   Type type_effet;              // nouveau
@@ -27,7 +23,7 @@ class Etablissement {
   string getEffet() const;
   Couleur getCouleur() const;
   unsigned int getPrix() const;
-  unsigned int getNumDe() const;
+  vector<unsigned int> getNumDe() const;
   Type getType() const;
   unsigned int getMontant() const;
   Type getTypeEffet() const;
@@ -36,7 +32,7 @@ class Etablissement {
 
   // Constructors and destructors functions
   Etablissement(const string& n, const string& e, Couleur color, unsigned int p,
-                unsigned int d, Type t, unsigned int m, Type te,
+                vector<unsigned int> d, Type t, unsigned int m, Type te,
                 bool payeur = 0);
 
   ~Etablissement() = default;
@@ -45,10 +41,11 @@ class Etablissement {
   bool estActif(unsigned int n);
 
   // TODO : Implement estSpecial Function
-  // Queu fait cette fonction ?
+  // Que fait cette fonction ?
   bool estSpecial();
 };
 
-ostream& operator<<(ostream& f, const Etablissement* Etablissement);
+// �criture d'un �tablissement sur un flux ostream
+ostream& operator<<(ostream& f, const Etablissement& e);
 
 #endif
