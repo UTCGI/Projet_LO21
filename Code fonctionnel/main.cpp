@@ -3,7 +3,7 @@
 #include "etablissement.h"
 #include "monument.h"
 #include "jeu.h"
-
+#include "Carte_Monument.h"
 
 #include "create_database.h"//Au cas où
 
@@ -24,6 +24,9 @@ int main() {
     Jeu* jeuuu = new Jeu(Extension::Aucune);
     cout << "Voici le contenu du jeu de base Minivilles : " << endl << endl;
     cout << *jeuuu;
+
+    main_test_carte_monument();
+    
     //cout << endl << endl;
     //cout << endl << endl;
     return 0;
