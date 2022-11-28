@@ -15,7 +15,11 @@ int main() {
     partie1->initialisation();
     //cout<<*(partie1->getJeu());
     //cout<<*(partie1->getReserve());
-    cout<<*(partie1->getJeu());
+    //cout<<*(partie1->getJeu());
+    /* for (auto i :partie1->getJoueurs())
+        cout<<*(i); */
+
+    /* La distribution des cartes à la réserve et aux joueurs est fonctionnelle (règle optionelle de Marina non définie) */
 
 
 

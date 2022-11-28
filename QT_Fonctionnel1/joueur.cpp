@@ -169,7 +169,7 @@ void Joueur::printJoueur(ostream& f) const{
   for(auto i : pileVert){
     f<<i->getEtablissement()->getNom()<<"\tNombre  \t"<<i->getEffectif()<<endl;
   } */
-
+  f<<"Joueur id"<<endl;
   f<<"Pile Rouge"<<endl;
   for(auto i : pileRouge){
     f << *i;
