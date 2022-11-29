@@ -4,7 +4,7 @@
 #include "monument.h"
 #include "jeu.h"
 #include "Carte_Monument.h"
-
+#include "pile_etablissement.h"
 #include "create_database.h"//Au cas où
 
 using namespace std;
@@ -25,8 +25,9 @@ int main() {
     cout << "Voici le contenu du jeu de base Minivilles : " << endl << endl;
     cout << *jeuuu;
 
-    main_test_carte_monument();
-    
+    // main_test_carte_monument();
+    printf("Début des établissements \n");
+    main_test_pile_etablissement();
     //cout << endl << endl;
     //cout << endl << endl;
     return 0;

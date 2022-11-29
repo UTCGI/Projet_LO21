@@ -34,9 +34,10 @@ class Carte_Monument {
 Specification: Carte_Monument(const Monument* mo, bool construct = false);
 Entree :
     - mo : Pointeur vers un monument
-    - construct : booléen indiquant si le monument est construit ou non (false
-par default) Sortie : Classe Carte_Monument Initialisée Description : Cette
-methode permet de construire la classe
+    - construct : booléen indiquant si le monument est construit ou non 
+    (false par default) 
+Sortie : Classe Carte_Monument Initialisée 
+Description : Cette methode permet de construire la classe
 */
   Carte_Monument(const Monument *mo, bool construct = false);
   /*
