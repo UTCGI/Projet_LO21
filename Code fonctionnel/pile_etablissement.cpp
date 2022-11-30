@@ -39,11 +39,11 @@ ostream& operator<<(ostream& f, Pile_Etablissement& pile) {
   return f;
 }
 
-int main_test_pile_etablissement() {
+/* int main_test_pile_etablissement() {
   Jeu* j = new Jeu(Extension::Aucune);
   const Etablissement** listeE =
       new const Etablissement*[j->getNbEtablissements()];
-  buildetablissement(listeE);
+  buildetablissement(listeE, Extension::Aucune);
   cout << (listeE[1])->getNom() << endl;
   for (int i = 0; i < j->getNbMonuments(); i++) {
     Pile_Etablissement* p = new Pile_Etablissement((listeE[i]), i);
@@ -70,4 +70,4 @@ int main_test_pile_etablissement() {
   cout << p;
 
   return 0;
-}
+} */

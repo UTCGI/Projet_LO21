@@ -59,6 +59,10 @@ class Jeu {
   size_t getNbMonuments() const { return nbMonuments; }
   size_t getNbCartes() const { return nbCartes; }
 
+	const Monument** getMonument() const {return liste_monuments;}
+	const Etablissement** getEtablissements() const {return liste_etablissements;}
+	const Etablissement** getEtablissementsDepart() const {return liste_etablissements_depart;}
+
   void afficher(std::ostream& f = std::cout) const;
 
   void printE_D(std::ostream& f = cout) const;

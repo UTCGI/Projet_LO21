@@ -13,61 +13,11 @@ Jeu::Jeu(Extension e, const size_t& cdv, size_t nbj, size_t nbpr,
     nbEtablissements(nbe),
     nbMonuments(nbm),
     nbCartes(nbc) {
-    switch (e) {
-    case Extension::Aucune:
-        cout << "STANDARD" << endl;
-            builddepart(liste_etablissements_depart);
-            buildetablissement(liste_etablissements, e);
-            buildmonument(liste_monuments);
-        break;
-    case Extension::Marina:
-        cout << "MARINA" << endl;
-            builddepart(liste_etablissements_depart);//FAUX : TO DO
-            buildetablissement(liste_etablissements, e);//FAUX : TO DO
-            buildmonument(liste_monuments);//FAUX : TO DO
-        break;
-    case Extension::GreenValley:
-        cout << "GREENVALLEY" << endl;
-            builddepart(liste_etablissements_depart);//FAUX : TO DO
-            buildetablissement(liste_etablissements, e);//FAUX : TO DO
-            buildmonument(liste_monuments);//FAUX : TO DO
-        break;
-    case Extension::Deluxe:
-        cout << "DELUXE" << endl;
-            builddepart(liste_etablissements_depart);//FAUX : TO DO
-            buildetablissement(liste_etablissements, e);//FAUX : TO DO
-            buildmonument(liste_monuments);//FAUX : TO DO
-        break;
-    default:
-        cout << "DEFAUT" << endl;
-        throw SetException("Extension inconnue");
-    }
+    buildetablissement(liste_etablissements, liste_etablissements_depart/* , liste_etablissements_speciaux */, extension);
+    buildmonument(liste_monuments);
 }
 
 
-//Jeu::Jeu(Extension extension) {
-//    /*------------------ETABLISSEMENTS DE DEPART------------------*/
-//    // champs_de_ble_depart != champs_de_ble : prix(0) ; Nb_exemplaire(4);
-//    // idem pour boulangerie_depart et boulangerie
-//    builddepart(liste_etablissements_depart);
-//
-//
-//    /*----------------------ETABLISSEMENTS----------------------*/
-//    // Etablissement(nom,effet,couleur,prix,num_de[],type,nb_piece,
-//    // type_effet,payeur,nb_exemplaire);
-//    // TO DO : /!\ gerer nume_de[]
-//    //Jingfang 13/11 : num_de peut se faire à travers vector<unsigned int>
-//    // payeur un_joueur:0 ou /!\ la banque  |  tous_les_joueurs:1
-//    buildetablissement(liste_etablissements, extension);
-//
-//
-//    /*------------------------MONUMENTS-------------------------*/
-//    //Monument(nom,effet,prix);
-//    //type d'un Monument : special mais inutile � mon avis, on le met quand m�me ?
-//    /*Tour radio, comment interpr�ter effet : un tour en plus ou alors
-//    remplacer un lancer de d�s ? */
-//    buildmonument(liste_monuments);
-//}
 
 void Jeu::printE_D(std::ostream& f) const {
     for (size_t i = 0; i < getNbEtablissements_Depart(); i++)

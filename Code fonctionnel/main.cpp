@@ -3,6 +3,7 @@
 #include "etablissement.h"
 #include "monument.h"
 #include "jeu.h"
+#include "joueur.h"
 #include "Carte_Monument.h"
 #include "pile_etablissement.h"
 #include "create_database.h"//Au cas où
@@ -22,14 +23,12 @@ int main() {
     cout << endl << endl;
 
     Jeu* jeuuu = new Jeu(Extension::Aucune);
-    cout << "Voici le contenu du jeu de base Minivilles : " << endl << endl;
-    cout << *jeuuu;
+    
+    Joueur* joueur1 = new Joueur(jeuuu);
+    cout << *joueur1;
 
-    // main_test_carte_monument();
-    printf("Début des établissements \n");
-    main_test_pile_etablissement();
-    //cout << endl << endl;
-    //cout << endl << endl;
+
+    
     return 0;
 }
 
