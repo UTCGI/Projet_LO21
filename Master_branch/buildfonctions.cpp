@@ -134,7 +134,6 @@ void buildetablissement(const Etablissement **liste_etablissements, const Etabli
                     {
                         // temp = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
                         temp = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false);
-                        // TODO : Changer le false par l'attribut estSpecial
 
                         *(liste_etablissements++) = temp;
                         if (identificateur == 0)
@@ -142,8 +141,7 @@ void buildetablissement(const Etablissement **liste_etablissements, const Etabli
                     }
                     else
                         // *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
-                        *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false);
-                        // TODO : Changer le false par l'attribut estSpecial
+                        *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, true);
                         //*(liste_etablissements_speiciaux++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
                 }
                 row++;
@@ -169,24 +167,20 @@ void buildetablissement(const Etablissement **liste_etablissements, const Etabli
         case SQLITE_DONE:
             if (row != 0)
                 {
+                    if (row != 0)
+                {
                     if (identificateur <= 1)
                     {
                         // temp = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
                         temp = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false);
-                        
-                        // TODO : Changer le false par l'attribut estSpecial
 
                         *(liste_etablissements++) = temp;
                         if (identificateur == 0)
                             *(liste_etablissements_depart++) = temp;
                     }
                     else
-                        // *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);                        
-                        *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false);                        
-                                                
-                        // TODO : Changer le false par l'attribut estSpecial
-
-                        
+                        // *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
+                        *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, true);
                         //*(liste_etablissements_speiciaux++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
                 }
             done = true;
