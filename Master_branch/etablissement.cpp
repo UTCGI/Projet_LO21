@@ -117,7 +117,7 @@ ostream& operator<<(ostream& f, const Etablissement& e) {
 //TEST
 int EtablissementTest()
 {
-    Etablissement* tab[2]; //tableau avec des objets de la classe mère + des classes dérivées
+    Etablissement* tab[3]; //tableau avec des objets de la classe mère + des classes dérivées
     tab[0]=new Etablissement("a","b",Couleur::bleu,1,{1,3},Type::agriculture,3,0);
     tab[1]= new Etablissement_VertTE("a","b",Couleur::bleu,1,{1,3},Type::agriculture,3,0,Type::commerce);
     tab[2]= new Etablissement_Violet("a","b",Couleur::violet,1,{1,3},Type::agriculture,3,0,1);

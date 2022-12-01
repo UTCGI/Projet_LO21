@@ -22,4 +22,5 @@ ostream& operator<<(ostream& f, const Monument& m) {
 int MonumentTest(){
     Monument* m1=new Monument("Gare","Vous pouvez lancer deux des",4);
     cout<<*m1;
+    return 0;
 }
