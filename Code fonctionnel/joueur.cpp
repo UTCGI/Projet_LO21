@@ -1,8 +1,8 @@
 #include "joueur.h"
+#include <random>
+int Joueur::nombre_actuel = 0;
 
-int Joueur::id = 0;
-
-Joueur::Joueur(const Jeu* jeu)
+Joueur::Joueur(const Jeu* jeu):id(++nombre_actuel)
 {
     //Partie : Distributions des cartes monument (pile) 
     const Monument **monuments_temp = jeu->getMonument();
@@ -34,15 +34,26 @@ Joueur::Joueur(const Jeu* jeu)
             break;
         }
     }
-
     //Partie : Distributions des cartes de départ 
     const Etablissement **depart= jeu->getEtablissementsDepart();
     for (size_t i = 0; i < jeu->getNbEtablissements_Depart(); i++){
         ajouter_etablissement(depart[i]);
     }
+}
 
-    
 
+
+Joueur::~Joueur(){
+    for (auto i : monuments)
+        delete i;
+    for (auto i : pileBleu)
+        delete i;
+    for (auto i : pileRouge)
+        delete i;
+    for (auto i : pileVert)
+        delete i;
+    for (auto i : pileViolet)
+        delete i;
 }
 
 // Getter
@@ -50,20 +61,20 @@ int Joueur::getNbDes() const { return de; }
 
 int Joueur::getCompte() const { return compte; }
 
-int Joueur::getPlacement_StartUp() const { return placement_StartUp; }
+//int Joueur::getPlacement_StartUp() const { return placement_StartUp; }
 
 
 // Setter
-void Joueur::setNbDes(int nbDe) { de = nbDe; }
+void Joueur::setNbDes() { de = de==1 ? 2:1; }
 
 void Joueur::setCompte(int montant) { compte = montant; }
 
 void setPseudo(string pseudo) { pseudo = pseudo; }
 
-void setPlacement_StartUp(int placement_StartUp)
+/* void setPlacement_StartUp(int placement_StartUp)
 {
     placement_StartUp = placement_StartUp;
-}
+} */
 
 // Autres méthodes
 void Joueur::ajouter_etablissement(const Etablissement *e)
@@ -140,32 +151,43 @@ void Joueur::retirer_etablissement(const Etablissement *e)
 
 void Joueur::ajouterMontant(int montant) { compte += montant; }
 
-int Joueur::getNombreMonumentsConstruits()
+int Joueur::getNombreMonumentsConstruits() const
 {
-    return monuments.size();
+    int k = 0;
+    for(auto i : getMonuments()){
+        if (i->estConstruit()){
+            k++;
+        }
+    }
+    return k;
 }
 
-// Partie
-/*bool Joueur::victoire(){
-    int somme=0;
-    for (size_t i=0;i<nb_monuments;i++){
-        somme += monuments[i].construit;
+bool Joueur::victoire() const{
+    /* bool win = true;
+    for(auto i : getMonuments()){
+        if (!i->estConstruit()){
+            win = false;
+            break;
+        }
     }
-    return (somme == nb_monuments);
-}*/
-
-int Joueur::lancerDés()
+    return win; */
+    return getNombreMonumentsConstruits()==monuments.size();
+}
+//Jingfang : Je pense que le nombre de dès à lancer doit être directement passé en paramètre car finalement 
+//c'est un bouton dans appli QT qui demande à l'utilisateur de le saisir
+int Joueur::lancerDés(int desALancer)const
 {
-    if (de == 1)
+    if (desALancer == 1)
     {
-        return rand() % 6 + 1;
+        return rand() % 6+ 1;
     }
-    else if (de == 2)
+    else if (desALancer == 2)
     {
-        return rand() % 6 + rand() % 6 + 2;
+        return  + rand() % 6 + 2;
     }
     else
     {
+        throw SetException("Nombre de dès non autorisé !");
         return -1; // Code d'erreur si on envoie un mauvais nombre
     }
 }
