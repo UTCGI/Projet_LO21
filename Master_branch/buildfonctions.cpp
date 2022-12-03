@@ -133,15 +133,17 @@ void buildetablissement(const Etablissement **liste_etablissements, const Etabli
                     if (identificateur <= 1)
                     {
                         // temp = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
-                        temp = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false);
-
+                        if (couleur==Couleur::vert&&type_effet==Type::aucun)
+                            temp = new Etablissement_VertTE(nom, effet, couleur, prix, num_de, type, montant_effet, false, type_effet);
+                        else
+                            temp = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false);
                         *(liste_etablissements++) = temp;
                         if (identificateur == 0)
                             *(liste_etablissements_depart++) = temp;
                     }
                     else
                         // *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
-                        *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, true);
+                        *(liste_etablissements++) = new Etablissement_Violet(nom, effet, couleur, prix, num_de, type, montant_effet, true, payeur);
                         //*(liste_etablissements_speiciaux++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
                 }
                 row++;
@@ -167,20 +169,20 @@ void buildetablissement(const Etablissement **liste_etablissements, const Etabli
         case SQLITE_DONE:
             if (row != 0)
                 {
-                    if (row != 0)
-                {
                     if (identificateur <= 1)
                     {
                         // temp = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
-                        temp = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false);
-
+                        if (couleur==Couleur::vert&&type_effet==Type::aucun)
+                            temp = new Etablissement_VertTE(nom, effet, couleur, prix, num_de, type, montant_effet, false, type_effet);
+                        else
+                            temp = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false);
                         *(liste_etablissements++) = temp;
                         if (identificateur == 0)
                             *(liste_etablissements_depart++) = temp;
                     }
                     else
                         // *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
-                        *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, true);
+                        *(liste_etablissements++) = new Etablissement_Violet(nom, effet, couleur, prix, num_de, type, montant_effet, true, payeur);
                         //*(liste_etablissements_speiciaux++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
                 }
             done = true;
