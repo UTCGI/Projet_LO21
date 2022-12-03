@@ -28,7 +28,7 @@ const Etablissement& Pioche::getRandomEtablissement() const {
   }
 
 unsigned int Pioche::getIndexPile(const Etablissement& etablissement)const {
-i=0;
+unsigned int i=0;
 while (piles_etablissement[i] != etablissement && i<nb_piles) i++;
 return i;
 }
@@ -38,6 +38,7 @@ unsigned int indexPile = getIndexPile(etablissement);
 piles_etablissement[indexPile].retirerCarte(quantite);
 if (piles_etablissement[indexPile].getEffectif()==0){
     for (i=indexPile; i<nb_piles;i++) piles_etablissement[i]=piles_etablissement[i+1];
+    delete &piles_etablissement[nb];
     nb_piles--;
 }
 }//pourrait aussi etre realise avec la librairie <array>
