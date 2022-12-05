@@ -19,7 +19,7 @@ if(NOT EXISTS ${PROJECT_BINARY_DIR}/.gitignore)
 endif()
 
 # --- auto-ignore .vscode directory
-if(NOT EXISTS ${PROJECT_SOURCE_DIR}/.vscode/.gitignore)
+if(EXISTS ${PROJECT_SOURCE_DIR}/.vscode AND NOT EXISTS ${PROJECT_SOURCE_DIR}/.vscode/.gitignore)
   file(WRITE ${PROJECT_SOURCE_DIR}/.vscode/.gitignore "*")
 endif()
 
