@@ -3,6 +3,7 @@
 #include "miniville.h"
 #include <vector>
 #include <typeinfo>
+#include <string>
 
 //class Etablissement
 
@@ -40,6 +41,8 @@ Etablissement(const string& nom1, const string& effet1, Couleur couleur1,
   bool estActif(unsigned int n);
   bool estSpecial();//revoir au niveau 4
   virtual void afficher(std::ostream& f= std::cout) const;
+  bool operator==(Etablissement e1)const;
+  bool operator!=(Etablissement e1)const;
 };
 
 class Etablissement_Violet:public Etablissement{
