@@ -6,14 +6,8 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 file(GLOB SRC_FILES
     "${PROJECT_SOURCE_DIR}/*.cpp"
+    "${PROJECT_SOURCE_DIR}/*.c"
     "${PROJECT_SOURCE_DIR}/*.h"
-    
 )
 
 add_executable(${CMAKE_PROJECT_NAME} ${SRC_FILES})
-
-find_package (SQLite3)
-include_directories(${SQLITE3_INCLUDE_DIRS})
-target_link_libraries (${CMAKE_PROJECT_NAME} ${SQLite3_LIBRARIES})
-
-

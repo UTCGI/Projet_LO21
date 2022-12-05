@@ -5,6 +5,8 @@
 #include "jeu.h"
 #include "joueur.h"
 #include "reserve.h"
+#include "etablissement.h"
+
 
 class Partie {
   int manche;
