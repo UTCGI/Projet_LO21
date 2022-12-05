@@ -46,7 +46,7 @@ Sortie : Classe Pile_Etablissement Initialisée
 Description : Cette methode permet de construire la classe
 */
   Pile_Etablissement(const Etablissement *et, unsigned int ef = 1);
-  
+  Pile_Etablissement() = default;
     /*
 Specification: ~Pile_Etablissement()
 Entree : None
