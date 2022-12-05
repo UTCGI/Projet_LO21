@@ -4,7 +4,7 @@ int Joueur::nombre_actuel = 0;
 
 Joueur::Joueur(const Jeu* jeu):id(++nombre_actuel)
 {
-    //Partie : Distributions des cartes monument (pile) 
+    //Partie : Distributions des cartes monument (pile)
     const Monument **monuments_temp = jeu->getMonument();
     for (size_t i = 0; i < jeu->getNbMonuments(); i++)
         monuments.push_back(new Carte_Monument(monuments_temp[i]));
@@ -34,7 +34,7 @@ Joueur::Joueur(const Jeu* jeu):id(++nombre_actuel)
             break;
         }
     }
-    //Partie : Distributions des cartes de départ 
+    //Partie : Distributions des cartes de départ
     const Etablissement **depart= jeu->getEtablissementsDepart();
     for (size_t i = 0; i < jeu->getNbEtablissements_Depart(); i++){
         ajouter_etablissement(depart[i]);
@@ -101,7 +101,7 @@ void Joueur::ajouter_etablissement(const Etablissement *e)
     for (auto i = (*which).begin(); i != (*which).end(); i++)
     {
         if ((*i)->getEtablissement() == e)
-        {   
+        {
             if ((*i)->getEffectif()==e->getNbExemplaires())
                 throw SetException("Cette pile est déjà pleine !");
             else
@@ -137,7 +137,7 @@ void Joueur::retirer_etablissement(const Etablissement *e)
     for (auto i = (*which).begin(); i != (*which).end(); i++)
     {
         if ((*i)->getEtablissement() == e)
-        {   
+        {
             if ((*i)->getEffectif()==0)
                 throw SetException("Cette pile est déjà vide !");
             else
@@ -173,9 +173,9 @@ bool Joueur::victoire() const{
     return win; */
     return getNombreMonumentsConstruits()==monuments.size();
 }
-//Jingfang : Je pense que le nombre de dès à lancer doit être directement passé en paramètre car finalement 
+//Jingfang : Je pense que le nombre de dès à lancer doit être directement passé en paramètre car finalement
 //c'est un bouton dans appli QT qui demande à l'utilisateur de le saisir
-int Joueur::lancerDés(int desALancer)const
+int Joueur::lancerDes(int desALancer)const
 {
     srand(time(NULL));
     if (desALancer == 1)
