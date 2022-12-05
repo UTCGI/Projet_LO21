@@ -9,7 +9,7 @@ Pile_Etablissement* Pioche::getPiles_etablissement()const {return piles_etabliss
 Pioche:: Pioche(const Jeu& jeu) {
     nb_piles = jeu.getNbEtablissements();
     nb_etablissements=0;
-    piles_etablissement= new Pile_Etablissement [nb_piles];
+    //piles_etablissement= new Pile_Etablissement [nb_piles];
     for (unsigned int i = 0; i < nb_piles; i++) {
       piles_etablissement[i]= Pile_Etablissement(jeu.getEtablissements()[i], jeu.getEtablissements()[i]->getNbExemplaires());
       nb_etablissements+=jeu.getEtablissements()[i]->getNbExemplaires();

@@ -1,12 +1,10 @@
 #ifndef PARTIE_H
 #define PARTIE_H
 
-#include "TypesEnum.h"
+
 #include "jeu.h"
 #include "joueur.h"
 #include "reserve.h"
-#include "etablissement.h"
-
 
 class Partie {
   int manche;
@@ -16,8 +14,8 @@ class Partie {
   int nb_etablissements;
   // Est ce qu'on a besoin de pointeurs ou pas ??
   Jeu* jeu;
-  Joueur* joueur_actif;
-  Joueur* joueurs;
+  int joueur_actif = 0;//Indice du joueur qui a la main
+  vector<Joueur*> joueurs1;
   Reserve* reserve;
 
  public:
@@ -28,10 +26,12 @@ class Partie {
   int getNbMonuments() const;
   int getNbEtablissements() const;
   Jeu* getJeu() const;
-  Joueur* getJoueurActif() const;
-  Joueur* getEnsenbleJoueurs() const;
-  Joueur getJoueurI(const int i);
+  const Joueur* getJoueurActif() const;
+  //Joueur* getEnsenbleJoueurs() const;
+  Joueur getJoueurI(const int i) const;
   Reserve* getReserve() const;
+  const vector<Joueur*>& getJoueurs() const;
+
 
   // Setter functions
   int setManche(int nbManche);
@@ -43,7 +43,6 @@ class Partie {
   Joueur* setJoueurActif(Joueur* joueur);
   Joueur* setEnsenbleJoueurs(Joueur* EnsembreJoueurs);
   Reserve* setReserve(Reserve* Reserve);
-
   // Constructors and destructors functions
   /*
   SPECIFICATION : Partie::Partie()
@@ -94,7 +93,7 @@ class Partie {
       Objectif: Cette fonction revoie le joueur suivant du joueur passé en
   argument Elle permet de passer d'un joueur à l'autre.
   */
-  Joueur tour_joueur(Joueur joueur);
+  void joueur_next();
 
   /*
   SPECIFICATION : Partie::regarder_etablissements(Joueur joueur, Couleur
@@ -120,36 +119,8 @@ class Partie {
       Objectif: Cette fonction permet d'appliquer les règles ???
       Jsp trop ce que doit faire cette fonction ??
   */
-  void application_regle_speciales(Pile pile_joueur);
 
-  /*
-  SPECIFICATION : Partie::transaction_piece(Joueur emeteur, Joueur destinataire,
-  int montant) Entree: Joueur emeteur, Joueur destinataire, int montant Sortie:
-  None Objectif: Cette fonction effectue une transaction entre le joueur emeteur
-  et le joueur destinataire Le joueur emeteur perd une somme correspondante au
-  montant et le joueur destinataire gagne cette somme.
-  */
-  void transaction_piece(Joueur& emeteur, Joueur& destinataire, int montant);
-
-  /*
-  SPECIFICATION : Partie::transaction_carte(Joueur emeteur, Joueur destinataire,
-  Pile pile) Entree: Joueur emeteur, Joueur destinataire, Pile pile Sortie: None
-      Objectif: Cette fonction effectue une transaction entre le joueur emeteur
-  et le joueur destinataire Le joueur emeteur perd la carte représentée dans la
-  pile et le joueur destinataire la gagne.
-  */
-  void transaction_carte(Joueur& emeteur, Joueur& destinataire, Pile& pile);
-
-  /*
-  SPECIFICATION : Partie::achat_carte(Joueur joueur, Pile pile_reserve)
-      Entree: Joueur joueur, Pile pile_reserve
-      Sortie: None
-      Objectif: Cette fonction permet à un joueur d'acheter une carte.
-      Pour cela, elle retirera une carte dans la pile_reserve,
-      qu'elle ajoutera ensuite dans la pile correpondante au joueur
-      Et retirera la somme équivalente au montant de la carte demandée.
-  */
-  void achat_carte(Joueur& joueur, Pile& pile_reserve);
+  
 };
 
 #endif
