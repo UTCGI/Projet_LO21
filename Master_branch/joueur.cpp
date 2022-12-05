@@ -177,6 +177,7 @@ bool Joueur::victoire() const{
 //c'est un bouton dans appli QT qui demande à l'utilisateur de le saisir
 int Joueur::lancerDés(int desALancer)const
 {
+    srand(time(NULL));
     if (desALancer == 1)
     {
         return rand() % 6+ 1;
