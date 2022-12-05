@@ -114,6 +114,8 @@ ostream& operator<<(ostream& f, const Etablissement& e) {
     return f;
 }
 
+bool Etablissement::operator==(Etablissement e1)const {return this->nom.compare(e1.getNom())==0;}
+bool Etablissement::operator!=(Etablissement e1)const {return this->nom.compare(e1.getNom())!=0;}
 //TEST
 int EtablissementTest()
 {
