@@ -29,8 +29,7 @@ Reserve::Reserve(Jeu& j)
 }
 
 Reserve::Reserve(Pioche& p){
-
-
+    
 }
 
 Reserve::~Reserve(){
