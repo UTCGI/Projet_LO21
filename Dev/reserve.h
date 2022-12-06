@@ -4,24 +4,35 @@
 #include "pile_etablissement.h"
 #include "jeu.h"
 #include "miniville.h"
+#include "etablissement.h"
+#include "pioche.h"
+
 class Reserve{
-    int nb_lignes;
-    int nb_colonnes;
-    Pile_Etablissement* Grille[];
+    // int nb_lignes;
+    // int nb_colonnes;
+    int nb_etablissements;
+    int nb_piles;
+    Pile_Etablissement* liste_etablissements;
     public:
 
     // Getters
-    int getNbLignes() const;
-    int getNbColonnes() const;
-    Pile_Etablissement* getGrille() const;
+    int getNbPile() const;
+    int getNbEtablissements() const;
+
+    // int getNbLignes() const;
+    // int getNbColonnes() const;
+    Pile_Etablissement* getListeEtablissement() const;
 
     // Constructors and Destructors
+    // Constructeur pour les extensions
+    Reserve(Pioche& p);
+    // constructeur pour le jeu de base
     Reserve(Jeu& j);
     ~Reserve();
 
     // Methods
-    Reserve retirer_etablissement(Pile_Etablissement* etablissement);
-
+    void retirer_etablissement(const Etablissement& etablissement);
+    void ajouter_etablissement(const Etablissement& etablissement);
 
 };
 

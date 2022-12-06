@@ -6,7 +6,6 @@ void menu(Partie& p){
     int choix = -1;
     cin.exceptions(std::istream::failbit);//Activer module exception dans std::cin
 
-
     cout << "Bienvenue !" << endl;
 
     while (choix!=0){

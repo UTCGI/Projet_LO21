@@ -1,47 +1,54 @@
 #include "reserve.h"
 
 // Getters
-int Reserve::getNbLignes() const{
-    return nb_lignes;
+int Reserve::getNbPile() const{
+    return nb_piles;
 }
-int Reserve::getNbColonnes() const{
-    return nb_colonnes;
+
+int Reserve::getNbEtablissements() const{
+    return nb_etablissements;
 }
-Pile_Etablissement* Reserve::getGrille() const{
-    return *Grille;
+
+// int Reserve::getNbLignes() const{
+//     return nb_lignes;
+// }
+// int Reserve::getNbColonnes() const{
+//     return nb_colonnes;
+// }
+Pile_Etablissement* Reserve::getListeEtablissement() const{
+    return liste_etablissements;
 }
+
+
 
 // Constructors and Destructors
-Reserve::Reserve(Jeu& j)
+Reserve::Reserve(Jeu& j) 
 {
-    nb_lignes = j.getNb_lignes_reserve_MAX();
-    nb_colonnes = j.getNb_colonnes_reserve_MAX();
-    Extension e= j.getExtension();
-    switch (e){
-        case Extension::Aucune:
-            break;
-        case Extension::Marina:
-            
-            break;
-        case Extension::GreenValley:
-            
-            break;
-        case Extension::Deluxe:
-            
-            break;
-        default:
 
-            break;
-    }
 
 }
+
+Reserve::Reserve(Pioche& p){
+
+
+}
+
 Reserve::~Reserve(){
 
 }
 
 // Methods
-Reserve Reserve::retirer_etablissement(Pile_Etablissement* etablissement){
+void Reserve::retirer_etablissement(const Etablissement& etablissement){
 
+}
+
+void Reserve::ajouter_etablissement(const Etablissement& etablissement){
+    for(int i = 0; i < getNbPile(); i++){
+        if( etablissement == *liste_etablissements[i].getEtablissement()){
+            liste_etablissements[i].ajouterCarte();
+        }
+    }
+    // Pile_Etablissement();
 }
 
 
