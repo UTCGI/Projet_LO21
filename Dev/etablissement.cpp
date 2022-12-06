@@ -13,10 +13,7 @@ Etablissement::Etablissement(const string& nom1, const string& effet1, Couleur c
     num_de(num_de1),
     type(type1),
     montant_effet(montant_effet1),isSpecial(isSpecial1){
-    const string& etablissement_depart1 = "Champs de ble";
-    const string& etablissement_depart2 = "Boulangerie";
-    if ((couleur == Couleur::violet) || ((prix == 0)
-        && (nom == etablissement_depart1 || nom == etablissement_depart2)))
+    if ((couleur == Couleur::violet) || ((prix == 0)))
         nb_exemplaires = 4;
     else
         nb_exemplaires = 6;
