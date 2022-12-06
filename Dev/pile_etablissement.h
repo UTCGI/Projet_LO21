@@ -8,6 +8,8 @@
 // Include permettent de tester dans le main_test_pile_etablissement()
 #include "buildfonctions.h"
 #include "etablissement.h"
+#include "jeu.h"
+#include "miniville.h"
 
 
 // #include "jeu.h"

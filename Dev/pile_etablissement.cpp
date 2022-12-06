@@ -39,13 +39,15 @@ ostream& operator<<(ostream& f, Pile_Etablissement& pile) {
   return f;
 }
 
-/* int main_test_pile_etablissement() {
+
+int main_test_pile_etablissement() {
   Jeu* j = new Jeu(Extension::Aucune);
-  const Etablissement** listeE =
-      new const Etablissement*[j->getNbEtablissements()];
-  buildetablissement(listeE, Extension::Aucune);
+  // const Etablissement** listeE =
+  //     new const Etablissement*[j->getNbEtablissements()];
+  // buildetablissement(listeE,listeEDepart, Extension::Aucune);
+  const Etablissement** listeE = j->getEtablissements();
   cout << (listeE[1])->getNom() << endl;
-  for (int i = 0; i < j->getNbMonuments(); i++) {
+  for (int i = 0; i < j->getNbEtablissements(); i++) {
     Pile_Etablissement* p = new Pile_Etablissement((listeE[i]), i);
 
     cout << *p;
@@ -59,7 +61,7 @@ ostream& operator<<(ostream& f, Pile_Etablissement& pile) {
       cout << e.getInfo() << endl;
     }
   }
-
+  cout << "apres try";
   Pile_Etablissement* p1 = new Pile_Etablissement((listeE[2]), 2);
   Pile_Etablissement* p2 = new Pile_Etablissement((listeE[2]), 4);
   Pile_Etablissement& p3 = *p2;
@@ -70,4 +72,5 @@ ostream& operator<<(ostream& f, Pile_Etablissement& pile) {
   cout << p;
 
   return 0;
-} */
+}
+
