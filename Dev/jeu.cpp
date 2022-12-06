@@ -21,7 +21,7 @@ Jeu::Jeu(Extension e, const size_t& cdv, size_t nbj, size_t nbpr,
 
 void Jeu::printE_D(std::ostream& f) const {
     for (size_t i = 0; i < getNbEtablissements_Depart(); i++)
-        f << "ETABLISSEMENTS DE DEPART" << endl << i + 1 
+        f << "ETABLISSEMENTS DE DEPART" << endl << i + 1
         << endl << *liste_etablissements_depart[i];
     f << endl;
 }
@@ -49,6 +49,13 @@ void Jeu::afficher(std::ostream& f) const {
         << "Nombre total de cartes \t\t: " << nbCartes << endl << endl;
 }
 
+ const Etablissement* Jeu::getEtablissementFromName(const string& name)const {
+      unsigned int i = 0;
+      while (i<nbEtablissements && liste_etablissements[i]->getNom().compare(name) != 0) i++;
+      if (liste_etablissements[i]->getNom().compare(name) != 0) {SetException("Cette carte n'existe pas");}
+      else return liste_etablissements[i];
+  }
+
 ostream& operator<<(ostream& f, const Jeu& j) {
     j.afficher(f);
     j.printE_D(f);
@@ -57,3 +64,4 @@ ostream& operator<<(ostream& f, const Jeu& j) {
     //f << endl;
     return f;
 }
+

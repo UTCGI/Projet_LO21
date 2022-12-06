@@ -68,6 +68,8 @@ class Jeu {
   void printE_D(std::ostream& f = cout) const;
   void printE(std::ostream& f = cout) const;
   void printM(std::ostream& f = cout) const;
+
+ const Etablissement* getEtablissementFromName(const string& name)const;
 };
 
 ostream& operator<<(ostream& f, const Jeu& j);
