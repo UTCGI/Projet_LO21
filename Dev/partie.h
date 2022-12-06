@@ -34,11 +34,11 @@ class Partie {
 
 
   // Setter functions
-  int setManche(int nbManche);
-  int setNumDe(int nbDe);
-  int setNbJoueurs(int nbJoueurs);
-  int setNbMonuments(int nbMonuments);
-  int setNbEtablissements(int nbEtablissements);
+  void setManche(int nbManche);
+  void setNumDe(int nbDe);
+  void setNbJoueurs(int nbJoueurs);
+  void setNbMonuments(int nbMonuments);
+  void setNbEtablissements(int nbEtablissements);
   Jeu* setJeu(Jeu* jeu);
   Joueur* setJoueurActif(Joueur* joueur);
   Joueur* setEnsenbleJoueurs(Joueur* EnsembreJoueurs);

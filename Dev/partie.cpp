@@ -31,15 +31,15 @@ const vector<Joueur*>& Partie::getJoueurs() const {return joueurs1;}
 // ----------------------------------------------------------------
 
 // ce n'est pas plutôt des void le type de retour des setters ?
-int Partie::setManche(int nbManche) { manche = nbManche; }
+void  Partie::setManche(int nbManche) { manche = nbManche; }
 
-int Partie::setNumDe(int nbDe) { num_de = nbDe; }
+void  Partie::setNumDe(int nbDe) { num_de = nbDe; }
 
-int Partie::setNbJoueurs(int nbJoueurs) { nb_joueurs = nbJoueurs; }
+void  Partie::setNbJoueurs(int nbJoueurs) { nb_joueurs = nbJoueurs; }
 
-int Partie::setNbMonuments(int nbMonuments) { nb_monuments = nbMonuments; }
+void  Partie::setNbMonuments(int nbMonuments) { nb_monuments = nbMonuments; }
 
-int Partie::setNbEtablissements(int nbEtablissements)
+void  Partie::setNbEtablissements(int nbEtablissements)
 {
   nb_etablissements = nbEtablissements;
 }
