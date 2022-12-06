@@ -54,9 +54,14 @@ void menu(Partie& p){
 
 int main()
 {   
+    cout << "ICI";
     Partie p;
-    menu(p);
+    testPioche();
+    Jeu j = Jeu(Extension::Aucune);
+    Pioche pioche = Pioche(j);
+    // menu(p);
     return 0;
+    // return 0;
  //return EtablissementTest();
 //return MonumentTest();
 }
