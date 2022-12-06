@@ -31,7 +31,7 @@ void menu(Partie& p){
 
         switch (choix)
         {
-        case 0: 
+        case 0:
             cout << "Au revoir" << endl;
             break;
         case 1:
@@ -42,7 +42,7 @@ void menu(Partie& p){
             break;
         case 3:
             break;
-        
+
         default:// Les nombres unbound
             cout << "Erreur ! Vous n'avez pas saisi un nombre valide." << endl;
             break;
@@ -53,15 +53,16 @@ void menu(Partie& p){
 }
 
 int main()
-{   
-    cout << "ICI";
-    Partie p;
-    testPioche();
-    Jeu j = Jeu(Extension::Aucune);
-    Pioche pioche = Pioche(j);
-    // menu(p);
-    return 0;
-    // return 0;
+{
+    //Partie p;
+    //menu(p);
+    Jeu* j = new Jeu(Extension::Aucune);
+    j->afficher();
+   /* const Etablissement** e = j->getEtablissements();
+    for(unsigned int i=0; i<15;i++)e[i]->afficher();
+    return 0;*/
+    j->getEtablissementFromName("Marche de fruits et legumes")->afficher();
+
  //return EtablissementTest();
 //return MonumentTest();
 }

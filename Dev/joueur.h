@@ -15,7 +15,7 @@
     4 Déstrcuteur : résponsable des durées de vie des piles ?
       Pour moi oui mais sur l'UML le lien est marqué agrégation.
       Maintenant dans le code je considère qu'il s'agit d'une composition
-    5 static const int max_joueurs = 4; static const int min_joueurs = 2; si besoin, doit être gérés par partie/jeu 
+    5 static const int max_joueurs = 4; static const int min_joueurs = 2; si besoin, doit être gérés par partie/jeu
  */
 
 
@@ -37,71 +37,71 @@ class Joueur
 public:
   /**
    * @brief Construct a new Joueur object
-   * 
-   * @param jeu 
+   *
+   * @param jeu
    */
   Joueur(const Jeu* jeu);
   /**
    * @brief Destroy the Joueur object
-   * 
+   *
    */
   ~Joueur();
 
   // Getter
   /**
    * @brief Get the Nb Des object
-   * 
-   * @return int 
+   *
+   * @return int
    */
   int getNbDes() const;
   /**
    * @brief Get the Compte object
-   * 
-   * @return int 
+   *
+   * @return int
    */
   int getCompte() const;
   //int getPlacement_StartUp() const;
   //Cette fonction vraiment besoin ?
   /**
    * @brief Get the Nombre Monuments Construits object
-   * 
-   * @return int 
+   *
+   * @return int
    */
   int getNombreMonumentsConstruits() const;
   /**
    * @brief Get the Nb Max Joueurs object
-   * 
-   * @return int 
+   *
+   * @return int
    */
   static int getNbMaxJoueurs();
   /**
    * @brief Get the Monuments object
-   * 
-   * @return const vector<Carte_Monument *>& 
+   *
+   * @return const vector<Carte_Monument *>&
    */
   const vector<Carte_Monument *> &getMonuments() const { return monuments; }
   /**
    * @brief Get the Pile Rouge object
-   * 
-   * @return const vector<Pile_Etablissement *>& 
+   *
+   * @return const vector<Pile_Etablissement *>&
    */
   const vector<Pile_Etablissement *> &getPileRouge() const { return pileRouge; }
   /**
    * @brief Get the Pile Bleu object
-   * 
-   * @return const vector<Pile_Etablissement *>& 
+   *
+   * @return const vector<Pile_Etablissement *>&
    */
   const vector<Pile_Etablissement *> &getPileBleu() const { return pileBleu; }
   /**
    * @brief Get the Pile Vert object
-   * 
-   * @return const vector<Pile_Etablissement *>& 
+   *
+   * @return const vector<Pile_Etablissement *>&
    */
   const vector<Pile_Etablissement *> &getPileVert() const { return pileVert; }
   /**
    * @brief Get the Pile Violet object
-   * 
-   * @return const vector<Pile_Etablissement *>& 
+   *
+   * @return const vector<Pile_Etablissement *>&
    */
   const vector<Pile_Etablissement *> &getPileViolet() const { return pileViolet; }
 
@@ -109,68 +109,68 @@ public:
 
   /**
    * @brief Set the Pseudo object
-   * 
-   * @param pseudo 
+   *
+   * @param pseudo
    */
   void setPseudo(string pseudo);
   //void setPlacement_StartUp(int placement_StartUp);
   /**
    * @brief Set the Nb Des object
-   * 
+   *
    */
   void setNbDes();
   /**
    * @brief Set the Compte object
-   * 
-   * @param montant 
+   *
+   * @param montant
    */
   void setCompte(int montant);
 
   // Autres méthodes
   /**
-   * @brief 
-   * 
-   * @param e 
+   * @brief
+   *
+   * @param e
    */
   void ajouter_etablissement(const Etablissement *e);
   /**
-   * @brief 
-   * 
-   * @param e 
+   * @brief
+   *
+   * @param e
    */
   void retirer_etablissement(const Etablissement *e);
   /**
-   * @brief 
-   * 
-   * @param montant 
+   * @brief
+   *
+   * @param montant
    */
   void ajouterMontant(int montant);
   /**
-   * @brief 
-   * 
-   * @return true 
-   * @return false 
+   * @brief
+   *
+   * @return true
+   * @return false
    */
   bool victoire() const;
   /**
-   * @brief 
-   * 
+   * @brief
+   *
    */
-  int lancerDés(int desALancer)const;
+  int lancerDes(int desALancer)const;
   /**
-   * @brief 
-   * 
-   * @param f 
+   * @brief
+   *
+   * @param f
    */
   void printJoueur(ostream &f = std::cout) const;
-  
+
 };
 /**
- * @brief 
- * 
- * @param f 
- * @param j 
- * @return ostream& 
+ * @brief
+ *
+ * @param f
+ * @param j
+ * @return ostream&
  */
 ostream &operator<<(ostream &f, const Joueur &j);
 
