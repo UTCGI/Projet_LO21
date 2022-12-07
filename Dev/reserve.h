@@ -8,35 +8,35 @@
 #include "pioche.h"
 
 class Reserve{
-    // int nb_lignes;
-    // int nb_colonnes;
-    int nb_etablissements;
-    int nb_piles;
-    Pile_Etablissement* liste_etablissements;
+    unsigned int nb_etablissements;
+    unsigned int nb_piles;
+    unsigned int nb_piles_max;
+    Pile_Etablissement** liste_etablissements;
+
     public:
-
     // Getters
-    int getNbPile() const;
-    int getNbEtablissements() const;
+    unsigned int getNbPile() const;
+    unsigned int getNbEtablissements() const;
+    unsigned int getNbPileMax() const;
 
-    // int getNbLignes() const;
-    // int getNbColonnes() const;
-    Pile_Etablissement* getListeEtablissement() const;
+    Pile_Etablissement** getListeEtablissement() const;
 
     // Constructors and Destructors
     // Constructeur pour les extensions
-    Reserve(Pioche& p);
+    Reserve(Jeu& j,Pioche& p);
     // constructeur pour le jeu de base
     Reserve(Jeu& j);
     ~Reserve();
 
     // Methods
-    void retirer_etablissement(const Etablissement& etablissement);
-    void ajouter_etablissement(const Etablissement& etablissement);
-
+    void retirer_etablissement(const Etablissement& etablissement, unsigned int quantite = 1);
+    void ajouter_etablissement(const Etablissement& etablissement, unsigned int quantite = 1);
+    void afficher()const;
 };
 
 ostream &operator<<(ostream &f, Reserve &carte);
+
+void testReserve();
 
 
 
