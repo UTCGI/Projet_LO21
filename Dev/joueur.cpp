@@ -38,7 +38,7 @@ Joueur::Joueur(const Jeu* jeu):id(++nombre_actuel)
     //Partie : Distributions des cartes de départ
     const Etablissement **depart= jeu->getEtablissementsDepart();
     for (size_t i = 0; i < jeu->getNbEtablissements_Depart(); i++){
-        ajouter_etablissement(depart[i]);
+        initialisation_etablissement_depart(depart[i]);
     }
 }
 
@@ -78,6 +78,41 @@ void setPseudo(string pseudo) { pseudo = pseudo; }
 } */
 
 // Autres méthodes
+
+
+void Joueur::initialisation_etablissement_depart(const Etablissement *e)
+{
+    vector<Pile_Etablissement *> *which;
+    switch (e->getCouleur())
+    {
+    case Couleur::bleu:
+        which = &pileBleu;
+        break;
+    case Couleur::rouge:
+        which = &pileRouge;
+        break;
+    case Couleur::vert:
+        which = &pileVert;
+        break;
+    case Couleur::violet:
+        which = &pileViolet;
+        break;
+    default:
+        // A compléter
+        break;
+    }
+    for (auto i = (*which).begin(); i != (*which).end(); i++)
+    {
+        if ((*i)->getEtablissement()->getNom() == e->getNom())
+        {
+            (*i)->ajouterCarte();
+        }
+        else
+            continue;
+    }
+}
+
+
 void Joueur::ajouter_etablissement(const Etablissement *e)
 {
     vector<Pile_Etablissement *> *which;
@@ -139,7 +174,7 @@ void Joueur::retirer_etablissement(const Etablissement *e)
     {
         if ((*i)->getEtablissement() == e)
         {
-            if ((*i)->getEffectif()==0)
+            if ((*i)->getEffectif()==(*i)->getMinimum())
                 throw SetException("Cette pile est déjà vide !");
             else
                 (*i)->retirerCarte();
