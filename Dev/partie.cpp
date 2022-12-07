@@ -20,7 +20,7 @@ int Partie::getNbEtablissements() const { return nb_etablissements; }
 
 Jeu *Partie::getJeu() const { return jeu; }
 
-const Joueur *Partie::getJoueurActif() const { return joueurs1[joueur_actif]; }
+Joueur *Partie::getJoueurActif()  { return joueurs1[joueur_actif]; }
 
 Reserve *Partie::getReserve() const { return reserve; }
 const vector<Joueur*>& Partie::getJoueurs() const {return joueurs1;}
@@ -67,18 +67,12 @@ Partie::~Partie() {}
 void Partie::initialisation()
 {
   cout << "Bonjour, bienvenu dans le jeu MachiKoro" << endl;
-  cout << "Entrez le nombre de joueurs :" << endl;
-  int lecture = 0;
-  while (lecture < 2 || lecture > 4)
-  {
-    cin >> lecture;
-  } 
-  setNbJoueurs(lecture);
 
   // TODO: A completer
   // Il faut recuperer l'extention ? Pour pouvoir initialiser les varianles aux
   // bonnes valeurs
   int lectureExtention;
+retry:  
   cout << "Entrez l'extention à laquelle vous voulez jouer \t0. Originale\t1. Marina \t2. GreenValley\t3. Deluxe)"
        << endl;
   do
@@ -113,6 +107,18 @@ void Partie::initialisation()
     jeu = new Jeu(Extension::Deluxe);
     break;
   }
+
+  cout << "Entrez le nombre de joueurs :" << endl;
+  int lecture = 0;
+  while (lecture < 2 || lecture > 4)
+  {
+    cin >> lecture;
+  } 
+  if ( (jeu->getEtablissementsDepart()[0]->getNbExemplaires()) < lecture)
+    goto retry;// Si pas assez de cartes départ
+
+  setNbJoueurs(lecture);
+
 //Initialisation reserve
   reserve = new Reserve(*jeu);
 //Initialisation joueur
@@ -143,13 +149,29 @@ void Partie::joueur_next(){
   int indice = (i + 1) % getNbJoueurs();
   return getJoueurI(indice);
 }
-
-Etablissement *Partie::regarder_etablissements(Joueur joueur, Couleur couleur)
+Etablissement* Partie::regarder_etablissements(Joueur joueur, Couleur couleur)
 {
-  // TODO: A completer
+  //???
 }
+
 
 void Partie::application_regle_standards(Couleur couleur)
 {
   // TODO: A completer
 } */
+
+
+
+void Partie::transaction_piece(Joueur* emetteur, Joueur*destinataire, int montant){
+  if (montant>emetteur->getCompte())
+    cout << "Erreur ! Le joueur " << emetteur->getPseudo() << " n'a pas de ressource suffisante pour effectuer la transaction.";
+  else{
+    emetteur->ajouterMontant(montant*(-1));
+    destinataire->ajouterMontant(montant);
+  }
+}
+
+void Partie::transaction_carte(Joueur* emetteur, Joueur*destinataire, const Etablissement* etab){
+  destinataire->retirer_etablissement(etab);
+  emetteur->ajouter_etablissement(etab);
+}

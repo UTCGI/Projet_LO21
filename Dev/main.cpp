@@ -4,16 +4,20 @@ using namespace std;
 
 void menu(Partie& p){
     int choix = -1;
+    bool initialise = false;
     cin.exceptions(std::istream::failbit);//Activer module exception dans std::cin
 
     cout << "Bienvenue !" << endl;
 
     while (choix!=0){
+        if (initialise) cout << "Joueur en cours : " << p.getJoueurActif()->getId() << endl;
         cout << "Faire votre choix" << endl;
 
         //Partie Menu
         cout << "0\tQuitter" << endl;
         cout << "1\tInitialisation" << endl;
+        cout << "2\tInitialisation" << endl;
+
 
 
         try{//Cette partie sert à détecter les erreurs eventuelles de saisie (Exemple : saisir une lettre à la place d'un nombre)
@@ -37,6 +41,7 @@ void menu(Partie& p){
         case 1:
             cout << "Vous avez choisi -- Initialisation" << endl;
             p.initialisation();
+            initialise = true;
             break;
         case 2:
             break;
@@ -54,14 +59,15 @@ void menu(Partie& p){
 
 int main()
 {
-    //Partie p;
-    //menu(p);
+    /* Partie p;
+    menu(p); */
     Jeu* j = new Jeu(Extension::Aucune);
-    j->afficher();
+    //j->afficher();
+    cout << *j;
    /* const Etablissement** e = j->getEtablissements();
     for(unsigned int i=0; i<15;i++)e[i]->afficher();
     return 0;*/
-    j->getEtablissementFromName("Marche de fruits et legumes")->afficher();
+    //j->getEtablissementFromName("Marche de fruits et legumes")->afficher();
 
  //return EtablissementTest();
 //return MonumentTest();
