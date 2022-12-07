@@ -9,13 +9,11 @@ Pile_Etablissement* Pioche::getPiles_etablissement()const {return piles_etabliss
 Pioche:: Pioche(const Jeu& jeu) {
     nb_piles = jeu.getNbEtablissements();
     nb_etablissements=0;
+    //piles_etablissement= new Pile_Etablissement [nb_piles];
     piles_etablissement= new Pile_Etablissement [nb_piles];
     for (unsigned int i = 0; i < nb_piles; i++) {
       piles_etablissement[i] = Pile_Etablissement(jeu.getEtablissements()[i], jeu.getEtablissements()[i]->getNbExemplaires());
       nb_etablissements+=jeu.getEtablissements()[i]->getNbExemplaires();
-      //nb_etablissements;
-      //piles_etablissement[i] = p;//VARIABLE LOCALE
-      //cout<<*piles_etablissement[i];
     }
   }
 
@@ -24,9 +22,7 @@ Pioche::~Pioche(){delete[]piles_etablissement;}
 //Autres methodes de classe
 const Etablissement& Pioche::getRandomEtablissement() const {
     srand(time(NULL));
-    cout<<"nb et "<<nb_etablissements<<endl;
     unsigned int numero_etablissement = rand() % nb_etablissements;
-    cout<<"num random : "<<numero_etablissement;//c'est toujours 41 lol
     unsigned int nb_etablissements_parcourus = 0;
     unsigned int i = 0;
     while (nb_etablissements_parcourus < numero_etablissement) {
@@ -46,17 +42,26 @@ return i;
 void Pioche::retirer_Etablissement(const Etablissement& etablissement, unsigned int quantite){
 unsigned int indexPile = getIndexPile(etablissement);
 piles_etablissement[indexPile].retirerCarte(quantite);
-cout<<"nb et "<<nb_etablissements<<endl;
 nb_etablissements-=quantite;
 if (piles_etablissement[indexPile].getEffectif()==0){
-    for (unsigned int i=indexPile; i<nb_piles;i++) piles_etablissement[i]=piles_etablissement[i+1];
+    for (unsigned int i=indexPile; i<nb_piles-1;i++) piles_etablissement[i]=piles_etablissement[i+1];
     nb_piles--;
 }
 }//pourrait aussi etre realise avec la librairie <array>
 
+
+const Etablissement& Pioche::retirerRandomEtablissement(){
+const Etablissement& random_etablissement = getRandomEtablissement();
+retirer_Etablissement(random_etablissement,1);
+return random_etablissement;
+}
+
 void Pioche::afficher()const{
-cout<<"******Pioche******"<<endl<<endl;
-for (unsigned int i = 0; i < nb_piles; i++) cout<<piles_etablissement[i];
+cout<<"******Pioche******"<<endl;
+for (unsigned int i = 0; i < nb_piles; i++) {
+cout<<piles_etablissement[i].getEtablissement()->getNom();
+cout<<" ("<<piles_etablissement[i].getEffectif()<<")"<<endl;
+}
 cout<<"******EndPioche******"<<endl<<endl;
 }
 //FONCTION DE TEST
