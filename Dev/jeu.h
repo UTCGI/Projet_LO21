@@ -40,12 +40,11 @@ class Jeu {
 
 	const Etablissement** liste_etablissements_depart =
 		new const Etablissement * [getNbEtablissements_Depart()];
-
+		
+	friend void buildcaracteristics1(Jeu* j, Extension e);
  public:
   //Jeu(Extension extension);  // pour creer Minivilles avec une extension
-  Jeu(Extension e = Extension::Aucune, const size_t& cdv = 4, size_t nbj = 4,
-		 size_t nbpr = 15, size_t nblr = 3, size_t nbcr = 5, size_t nbed = 2,
-		 size_t nbe = 15, size_t nbm = 4, size_t nbc = 108);
+  Jeu(Extension e = Extension::Aucune);
   ~Jeu()=default;
 
   Extension getExtension() const { return extension; }

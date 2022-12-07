@@ -47,7 +47,72 @@ void lancerdatabase(sqlite3 **db)
     //*********************************************************************************************
 }
 
-void buildmonument(const Monument **liste_monuments)
+
+
+void buildcaracteristics1(Jeu* j, Extension e){
+    cout << toString1(j->getExtension());
+
+
+    sqlite3* db;
+    sqlite3_stmt* stmt;
+    int rc;
+    int row = 0;
+    string sql;
+    
+    // Variable objets
+    //Extension extension;// = Extension::Aucune;
+    size_t cdv;
+    size_t nbj;
+    size_t nbpr;
+    size_t nblr;
+    size_t nbcr;
+    size_t nbed;
+    size_t nbe;
+    size_t nbm;
+    size_t nbc;
+
+    lancerdatabase(&db);
+    sql = "select * from Jeu where nom='" + toString1(e) + "';";
+    //cout << sql;
+    sqlite3_prepare(db, sql.data(), sql.length() * sizeof(char), &stmt, NULL);
+    bool done = false;
+    while (!done)
+    {
+        //printf("In select while\n");
+        switch (sqlite3_step(stmt))
+        {
+        case SQLITE_ROW:
+            j->condition_de_victoire = sqlite3_column_int(stmt, 1);
+            j->nb_joueurs_MAX = sqlite3_column_int(stmt, 2);
+            j->nb_pile_reserve_MAX = sqlite3_column_int(stmt, 3);
+            j->nb_lignes_reserve_MAX = sqlite3_column_int(stmt, 4);
+            j->nb_colonnes_reserve_MAX = sqlite3_column_int(stmt, 5);//(const size_t)
+            j->nbEtablissements_Depart = sqlite3_column_int(stmt, 6);
+            j->nbEtablissements = sqlite3_column_int(stmt, 7);
+            j->nbMonuments = sqlite3_column_int(stmt, 8);
+            j->nbCartes = sqlite3_column_int(stmt, 9);
+            row++;
+            break;
+
+        case SQLITE_DONE:
+            done = true;
+            break;
+
+        default:
+            cout << "Failed.\n";
+        }
+    }
+
+    sqlite3_finalize(stmt);
+    sqlite3_close(db);
+
+    j->liste_etablissements = new const Etablissement * [j->getNbEtablissements()];
+    j->liste_monuments = new const Monument * [j->getNbMonuments()];
+
+	j->liste_etablissements_depart = new const Etablissement * [j->getNbEtablissements_Depart()];
+}
+
+void buildmonument(const Monument **liste_monuments, Extension e)
 {
     // Variable Sqlite3
     sqlite3 *db;
@@ -62,19 +127,19 @@ void buildmonument(const Monument **liste_monuments)
 
     lancerdatabase(&db);
 
-    sql = "SELECT * from Monument";
+    sql = "SELECT * from "+toString1(e)+"Monument;";//monument";
     sqlite3_prepare(db, sql.data(), sql.length() * sizeof(char), &stmt, NULL);
     bool done = false;
     while (!done)
     {
-        // printf("In select while\n");
+        //printf("In select while\n");
         switch (sqlite3_step(stmt))
         {
         case SQLITE_ROW:
             nom = (const char *)sqlite3_column_text(stmt, 0);
             effet = (const char *)sqlite3_column_text(stmt, 1);
             prix = sqlite3_column_int(stmt, 2);
-            *(liste_monuments++) = new Monument(nom, effet, prix);
+            liste_monuments[row] = new Monument(nom, effet, prix);
             row++;
             break;
 

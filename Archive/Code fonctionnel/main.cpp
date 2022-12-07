@@ -1,3 +1,5 @@
+//<<<<<<< HEAD:Code/main.cpp
+//=======
 #include <iostream>
 #include "miniville.h"
 #include "etablissement.h"
@@ -46,3 +48,4 @@ int main() {
 //    cout<<p0;
 //    return 0;
 //};
+//>>>>>>> 18d9d8f6a23ef871f6e30c525efb149e30a0f194:Archive/Code fonctionnel/main.cpp
