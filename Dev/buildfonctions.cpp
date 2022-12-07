@@ -195,16 +195,19 @@ void buildetablissement(const Etablissement **liste_etablissements, const Etabli
             {
                 if (row != 0)
                 {
-                    if (identificateur <= 1)
+                    if (identificateur == 0)
+                        if (couleur==Couleur::vert&&type_effet!=Type::aucun)
+                            *(liste_etablissements_depart++) = new Etablissement_VertTE(nom, effet, couleur, prix, num_de, type, montant_effet, false, type_effet);
+                        else
+                            *(liste_etablissements_depart++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false);
+                    else if (identificateur <= 1)
                     {
                         // temp = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
-                        if (couleur==Couleur::vert&&type_effet==Type::aucun)
-                            temp = new Etablissement_VertTE(nom, effet, couleur, prix, num_de, type, montant_effet, false, type_effet);
+                        if (couleur==Couleur::vert&&type_effet!=Type::aucun)
+                            *(liste_etablissements++) = new Etablissement_VertTE(nom, effet, couleur, prix, num_de, type, montant_effet, false, type_effet);
                         else
-                            temp = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false);
-                        *(liste_etablissements++) = temp;
-                        if (identificateur == 0)
-                            *(liste_etablissements_depart++) = temp;
+                            *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false);
+                        
                     }
                     else
                         // *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
@@ -234,7 +237,9 @@ void buildetablissement(const Etablissement **liste_etablissements, const Etabli
         case SQLITE_DONE:
             if (row != 0)
                 {
-                    if (identificateur <= 1)
+                    if (identificateur == 0)
+                            *(liste_etablissements_depart++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false);
+                    else if (identificateur <= 1)
                     {
                         // temp = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
                         if (couleur==Couleur::vert&&type_effet==Type::aucun)
@@ -242,8 +247,7 @@ void buildetablissement(const Etablissement **liste_etablissements, const Etabli
                         else
                             temp = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false);
                         *(liste_etablissements++) = temp;
-                        if (identificateur == 0)
-                            *(liste_etablissements_depart++) = temp;
+                        
                     }
                     else
                         // *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);

@@ -63,7 +63,7 @@ insert into Marina1Monument values('Aeroport','Si votre jet de des est un double
   \
 drop table if exists Aucune;    \
 CREATE TABLE Aucune(          \
-nom varchar PRIMARY KEY,          \
+nom varchar,          \
 effet varchar,        \
 couleur varchar NOT NULL CHECK(couleur in ('rouge','bleu', 'vert', 'violet')),        \
 prix integer NOT NULL CHECK(prix>=0),         \
@@ -90,10 +90,14 @@ type_effet varchar NOT NULL CHECK(type_effet in ('agriculture',       \
     'restauration',       \
     'special', 'aucun')),         \
     payeur bool not null,         \
-    identificateur integer not null       \
+    identificateur integer not null,       \
+    PRIMARY KEY(nom, identificateur)       \
 );        \
 insert into Aucune VALUES('Champs de ble','Recevez 1 piece de la banque', 'bleu', 0, '[1]', 'agriculture', 1, 'aucun', 0, 0);         \
 insert into Aucune VALUES('Boulangerie','Recevez 1 piece de la banque', 'vert', 0, '[2, 3]', 'commerce', 1, 'aucun', 0, 0);       \
+\
+insert into Aucune VALUES('Champs de ble','Recevez 1 piece de la banque', 'bleu', 1, '[1]', 'agriculture', 1, 'aucun', 0, 1);         \
+insert into Aucune VALUES('Boulangerie','Recevez 1 piece de la banque', 'vert', 1, '[2, 3]', 'commerce', 1, 'aucun', 0, 1);       \
 insert into Aucune VALUES('Ferme', 'Recevez 1 piece de la banque', 'bleu', 1, '[2]', 'elevage', 1, 'aucun', 0, 1);        \
 insert into Aucune VALUES('Cafe','Recevez 1 piece du joueur qui a lance les des', 'rouge', 2, '[3]', 'restauration', 1, 'aucun', 0, 1);       \
 insert into Aucune VALUES('Superette','Recevez 3 pieces de la banque', 'vert', 2, '[4]', 'commerce', 3, 'aucun', 0, 1);       \
@@ -111,7 +115,7 @@ insert into Aucune VALUES('Marche de fruits et legumes', 'Recevez 2 pieces de la
   \
 drop table if exists MarinaADD;       \
 CREATE TABLE MarinaADD(       \
-nom varchar PRIMARY KEY,          \
+nom varchar,          \
 effet varchar,        \
 couleur varchar NOT NULL CHECK(couleur in ('rouge','bleu', 'vert', 'violet')),        \
 prix integer NOT NULL CHECK(prix>=0),         \
@@ -126,7 +130,7 @@ type1 varchar NOT NULL CHECK(type1 in ('agriculture',         \
     'entreprise',         \
     'restauration',       \
     'special', 'aucun')),         \
-montant_effet integer NOT NULL CHECK(montant_effet>=0),       \
+    montant_effet integer NOT NULL CHECK(montant_effet>=0),       \
 type_effet varchar NOT NULL CHECK(type_effet in ('agriculture',       \
     'elevage',        \
     'ressources',         \
@@ -138,7 +142,8 @@ type_effet varchar NOT NULL CHECK(type_effet in ('agriculture',       \
     'restauration',       \
     'special', 'aucun')),         \
     payeur bool not null,         \
-    identificateur integer not null       \
+    identificateur integer not null,       \
+    PRIMARY KEY(nom, identificateur)       \
 );        \
 insert into MarinaADD VALUES('Hotel de ville','test', 'bleu', 0, '[1]', 'special', 1, 'aucun', 0, 0);       \
 insert into MarinaADD VALUES('Sushi bar', 'Si vous avez le Port, recevez 3 pieces du joueur qui a lance les des', 'rouge', 2, '[1]', 'restauration', 3, 'aucun', 0, 1);    \
