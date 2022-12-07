@@ -26,7 +26,7 @@ class Partie {
   int getNbMonuments() const;
   int getNbEtablissements() const;
   Jeu* getJeu() const;
-  const Joueur* getJoueurActif() const;
+    Joueur* getJoueurActif() ;
   //Joueur* getEnsenbleJoueurs() const;
   Joueur getJoueurI(const int i) const;
   Reserve* getReserve() const;
@@ -119,8 +119,8 @@ class Partie {
       Objectif: Cette fonction permet d'appliquer les règles ???
       Jsp trop ce que doit faire cette fonction ??
   */
+void transaction_piece(Joueur* emetteur, Joueur*destinataire, int montant);
 
-  
+void transaction_carte(Joueur* emetteur, Joueur*destinataire, const Etablissement* etab);
 };
-
 #endif

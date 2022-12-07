@@ -20,8 +20,9 @@ Pile_Etablissement** Reserve::getListeEtablissement() const{
 Reserve::Reserve(Jeu& j){
 //Proposition d'amelioration : tableau de string ordre_reserve stocke dans jeu
 nb_piles_max = j.getNb_pile_reserve_MAX();
+auto etablissements=  j.getEtablissements();
 liste_etablissements=new Pile_Etablissement* [nb_piles_max];
-string ordre_reserve [nb_piles_max]= {
+/* string ordre_reserve [nb_piles_max]= {
     "Champs de ble",
     "Ferme",
     "Boulangerie",
@@ -37,10 +38,11 @@ string ordre_reserve [nb_piles_max]= {
     "Restaurant",
     "Verger",
     "Marche de fruits et legumes"
-    };
+    }; */
 for(unsigned int i=0;i<nb_piles_max;i++){
 liste_etablissements[i]=new Pile_Etablissement;
-ajouter_etablissement(*j.getEtablissementFromName(ordre_reserve[i]),j.getEtablissementFromName(ordre_reserve[i])->getNbExemplaires());
+//ajouter_etablissement(*j.getEtablissementFromName(ordre_reserve[i]),j.getEtablissementFromName(ordre_reserve[i])->getNbExemplaires());
+ajouter_etablissement(*etablissements[i],etablissements[i]->getNbExemplaires());
 }
 }
 
@@ -90,7 +92,7 @@ void Reserve::retirer_etablissement(const Etablissement& etablissement, unsigned
              nb_piles--;
              }
             }
-        else{SetException("l'etablissement n'est pas dans la réserve");}
+        else{SetException("l'etablissement n'est pas dans la rï¿½serve");}
         }
 
 void Reserve::afficher()const{
