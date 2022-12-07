@@ -17,9 +17,25 @@ class Pile_Etablissement {
  private:
   const Etablissement *etablissement;
   unsigned int effectif;
+  unsigned int minimum = 0;//Utile pour les établissement de départ
 
  public:
+
+  // Setters
+
+  void setMinimum(int a){
+    minimum = a;
+  }
+
+
   // Getters
+  int getMinimum(){
+    return minimum;
+  }
+
+  int getPrix(){
+    return effectif==minimum? 0 : etablissement->getMontant();
+  }
 
   /*
   Specification: getEtablissement()
