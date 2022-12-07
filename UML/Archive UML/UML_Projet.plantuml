@@ -1,0 +1,197 @@
+@startuml LO21 Project
+
+title Class Diagram - LO21 Project
+
+class Dé
+
+class Plateau
+
+class  Base
+
+class  Spécial
+
+class  Rouge
+
+class  Bleu
+
+class  Vert
+
+class  Partie{
+ -Tour : int
+ -Nb_joueurs : int
+}
+
+class Carte {
+ -Nom : string
+ -Effet : string
+ -coût : string
+ -Effectif : string
+ -Type : string
+}
+
+class Monument {
+ -Face : enum {En construction, Construit}
+} 
+ 
+
+class  Etablissement{
+ -Dé : int 
+ -Nb_pièces_reçues : int
+}
+
+class  Réserve{
+ -Nom : string
+ -Nombre : int
+}
+
+class  Main{
+ -Nom : string
+ -Nombre : int
+}
+
+class  Compte{
+ -Montant : int
+}
+
+class  Joueur{
+ -id : int
+}
+class Banque
+
+' Méthodes :
+Compte : -recevoir()
+
+Joueur : Demande_decision()
+' Construite (Monument / établissement) ou ne rien faire
+Joueur : +Lancer_dé()
+Joueur : +Acheter_carte()
+Joueur : +Payer_autres_joueurs()
+'Se déclanche si l'effet d'une carte necessite de payer d'autres participants
+
+Monument : +Construire()
+Monument : -A_gagné?()
+' Vérifie si le joueur qui vien de jouer a gagner
+
+Partie : +regarder_cartes()
+
+Etablissement : +Construire()
+
+Plateau : +initialisation_partie()
+' Donne les Etablissements de départ au joueur etc
+Plateau : +Déclanche_effets_cartes()
+' Déclanche les effets des cartes en fonction du résultat du lancé de dé
+
+Dé : +lancer_dé()
+' Permet de lancer 1 ou 2 dé et de renvoyer la somme si 2 dé
+
+Banque : +Payer()
+
+' Associations :
+Dé "2" --* "1" Plateau : < Contient
+Plateau "1" *-- "108" Carte : est composé de > 
+Plateau "1" o-- "1" Partie : < Se joue sur
+Carte "*" --o "1" Réserve : < Contient
+Réserve "1" -- "1..4" Main : Transfere >
+Carte "*" --o "1" Main : est composé de >
+Carte <|-- Etablissement
+Carte <|-- Monument
+Partie "1" -- "2..4" Joueur : Conprend >
+Joueur "1" -- "1" Main : Possède >
+Joueur "1" -- "1" Compte : Possède >
+Main "1" -- "1" Main : Echange de cartes >
+Etablissement <|-- Base 
+Etablissement <|-- Spécial
+Base <|-- Rouge
+Base <|-- Bleu
+Base <|-- Vert
+Banque "1" -- "*" Joueur : transmet >
+Banque -- Plateau : < Demande l'activation des cartes
+Banque "1" -- "*" Compte : Paye >
+
+
+
+' Commentaire :
+
+note "Vérifier les lien (aggregation, composition)" as N1
+
+note bottom of Monument
+- Il y a 4 sortes de 
+Monuments par joueurs
+- Tout les monuments sont initialisés 
+comme "En construction"
+- S'active uniquement au 
+tour du joueur courant
+end note
+note top of Etablissement 
+- 12 sortes d'Etablissements de base
+- 3 sortes d'Etablissements spéciaux
+- Construit jusqu'a épuisement de la carte
+end note
+
+note left of Compte
+- Chaque joueur commence
+ avec 3 pièces
+- Pas de limite du nombre de pièces
+end note
+
+note top of Partie
+- Le joueur ayant visité un parc 
+d'attraction le plus recement commence.
+- Sens horaire
+end note
+
+
+note right of Plateau
+Ordre des actions:
+1) Le joueur courant lance le dé
+2) Déclanchement des effets suivant la valeur du dé
+(Le joueur paye ce qu'il doit avant de recevoir de la banque)
+3) Le joueur peut construire un établissement 
+ou un monument ou passer son tour
+end note
+
+note right of Dé
+1 seul dé lorsque la gare est en construction
+2 Dé quand la gare est construite
+end note
+
+note bottom of Vert
+S'active au tour de
+n'importe quel joueur
+end note
+
+note bottom of Bleu
+S'active uniquement au 
+tour du joueur courant
+end note
+
+note bottom of Rouge
+Recevez des pièces du 
+joueur qui a lancé le dé
+end note
+
+note bottom of Joueur
+-Les paiements entre joueur s'effectuent
+avant la reception des pieces de la banque
+-Si le joueur ne peut pas tout payer,
+il est exempté du reste
+-Transactions multiples : payer dans le 
+sens inverse des aiguilles d'une montre
+-Ne peut construire qu'une seule carte par tour
+end note
+
+note right of Spécial
+Violets -> Sont uniques
+Il ne peut y en avoir 
+qu'un dans chaque ville
+end note
+
+note bottom of Réserve
+Si une carte n'est plus dans la reserve, on ne 
+peut plus la construire
+end note
+' note top of Etablissement::dé 
+'     1  de  12
+' end note
+
+@enduml
