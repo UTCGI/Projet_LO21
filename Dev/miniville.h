@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <initializer_list>
+#include <vector>
 using namespace std;
 
 // classe pour g�rer les exceptions dans les caracteristiques des etablissements
@@ -67,7 +68,8 @@ ostream &operator<<(ostream &f, Extension e);
 extern initializer_list<Couleur> Couleurs;
 extern initializer_list<Type> Types;
 // liste contenant les valeurs possibles pour chaque extension
-extern std::initializer_list<Extension> Extensions;
+//extern std::initializer_list<Extension> Extensions;
+extern vector<Extension> Extensions;
 
 // affichage des valeurs possibles pour chaque caract�ristique
 void printCouleurs(std::ostream &f = cout);

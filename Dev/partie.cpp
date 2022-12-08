@@ -33,16 +33,16 @@ const vector<Joueur*>& Partie::getJoueurs() const {return joueurs1;}
 // ce n'est pas plutôt des void le type de retour des setters ?
 void  Partie::setManche(int nbManche) { manche = nbManche; }
 
-void  Partie::setNumDe(int nbDe) { num_de = nbDe; }
+void  Partie::setNumDe(int nbDe) { num_de = nbDe; }//inutile ?
 
 void  Partie::setNbJoueurs(int nbJoueurs) { nb_joueurs = nbJoueurs; }
 
-void  Partie::setNbMonuments(int nbMonuments) { nb_monuments = nbMonuments; }
+//void  Partie::setNbMonuments(int nbMonuments) { nb_monuments = nbMonuments; }
 
-void  Partie::setNbEtablissements(int nbEtablissements)
+/*void  Partie::setNbEtablissements(int nbEtablissements)
 {
   nb_etablissements = nbEtablissements;
-}
+}*/
 
 
 // ----------------------------------------------------------------
@@ -81,12 +81,13 @@ retry:
       cin >> lectureExtension;
 
   } while (lectureExtension < 0 || lectureExtension > 3);
-  switch (lectureExtension)
+  jeu = new Jeu(Extensions[lectureExtension]);
+  /*switch (lectureExtension)
   {
   case 0:
     setNbMonuments(4);       // TODO Vérifier le nb de monuments exact
     setNbEtablissements(15); // TODO Vérifier le nb de etablissements exact
-
+    //jeu = new Jeu(lectureExtension);
     jeu = new Jeu(Extension::Aucune);
     break;
   case 1:
@@ -107,7 +108,7 @@ retry:
 
     jeu = new Jeu(Extension::Deluxe);
     break;
-  }
+  }*/
 
   cout << "Entrez le nombre de joueurs :" << endl;
   int lecture = 0;
