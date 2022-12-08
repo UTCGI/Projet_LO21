@@ -71,6 +71,8 @@ int main()
 {
     Partie p;
     menu(p);
+    Partie p;
+    menu(p);
     //A CONTINUER
 
     /* Jeu* j = new Jeu(Extension::Deluxe);//(Extension::Marina);//(Extension::GreenValley);// (Extension::Deluxe);

@@ -39,10 +39,12 @@ class Partie {
   void setNbJoueurs(int nbJoueurs);
   //void setNbMonuments(int nbMonuments); //inutile on les a deja dans jeu !
   //void setNbEtablissements(int nbEtablissements); //inutile on les a deja dans jeu !
-  Jeu* setJeu(Jeu* jeu);//inutile ?
-  Joueur* setJoueurActif(Joueur* joueur);
-  Joueur* setEnsenbleJoueurs(Joueur* EnsembreJoueurs);
-  Reserve* setReserve(Reserve* Reserve);
+
+  //Jeu* setJeu(Jeu* jeu);//inutile ?
+  //Joueur* setJoueurActif(Joueur* joueur);//inutile
+  //Joueur* setEnsenbleJoueurs(Joueur* EnsembreJoueurs);//inutile
+  //Reserve* setReserve(Reserve* Reserve);//inutile
+ 
   // Constructors and destructors functions
   /*
   SPECIFICATION : Partie::Partie()

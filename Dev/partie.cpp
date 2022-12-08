@@ -14,9 +14,9 @@ int Partie::getNumDe() const { return num_de; }
 
 int Partie::getNbJoueurs() const { return nb_joueurs; }
 
-int Partie::getNbMonuments() const { return nb_monuments; }
+//int Partie::getNbMonuments() const { return nb_monuments; }
 
-int Partie::getNbEtablissements() const { return nb_etablissements; }
+//int Partie::getNbEtablissements() const { return nb_etablissements; }
 
 Jeu *Partie::getJeu() const { return jeu; }
 
@@ -51,9 +51,9 @@ void  Partie::setNbJoueurs(int nbJoueurs) { nb_joueurs = nbJoueurs; }
 Partie::Partie()
     : manche(0),
       num_de(1),
-      nb_joueurs(2),
-      nb_monuments(4),
-      nb_etablissements(15)
+      nb_joueurs(2)//,
+      //nb_monuments(4),
+      //nb_etablissements(15)
       /* joueur_actif(new Joueur),
       joueurs(new Joueur[nb_joueurs])*/
 { 
