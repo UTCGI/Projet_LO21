@@ -48,16 +48,18 @@ void menu(Partie& p){
                     p.initialisation();
                     initialise = true;
                     break;
-                case 2:
+                /*case 2:
                     break;
                 case 3:
-                    break;
+                    break;*/
 
                 default:// Les nombres unbound
                     cout << "Erreur ! Vous n'avez pas saisi un nombre valide." << endl;
                     break;
                 }
             cout << endl;
+
+
         }
     }
 

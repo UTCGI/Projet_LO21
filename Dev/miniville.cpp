@@ -6,7 +6,9 @@ initializer_list<Couleur> Couleurs = {Couleur::bleu, Couleur::rouge,
 initializer_list<Type> Types = {Type::aucun, Type::agriculture, Type::elevage,
 								Type::ressources, Type::maritime, Type::commerce, Type::industrie,
 								Type::maraichage, Type::entreprise, Type::restauration, Type::special};
-initializer_list<Extension> Extensions = {Extension::Aucune, Extension::Marina,
+//initializer_list<Extension> Extensions = {Extension::Aucune, Extension::Marina,
+//										  Extension::GreenValley, Extension::Deluxe};
+vector<Extension> Extensions = {Extension::Aucune, Extension::Marina,
 										  Extension::GreenValley, Extension::Deluxe};
 
 string toString(Couleur c)
