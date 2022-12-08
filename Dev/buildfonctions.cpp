@@ -50,7 +50,7 @@ void lancerdatabase(sqlite3 **db)
 
 
 void buildcaracteristics1(Jeu* j, Extension e){
-    cout << toString1(j->getExtension());
+    cout << toString1(j->getExtension()) << endl;
 
 
     sqlite3* db;
