@@ -56,7 +56,13 @@ insert into AucuneMonument values('Tour radio','Une fois par tour, vous pouvez c
 insert into AucuneMonument values('Parc dattractions','Si votre jet de des est un double, rejouez un tour apres celui-ci', 16);   \
 insert into Marina1Monument values('Port','Une fois par tour, vous pouvez choisir de relancer vos des', 22);   \
 insert into Marina1Monument values('Aeroport','Si votre jet de des est un double, rejouez un tour apres celui-ci', 16);   \
-  \
+\
+drop view if exists GreenValleyMonument;   \
+CREATE VIEW GreenValleyMonument AS SELECT * FROM AucuneMonument;   \
+\
+drop view if exists DeluxeMonument;   \
+CREATE VIEW DeluxeMonument AS SELECT * FROM MarinaMonument;   \
+\
   \
   \
   \
