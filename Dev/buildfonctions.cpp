@@ -179,6 +179,20 @@ void buildetablissement(const Etablissement **liste_etablissements, const Etabli
     unsigned int nb_exemplaires;
     const Etablissement *temp = nullptr;
 
+    int nombreCarteDepart; 
+    int nombreCarteNormale;
+    int nombreCarteSpeciale;
+
+    if (e == Extension::Deluxe){
+        nombreCarteDepart = 5;
+        nombreCarteNormale = 5;
+        nombreCarteSpeciale = 2;
+    }else{
+        nombreCarteDepart = 4;
+        nombreCarteNormale = 6;
+        nombreCarteSpeciale = 4;
+    }
+
     lancerdatabase(&db);
 
     sql = "SELECT nom, effet, couleur, prix, cast(de.atom as integer), type1, montant_effet, type_effet, payeur, identificateur from " + toString1(e) + ", json_each(" + toString1(e) + ".num_de) de";
@@ -201,21 +215,22 @@ void buildetablissement(const Etablissement **liste_etablissements, const Etabli
                 {
                     if (identificateur == 0)
                         if (couleur==Couleur::vert&&type_effet!=Type::aucun)
-                            *(liste_etablissements_depart++) = new Etablissement_VertTE(nom, effet, couleur, prix, num_de, type, montant_effet, false, type_effet);
+                            *(liste_etablissements_depart++) = new Etablissement_VertTE(nom, effet, couleur, prix, num_de, type, montant_effet, false, nombreCarteDepart, type_effet);
                         else
-                            *(liste_etablissements_depart++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false);
+                            *(liste_etablissements_depart++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false, nombreCarteDepart);
                     else if (identificateur <= 1)
                     {
                         // temp = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
                         if (couleur==Couleur::vert&&type_effet!=Type::aucun)
-                            *(liste_etablissements++) = new Etablissement_VertTE(nom, effet, couleur, prix, num_de, type, montant_effet, false, type_effet);
+                            *(liste_etablissements++) = new Etablissement_VertTE(nom, effet, couleur, prix, num_de, type, montant_effet, false, nombreCarteNormale, type_effet);
                         else
-                            *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false);
+                            *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false, nombreCarteNormale);
                         
                     }
                     else
+                        //Partie carte spéciale
                         // *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
-                        *(liste_etablissements++) = new Etablissement_Violet(nom, effet, couleur, prix, num_de, type, montant_effet, true, payeur);
+                        *(liste_etablissements++) = new Etablissement_Violet(nom, effet, couleur, prix, num_de, type, montant_effet, true, nombreCarteSpeciale, payeur);
                         //*(liste_etablissements_speiciaux++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
                 }
                 row++;
@@ -238,20 +253,23 @@ void buildetablissement(const Etablissement **liste_etablissements, const Etabli
             if (row != 0)
                 {
                     if (identificateur == 0)
-                            *(liste_etablissements_depart++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false);
+                        if (couleur==Couleur::vert&&type_effet!=Type::aucun)
+                            *(liste_etablissements_depart++) = new Etablissement_VertTE(nom, effet, couleur, prix, num_de, type, montant_effet, false, nombreCarteDepart, type_effet);
+                        else
+                            *(liste_etablissements_depart++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false, nombreCarteDepart);
                     else if (identificateur <= 1)
                     {
                         // temp = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
-                        if (couleur==Couleur::vert&&type_effet==Type::aucun)
-                            temp = new Etablissement_VertTE(nom, effet, couleur, prix, num_de, type, montant_effet, false, type_effet);
+                        if (couleur==Couleur::vert&&type_effet!=Type::aucun)
+                            *(liste_etablissements++) = new Etablissement_VertTE(nom, effet, couleur, prix, num_de, type, montant_effet, false, nombreCarteNormale, type_effet);
                         else
-                            temp = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false);
-                        *(liste_etablissements++) = temp;
+                            *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false, nombreCarteNormale);
                         
                     }
                     else
+                        //Partie carte spéciale
                         // *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
-                        *(liste_etablissements++) = new Etablissement_Violet(nom, effet, couleur, prix, num_de, type, montant_effet, true, payeur);
+                        *(liste_etablissements++) = new Etablissement_Violet(nom, effet, couleur, prix, num_de, type, montant_effet, true, nombreCarteSpeciale, payeur);
                         //*(liste_etablissements_speiciaux++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
                 }
             done = true;

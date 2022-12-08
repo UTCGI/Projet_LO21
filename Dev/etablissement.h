@@ -34,7 +34,7 @@ class Etablissement {
   // Constructors and destructors functions
 Etablissement(const string& nom1, const string& effet1, Couleur couleur1,
     unsigned int prix1, vector<unsigned int> num_de1, Type type1,
-    unsigned int montant_effet1,bool isSpecial1);
+    unsigned int montant_effet1,bool isSpecial1, int nb_exemplaires);
   ~Etablissement() = default;
 
   // Methods
@@ -52,7 +52,7 @@ class Etablissement_Violet:public Etablissement{
  bool getPayeur() const;
  Etablissement_Violet(const string& nom1, const string& effet1, Couleur couleur1,
     unsigned int prix1, vector<unsigned int> num_de1, Type type1,
-    unsigned int montant_effet1,bool isSpecial1,bool payeur1);
+    unsigned int montant_effet1,bool isSpecial1, int nb_exemplaires ,bool payeur1);
  void afficher(std::ostream& f= std::cout) const;
 };
 
@@ -63,7 +63,7 @@ class Etablissement_VertTE : public Etablissement{
   Type getTypeEffet() const;
   Etablissement_VertTE(const string& nom1, const string& effet1, Couleur couleur1,
     unsigned int prix1, vector<unsigned int> num_de1, Type type1,
-    unsigned int montant_effet1,bool isSpecial1, Type type_effet1);
+    unsigned int montant_effet1,bool isSpecial1, int nb_exemplaires, Type type_effet1);
   void afficher(std::ostream& f= std::cout) const;
 };
 

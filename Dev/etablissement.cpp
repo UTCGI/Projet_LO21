@@ -5,18 +5,15 @@
 
 Etablissement::Etablissement(const string& nom1, const string& effet1, Couleur couleur1,
     unsigned int prix1, vector<unsigned int> num_de1, Type type1,
-    unsigned int montant_effet1,bool isSpecial1) :
+    unsigned int montant_effet1,bool isSpecial1, int nb_exemplaires) :
     nom(nom1),
     effet(effet1),
     couleur(couleur1),
     prix(prix1),
     num_de(num_de1),
     type(type1),
-    montant_effet(montant_effet1),isSpecial(isSpecial1){
-    if ((couleur == Couleur::violet) || ((prix == 0)))
-        nb_exemplaires = 4;
-    else
-        nb_exemplaires = 6;
+    montant_effet(montant_effet1),isSpecial(isSpecial1), nb_exemplaires(nb_exemplaires){
+
 }
 
 string Etablissement::getNom() const { return nom; }
@@ -68,7 +65,7 @@ void Etablissement::afficher(std::ostream& f) const{
 // Methodes de classes Etalissement_VertTE
  Etablissement_VertTE::Etablissement_VertTE(const string& nom1, const string& effet1, Couleur couleur1,
     unsigned int prix1, vector<unsigned int> num_de1, Type type1,
-    unsigned int montant_effet1,bool isSpecial1, Type type_effet1):Etablissement(nom1,effet1,couleur1,prix1,num_de1,type1,montant_effet1,isSpecial1),type_effet(type_effet1){};
+    unsigned int montant_effet1,bool isSpecial1, int nb_exemplaires, Type type_effet1):Etablissement(nom1,effet1,couleur1,prix1,num_de1,type1,montant_effet1,isSpecial1, nb_exemplaires),type_effet(type_effet1){};
 
 Type Etablissement_VertTE::getTypeEffet() const {return type_effet;}
 
@@ -80,7 +77,7 @@ Etablissement::afficher(f);
 // Methodes de classes Etalissement_Violet
 Etablissement_Violet:: Etablissement_Violet(const string& nom1, const string& effet1, Couleur couleur1,
     unsigned int prix1, vector<unsigned int> num_de1, Type type1,
-    unsigned int montant_effet1,bool isSpecial1,bool payeur1):Etablissement(nom1,effet1,couleur1,prix1,num_de1,type1,montant_effet1,isSpecial1),payeur(payeur1){};
+    unsigned int montant_effet1,bool isSpecial1, int nb_exemplaires,bool payeur1):Etablissement(nom1,effet1,couleur1,prix1,num_de1,type1,montant_effet1,isSpecial1, nb_exemplaires),payeur(payeur1){};
 bool Etablissement_Violet::Etablissement_Violet::getPayeur() const {return payeur;}
 
 void Etablissement_Violet::Etablissement_Violet::afficher(std::ostream& f) const{
@@ -113,26 +110,3 @@ ostream& operator<<(ostream& f, const Etablissement& e) {
 
 bool Etablissement::operator==(Etablissement e1)const {return this->nom.compare(e1.getNom())==0;}
 bool Etablissement::operator!=(Etablissement e1)const {return this->nom.compare(e1.getNom())!=0;}
-//TEST
-int EtablissementTest()
-{
-    Etablissement* tab[3]; //tableau avec des objets de la classe mère + des classes dérivées
-    tab[0]=new Etablissement("a","b",Couleur::bleu,1,{1,3},Type::agriculture,3,0);
-    tab[1]= new Etablissement_VertTE("a","b",Couleur::bleu,1,{1,3},Type::agriculture,3,0,Type::commerce);
-    tab[2]= new Etablissement_Violet("a","b",Couleur::violet,1,{1,3},Type::agriculture,3,0,1);
-
-  for (unsigned int i=0;i<3;i++){
-/* reconnaître un objet de la classe dérivée et lui appliquer un traitement particulier*/
-        /*if (dynamic_cast<Etablissement_VertTE*>(tab[i])!=nullptr){
-        cout<<"tab["<<i<<"]->getTypeEffet()="<<dynamic_cast<Etablissement_VertTE*>(tab[i])->getTypeEffet()<<endl;
-        }else{
-         if (dynamic_cast<Etablissement_Violet*>(tab[i])!=nullptr)
-        cout<<"tab["<<i<<"]->getPayeur()="<<dynamic_cast<Etablissement_Violet*>(tab[i])->getPayeur()<<endl;
-        }*/
-/* méthode virtual redéfinie*/
-tab[i]->afficher();
-}
-
-  return 0;
-}
-
