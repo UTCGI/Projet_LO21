@@ -51,7 +51,13 @@ insert into AucuneMonument values('Tour radio','Une fois par tour, vous pouvez c
 insert into AucuneMonument values('Parc dattractions','Si votre jet de des est un double, rejouez un tour apres celui-ci', 16);   
 insert into Marina1Monument values('Port','Une fois par tour, vous pouvez choisir de relancer vos des', 22);   
 insert into Marina1Monument values('Aeroport','Si votre jet de des est un double, rejouez un tour apres celui-ci', 16);   
-  
+
+drop view if exists GreenValleyMonument;   
+CREATE VIEW GreenValleyMonument AS SELECT * FROM AucuneMonument;   
+
+drop view if exists DeluxeMonument;   
+CREATE VIEW DeluxeMonument AS SELECT * FROM MarinaMonument;   
+
   
   
   
@@ -155,3 +161,54 @@ insert into MarinaADD VALUES('Chalutier', 'Le joueur dont c''est le tour lance 2
   
 drop view if exists Marina;       
 CREATE VIEW Marina AS SELECT * FROM Aucune UNION SELECT * FROM MarinaADD;  
+  
+  
+drop table if exists GreenValleyADD;       
+CREATE TABLE GreenValleyADD(
+nom varchar, 
+effet varchar, 
+couleur varchar NOT NULL CHECK(couleur in('rouge', 'bleu', 'vert', 'violet')), 
+prix integer NOT NULL CHECK(prix >= 0), 
+num_de JSON NOT NULL, 
+type1 varchar NOT NULL CHECK(type1 in('agriculture', 
+    'elevage', 
+    'ressources', 
+    'maritime', 
+    'commerce', 
+    'industrie', 
+    'maraichage', 
+    'entreprise', 
+    'restauration', 
+    'special', 'aucun')), 
+montant_effet integer NOT NULL CHECK(montant_effet >= -2), 
+type_effet varchar NOT NULL CHECK(type_effet in('agriculture', 
+    'elevage', 
+    'ressources', 
+    'maritime', 
+    'commerce', 
+    'industrie', 
+    'maraichage', 
+    'entreprise', 
+    'restauration', 
+    'special', 'aucun')), 
+payeur bool not null, 
+identificateur integer not null, 
+PRIMARY KEY(nom, identificateur)       
+);        
+insert into GreenValleyADD VALUES('Epicerie', 'Si vous possedez moins de deux monuments, recevez 2 pieces de la banque', 'vert', 0, '[2]', 'commerce', 2, 'aucun', 0, 1);        
+insert into GreenValleyADD VALUES('Champ de mais', 'Si vous possedez moins de deux monuments, recevez 1 piece de la banque', 'bleu', 2, '[3, 4]','agriculture', 1, 'aucun', 0, 1);        
+insert into GreenValleyADD VALUES('Entreprise de travaux publics', 'Vous devez retourner une de vos cartes monuments sur sa face en travaux. Ce faisant, recevez 8 pieces de la banque','vert', 2, '[4]', 'entreprise', 8, 'aucun', 0, 1);        
+insert into GreenValleyADD VALUES('Restaurant 5 etoiles', 'Recevez 5 pieces du joueur qui a lance les des si celui-ci possede au moins deux monuments construits', 'rouge', 3, '[5]', 'restauration', 5, 'aucun', 0, 1);        
+insert into GreenValleyADD VALUES('Banque de Minivilles', 'Lorsque vous achetez cet etablissement, recevez 5 pieces de la banque. Payez 2 pieces a la banque', 'vert', 0, '[5, 6]', 'entreprise', -2, 'aucun', 0, 1);        
+insert into GreenValleyADD VALUES('Vignoble', 'Recevez 3 pieces de la banque', 'bleu', 3, '[7]', 'agriculture', 3, 'aucun', 0, 1);        
+insert into GreenValleyADD VALUES('Entreprise de renovation', 'Choisissez un etablissement qui ne soit pas de type special. Tous les etablissements identiques de tous les joueurs sont fermes. Puis recevez 1 piece de la banque pour chaque etablissement ainsi ferme', 'violet', 4, '[8]', 'special', 1, 'aucun', 1, 2);        
+insert into GreenValleyADD VALUES('Cave a vin', 'Recevez 6 pieces de la banque pour chaque Vignoble que vous possedez. Puis fermez cette Cave a vin', 'vert', 3, '[9]', 'industrie', 6, 'aucun', 0, 1);        
+insert into GreenValleyADD VALUES('Entreprise de demenagement', 'Donnez a un autre joueur, un de vos etablissements qui ne soit pas de type special. Puis recevez 4 pieces de la banque', 'vert', 2, '[9, 10]', 'entreprise', 4, 'aucun', 0, 1);        
+insert into GreenValleyADD VALUES('Startup', 'Recevez 1 piece de la banque pour chaque piece placee sur l''ensemble des Startups de tous les joueurs. A la fin de votre tour, placez une piece sur votre Startup', 'violet', 1, '[10]', 'special', 1, 'aucun', 0, 2);        
+insert into GreenValleyADD VALUES('Moonster soda', 'Recevez 1 piece de la banque pour chaque etablissement de type restauration que possedent tous les joueurs', 'vert', 5, '[11]', 'industrie', 1, 'restauration', 0, 1);        
+insert into GreenValleyADD VALUES('Arboretum', 'Rassemblez les pieces de tous les joueurs puis redistribuez-les de maniere egale entre tous. La banque completera s''il manque des pieces pour une redistribution egale', 'violet', 3, '[11, 12, 13]', 'special', 0, 'aucun', 0, 2);        
+insert into GreenValleyADD VALUES('Club prive', 'Recevez toutes les pieces du joueur qui a lance les des si celui-ci possede au moins trois etablissements construits', 'rouge', 4, '[12, 13, 14]', 'restauration', 0, 'aucun', 0, 1);        
+
+
+drop view if exists GreenValley;       
+CREATE VIEW GreenValley AS SELECT * FROM Aucune UNION SELECT * FROM GreenValleyADD;   

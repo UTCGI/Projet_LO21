@@ -191,7 +191,11 @@ void buildetablissement(const Etablissement **liste_etablissements, const Etabli
         switch (sqlite3_step(stmt))
         {
         case SQLITE_ROW:
-            if (strcmp(nom.data(), (const char *)sqlite3_column_text(stmt, 0)) != 0)
+            if (strcmp(nom.data(), (const char *)sqlite3_column_text(stmt, 0)) == 0 && identificateur == sqlite3_column_int(stmt, 9))
+            {
+                num_de.push_back(sqlite3_column_int(stmt, 4));
+            }
+            else
             {
                 if (row != 0)
                 {
@@ -227,10 +231,6 @@ void buildetablissement(const Etablissement **liste_etablissements, const Etabli
                 payeur = sqlite3_column_int(stmt, 8);
                 identificateur = sqlite3_column_int(stmt, 9);
                 // cout<<endl;
-            }
-            else
-            {
-                num_de.push_back(sqlite3_column_int(stmt, 4));
             }
             break;
 
