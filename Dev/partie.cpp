@@ -69,18 +69,19 @@ void Partie::initialisation()
   cout << "Bonjour, bienvenu dans le jeu MachiKoro" << endl;
 
   // TODO: A completer
-  // Il faut recuperer l'extention ? Pour pouvoir initialiser les varianles aux
+  // Il faut recuperer l'extension ? Pour pouvoir initialiser les variables aux
   // bonnes valeurs
-  int lectureExtention;
+  int lectureExtension;
 retry:  
-  cout << "Entrez l'extention à laquelle vous voulez jouer \t0. Originale\t1. Marina \t2. GreenValley\t3. Deluxe)"
+  cout << "Entrez l'extension a laquelle vous voulez jouer \t0. Originale\t1. Marina \t2. GreenValley\t3. Deluxe"
        << endl;
   do
   {
-    cin >> lectureExtention;
+      cout << "L'extension doit etre comprise entre 0 et 3" << endl;
+      cin >> lectureExtension;
 
-  } while (lectureExtention < 0 || lectureExtention > 3);
-  switch (lectureExtention)
+  } while (lectureExtension < 0 || lectureExtension > 3);
+  switch (lectureExtension)
   {
   case 0:
     setNbMonuments(4);       // TODO Vérifier le nb de monuments exact
@@ -110,12 +111,13 @@ retry:
 
   cout << "Entrez le nombre de joueurs :" << endl;
   int lecture = 0;
-  while (lecture < 2 || lecture > 4)
+  while (lecture < 2 || lecture > jeu->getNb_joueurs_MAX())
   {
-    cin >> lecture;
+      cout << "Le nombre de joueur doit etre compris entre 2 et " << jeu->getNb_joueurs_MAX() << endl;
+      cin >> lecture;
   } 
-  if ( (jeu->getEtablissementsDepart()[0]->getNbExemplaires()) < lecture)
-    goto retry;// Si pas assez de cartes départ
+  cout << jeu->getEtablissementsDepart()[0]->getNbExemplaires();
+  if ( (jeu->getEtablissementsDepart()[0]->getNbExemplaires()) < lecture) goto retry;// Si pas assez de cartes départ
 
   setNbJoueurs(lecture);
 

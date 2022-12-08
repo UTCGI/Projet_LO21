@@ -49,7 +49,7 @@ public:
 
   int getNombreMonumentsConstruits() const;
 
-  static int getNbMaxJoueurs();
+  //static int getNbMaxJoueurs();
 
   const vector<Carte_Monument *> &getMonuments() const { return monuments; }
 
