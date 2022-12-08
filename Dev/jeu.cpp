@@ -13,13 +13,12 @@ Jeu::Jeu(Extension e) :
 void Jeu::printE_D(std::ostream& f) const {
     for (size_t i = 0; i < getNbEtablissements_Depart(); i++)
         f << "ETABLISSEMENTS DE DEPART" << endl << i + 1
-        << endl << *liste_etablissements_depart[i];
-    f << endl;
+        << endl << *liste_etablissements_depart[i]<< endl;
+    
 }
 void Jeu::printE(std::ostream& f) const {
     for (size_t i = 0; i < getNbEtablissements(); i++)
-        f << "ETABLISSEMENTS" << endl << i + 1 << endl << *liste_etablissements[i];
-    f << endl;
+        f << "ETABLISSEMENTS" << endl << i + 1 << endl << *liste_etablissements[i]<< endl;
 }
 void Jeu::printM(std::ostream& f) const {
     for (size_t i = 0; i < getNbMonuments(); i++)
