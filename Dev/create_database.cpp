@@ -216,7 +216,56 @@ insert into GreenValleyADD VALUES('Club prive', 'Recevez toutes les pieces du jo
 \
 \
 drop view if exists GreenValley;       \
-CREATE VIEW GreenValley AS SELECT * FROM Aucune UNION SELECT * FROM GreenValleyADD; "  \
+CREATE VIEW GreenValley AS SELECT * FROM Aucune UNION SELECT * FROM GreenValleyADD;  \
+  \
+  \
+drop table if exists DeluxeEXCEPT;       \
+CREATE TABLE DeluxeEXCEPT(\
+nom varchar, \
+effet varchar, \
+couleur varchar NOT NULL CHECK(couleur in('rouge', 'bleu', 'vert', 'violet')), \
+prix integer NOT NULL CHECK(prix >= 0), \
+num_de JSON NOT NULL, \
+type1 varchar NOT NULL CHECK(type1 in('agriculture', \
+    'elevage', \
+    'ressources', \
+    'maritime', \
+    'commerce', \
+    'industrie', \
+    'maraichage', \
+    'entreprise', \
+    'restauration', \
+    'special', 'aucun')), \
+montant_effet integer NOT NULL CHECK(montant_effet >= -2), \
+type_effet varchar NOT NULL CHECK(type_effet in('agriculture', \
+    'elevage', \
+    'ressources', \
+    'maritime', \
+    'commerce', \
+    'industrie', \
+    'maraichage', \
+    'entreprise', \
+    'restauration', \
+    'special', 'aucun')), \
+payeur bool not null, \
+identificateur integer not null, \
+PRIMARY KEY(nom, identificateur)       \
+);        \
+""insert into DeluxeEXCEPT VALUES('Hotel de ville','test', 'bleu', 0, '[1]', 'special', 1, 'aucun', 0, 0);        \
+insert into DeluxeEXCEPT VALUES('Fromagerie', 'Recevez 3 pieces de la banque pour chaque etablissement de type elevage que vous possedez', 'vert', 5, '[7]','industrie', 3, 'elevage', 0, 1);        \
+insert into DeluxeEXCEPT VALUES('Champ de mais', 'Si vous possedez moins de deux monuments, recevez 1 piece de la banque', 'bleu', 2, '[3, 4]','agriculture', 1, 'aucun', 0, 1);        \
+insert into DeluxeEXCEPT VALUES('Banque de Minivilles', 'Lorsque vous achetez cet etablissement, recevez 5 pieces de la banque. Payez 2 pieces a la banque', 'vert', 0, '[5, 6]', 'entreprise', -2, 'aucun', 0, 1);        \
+insert into DeluxeEXCEPT VALUES('Cave a vin', 'Recevez 6 pieces de la banque pour chaque Vignoble que vous possedez. Puis fermez cette Cave a vin', 'vert', 3, '[9]', 'industrie', 6, 'aucun', 0, 1);        \
+insert into DeluxeEXCEPT VALUES('Sushi bar', 'Si vous avez le Port, recevez 3 pieces du joueur qui a lance les des', 'rouge', 2, '[1]', 'restauration', 3, 'aucun', 0, 1);        \
+insert into DeluxeEXCEPT VALUES('Champ de fleurs', 'Recevez 1 piece de la banque', 'bleu', 2, '[4]','agriculture', 1, 'aucun', 0, 1);        \
+insert into DeluxeEXCEPT VALUES('Fleuriste', 'Recevez 1 piece de la banque pour chaque Champ de fleurs que vous possedez','vert', 1, '[6]', 'commerce', 1, 'aucun', 0, 1);        \
+insert into DeluxeEXCEPT VALUES('Entreprise de renovation', 'Choisissez un etablissement qui ne soit pas de type special. Tous les etablissements identiques de tous les joueurs sont fermes. Puis recevez 1 piece de la banque pour chaque etablissement ainsi ferme', 'violet', 4, '[8]', 'special', 1, 'aucun', 1, 2);        \
+insert into DeluxeEXCEPT VALUES('Startup', 'Recevez 1 piece de la banque pour chaque piece placee sur l''ensemble des Startups de tous les joueurs. A la fin de votre tour, placez une piece sur votre Startup', 'violet', 1, '[10]', 'special', 1, 'aucun', 0, 2);        \
+insert into DeluxeEXCEPT VALUES('Arboretum', 'Rassemblez les pieces de tous les joueurs puis redistribuez-les de maniere egale entre tous. La banque completera s''il manque des pieces pour une redistribution egale', 'violet', 3, '[11, 12, 13]', 'special', 0, 'aucun', 0, 2);        \
+\
+\
+drop view if exists Deluxe;       \
+CREATE VIEW Deluxe AS SELECT * FROM Marina UNION SELECT * FROM GreenValleyADD EXCEPT SELECT * FROM DeluxeEXCEPT;"  \
 ;
 
     rc = sqlite3_exec(db, sql.data(), 0, 0, &zErrMsg);
