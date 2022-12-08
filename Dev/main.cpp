@@ -69,7 +69,7 @@ int main()
     //menu(p);
     //A CONTINUER
 
-    Jeu* j = new Jeu;// (Extension::Deluxe);
+    Jeu* j = new Jeu;//(Extension::Marina);//(Extension::GreenValley);// (Extension::Deluxe);
     cout << *j;
 
    /* const Etablissement** e = j->getEtablissements();
