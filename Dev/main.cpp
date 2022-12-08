@@ -20,6 +20,7 @@ void menu(Partie& p){
             //Partie Menu
             cout << "0\tQuitter" << endl;
             cout << "1\tInitialisation" << endl;
+            cout << "2\tPrendre une carte depuis la réserve" << endl;
             //cout << "2\tInitialisation" << endl;
 
 
@@ -48,10 +49,11 @@ void menu(Partie& p){
                     p.initialisation();
                     initialise = true;
                     break;
-                /*case 2:
+                case 2:
+                    cout << *p.getReserve();
                     break;
                 case 3:
-                    break;*/
+                    break;
 
                 default:// Les nombres unbound
                     cout << "Erreur ! Vous n'avez pas saisi un nombre valide." << endl;
@@ -67,12 +69,12 @@ void menu(Partie& p){
 
 int main()
 {
-    //Partie p;
-    //menu(p);
+    Partie p;
+    menu(p);
     //A CONTINUER
 
-    Jeu* j = new Jeu(Extension::Deluxe);//(Extension::Marina);//(Extension::GreenValley);// (Extension::Deluxe);
-    cout << *j;
+    /* Jeu* j = new Jeu(Extension::Deluxe);//(Extension::Marina);//(Extension::GreenValley);// (Extension::Deluxe);
+    cout << *j; */
 
    /* const Etablissement** e = j->getEtablissements();
     for(unsigned int i=0; i<15;i++)e[i]->afficher();

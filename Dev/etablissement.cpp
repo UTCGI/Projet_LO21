@@ -12,9 +12,7 @@ Etablissement::Etablissement(const string& nom1, const string& effet1, Couleur c
     prix(prix1),
     num_de(num_de1),
     type(type1),
-    montant_effet(montant_effet1),isSpecial(isSpecial1), nb_exemplaires(nb_exemplaires){
-
-}
+    montant_effet(montant_effet1),isSpecial(isSpecial1), nb_exemplaires(nb_exemplaires){}
 
 string Etablissement::getNom() const { return nom; }
 string Etablissement::getEffet() const { return effet; }
