@@ -10,8 +10,8 @@ class Partie {
   int manche;
   int num_de;
   int nb_joueurs;
-  int nb_monuments;
-  int nb_etablissements;
+  //int nb_monuments; //inutile on les a deja dans jeu !
+  //int nb_etablissements; //inutile on les a deja dans jeu !
   // Est ce qu'on a besoin de pointeurs ou pas ??
   Jeu* jeu;
   int joueur_actif = 0;//Indice du joueur qui a la main
@@ -23,23 +23,23 @@ class Partie {
   int getManche() const;
   int getNumDe() const;
   int getNbJoueurs() const;
-  int getNbMonuments() const;
-  int getNbEtablissements() const;
+  //int getNbMonuments() const; //inutile on les a deja dans jeu !
+  //int getNbEtablissements() const; //inutile on les a deja dans jeu !
   Jeu* getJeu() const;
     Joueur* getJoueurActif() ;
   //Joueur* getEnsenbleJoueurs() const;
-  Joueur getJoueurI(const int i) const;
+  //Joueur getJoueurI(const int i) const; // C'EST QUOI ?
   Reserve* getReserve() const;
   const vector<Joueur*>& getJoueurs() const;
 
 
   // Setter functions
   void setManche(int nbManche);
-  void setNumDe(int nbDe);
+  void setNumDe(int nbDe);//inutile ?
   void setNbJoueurs(int nbJoueurs);
-  void setNbMonuments(int nbMonuments);
-  void setNbEtablissements(int nbEtablissements);
-  Jeu* setJeu(Jeu* jeu);
+  //void setNbMonuments(int nbMonuments); //inutile on les a deja dans jeu !
+  //void setNbEtablissements(int nbEtablissements); //inutile on les a deja dans jeu !
+  Jeu* setJeu(Jeu* jeu);//inutile ?
   Joueur* setJoueurActif(Joueur* joueur);
   Joueur* setEnsenbleJoueurs(Joueur* EnsembreJoueurs);
   Reserve* setReserve(Reserve* Reserve);
