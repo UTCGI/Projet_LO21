@@ -82,7 +82,7 @@ void setPseudo(string pseudo) { pseudo = pseudo; }
 
 void Joueur::initialisation_etablissement_depart(const Etablissement *e)
 {
-    vector<Pile_Etablissement *> *which;
+    vector<Pile_Etablissement *> *which = nullptr;
     switch (e->getCouleur())
     {
     case Couleur::bleu:
@@ -115,7 +115,7 @@ void Joueur::initialisation_etablissement_depart(const Etablissement *e)
 
 void Joueur::ajouter_etablissement(const Etablissement *e)
 {
-    vector<Pile_Etablissement *> *which;
+    vector<Pile_Etablissement *> *which = nullptr;
     switch (e->getCouleur())
     {
     case Couleur::bleu:
@@ -151,7 +151,7 @@ void Joueur::ajouter_etablissement(const Etablissement *e)
 
 void Joueur::retirer_etablissement(const Etablissement *e)
 { // pas sûr s'il faut faire comme ça
-    vector<Pile_Etablissement *> *which;
+    vector<Pile_Etablissement *> *which = nullptr;
     switch (e->getCouleur())
     {
     case Couleur::bleu:
