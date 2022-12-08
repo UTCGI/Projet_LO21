@@ -174,6 +174,6 @@ void Partie::transaction_piece(Joueur* emetteur, Joueur*destinataire, int montan
 }
 
 void Partie::transaction_carte(Joueur* emetteur, Joueur*destinataire, const Etablissement* etab){
-  destinataire->retirer_etablissement(etab);
-  emetteur->ajouter_etablissement(etab);
+  if (destinataire->retirer_etablissement(etab))
+    emetteur->ajouter_etablissement(etab);
 }

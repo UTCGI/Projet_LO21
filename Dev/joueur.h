@@ -74,7 +74,7 @@ public:
 
   void ajouter_etablissement(const Etablissement *e);
 
-  void retirer_etablissement(const Etablissement *e);
+  bool retirer_etablissement(const Etablissement *e);
 
   void ajouterMontant(int montant);
 

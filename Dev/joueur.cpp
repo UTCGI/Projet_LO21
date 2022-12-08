@@ -149,7 +149,7 @@ void Joueur::ajouter_etablissement(const Etablissement *e)
     }
 }
 
-void Joueur::retirer_etablissement(const Etablissement *e)
+bool Joueur::retirer_etablissement(const Etablissement *e)
 { // pas sûr s'il faut faire comme ça
     vector<Pile_Etablissement *> *which = nullptr;
     switch (e->getCouleur())
@@ -174,11 +174,16 @@ void Joueur::retirer_etablissement(const Etablissement *e)
     {
         if ((*i)->getEtablissement() == e)
         {
-            if ((*i)->getEffectif()==(*i)->getMinimum())
+            if ((*i)->getEffectif()==(*i)->getMinimum()){
                 throw SetException("Cette pile est déjà vide !");
-            else
+                return false;    
+            }
+                
+            else{
                 (*i)->retirerCarte();
-            break;
+                return true; 
+            }
+            
         }
         else
             continue;
