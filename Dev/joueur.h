@@ -68,7 +68,7 @@ public:
 
   void setNbDes();
 
-  void setCompte(int montant);
+  void setCompte(int montant);//inutile ? redondant avec ajouterMontant(int montant);
 
   void initialisation_etablissement_depart(const Etablissement *e);
 

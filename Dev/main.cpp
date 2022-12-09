@@ -12,9 +12,9 @@ void menu(Partie& p){
     while (choix != 0) {
         if (initialise) { 
             cout << "Joueur en cours : " << p.getJoueurActif()->getId() << endl;
-            break;
+            //break;
         }
-        else {
+        //else {
             cout << "Faire votre choix" << endl;
 
             //Partie Menu
@@ -60,7 +60,7 @@ void menu(Partie& p){
             cout << endl;
 
 
-        }
+        //}
     }
 
 }

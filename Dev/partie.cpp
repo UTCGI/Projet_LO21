@@ -178,3 +178,20 @@ void Partie::transaction_carte(Joueur* emetteur, Joueur*destinataire, const Etab
   if (destinataire->retirer_etablissement(etab))
     emetteur->ajouter_etablissement(etab);
 }
+
+void Partie::achat_carte(Joueur* joueur, Pile_Etablissement* pile_reserve) {
+    if (pile_reserve->getEffectif()>0){
+        if (pile_reserve->getEtablissement()->getPrix()<=joueur->getCompte()){
+             joueur->ajouterMontant(0-pile_reserve->getEtablissement()->getPrix());
+             joueur->ajouter_etablissement(pile_reserve->getEtablissement());
+             pile_reserve->retirerCarte();
+        }
+        else cout<<"Prix de l'etablissement superieur au montant de votre compte !"<<endl;
+    }
+    else cout<<"La pile est vide !"<<endl;
+}
+//ACHAT MONUMENTS ??????????
+
+void Partie::regarder_etablissements(Joueur* joueur, Couleur couleur) {
+
+}
