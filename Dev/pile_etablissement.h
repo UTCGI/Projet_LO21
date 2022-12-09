@@ -34,7 +34,7 @@ class Pile_Etablissement {
   }
 
   int getPrix(){
-    return effectif==minimum? 0 : etablissement->getMontant();
+      return effectif == minimum ? 0 : etablissement->getPrix();//getMontant();
   }
 
   /*

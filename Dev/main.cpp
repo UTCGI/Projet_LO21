@@ -8,15 +8,15 @@ void choix2(Partie &p){//Cette fonction traite achatcarte
     while (true)
     {
         cout << "Faire votre choix" << endl;
-        cout << "Bienvenue !" << endl;
+    //    cout << "Bienvenue !" << endl;
 
-    while (choix != 0) {
-        if (initialise) { 
-            cout << "Joueur en cours : " << p.getJoueurActif()->getId() << endl;
-            //break;
-        }
-        //else {
-            cout << "Faire votre choix" << endl;
+    //while (choix != 0) {
+    //    if (initialise) { 
+    //        cout << "Joueur en cours : " << p.getJoueurActif()->getId() << endl;
+    //        //break;
+    //    }
+    //    //else {
+    //        cout << "Faire votre choix" << endl;
         try
         { // Cette partie sert à détecter les erreurs eventuelles de saisie (Exemple : saisir une lettre à la place d'un nombre)
             cin >> choix;
@@ -78,32 +78,32 @@ void lancer(Partie &p){
                 continue;
             }
 
-            if (choix)
+        //    if (choix)
 
 
-                switch (choix)
-                {
-                case 0:
-                    cout << "Au revoir" << endl;
-                    break;
-                case 1:
-                    cout << "Vous avez choisi -- Initialisation" << endl;
-                    p.initialisation();
-                    initialise = true;
-                    break;
-                /*case 2:
-                    break;
-                case 3:
-                    break;*/
+        //        switch (choix)
+        //        {
+        //        case 0:
+        //            cout << "Au revoir" << endl;
+        //            break;
+        //        case 1:
+        //            cout << "Vous avez choisi -- Initialisation" << endl;
+        //            p.initialisation();
+        //            initialise = true;
+        //            break;
+        //        /*case 2:
+        //            break;
+        //        case 3:
+        //            break;*/
 
-                default:// Les nombres unbound
-                    cout << "Erreur ! Vous n'avez pas saisi un nombre valide." << endl;
-                    break;
-                }
-            cout << endl;
+        //        default:// Les nombres unbound
+        //            cout << "Erreur ! Vous n'avez pas saisi un nombre valide." << endl;
+        //            break;
+        //        }
+        //    cout << endl;
 
 
-        //}
+        ////}
             if (choix<1 || choix >p.getJoueurActif()->getNbDes()){
                 cout << "Erreur ! Vous n'avez pas saisi un nombre valide." << endl;
             }else{

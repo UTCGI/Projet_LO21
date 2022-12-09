@@ -117,7 +117,7 @@ retry:
       cout << "Le nombre de joueur doit etre compris entre 2 et " << jeu->getNb_joueurs_MAX() << endl;
       cin >> lecture;
   } 
-  cout << jeu->getEtablissementsDepart()[0]->getNbExemplaires();
+  //cout << jeu->getEtablissementsDepart()[0]->getNbExemplaires();
   if ( (jeu->getEtablissementsDepart()[0]->getNbExemplaires()) < lecture) goto retry;// Si pas assez de cartes départ
 
   setNbJoueurs(lecture);
