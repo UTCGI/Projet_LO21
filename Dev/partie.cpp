@@ -194,4 +194,17 @@ void Partie::achat_carte(Joueur* joueur, Pile_Etablissement* pile_reserve) {
 
 void Partie::regarder_etablissements(Joueur* joueur, Couleur couleur) {
 
+/*=======
+void Partie::achat_carte(Joueur* joueur, Pile_Etablissement* pile){
+  if (joueur->getCompte()>=pile->getPrix()){
+    if (pile->retirerCarte(1)){
+      joueur->ajouter_etablissement(pile->getEtablissement());
+      cout << "Achat terminé !" << endl;
+    }else{
+      cout << "Plus de carte disponible !" << endl;
+    }
+  }else{
+      cout << "Le joueur" << joueur->getId() << "n'a pas de ressource suffisante !" << endl;
+  }
+>>>>>>> d8489d4924454ca45983749775183e7466f36ea2*/
 }

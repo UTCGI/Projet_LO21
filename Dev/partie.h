@@ -121,6 +121,8 @@ class Partie {
       Objectif: Cette fonction permet d'appliquer les règles ???
       Jsp trop ce que doit faire cette fonction ??
   */
+//void achat_carte(Joueur* joueur, Pile_Etablissement* pile);
+
 void transaction_piece(Joueur* emetteur, Joueur*destinataire, int montant);
 
 void transaction_carte(Joueur* emetteur, Joueur*destinataire, const Etablissement* etab);
@@ -128,5 +130,6 @@ void transaction_carte(Joueur* emetteur, Joueur*destinataire, const Etablissemen
 void achat_carte(Joueur* joueur, Pile_Etablissement* pile_reserve);
 
 void regarder_etablissements(Joueur* joueur, Couleur couleur);
+
 };
 #endif

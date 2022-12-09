@@ -138,10 +138,7 @@ void Joueur::ajouter_etablissement(const Etablissement *e)
     {
         if ((*i)->getEtablissement() == e)
         {
-            if ((*i)->getEffectif()==e->getNbExemplaires())
-                throw SetException("Cette pile est déjà pleine !");
-            else
-                (*i)->ajouterCarte();
+            (*i)->ajouterCarte();
             break;
         }
         else
@@ -234,6 +231,47 @@ int Joueur::lancerDes(int desALancer)const
     {
         throw SetException("Nombre de dès non autorisé !");
         return -1; // Code d'erreur si on envoie un mauvais nombre
+    }
+}
+
+
+void Joueur::find_carte_des(int des){
+    cout << "Cartes activée :" << endl;
+    for (auto p : pileBleu){
+        for (auto k : p->getEtablissement()->getNumDe()){
+            if (k == des){
+                ajouterMontant(p->getEtablissement()->getMontant()*p->getEffectif());
+                cout << "  " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
+                break;
+            }
+        }
+    }
+    for (auto p : pileRouge){
+        for (auto k : p->getEtablissement()->getNumDe()){
+            if (k == des){
+                ajouterMontant(p->getEtablissement()->getMontant()*p->getEffectif());
+                cout << "  " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
+                break;
+            }
+        }
+    }
+    for (auto p : pileVert){
+        for (auto k : p->getEtablissement()->getNumDe()){
+            if (k == des){
+                ajouterMontant(p->getEtablissement()->getMontant()*p->getEffectif());
+                cout << "  " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
+                break;
+            }
+        }
+    }
+    for (auto p : pileViolet){
+        for (auto k : p->getEtablissement()->getNumDe()){
+            if (k == des){
+                ajouterMontant(p->getEtablissement()->getMontant()*p->getEffectif());
+                cout << "  " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
+                break;
+            }
+        }
     }
 }
 
