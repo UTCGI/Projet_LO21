@@ -43,6 +43,43 @@ void choix2(Partie &p){//Cette fonction traite achatcarte
     }
     p.getReserve()->afficher();
     cout << *p.getJoueurActif();
+    
+    p.joueur_next();//changer de joueur, un peu arbitaire de laisser juste cette ligne pour l'instant mais suffit pour voir les résultats attendus 
+}
+
+void lancer(Partie &p){
+    int des;
+    if (p.getJoueurActif()->getNbDes()==1){
+        des = p.getJoueurActif()->lancerDes(1);
+    }else{
+        int choix = -1;
+        while (true)
+        {
+            cout << "Combien de dès vous voulez lancer ?" << endl;
+
+            try
+            { // Cette partie sert à détecter les erreurs eventuelles de saisie (Exemple : saisir une lettre à la place d'un nombre)
+                cin >> choix;
+            }
+            catch (exception ex)
+            {
+                cin.clear();           // Reset failbit à 0
+                cin.ignore(100, '\n'); // Vider buffer
+                cout << "Erreur ! Ce que vous avez saisi n'est pas un nombre." << endl;
+                choix = -1;
+                continue;
+            }
+            if (choix<1 || choix >p.getJoueurActif()->getNbDes()){
+                cout << "Erreur ! Vous n'avez pas saisi un nombre valide." << endl;
+            }else{
+                break;
+            }
+        }
+       des = p.getJoueurActif()->lancerDes(choix);
+    }
+    cout << "Le dès obtenu est " << des << endl;
+
+    p.getJoueurActif()->find_carte_des(des);//Trouver les cartes à appliquer effet
 }
 
 void menu(Partie &p)
@@ -55,11 +92,14 @@ void menu(Partie &p)
 
     while (choix != 0)
     {
+        cout << "Joueur en cours : " << p.getJoueurActif()->getId() <<endl;
+        cout << "Montant avant : " << p.getJoueurActif()->getCompte() << endl;
 
-        cout << "Joueur en cours : " << p.getJoueurActif()->getId() << endl;
+        lancer(p);//Le menu qui traite le lancement de dès
+
+        cout << "Montant après : " << p.getJoueurActif()->getCompte() << endl;
 
         cout << "Faire votre choix" << endl;
-
         // Partie Menu
         cout << "0\tQuitter" << endl;
         cout << "1\tPrendre une carte depuis la réserve" << endl;
@@ -83,10 +123,10 @@ void menu(Partie &p)
             cout << "Au revoir" << endl;
             break;
         case 1:
-            choix2(p);
+            choix2(p);//Déjà testée
             break;
 
-        case 3:
+        case 2:
             break;
 
         default: // Les nombres unbound
