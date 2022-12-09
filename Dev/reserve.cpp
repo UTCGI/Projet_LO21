@@ -95,12 +95,14 @@ void Reserve::retirer_etablissement(const Etablissement& etablissement, unsigned
         else{SetException("l'etablissement n'est pas dans la r�serve");}
         }
 
-void Reserve::afficher()const{
+void Reserve::afficher()const{//Fomatage, pas parfait
 cout<<"******Reserve******"<<endl<<endl;
 for (unsigned int i = 0; i < nb_piles; i++) {
-    cout << i+1 <<" ";
-    cout<<liste_etablissements[i]->getEtablissement()->getNom();
-    cout<<" ("<<liste_etablissements[i]->getEffectif()<<")"<<endl;
+    cout <<"\t"<< i+1 <<" ";
+    cout.width(40);
+    cout<<liste_etablissements[i]->getEtablissement()->getNom()<<" ("<<liste_etablissements[i]->getEffectif()<<")";
+    cout.width(20);
+    cout<<"Prix : " << liste_etablissements[i]->getPrix() << endl;
 }
     cout<<"*****End*Reserve*****"<<endl<<endl;
     }
