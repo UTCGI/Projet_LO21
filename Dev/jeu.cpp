@@ -3,6 +3,7 @@
 
 Jeu::Jeu(Extension e) :
     extension(e){
+    cout << "zfhbq"<< endl;
     buildcaracteristics1(this, extension);
     buildetablissement(liste_etablissements, liste_etablissements_depart/* , liste_etablissements_speciaux */, extension);
     buildmonument(liste_monuments, extension);

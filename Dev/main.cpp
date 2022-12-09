@@ -178,7 +178,7 @@ int main()
     menu(p);
     
     // A CONTINUER
-
+    
     //Jeu * j = new Jeu;//(Extension::Deluxe);//(Extension::Marina);//(Extension::GreenValley);// (Extension::Deluxe);
     //cout << *j;
 

@@ -72,7 +72,6 @@ void Partie::initialisation()
   // Il faut recuperer l'extension ? Pour pouvoir initialiser les variables aux
   // bonnes valeurs
   int lectureExtension;
-retry:  
   cout << "Entrez l'extension a laquelle vous voulez jouer \t0. Originale\t1. Marina \t2. GreenValley\t3. Deluxe"
        << endl;
   do
@@ -118,11 +117,11 @@ retry:
       cin >> lecture;
   } 
   //cout << jeu->getEtablissementsDepart()[0]->getNbExemplaires();
-  if ( (jeu->getEtablissementsDepart()[0]->getNbExemplaires()) < lecture) goto retry;// Si pas assez de cartes départ
+  //if ( (jeu->getEtablissementsDepart()[0]->getNbExemplaires()) < lecture) goto retry;// Si pas assez de cartes départ
 
   setNbJoueurs(lecture);
-
 //Initialisation reserve
+cout << "bhzubfczeicezenevbsbzekbsekbe";
   reserve = new Reserve(*jeu);
 //Initialisation joueur
   for(size_t i=0;i<getNbJoueurs();i++){
