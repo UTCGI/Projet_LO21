@@ -98,6 +98,7 @@ void Reserve::retirer_etablissement(const Etablissement& etablissement, unsigned
 void Reserve::afficher()const{
 cout<<"******Reserve******"<<endl<<endl;
 for (unsigned int i = 0; i < nb_piles; i++) {
+    cout << i+1 <<" ";
     cout<<liste_etablissements[i]->getEtablissement()->getNom();
     cout<<" ("<<liste_etablissements[i]->getEffectif()<<")"<<endl;
 }
