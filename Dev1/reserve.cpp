@@ -13,6 +13,7 @@ unsigned int Reserve::getNbEtablissements() const{
 }
 Pile_Etablissement** Reserve::getListeEtablissement() const{
     //return liste_etablissements;
+    return nullptr;
 }
 
 
@@ -100,7 +101,7 @@ void Reserve::afficher()const{//Fomatage, pas parfait
 cout<<"******Reserve******"<<endl<<endl;
 int i = 0;
 for (auto h : liste_etablissements){
-    cout <<"\t"<< i+1 <<" ";
+    cout <<"\t"<< i++ <<" ";
     cout.width(40);
     cout<<h->getEtablissement()->getNom()<<" ("<<h->getEffectif()<<")";
     cout.width(20);
