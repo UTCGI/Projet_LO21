@@ -114,7 +114,7 @@ retry:
   int lecture = 0;
   while (lecture < 2 || lecture > jeu->getNb_joueurs_MAX())
   {
-      cout << "Le nombre de joueur doit etre compris entre 2 et " << jeu->getNb_joueurs_MAX() << endl;
+      cout << "Le nombre de joueur doit être compris entre 2 et " << jeu->getNb_joueurs_MAX() << endl;
       cin >> lecture;
   } 
   //cout << jeu->getEtablissementsDepart()[0]->getNbExemplaires();

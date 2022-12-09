@@ -176,10 +176,11 @@ int main()
 {
     Partie p;
     menu(p);
+    
     // A CONTINUER
 
-    /* Jeu* j = new Jeu(Extension::Deluxe);//(Extension::Marina);//(Extension::GreenValley);// (Extension::Deluxe);
-    cout << *j; */
+    //Jeu * j = new Jeu;//(Extension::Deluxe);//(Extension::Marina);//(Extension::GreenValley);// (Extension::Deluxe);
+    //cout << *j;
 
     /* const Etablissement** e = j->getEtablissements();
      for(unsigned int i=0; i<15;i++)e[i]->afficher();
