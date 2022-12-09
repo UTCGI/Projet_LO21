@@ -138,10 +138,7 @@ void Joueur::ajouter_etablissement(const Etablissement *e)
     {
         if ((*i)->getEtablissement() == e)
         {
-            if ((*i)->getEffectif()==e->getNbExemplaires())
-                throw SetException("Cette pile est déjà pleine !");
-            else
-                (*i)->ajouterCarte();
+            (*i)->ajouterCarte();
             break;
         }
         else
