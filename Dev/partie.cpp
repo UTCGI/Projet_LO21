@@ -178,3 +178,16 @@ void Partie::transaction_carte(Joueur* emetteur, Joueur*destinataire, const Etab
   if (destinataire->retirer_etablissement(etab))
     emetteur->ajouter_etablissement(etab);
 }
+
+void Partie::achat_carte(Joueur* joueur, Pile_Etablissement* pile){
+  if (joueur->getCompte()>=pile->getPrix()){
+    if (pile->retirerCarte(1)){
+      joueur->ajouter_etablissement(pile->getEtablissement());
+    }else{
+      cout << "Plus de carte disponible !" << endl;
+    }
+  }else{
+      cout << "Le joueur" << joueur->getId() << "n'a pas de ressource suffisante !" << endl;
+  }
+
+}
