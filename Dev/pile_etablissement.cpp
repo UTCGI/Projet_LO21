@@ -11,11 +11,15 @@ Pile_Etablissement::Pile_Etablissement(const Etablissement* et, unsigned int ef)
     : etablissement(et), effectif(ef){};
 
 // Methods
-void Pile_Etablissement::retirerCarte(unsigned int nb_cartes) {
-  if (nb_cartes > effectif)
+bool Pile_Etablissement::retirerCarte(unsigned int nb_cartes) {
+  if (nb_cartes > effectif){
     throw SetException("nombre de cartes a retirer trop eleve");
-  else
+    return false;
+  }
+  else{
     effectif -= nb_cartes;
+    return true;
+  }
 }
 void Pile_Etablissement::ajouterCarte(unsigned int nb_cartes) {
   if (nb_cartes < 0)

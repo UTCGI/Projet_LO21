@@ -87,7 +87,7 @@ Description : Cette methode permet mettre a jour l'effectif d'une pile
 Elle déclanche une exception si le nombre de carte a retirer est supérieur au nombre
 de carte présents dans la pile
 */
-  void retirerCarte(unsigned int nb_cartes = 1);
+  bool retirerCarte(unsigned int nb_cartes = 1);
 
     /*
 Specification: ajouterCarte(unsigned int nb_cartes = 1)
