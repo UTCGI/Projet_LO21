@@ -183,11 +183,11 @@ void Partie::achat_carte(Joueur* joueur, Pile_Etablissement* pile){
   if (joueur->getCompte()>=pile->getPrix()){
     if (pile->retirerCarte(1)){
       joueur->ajouter_etablissement(pile->getEtablissement());
+      cout << "Achat terminé !" << endl;
     }else{
       cout << "Plus de carte disponible !" << endl;
     }
   }else{
       cout << "Le joueur" << joueur->getId() << "n'a pas de ressource suffisante !" << endl;
   }
-
 }
