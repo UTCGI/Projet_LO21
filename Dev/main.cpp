@@ -1,3 +1,4 @@
+#include <clocale>
 #include <iostream>
 #include "partie.h"
 using namespace std;
@@ -174,6 +175,8 @@ void menu(Partie &p)
 
 int main()
 {
+    setlocale(LC_ALL, "fr_FR.UTF-8");
+    //setlocale(LC_ALL, "");
     Partie p;
     menu(p);
     
@@ -189,4 +192,5 @@ int main()
 
     // return EtablissementTest();
     // return MonumentTest();
+    return 0;
 }
