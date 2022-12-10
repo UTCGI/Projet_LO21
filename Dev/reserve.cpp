@@ -12,8 +12,7 @@ unsigned int Reserve::getNbEtablissements() const{
     return nb_etablissements;
 }
 Pile_Etablissement** Reserve::getListeEtablissement() const{
-    //return liste_etablissements;
-    return nullptr;
+    return liste_etablissements;
 }
 
 
@@ -22,7 +21,7 @@ Reserve::Reserve(Jeu& j){
 //Proposition d'amelioration : tableau de string ordre_reserve stocke dans jeu
 nb_piles_max = j.getNb_pile_reserve_MAX();
 auto etablissements=  j.getEtablissements();
-//liste_etablissements=new Pile_Etablissement* [nb_piles_max];
+liste_etablissements=new Pile_Etablissement* [nb_piles_max];
 /* string ordre_reserve [nb_piles_max]= {
     "Champs de ble",
     "Ferme",
@@ -41,17 +40,16 @@ auto etablissements=  j.getEtablissements();
     "Marche de fruits et legumes"
     }; */
 for(unsigned int i=0;i<nb_piles_max;i++){
-//liste_etablissements[i]=new Pile_Etablissement(etablissements[i], etablissements[i]->getNbExemplaires());
-    liste_etablissements.push_back(new Pile_Etablissement(etablissements[i], etablissements[i]->getNbExemplaires()));
+liste_etablissements[i]=new Pile_Etablissement;
 //ajouter_etablissement(*j.getEtablissementFromName(ordre_reserve[i]),j.getEtablissementFromName(ordre_reserve[i])->getNbExemplaires());
-//ajouter_etablissement(*etablissements[i],etablissements[i]->getNbExemplaires());
+ajouter_etablissement(*etablissements[i],etablissements[i]->getNbExemplaires());
 }
 }
 
 Reserve::Reserve(Jeu& j,Pioche& p){
 nb_piles_max = j.getNb_pile_reserve_MAX();
 nb_piles=0;
-//liste_etablissements=new Pile_Etablissement* [nb_piles_max];
+liste_etablissements=new Pile_Etablissement* [nb_piles_max];
 for(unsigned int i=0;i<nb_piles_max;i++)liste_etablissements[i]=new Pile_Etablissement;
    while(nb_piles<nb_piles_max){
         ajouter_etablissement(p.retirerRandomEtablissement());
@@ -59,7 +57,7 @@ for(unsigned int i=0;i<nb_piles_max;i++)liste_etablissements[i]=new Pile_Etablis
 };
 Reserve::~Reserve(){
     for(unsigned int i=0;i<nb_piles_max;i++)delete liste_etablissements[i];
-    //delete liste_etablissements;
+    delete liste_etablissements;
 };
 
 //Methodes de classe
@@ -99,22 +97,13 @@ void Reserve::retirer_etablissement(const Etablissement& etablissement, unsigned
 
 void Reserve::afficher()const{//Fomatage, pas parfait
 cout<<"******Reserve******"<<endl<<endl;
-int i = 0;
-for (auto h : liste_etablissements){
-    cout <<"\t"<< i++ <<" ";
-    cout.width(40);
-    cout<<h->getEtablissement()->getNom()<<" ("<<h->getEffectif()<<")";
-    cout.width(20);
-    cout<<"Prix : " << h->getPrix() << endl;
-
-}
-/* for (unsigned int i = 0; i < nb_piles; i++) {
+for (unsigned int i = 0; i < nb_piles; i++) {
     cout <<"\t"<< i+1 <<" ";
     cout.width(40);
     cout<<liste_etablissements[i]->getEtablissement()->getNom()<<" ("<<liste_etablissements[i]->getEffectif()<<")";
     cout.width(20);
     cout<<"Prix : " << liste_etablissements[i]->getPrix() << endl;
-} */
+}
     cout<<"*****End*Reserve*****"<<endl<<endl;
     }
 
