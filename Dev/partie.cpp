@@ -192,19 +192,158 @@ void Partie::achat_carte(Joueur* joueur, Pile_Etablissement* pile_reserve) {
 }
 //ACHAT MONUMENTS ??????????
 
-void Partie::regarder_etablissements(Joueur* joueur, Couleur couleur) {
+//void Partie::regarder_etablissements(Joueur* joueur, Couleur couleur) {
 
-/*=======
-void Partie::achat_carte(Joueur* joueur, Pile_Etablissement* pile){
-  if (joueur->getCompte()>=pile->getPrix()){
-    if (pile->retirerCarte(1)){
+/*
+void Partie::achat_carte(Joueur *joueur, Pile_Etablissement *pile)
+{
+  if (joueur->getCompte() >= pile->getPrix())
+  {
+    if (pile->retirerCarte(1))
+    {
       joueur->ajouter_etablissement(pile->getEtablissement());
+      joueur->ajouterMontant((-1)*pile->getPrix());
       cout << "Achat terminé !" << endl;
-    }else{
+    }
+    else
+    {
       cout << "Plus de carte disponible !" << endl;
     }
-  }else{
-      cout << "Le joueur" << joueur->getId() << "n'a pas de ressource suffisante !" << endl;
   }
->>>>>>> d8489d4924454ca45983749775183e7466f36ea2*/
+  else
+  {
+    cout << "Le joueur" << joueur->getId() << "n'a pas de ressource suffisante !" << endl;
+  }
+*/
+
+
+int Partie::fonction_service_verte(Type t){
+  if (t == Type::aucun )
+    return 1;
+  else{
+    int nombreactive=0;
+    for (auto p : getJoueurActif()->getPileBleu()){
+      if (p->getEtablissement()->getType()==t)
+        nombreactive++;    
+    }
+    for (auto p : getJoueurActif()->getPileRouge()){
+      if (p->getEtablissement()->getType()==t)
+        nombreactive++;    
+    }
+    for (auto p : getJoueurActif()->getPileVert()){
+      if (p->getEtablissement()->getType()==t)
+        nombreactive++;    
+    }
+    for (auto p : getJoueurActif()->getPileViolet()){
+      if (p->getEtablissement()->getType()==t)
+        nombreactive++;    
+    }
+    return nombreactive;
+  }
 }
+
+void Partie::find_carte_des(int des)
+{
+
+  for (auto joueur : getJoueurs())
+  {
+    cout << "  " << joueur->getId() << " Montant avant " << joueur->getCompte() << endl;
+    cout << "Cartes activée :" << endl;
+
+
+    //Pile Rouge
+    if (joueur != getJoueurActif())
+    {
+      for (auto pileRouge : joueur->getPileRouge())
+      {
+
+        int montant;
+        for (auto k : pileRouge->getEtablissement()->getNumDe())
+        {
+          if (k == des)
+          {
+            montant = pileRouge->getEtablissement()->getMontant() * pileRouge->getEffectif();
+            joueur->ajouterMontant(montant);
+            cout << "  " << pileRouge->getEtablissement()->getNom() << "  Quantité : " << pileRouge->getEffectif() << endl;
+
+            getJoueurActif()->ajouterMontant((-1) * montant); // Le joueur en cours paye
+            break;
+          }
+        }
+      }
+    }
+
+    //Pile Verte
+    if (joueur == getJoueurActif())
+    {
+      for (auto p : joueur->getPileVert())
+      {
+        for (auto k : p->getEtablissement()->getNumDe())
+        {
+          if (k == des)
+          {
+            joueur->ajouterMontant(p->getEtablissement()->getMontant() * p->getEffectif()*fonction_service_verte(p->getEtablissement()->getTypeEffet()));
+            cout << "  " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
+            break;
+          }
+        }
+      }
+    }
+
+    //Pile Bleue
+    for (auto p : joueur->getPileBleu())
+    {
+      for (auto k : p->getEtablissement()->getNumDe())
+      {
+        if (k == des)
+        {
+          joueur->ajouterMontant(p->getEtablissement()->getMontant() * p->getEffectif());
+          cout << "  " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
+          break;
+        }
+      }
+    }
+
+
+    //Pile Violette
+    if (joueur == getJoueurActif())
+    {
+      /* for (auto p : joueur->pileViolet)
+      {
+          for (auto k : p->getEtablissement()->getNumDe())
+          {
+              if (k == des)
+              {
+                  ajouterMontant(p->getEtablissement()->getMontant() * p->getEffectif());
+                  cout << "  " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
+                  break;
+              }
+          }
+      } */
+      for (auto p : joueur->getPileViolet()) // à discuter, maintenant je liste simplement les 3 cartes dans la version basique
+      {
+
+        for (auto k : p->getEtablissement()->getNumDe())
+        {
+          if (k == des)
+          {
+            if (p->getEtablissement()->getNom() == "Stade")
+            {
+              joueur->ajouterMontant(p->getEtablissement()->getMontant() * p->getEffectif());
+              //pas obligé de faire * p->getEffectif() car on ne peut avoir qu'un seul établissement spécial
+              cout << "  " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
+              //
+            }
+            break;
+          }
+        }
+      }
+    }
+
+    cout << "  " << " Montant Après " << joueur->getCompte() << endl;
+  }
+}
+
+//TO DO : 
+//1 acheter donc construire monument !!!!
+//2 checker UN SEUL exemplaire d'établissement special !!!

@@ -114,7 +114,7 @@ void lancer(Partie &p){
     }
     cout << "Le dès obtenu est " << des << endl;
 
-    p.getJoueurActif()->find_carte_des(des);//Trouver les cartes à appliquer effet
+    p.find_carte_des(des);//Trouver les cartes à appliquer effet
 }
 
 void menu(Partie &p)

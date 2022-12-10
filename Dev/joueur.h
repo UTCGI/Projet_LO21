@@ -82,8 +82,6 @@ public:
 
   int lancerDes(int desALancer) const;
 
-  void find_carte_des(int des);//Sert à déterminer quelles cartes à en apporter du profit
-
   void printJoueur(ostream &f = std::cout) const;
 };
 

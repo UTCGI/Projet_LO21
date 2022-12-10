@@ -127,6 +127,9 @@ void transaction_piece(Joueur* emetteur, Joueur*destinataire, int montant);
 
 void transaction_carte(Joueur* emetteur, Joueur*destinataire, const Etablissement* etab);
 
+void find_carte_des(int des);//Sert à déterminer quelles cartes à en apporter du profit
+
+int fonction_service_verte(Type t);
 void achat_carte(Joueur* joueur, Pile_Etablissement* pile_reserve);
 
 void regarder_etablissements(Joueur* joueur, Couleur couleur);

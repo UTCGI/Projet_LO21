@@ -6,12 +6,14 @@
 #include "miniville.h"
 #include "etablissement.h"
 #include "pioche.h"
+#include <vector>
 
 class Reserve{
     unsigned int nb_etablissements;
     unsigned int nb_piles;
     unsigned int nb_piles_max;
-    Pile_Etablissement** liste_etablissements;
+    //Pile_Etablissement** liste_etablissements;
+    std::vector<Pile_Etablissement*> liste_etablissements;
 
     public:
     // Getters

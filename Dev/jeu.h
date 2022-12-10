@@ -31,15 +31,13 @@ class Jeu {
 	// nombre total de cartes du jeu de base
     //2*4 etablissements de depart, 4*4 monuments, 12*6+3*4 etablissements
 
-	const Etablissement** liste_etablissements =
-		new const Etablissement * [getNbEtablissements()];
+	const Etablissement** liste_etablissements;
 	//const Etablissement* liste_etablissements[15];
 
-	const Monument** liste_monuments = new const Monument * [getNbMonuments()];
+	const Monument** liste_monuments;
 	//const Monument* liste_monuments[4];
 
-	const Etablissement** liste_etablissements_depart =
-		new const Etablissement * [getNbEtablissements_Depart()];
+	const Etablissement** liste_etablissements_depart;
 		
 	friend void buildcaracteristics1(Jeu* j, Extension e);
  public:
