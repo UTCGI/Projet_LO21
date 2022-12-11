@@ -179,18 +179,48 @@ void Partie::transaction_carte(Joueur* emetteur, Joueur*destinataire, const Etab
     emetteur->ajouter_etablissement(etab);
 }
 
-void Partie::achat_carte(Joueur* joueur, Pile_Etablissement* pile_reserve) {
+bool Partie::achat_carte(Pile_Etablissement* pile_reserve) {
     if (pile_reserve->getEffectif()>0){
-        if (pile_reserve->getEtablissement()->getPrix()<=joueur->getCompte()){
-             joueur->ajouterMontant(0-pile_reserve->getEtablissement()->getPrix());
-             joueur->ajouter_etablissement(pile_reserve->getEtablissement());
+        if (pile_reserve->getEtablissement()->getPrix()<=getJoueurActif()->getCompte()){
+             getJoueurActif()->ajouterMontant(0-pile_reserve->getEtablissement()->getPrix());
+             getJoueurActif()->ajouter_etablissement(pile_reserve->getEtablissement());
              pile_reserve->retirerCarte();
+             return true;
         }
         else cout<<"Prix de l'etablissement superieur au montant de votre compte !"<<endl;
     }
     else cout<<"La pile est vide !"<<endl;
+    return false;
 }
-//ACHAT MONUMENTS ??????????
+
+
+
+//ACHAT MONUMENTS 
+bool Partie::construire_monument(const Monument* monument_choisi){
+  Carte_Monument* cible = nullptr;
+  for (auto i : getJoueurActif()->getMonuments()){
+    if (monument_choisi==i->getMonument()){
+      cible = i;
+      break;
+    }
+  }
+
+  if (cible->estConstruit())
+    return false;
+  else{
+    if (cible->getMonument()->getPrix()>getJoueurActif()->getCompte()){
+      cout << "Construction échouée" << endl;
+      return false;
+    }else{
+    cible->construire();
+    getJoueurActif()->ajouterMontant((-1)*cible->getMonument()->getPrix());
+    return true; 
+    }
+  }
+
+
+
+}
 
 //void Partie::regarder_etablissements(Joueur* joueur, Couleur couleur) {
 
@@ -244,11 +274,11 @@ int Partie::fonction_service_verte(Type t){
 
 void Partie::find_carte_des(int des)
 {
-
+  cout << endl << "Bilan revenue :" << endl;
   for (auto joueur : getJoueurs())
   {
     cout << "  " << joueur->getId() << " Montant avant " << joueur->getCompte() << endl;
-    cout << "Cartes activée :" << endl;
+    cout << "    "<< "Cartes activée :" << endl;
 
 
     //Pile Rouge
@@ -264,7 +294,7 @@ void Partie::find_carte_des(int des)
           {
             montant = pileRouge->getEtablissement()->getMontant() * pileRouge->getEffectif();
             joueur->ajouterMontant(montant);
-            cout << "  " << pileRouge->getEtablissement()->getNom() << "  Quantité : " << pileRouge->getEffectif() << endl;
+            cout << "      " << pileRouge->getEtablissement()->getNom() << "  Quantité : " << pileRouge->getEffectif() << endl;
 
             getJoueurActif()->ajouterMontant((-1) * montant); // Le joueur en cours paye
             break;
@@ -283,7 +313,7 @@ void Partie::find_carte_des(int des)
           if (k == des)
           {
             joueur->ajouterMontant(p->getEtablissement()->getMontant() * p->getEffectif()*fonction_service_verte(p->getEtablissement()->getTypeEffet()));
-            cout << "  " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
+            cout << "      " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
             break;
           }
         }
@@ -298,7 +328,7 @@ void Partie::find_carte_des(int des)
         if (k == des)
         {
           joueur->ajouterMontant(p->getEtablissement()->getMontant() * p->getEffectif());
-          cout << "  " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
+          cout << "      " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
           break;
         }
       }
@@ -331,7 +361,7 @@ void Partie::find_carte_des(int des)
             {
               joueur->ajouterMontant(p->getEtablissement()->getMontant() * p->getEffectif());
               //pas obligé de faire * p->getEffectif() car on ne peut avoir qu'un seul établissement spécial
-              cout << "  " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
+              cout << "      " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
               //
             }
             break;
@@ -340,7 +370,8 @@ void Partie::find_carte_des(int des)
       }
     }
 
-    cout << "  " << " Montant Après " << joueur->getCompte() << endl;
+    cout << "    " << "Montant Après " << joueur->getCompte() << endl;
+    cout << endl;
   }
 }
 
