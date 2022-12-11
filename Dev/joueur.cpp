@@ -3,14 +3,14 @@
 #include "time.h"
 int Joueur::nombre_actuel = 0;
 
-Joueur::Joueur(const Jeu* jeu):id(++nombre_actuel)
+Joueur::Joueur(const Jeu *jeu) : id(++nombre_actuel)
 {
-    //Partie : Distributions des cartes monument (pile)
+    // Partie : Distributions des cartes monument (pile)
     const Monument **monuments_temp = jeu->getMonument();
     for (size_t i = 0; i < jeu->getNbMonuments(); i++)
         monuments.push_back(new Carte_Monument(monuments_temp[i]));
 
-    //Partie : Initialisation des piles
+    // Partie : Initialisation des piles
     const Etablissement **etablissements_temp = jeu->getEtablissements();
     for (size_t i = 0; i < jeu->getNbEtablissements(); i++)
     {
@@ -35,16 +35,16 @@ Joueur::Joueur(const Jeu* jeu):id(++nombre_actuel)
             break;
         }
     }
-    //Partie : Distributions des cartes de départ
-    const Etablissement **depart= jeu->getEtablissementsDepart();
-    for (size_t i = 0; i < jeu->getNbEtablissements_Depart(); i++){
+    // Partie : Distributions des cartes de départ
+    const Etablissement **depart = jeu->getEtablissementsDepart();
+    for (size_t i = 0; i < jeu->getNbEtablissements_Depart(); i++)
+    {
         initialisation_etablissement_depart(depart[i]);
     }
 }
 
-
-
-Joueur::~Joueur(){
+Joueur::~Joueur()
+{
     for (auto i : monuments)
         delete i;
     for (auto i : pileBleu)
@@ -62,11 +62,10 @@ int Joueur::getNbDes() const { return de; }
 
 int Joueur::getCompte() const { return compte; }
 
-//int Joueur::getPlacement_StartUp() const { return placement_StartUp; }
-
+// int Joueur::getPlacement_StartUp() const { return placement_StartUp; }
 
 // Setter
-void Joueur::setNbDes() { de = de==1 ? 2:1; }
+void Joueur::setNbDes() { de = de == 1 ? 2 : 1; }
 
 void Joueur::setCompte(int montant) { compte = montant; }
 
@@ -78,7 +77,6 @@ void setPseudo(string pseudo) { pseudo = pseudo; }
 } */
 
 // Autres méthodes
-
 
 void Joueur::initialisation_etablissement_depart(const Etablissement *e)
 {
@@ -111,7 +109,6 @@ void Joueur::initialisation_etablissement_depart(const Etablissement *e)
             continue;
     }
 }
-
 
 void Joueur::ajouter_etablissement(const Etablissement *e)
 {
@@ -172,22 +169,23 @@ bool Joueur::retirer_etablissement(const Etablissement *e)
     {
         if ((*i)->getEtablissement() == e)
         {
-            if ((*i)->getEffectif()==(*i)->getMinimum()){
+            if ((*i)->getEffectif() == (*i)->getMinimum())
+            {
                 throw SetException("Cette pile est déjà vide !");
-                temp = false;    
+                temp = false;
             }
-                
-            else{
+
+            else
+            {
                 (*i)->retirerCarte();
                 temp = true;
             }
             break;
-            
         }
         else
             continue;
     }
-    return temp; 
+    return temp;
 }
 
 void Joueur::ajouterMontant(int montant) { compte += montant; }
@@ -195,15 +193,18 @@ void Joueur::ajouterMontant(int montant) { compte += montant; }
 int Joueur::getNombreMonumentsConstruits() const
 {
     int k = 0;
-    for(auto i : getMonuments()){
-        if (i->estConstruit()){
+    for (auto i : getMonuments())
+    {
+        if (i->estConstruit())
+        {
             k++;
         }
     }
     return k;
 }
 
-bool Joueur::victoire() const{
+bool Joueur::victoire() const
+{
     /* bool win = true;
     for(auto i : getMonuments()){
         if (!i->estConstruit()){
@@ -212,20 +213,20 @@ bool Joueur::victoire() const{
         }
     }
     return win; */
-    return getNombreMonumentsConstruits()==monuments.size();
+    return getNombreMonumentsConstruits() == monuments.size();
 }
-//Jingfang : Je pense que le nombre de dès à lancer doit être directement passé en paramètre car finalement
-//c'est un bouton dans appli QT qui demande à l'utilisateur de le saisir
-int Joueur::lancerDes(int desALancer)const
+// Jingfang : Je pense que le nombre de dès à lancer doit être directement passé en paramètre car finalement
+// c'est un bouton dans appli QT qui demande à l'utilisateur de le saisir
+int Joueur::lancerDes(int desALancer) const
 {
     srand(time(NULL));
     if (desALancer == 1)
     {
-        return rand() % 6+ 1;
+        return rand() % 6 + 1;
     }
     else if (desALancer == 2)
     {
-        return  + rand() % 6 + 2;
+        return +rand() % 6 + 2;
     }
     else
     {
@@ -234,6 +235,32 @@ int Joueur::lancerDes(int desALancer)const
     }
 }
 
+
+void Joueur::printJoueurConcise(ostream &f) const
+{
+    f << "Monument" << endl
+      << endl;
+    for (auto i : monuments)
+        f << "  " << i->getMonument()->getNom() << "  Construit ? :  " << i->estConstruit()<< endl;
+
+    f << endl;
+        f << "Etablissement" << endl
+          << endl;
+    f << "Pile Rouge" << endl;
+    for (auto i : pileRouge)
+        f << "  " << i->getEtablissement()->getNom() << "  Effectif :  " << i->getEffectif() << endl;
+    f << "Pile Bleu" << endl;
+    for (auto i : pileBleu)
+        f << "  " << i->getEtablissement()->getNom() << "  Effectif :  " << i->getEffectif() << endl;
+    f << "Pile Violet" << endl;
+    for (auto i : pileViolet)
+    {
+        f << "  " << i->getEtablissement()->getNom() << "  Effectif :  " << i->getEffectif() << endl;
+    }
+    f << "Pile Vert" << endl;
+    for (auto i : pileVert)
+        f << "  " << i->getEtablissement()->getNom() << "  Effectif :  " << i->getEffectif() << endl;
+}
 
 void Joueur::printJoueur(ostream &f) const
 {
@@ -281,5 +308,3 @@ ostream &operator<<(ostream &f, const Joueur &j)
     j.printJoueur(f);
     return f;
 }
-
-

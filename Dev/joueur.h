@@ -83,6 +83,8 @@ public:
   int lancerDes(int desALancer) const;
 
   void printJoueur(ostream &f = std::cout) const;
+
+  void printJoueurConcise(ostream &f) const;//Affichage plus concis
 };
 
 ostream &operator<<(ostream &f, const Joueur &j);
