@@ -226,7 +226,7 @@ int Joueur::lancerDes(int desALancer) const
     }
     else if (desALancer == 2)
     {
-        return +rand() % 6 + 2;
+        return 2*(rand() % 6) + 2;
     }
     else
     {

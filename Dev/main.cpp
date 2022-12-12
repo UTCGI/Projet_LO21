@@ -78,20 +78,12 @@ size_t choix3(Partie &p)
     cout << "Monument" << endl
          << endl;
     int count = 1;
-    //cout << "  0 : Quitter" << endl;
     for (auto i : p.getJoueurActif()->getMonuments()){
         cout << "\t" << count++;
         cout.width(30);
         cout << i->getMonument()->getNom(); if (i->estConstruit() == 0) cout << " NON"; else cout << "    "; cout << " construit";
-        //cout << i->getMonument()->getNom() << " Construit ? : " << i->estConstruit();
         cout.width(20);
         cout << "Prix : " <<i->getMonument()->getPrix() << endl;
-        /*
-    cout << "\t" << i + 1; if (i<9) cout << " ";
-    cout.width(40);
-    cout<<liste_etablissements[i]->getEtablissement()->getNom()<<" ("<<liste_etablissements[i]->getEffectif()<<")";
-    cout.width(20);
-    cout<<"Prix : " << liste_etablissements[i]->getPrix() << endl;*/
     }
     cout << endl;
     cout << "Choisir 0 pour quitter" << endl;
@@ -177,7 +169,9 @@ void lancer(Partie &p)
         int choix = -1;
         while (true)
         {
-            cout << "Combien de dés voulez-vous lancer ?" << endl;
+            cout << "Combien de dés voulez-vous lancer ?" << endl; 
+            cout << "Le nombre de dés doit être compris entre 1 et 2" << endl;
+
 
             try
             { // Cette partie sert à détecter les erreurs eventuelles de saisie (Exemple : saisir une lettre à la place d'un nombre)
@@ -221,6 +215,7 @@ void menu(Partie &p)
         cout << "Joueur en cours : " << p.getJoueurActif()->getId() << endl;
         cout << "Montant AVANT : " << p.getJoueurActif()->getCompte() << endl;
 
+        //cout << "\tCombien de dés souhaitez-vous lancer ?" << endl;
         lancer(p); // Le menu qui traite le lancement de dès
 
         cout << "Compte de J" << p.getJoueurActif()->getId() << " : " << p.getJoueurActif()->getCompte() << endl;
@@ -229,7 +224,7 @@ void menu(Partie &p)
         // Partie Menu
         cout << "0\tQuitter" << endl;
         cout << "1\tPasser mon tour" << endl;
-        cout << "2\tPrendre une carte depuis la réserve" << endl;
+        cout << "2\tAcheter une carte de la réserve" << endl;
         cout << "3\tConstruire un monument" << endl;
 
         try
@@ -284,8 +279,13 @@ int main()
 
     // A CONTINUER
 
-    // Jeu * j = new Jeu;//(Extension::Deluxe);//(Extension::Marina);//(Extension::GreenValley);// (Extension::Deluxe);
-    // cout << *j;
+    /*Jeu* j = new Jeu;//(Extension::Deluxe);//(Extension::Marina);//(Extension::GreenValley);// (Extension::Deluxe);
+    cout << *j;
+    Joueur* Josephine = new Joueur(j);
+    cout << Josephine->getNbDes() << endl;
+    Josephine->setNbDes();
+    cout << Josephine->getNbDes() << endl;*/
+
 
     /* const Etablissement** e = j->getEtablissements();
      for(unsigned int i=0; i<15;i++)e[i]->afficher();

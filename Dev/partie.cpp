@@ -214,6 +214,8 @@ bool Partie::construire_monument(const Monument* monument_choisi){
     }else{
     cible->construire();
     getJoueurActif()->ajouterMontant((-1)*cible->getMonument()->getPrix());
+    if (monument_choisi->getNom() == "Gare")
+        getJoueurActif()->setNbDes();
     return true; 
     }
   }
