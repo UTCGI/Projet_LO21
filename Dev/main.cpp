@@ -78,10 +78,23 @@ size_t choix3(Partie &p)
     cout << "Monument" << endl
          << endl;
     int count = 1;
-    cout << "  0 : Quitter" << endl;
-    for (auto i : p.getJoueurActif()->getMonuments())
-        cout << "  " << count++ << " : " << i->getMonument()->getNom() << "  Construit ? :  " << i->estConstruit() << endl;
-
+    //cout << "  0 : Quitter" << endl;
+    for (auto i : p.getJoueurActif()->getMonuments()){
+        cout << "\t" << count++;
+        cout.width(30);
+        cout << i->getMonument()->getNom(); if (i->estConstruit() == 0) cout << " NON"; else cout << "    "; cout << " construit";
+        //cout << i->getMonument()->getNom() << " Construit ? : " << i->estConstruit();
+        cout.width(20);
+        cout << "Prix : " <<i->getMonument()->getPrix() << endl;
+        /*
+    cout << "\t" << i + 1; if (i<9) cout << " ";
+    cout.width(40);
+    cout<<liste_etablissements[i]->getEtablissement()->getNom()<<" ("<<liste_etablissements[i]->getEffectif()<<")";
+    cout.width(20);
+    cout<<"Prix : " << liste_etablissements[i]->getPrix() << endl;*/
+    }
+    cout << endl;
+    cout << "Choisir 0 pour quitter" << endl;
     int choix = -1;
     bool etatAchat = false;
     bool quitter;
@@ -139,7 +152,7 @@ retry:
              << endl;
         if (p.getJoueurActif()->victoire())
         {
-            cout << "Bravo ! Vous avez gagne !" << endl;
+            cout << "Bravo ! Vous avez gagné !" << endl;
             return 1; // 1 : Fin de partie
         }
         else
@@ -164,7 +177,7 @@ void lancer(Partie &p)
         int choix = -1;
         while (true)
         {
-            cout << "Combien de dès vous voulez lancer ?" << endl;
+            cout << "Combien de dés voulez-vous lancer ?" << endl;
 
             try
             { // Cette partie sert à détecter les erreurs eventuelles de saisie (Exemple : saisir une lettre à la place d'un nombre)
@@ -190,7 +203,7 @@ void lancer(Partie &p)
         }
         des = p.getJoueurActif()->lancerDes(choix);
     }
-    cout << "Le dès obtenu est :  " << des << endl;
+    cout << "Le dé obtenu est :  " << des << endl;
 
     p.find_carte_des(des); // Trouver les cartes à appliquer effet
 }
@@ -201,16 +214,16 @@ void menu(Partie &p)
     int choix = -1;
     cin.exceptions(std::istream::failbit); // Activer module exception dans std::cin
 
-    cout << "Bienvenue !" << endl;
+    cout << endl << "Bienvenue !" << endl;
 
     while (choix != 0)
     {
         cout << "Joueur en cours : " << p.getJoueurActif()->getId() << endl;
-        cout << "Montant avant : " << p.getJoueurActif()->getCompte() << endl;
+        cout << "Montant AVANT : " << p.getJoueurActif()->getCompte() << endl;
 
         lancer(p); // Le menu qui traite le lancement de dès
 
-        cout << "Montant après : " << p.getJoueurActif()->getCompte() << endl;
+        cout << "Compte de J" << p.getJoueurActif()->getId() << " : " << p.getJoueurActif()->getCompte() << endl;
     revenir:
         cout << "Faire votre choix" << endl;
         // Partie Menu
@@ -235,7 +248,7 @@ void menu(Partie &p)
         switch (choix)
         {
         case 0:
-            cout << "Au revoir" << endl;
+            cout << endl << "Au revoir" << endl;
             break;
         case 1:
             p.joueur_next();

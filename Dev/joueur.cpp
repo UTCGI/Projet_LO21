@@ -230,7 +230,7 @@ int Joueur::lancerDes(int desALancer) const
     }
     else
     {
-        throw SetException("Nombre de dès non autorisé !");
+        throw SetException("Nombre de dés non autorisé !");
         return -1; // Code d'erreur si on envoie un mauvais nombre
     }
 }

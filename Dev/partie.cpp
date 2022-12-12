@@ -66,18 +66,18 @@ Partie::~Partie() {}
 // ----------------------------------------------------------------
 void Partie::initialisation()
 {
-  cout << "Bonjour, bienvenu dans le jeu MachiKoro" << endl;
+  cout << "Bonjour, bienvenue dans le jeu MachiKoro" << endl;
 
   // TODO: A completer
   // Il faut recuperer l'extension ? Pour pouvoir initialiser les variables aux
   // bonnes valeurs
   int lectureExtension;
 retry:  
-  cout << "Entrez l'extension a laquelle vous voulez jouer \t0. Originale\t1. Marina \t2. GreenValley\t3. Deluxe"
-       << endl;
+  cout << "Entrez l'extension à laquelle vous voulez jouer" << endl;
+  cout << "\t0. Originale\t1. Marina \t2. GreenValley\t3. Deluxe" << endl;
   do
   {
-      cout << "L'extension doit etre comprise entre 0 et 3" << endl;
+      cout << "L'extension doit être comprise entre 0 et 3" << endl;
       cin >> lectureExtension;
 
   } while (lectureExtension < 0 || lectureExtension > 3);
@@ -167,7 +167,7 @@ void Partie::application_regle_standards(Couleur couleur)
 
 void Partie::transaction_piece(Joueur* emetteur, Joueur*destinataire, int montant){
   if (montant>emetteur->getCompte())
-    cout << "Erreur ! Le joueur " << emetteur->getPseudo() << " n'a pas de ressource suffisante pour effectuer la transaction.";
+    cout << "Erreur ! Le joueur " << emetteur->getPseudo() << " n'a pas assez de ressources pour effectuer la transaction.";
   else{
     emetteur->ajouterMontant(montant*(-1));
     destinataire->ajouterMontant(montant);
@@ -274,11 +274,11 @@ int Partie::fonction_service_verte(Type t){
 
 void Partie::find_carte_des(int des)
 {
-  cout << endl << "Bilan revenue :" << endl;
+  cout << endl << "Bilan des comptes :" << endl;
   for (auto joueur : getJoueurs())
   {
-    cout << "  " << joueur->getId() << " Montant avant " << joueur->getCompte() << endl;
-    cout << "    "<< "Cartes activée :" << endl;
+    cout << "  " << joueur->getId() << " Montant AVANT : " << joueur->getCompte() << endl;
+    cout << "    "<< "Cartes activées :" << endl;
 
 
     //Pile Rouge
@@ -370,7 +370,7 @@ void Partie::find_carte_des(int des)
       }
     }
 
-    cout << "    " << "Montant Après " << joueur->getCompte() << endl;
+    cout << "    " << "Montant APRES : " << joueur->getCompte() << endl;
     cout << endl;
   }
 }

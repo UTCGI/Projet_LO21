@@ -93,13 +93,13 @@ void Reserve::retirer_etablissement(const Etablissement& etablissement, unsigned
              nb_piles--;
              }
             }
-        else{SetException("l'etablissement n'est pas dans la r�serve");}
+        else{SetException("l'etablissement n'est pas dans la reserve");}
         }
 
 void Reserve::afficher()const{//Fomatage, pas parfait
 cout<<"******Reserve******"<<endl<<endl;
 for (unsigned int i = 0; i < nb_piles; i++) {
-    cout <<"\t"<< i+1 <<" ";
+    cout << "\t" << i + 1; if (i<9) cout << " ";
     cout.width(40);
     cout<<liste_etablissements[i]->getEtablissement()->getNom()<<" ("<<liste_etablissements[i]->getEffectif()<<")";
     cout.width(20);
