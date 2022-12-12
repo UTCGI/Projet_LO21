@@ -9,7 +9,7 @@
 
 class Reserve{
     unsigned int nb_etablissements;
-    unsigned int nb_piles;
+    unsigned int nb_piles = 0;
     unsigned int nb_piles_max;
     Pile_Etablissement** liste_etablissements;
 

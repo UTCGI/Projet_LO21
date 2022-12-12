@@ -18,6 +18,8 @@ class Partie {
   vector<Joueur*> joueurs1;
   Reserve* reserve;
 
+  int fonction_service_verte(Type t);//fonction_service_verte, réservée pour find_carte_des()
+
  public:
   // Getter functions
   int getManche() const;
@@ -127,7 +129,14 @@ void transaction_piece(Joueur* emetteur, Joueur*destinataire, int montant);
 
 void transaction_carte(Joueur* emetteur, Joueur*destinataire, const Etablissement* etab);
 
-void achat_carte(Joueur* joueur, Pile_Etablissement* pile_reserve);
+void find_carte_des(int des);//Sert à déterminer quelles cartes à en apporter du profit
+
+
+bool achat_carte(Pile_Etablissement* pile_reserve);
+
+//La raison pour la quelle j'ai choisi const Monument* monument_choisi comme paramètre au lieu d'une Carte_Monument
+//est que l'on est pas censé à modifier aucune Carte_Monument sauf celle que le joueurActif possède. Càd on ne peut pas passer n'importe quelle Carte_Monument
+bool construire_monument(const Monument* monument_choisi);
 
 void regarder_etablissements(Joueur* joueur, Couleur couleur);
 

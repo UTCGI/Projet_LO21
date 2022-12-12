@@ -40,9 +40,10 @@ liste_etablissements=new Pile_Etablissement* [nb_piles_max];
     "Marche de fruits et legumes"
     }; */
 for(unsigned int i=0;i<nb_piles_max;i++){
-liste_etablissements[i]=new Pile_Etablissement;
+liste_etablissements[i]=new Pile_Etablissement(etablissements[i],etablissements[i]->getNbExemplaires());
+nb_piles++;
 //ajouter_etablissement(*j.getEtablissementFromName(ordre_reserve[i]),j.getEtablissementFromName(ordre_reserve[i])->getNbExemplaires());
-ajouter_etablissement(*etablissements[i],etablissements[i]->getNbExemplaires());
+//ajouter_etablissement(*etablissements[i],etablissements[i]->getNbExemplaires());
 }
 }
 
