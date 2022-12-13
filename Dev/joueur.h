@@ -84,7 +84,7 @@ public:
 
   void printJoueur(ostream &f = std::cout) const;
 
-  void printJoueurConcise(ostream &f) const;//Affichage plus concis
+  void printJoueurConcise(ostream& f = cout) const;//Affichage plus concis
 };
 
 ostream &operator<<(ostream &f, const Joueur &j);
