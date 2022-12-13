@@ -99,22 +99,22 @@ class Partie {
   */
   void joueur_next();
 
-  /*
+  /*A SUPPRIMER ????????????????????????????,
   SPECIFICATION : Partie::regarder_etablissements(Joueur joueur, Couleur
   couleur) Entree: Joueur joueur, Couleur couleur Sortie: Tableau
   d'établissements Objectif: Cette fonction renvoie tout les établissements que
   dispose le joueur selon la couleur passée en paramêtre.
-  */
-  Etablissement* regarder_etablissements(Joueur joueur, Couleur couleur);
+  
+  Etablissement* regarder_etablissements(Joueur joueur, Couleur couleur);*/
 
-  /*
+  /*A SUPPRIMER ????????????????????????????,
   SPECIFICATION : Partie::application_regle_standards(Couleur couleur)
       Entree: Couleur couleur
       Sortie: None
       Objectif: Cette fonction permet d'appliquer les règles ???
       Jsp trop ce que doit faire cette fonction ??
-  */
-  void application_regle_standards(Couleur couleur);
+  
+  void application_regle_standards(Couleur couleur);*/
 
   /*
   SPECIFICATION : Partie::application_regle_speciales(Pile pile_joueur)
@@ -138,7 +138,7 @@ bool achat_carte(Pile_Etablissement* pile_reserve);
 //est que l'on est pas censé à modifier aucune Carte_Monument sauf celle que le joueurActif possède. Càd on ne peut pas passer n'importe quelle Carte_Monument
 bool construire_monument(const Monument* monument_choisi);
 
-void regarder_etablissements(Joueur* joueur, Couleur couleur);
+//void regarder_etablissements(Joueur* joueur, Couleur couleur);
 
 };
 #endif
