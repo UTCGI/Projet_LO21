@@ -256,19 +256,19 @@ int Partie::fonction_service_verte(Type t){
     int nombreactive=0;
     for (auto p : getJoueurActif()->getPileBleu()){
       if (p->getEtablissement()->getType()==t)
-        nombreactive++;    
+          nombreactive += p->getEffectif(); //nombreactive++;
     }
     for (auto p : getJoueurActif()->getPileRouge()){
       if (p->getEtablissement()->getType()==t)
-        nombreactive++;    
+          nombreactive += p->getEffectif(); //nombreactive++;   
     }
     for (auto p : getJoueurActif()->getPileVert()){
       if (p->getEtablissement()->getType()==t)
-        nombreactive++;    
+          nombreactive += p->getEffectif(); //nombreactive++;   
     }
     for (auto p : getJoueurActif()->getPileViolet()){
       if (p->getEtablissement()->getType()==t)
-        nombreactive++;    
+          nombreactive += p->getEffectif(); //nombreactive++;  
     }
     return nombreactive;
   }
@@ -364,11 +364,31 @@ void Partie::find_carte_des(int des)
             //break;
             if (p->getEtablissement()->getNom() == "Stade")
             {
-                joueur->ajouterMontant(p->getEtablissement()->getMontant() * (getNbJoueurs() - 1) * p->getEffectif());
+                //joueur->ajouterMontant(p->getEtablissement()->getMontant() * (getNbJoueurs() - 1) * p->getEffectif());
                 //pas obligé de faire * p->getEffectif() car on ne peut avoir qu'un seul établissement spécial
                 cout << "      *" << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
                 cout << "      " << p->getEtablissement()->getEffet() << endl;
-                //
+                if (p->getEffectif() == 1) {
+                    cout << "Voici les comptes des autres joueurs" << endl;
+                    int j = 1;
+                    for (auto joueurADebiter : getJoueurs()) {
+                        if (joueur != joueurADebiter) {
+                            cout << "J" << j++ << endl;
+                            cout << "AVANT : " << joueurADebiter->getCompte() << endl;
+
+                            if (joueurADebiter->getCompte() >= p->getEtablissement()->getMontant()) {
+                                joueurADebiter->ajouterMontant((-1) * p->getEtablissement()->getMontant());
+                                joueur->ajouterMontant(p->getEtablissement()->getMontant()); //* p->getEffectif());
+                            }
+                            else {
+                                joueur->ajouterMontant(joueurADebiter->getCompte());
+                                joueurADebiter->ajouterMontant((-1) * joueurADebiter->getCompte());
+                            }
+                            cout << "APRES : " << joueurADebiter->getCompte() << endl << endl;
+                        }
+                        else j++;
+                    }
+                }
             }
             if (p->getEtablissement()->getNom() == "Centre d'affaires")
             {
