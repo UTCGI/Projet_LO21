@@ -1,7 +1,7 @@
 #include "buildfonctions.h"
 #include "create_database.h"
-#include <vector>
 #include <cstring>
+#include <vector>
 
 //***********************************
 // dehors du QT
@@ -12,10 +12,10 @@
 
 // Dans QT
 /* #include <QDir>
-#include <QString>
 #include <QFile> */
+// #include <QString>
 
-void lancerdatabase(sqlite3 **db)
+void lancerdatabase(sqlite3** db)
 {
     //*********************************************************************************************
     // Dans QT
@@ -33,13 +33,10 @@ void lancerdatabase(sqlite3 **db)
 
     // dehors du QT
 
-    if (!filesystem::exists("./projet.db"))
-    {
+    if (!filesystem::exists("./projet.db")) {
         // cout << "Database doesn't exist, creating\n";
         database("./projet.db");
-    }
-    else
-    {
+    } else {
         // cout << "Success\n";
     }
     sqlite3_open("./projet.db", db);
@@ -47,20 +44,18 @@ void lancerdatabase(sqlite3 **db)
     //*********************************************************************************************
 }
 
-
-
-void buildcaracteristics1(Jeu* j, Extension e){
+void buildcaracteristics1(Jeu* j, Extension e)
+{
     cout << toString1(j->getExtension()) << endl;
-
 
     sqlite3* db;
     sqlite3_stmt* stmt;
     int rc;
     int row = 0;
     string sql;
-    
+
     // Variable objets
-    //Extension extension;// = Extension::Aucune;
+    // Extension extension;// = Extension::Aucune;
     size_t cdv;
     size_t nbj;
     size_t nbpr;
@@ -73,20 +68,18 @@ void buildcaracteristics1(Jeu* j, Extension e){
 
     lancerdatabase(&db);
     sql = "select * from Jeu where nom='" + toString1(e) + "';";
-    //cout << sql;
+    // cout << sql;
     sqlite3_prepare(db, sql.data(), sql.length() * sizeof(char), &stmt, NULL);
     bool done = false;
-    while (!done)
-    {
-        //printf("In select while\n");
-        switch (sqlite3_step(stmt))
-        {
+    while (!done) {
+        // printf("In select while\n");
+        switch (sqlite3_step(stmt)) {
         case SQLITE_ROW:
             j->condition_de_victoire = sqlite3_column_int(stmt, 1);
             j->nb_joueurs_MAX = sqlite3_column_int(stmt, 2);
             j->nb_pile_reserve_MAX = sqlite3_column_int(stmt, 3);
             j->nb_lignes_reserve_MAX = sqlite3_column_int(stmt, 4);
-            j->nb_colonnes_reserve_MAX = sqlite3_column_int(stmt, 5);//(const size_t)
+            j->nb_colonnes_reserve_MAX = sqlite3_column_int(stmt, 5); //(const size_t)
             j->nbEtablissements_Depart = sqlite3_column_int(stmt, 6);
             j->nbEtablissements = sqlite3_column_int(stmt, 7);
             j->nbMonuments = sqlite3_column_int(stmt, 8);
@@ -106,17 +99,17 @@ void buildcaracteristics1(Jeu* j, Extension e){
     sqlite3_finalize(stmt);
     sqlite3_close(db);
 
-    j->liste_etablissements = new const Etablissement * [j->getNbEtablissements()];
-    j->liste_monuments = new const Monument * [j->getNbMonuments()];
+    j->liste_etablissements = new const Etablissement*[j->getNbEtablissements()];
+    j->liste_monuments = new const Monument*[j->getNbMonuments()];
 
-	j->liste_etablissements_depart = new const Etablissement * [j->getNbEtablissements_Depart()];
+    j->liste_etablissements_depart = new const Etablissement*[j->getNbEtablissements_Depart()];
 }
 
-void buildmonument(const Monument **liste_monuments, Extension e)
+void buildmonument(const Monument** liste_monuments, Extension e)
 {
     // Variable Sqlite3
-    sqlite3 *db;
-    sqlite3_stmt *stmt;
+    sqlite3* db;
+    sqlite3_stmt* stmt;
     int row = 0;
     string sql;
 
@@ -127,17 +120,15 @@ void buildmonument(const Monument **liste_monuments, Extension e)
 
     lancerdatabase(&db);
 
-    sql = "SELECT * from "+toString1(e)+"Monument;";//monument";
+    sql = "SELECT * from " + toString1(e) + "Monument;"; // monument";
     sqlite3_prepare(db, sql.data(), sql.length() * sizeof(char), &stmt, NULL);
     bool done = false;
-    while (!done)
-    {
-        //printf("In select while\n");
-        switch (sqlite3_step(stmt))
-        {
+    while (!done) {
+        // printf("In select while\n");
+        switch (sqlite3_step(stmt)) {
         case SQLITE_ROW:
-            nom = (const char *)sqlite3_column_text(stmt, 0);
-            effet = (const char *)sqlite3_column_text(stmt, 1);
+            nom = (const char*)sqlite3_column_text(stmt, 0);
+            effet = (const char*)sqlite3_column_text(stmt, 1);
             prix = sqlite3_column_int(stmt, 2);
             liste_monuments[row] = new Monument(nom, effet, prix);
             row++;
@@ -156,11 +147,11 @@ void buildmonument(const Monument **liste_monuments, Extension e)
     sqlite3_close(db);
 }
 
-void buildetablissement(const Etablissement **liste_etablissements, const Etablissement **liste_etablissements_depart/* , const Etablissement **liste_etablissements_speiciaux */, Extension e)
+void buildetablissement(const Etablissement** liste_etablissements, const Etablissement** liste_etablissements_depart /* , const Etablissement **liste_etablissements_speiciaux */, Extension e)
 {
     // Variable Sqlite3
-    sqlite3 *db;
-    sqlite3_stmt *stmt;
+    sqlite3* db;
+    sqlite3_stmt* stmt;
     int row = 0;
     string sql;
 
@@ -174,20 +165,20 @@ void buildetablissement(const Etablissement **liste_etablissements, const Etabli
     Type type;
     unsigned int montant_effet;
     Type type_effet; // nouveau
-    bool payeur;     // nouveau
+    bool payeur; // nouveau
     int identificateur;
     unsigned int nb_exemplaires;
-    const Etablissement *temp = nullptr;
+    const Etablissement* temp = nullptr;
 
-    int nombreCarteDepart; 
+    int nombreCarteDepart;
     int nombreCarteNormale;
     int nombreCarteSpeciale;
 
-    if (e == Extension::Deluxe){
+    if (e == Extension::Deluxe) {
         nombreCarteDepart = 5;
         nombreCarteNormale = 5;
         nombreCarteSpeciale = 2;
-    }else{
+    } else {
         nombreCarteDepart = 4;
         nombreCarteNormale = 6;
         nombreCarteSpeciale = 4;
@@ -199,50 +190,42 @@ void buildetablissement(const Etablissement **liste_etablissements, const Etabli
 
     sqlite3_prepare(db, sql.data(), sql.length() * sizeof(char), &stmt, NULL);
     bool done = false;
-    while (!done)
-    {
+    while (!done) {
         // printf("In select while\n");
-        switch (sqlite3_step(stmt))
-        {
+        switch (sqlite3_step(stmt)) {
         case SQLITE_ROW:
-            if (strcmp(nom.data(), (const char *)sqlite3_column_text(stmt, 0)) == 0 && identificateur == sqlite3_column_int(stmt, 9))
-            {
+            if (strcmp(nom.data(), (const char*)sqlite3_column_text(stmt, 0)) == 0 && identificateur == sqlite3_column_int(stmt, 9)) {
                 num_de.push_back(sqlite3_column_int(stmt, 4));
-            }
-            else
-            {
-                if (row != 0)
-                {
+            } else {
+                if (row != 0) {
                     if (identificateur == 0)
-                        if (couleur==Couleur::vert&&type_effet!=Type::aucun)
+                        if (couleur == Couleur::vert && type_effet != Type::aucun)
                             *(liste_etablissements_depart++) = new Etablissement_VertTE(nom, effet, couleur, prix, num_de, type, montant_effet, false, nombreCarteDepart, type_effet);
                         else
                             *(liste_etablissements_depart++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false, nombreCarteDepart);
-                    else if (identificateur <= 1)
-                    {
+                    else if (identificateur <= 1) {
                         // temp = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
-                        if (couleur==Couleur::vert&&type_effet!=Type::aucun)
+                        if (couleur == Couleur::vert && type_effet != Type::aucun)
                             *(liste_etablissements++) = new Etablissement_VertTE(nom, effet, couleur, prix, num_de, type, montant_effet, false, nombreCarteNormale, type_effet);
                         else
                             *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false, nombreCarteNormale);
-                        
-                    }
-                    else
-                        //Partie carte spéciale
-                        // *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
+
+                    } else
+                        // Partie carte spéciale
+                        //  *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
                         *(liste_etablissements++) = new Etablissement_Violet(nom, effet, couleur, prix, num_de, type, montant_effet, true, nombreCarteSpeciale, payeur);
-                        //*(liste_etablissements_speiciaux++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
+                    //*(liste_etablissements_speiciaux++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
                 }
                 row++;
                 num_de.clear();
-                nom = (const char *)sqlite3_column_text(stmt, 0);
-                effet = (const char *)sqlite3_column_text(stmt, 1);
-                couleur = toCouleur((const char *)sqlite3_column_text(stmt, 2));
+                nom = (const char*)sqlite3_column_text(stmt, 0);
+                effet = (const char*)sqlite3_column_text(stmt, 1);
+                couleur = toCouleur((const char*)sqlite3_column_text(stmt, 2));
                 prix = sqlite3_column_int(stmt, 3);
                 num_de.push_back(sqlite3_column_int(stmt, 4));
-                type = toType((const char *)sqlite3_column_text(stmt, 5));
+                type = toType((const char*)sqlite3_column_text(stmt, 5));
                 montant_effet = sqlite3_column_int(stmt, 6);
-                type_effet = toType((const char *)sqlite3_column_text(stmt, 7));
+                type_effet = toType((const char*)sqlite3_column_text(stmt, 7));
                 payeur = sqlite3_column_int(stmt, 8);
                 identificateur = sqlite3_column_int(stmt, 9);
                 // cout<<endl;
@@ -250,28 +233,25 @@ void buildetablissement(const Etablissement **liste_etablissements, const Etabli
             break;
 
         case SQLITE_DONE:
-            if (row != 0)
-                {
-                    if (identificateur == 0)
-                        if (couleur==Couleur::vert&&type_effet!=Type::aucun)
-                            *(liste_etablissements_depart++) = new Etablissement_VertTE(nom, effet, couleur, prix, num_de, type, montant_effet, false, nombreCarteDepart, type_effet);
-                        else
-                            *(liste_etablissements_depart++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false, nombreCarteDepart);
-                    else if (identificateur <= 1)
-                    {
-                        // temp = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
-                        if (couleur==Couleur::vert&&type_effet!=Type::aucun)
-                            *(liste_etablissements++) = new Etablissement_VertTE(nom, effet, couleur, prix, num_de, type, montant_effet, false, nombreCarteNormale, type_effet);
-                        else
-                            *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false, nombreCarteNormale);
-                        
-                    }
+            if (row != 0) {
+                if (identificateur == 0)
+                    if (couleur == Couleur::vert && type_effet != Type::aucun)
+                        *(liste_etablissements_depart++) = new Etablissement_VertTE(nom, effet, couleur, prix, num_de, type, montant_effet, false, nombreCarteDepart, type_effet);
                     else
-                        //Partie carte spéciale
-                        // *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
-                        *(liste_etablissements++) = new Etablissement_Violet(nom, effet, couleur, prix, num_de, type, montant_effet, true, nombreCarteSpeciale, payeur);
-                        //*(liste_etablissements_speiciaux++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
-                }
+                        *(liste_etablissements_depart++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false, nombreCarteDepart);
+                else if (identificateur <= 1) {
+                    // temp = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
+                    if (couleur == Couleur::vert && type_effet != Type::aucun)
+                        *(liste_etablissements++) = new Etablissement_VertTE(nom, effet, couleur, prix, num_de, type, montant_effet, false, nombreCarteNormale, type_effet);
+                    else
+                        *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, false, nombreCarteNormale);
+
+                } else
+                    // Partie carte spéciale
+                    //  *(liste_etablissements++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
+                    *(liste_etablissements++) = new Etablissement_Violet(nom, effet, couleur, prix, num_de, type, montant_effet, true, nombreCarteSpeciale, payeur);
+                //*(liste_etablissements_speiciaux++) = new Etablissement(nom, effet, couleur, prix, num_de, type, montant_effet, type_effet, payeur);
+            }
             done = true;
             break;
 

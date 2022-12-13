@@ -14,10 +14,6 @@ int Partie::getNumDe() const { return num_de; }
 
 int Partie::getNbJoueurs() const { return nb_joueurs; }
 
-//int Partie::getNbMonuments() const { return nb_monuments; }
-
-//int Partie::getNbEtablissements() const { return nb_etablissements; }
-
 Jeu *Partie::getJeu() const { return jeu; }
 
 Joueur *Partie::getJoueurActif()  { return joueurs1[joueur_actif]; }
@@ -37,14 +33,6 @@ void  Partie::setNumDe(int nbDe) { num_de = nbDe; }//inutile ?
 
 void  Partie::setNbJoueurs(int nbJoueurs) { nb_joueurs = nbJoueurs; }
 
-//void  Partie::setNbMonuments(int nbMonuments) { nb_monuments = nbMonuments; }
-
-/*void  Partie::setNbEtablissements(int nbEtablissements)
-{
-  nb_etablissements = nbEtablissements;
-}*/
-
-
 // ----------------------------------------------------------------
 // Constructors and destructors functions
 // ----------------------------------------------------------------
@@ -52,10 +40,6 @@ Partie::Partie()
     : manche(0),
       num_de(1),
       nb_joueurs(2)//,
-      //nb_monuments(4),
-      //nb_etablissements(15)
-      /* joueur_actif(new Joueur),
-      joueurs(new Joueur[nb_joueurs])*/
 { 
 }
 
@@ -67,10 +51,7 @@ Partie::~Partie() {}
 void Partie::initialisation()
 {
   cout << "Bonjour, bienvenue dans le jeu MachiKoro" << endl;
-
-  // TODO: A completer
-  // Il faut recuperer l'extension ? Pour pouvoir initialiser les variables aux
-  // bonnes valeurs
+//Lire l'extension
   int lectureExtension;
 retry:  
   cout << "Entrez l'extension à laquelle vous voulez jouer" << endl;
@@ -82,45 +63,15 @@ retry:
 
   } while (lectureExtension < 0 || lectureExtension > 3);
   jeu = new Jeu(Extensions[lectureExtension]);
-  /*switch (lectureExtension)
-  {
-  case 0:
-    setNbMonuments(4);       // TODO Vérifier le nb de monuments exact
-    setNbEtablissements(15); // TODO Vérifier le nb de etablissements exact
-    //jeu = new Jeu(lectureExtension);
-    jeu = new Jeu(Extension::Aucune);
-    break;
-  case 1:
-    setNbMonuments(4);       // TODO Vérifier le nb de monuments exact
-    setNbEtablissements(15); // TODO Vérifier le nb de etablissements exact
-
-    jeu = new Jeu(Extension::Marina);
-    break;
-  case 2:
-    setNbMonuments(4);       // TODO Vérifier le nb de monuments exact
-    setNbEtablissements(15); // TODO Vérifier le nb de etablissements exact
-
-    jeu = new Jeu(Extension::GreenValley);
-    break;
-  case 3:
-    setNbMonuments(4);       // TODO Vérifier le nb de monuments exact
-    setNbEtablissements(15); // TODO Vérifier le nb de etablissements exact
-
-    jeu = new Jeu(Extension::Deluxe);
-    break;
-  }*/
-
+//Lire le nombre de joueurs
   cout << "Entrez le nombre de joueurs :" << endl;
-  int lecture = 0;
-  while (lecture < 2 || lecture > jeu->getNb_joueurs_MAX())
+  int lectureNbJoueurs = 0;
+  while (lectureNbJoueurs < 2 || lectureNbJoueurs > jeu->getNb_joueurs_MAX())
   {
       cout << "Le nombre de joueur doit être compris entre 2 et " << jeu->getNb_joueurs_MAX() << endl;
-      cin >> lecture;
+      cin >> lectureNbJoueurs;
   } 
-  //cout << jeu->getEtablissementsDepart()[0]->getNbExemplaires();
-  if ( (jeu->getEtablissementsDepart()[0]->getNbExemplaires()) < lecture) goto retry;// Si pas assez de cartes départ
-
-  setNbJoueurs(lecture);
+  setNbJoueurs(lectureNbJoueurs);
 
 //Initialisation reserve
   reserve = new Reserve(*jeu);
@@ -128,12 +79,9 @@ retry:
   for(size_t i=0;i<getNbJoueurs();i++){
     joueurs1.push_back(new Joueur(jeu));
   }
+//TODO : initialisation pioche
 }
 
-void Partie::distribuer()
-{
-  // TODO: A completer
-}
 
 void Partie::joueur_next(){
   if (joueur_actif==joueurs1.size()-1)//Quand c'est le dernier joueur
@@ -248,7 +196,7 @@ void Partie::achat_carte(Joueur *joueur, Pile_Etablissement *pile)
   }
 */
 
-
+//TODO: renommer CompterNbEtablissementdeType()
 int Partie::fonction_service_verte(Type t){
   if (t == Type::aucun )
     return 1;
@@ -274,6 +222,7 @@ int Partie::fonction_service_verte(Type t){
   }
 }
 
+//TODO : renommer 
 void Partie::find_carte_des(int des)
 {
   cout << endl << "Bilan des comptes :" << endl;

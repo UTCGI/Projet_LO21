@@ -1,9 +1,9 @@
 #pragma once
-#include <string>
-#include "miniville.h"
 #include "Carte_Monument.h"
-#include "pile_etablissement.h"
 #include "jeu.h"
+#include "miniville.h"
+#include "pile_etablissement.h"
+#include <string>
 
 /* Note : Jingfang Yuan 01/12
     1 La vérification du montant restant dans le compte devrait se faire ailleurs que dans les fonctions de la classe Joueur
@@ -17,74 +17,66 @@
     5 static const int max_joueurs = 4; static const int min_joueurs = 2; si besoin, doit être gérés par partie/jeu
  */
 
-class Joueur
-{
-  static int nombre_actuel; // Compteur du nombre actuel de joueur
-  int id;
-  string pseudo;
-  int de = 1;
-  // int de_lance;
-  int compte = 3;
-  // int placement_StartUp = 0;
-  std::vector<Carte_Monument *> monuments;
-  std::vector<Pile_Etablissement *> pileRouge;
-  std::vector<Pile_Etablissement *> pileBleu;
-  std::vector<Pile_Etablissement *> pileVert;
-  std::vector<Pile_Etablissement *> pileViolet;
+class Joueur {
+    static int nombre_actuel; // Compteur du nombre actuel de joueur
+    int id;
+    string pseudo;
+    int de = 1;
+    int compte = 3;
+    std::vector<Carte_Monument*> monuments;
+    std::vector<Pile_Etablissement*> pileRouge;
+    std::vector<Pile_Etablissement*> pileBleu;
+    std::vector<Pile_Etablissement*> pileVert;
+    std::vector<Pile_Etablissement*> pileViolet;
 
 public:
-  Joueur(const Jeu *jeu);
-  ~Joueur();
+    Joueur(const Jeu* jeu);
+    ~Joueur();
 
-  // Getter
-  int getId() const {return id;}
+    // Getter
+    int getId() const { return id; }
 
-  string getPseudo() const { return pseudo; }
+    string getPseudo() const { return pseudo; }
 
-  int getNbDes() const;
+    int getNbDes() const;
 
-  int getCompte() const;
-  // int getPlacement_StartUp() const;
-  // Cette fonction vraiment besoin ?
+    int getCompte() const;
 
-  int getNombreMonumentsConstruits() const;
+    int getNombreMonumentsConstruits() const;
 
-  //static int getNbMaxJoueurs();
+    const vector<Carte_Monument*>& getMonuments() const { return monuments; }
 
-  const vector<Carte_Monument *> &getMonuments() const { return monuments; }
+    const vector<Pile_Etablissement*>& getPileRouge() const { return pileRouge; }
 
-  const vector<Pile_Etablissement *> &getPileRouge() const { return pileRouge; }
+    const vector<Pile_Etablissement*>& getPileBleu() const { return pileBleu; }
 
-  const vector<Pile_Etablissement *> &getPileBleu() const { return pileBleu; }
+    const vector<Pile_Etablissement*>& getPileVert() const { return pileVert; }
 
-  const vector<Pile_Etablissement *> &getPileVert() const { return pileVert; }
+    const vector<Pile_Etablissement*>& getPileViolet() const { return pileViolet; }
 
-  const vector<Pile_Etablissement *> &getPileViolet() const { return pileViolet; }
+    // Setter
 
-  // Setter
+    void setPseudo(string pseudo) { this->pseudo = pseudo; };
 
-  void setPseudo(string pseudo) { this->pseudo = pseudo; };
-  // void setPlacement_StartUp(int placement_StartUp);
+    void setNbDes();
 
-  void setNbDes();
+    void setCompte(int montant); // inutile ? redondant avec ajouterMontant(int montant);
 
-  void setCompte(int montant);//inutile ? redondant avec ajouterMontant(int montant);
+    void initialisation_etablissement_depart(const Etablissement* e);
 
-  void initialisation_etablissement_depart(const Etablissement *e);
+    void ajouter_etablissement(const Etablissement* e);
 
-  void ajouter_etablissement(const Etablissement *e);
+    bool retirer_etablissement(const Etablissement* e);
 
-  bool retirer_etablissement(const Etablissement *e);
+    void ajouterMontant(int montant);
 
-  void ajouterMontant(int montant);
+    bool victoire() const;
 
-  bool victoire() const;
+    int lancerDes(int desALancer) const;
 
-  int lancerDes(int desALancer) const;
+    void printJoueur(ostream& f = std::cout) const;
 
-  void printJoueur(ostream &f = std::cout) const;
-
-  void printJoueurConcise(ostream& f = cout) const;//Affichage plus concis
+    void printJoueurConcise(ostream& f = cout) const; // Affichage plus concis
 };
 
-ostream &operator<<(ostream &f, const Joueur &j);
+ostream& operator<<(ostream& f, const Joueur& j);

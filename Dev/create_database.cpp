@@ -1,23 +1,21 @@
-#include <iostream>
 #include "create_database.h"
 #include "sqlite3.h"
+#include <iostream>
 
 using namespace std;
-
 
 void database(const string name)
 {
     // Variable Sqlite3
-    cout<<"Creation database"<<endl;
-    sqlite3 *db;
-    sqlite3_stmt *stmt;
-    char *zErrMsg = 0;
+    cout << "Creation database" << endl;
+    sqlite3* db;
+    sqlite3_stmt* stmt;
+    char* zErrMsg = 0;
     int rc;
     string sql;
     rc = sqlite3_open(name.data(), &db);
 
-    sql =
-"drop table if exists Jeu;     \
+    sql = "drop table if exists Jeu;     \
 CREATE TABLE Jeu(     \
 nom varchar PRIMARY KEY CHECK(nom in ('Aucune','Marina', 'GreenValley', 'Deluxe')),     \
 condition_de_victoire integer NOT NULL CHECK(condition_de_victoire>0),     \
@@ -251,7 +249,8 @@ payeur bool not null, \
 identificateur integer not null, \
 PRIMARY KEY(nom, identificateur)       \
 );        \
-""insert into DeluxeEXCEPT VALUES('Hotel de ville','Avant de construire un etablissement ou un monument, si vous n''avez pas de piece, recevez 1 piece de la banque', 'violet', 0, '[0]', 'special', 1, 'aucun', 0, 0);        \
+"
+          "insert into DeluxeEXCEPT VALUES('Hotel de ville','Avant de construire un etablissement ou un monument, si vous n''avez pas de piece, recevez 1 piece de la banque', 'violet', 0, '[0]', 'special', 1, 'aucun', 0, 0);        \
 insert into DeluxeEXCEPT VALUES('Fromagerie', 'Recevez 3 pieces de la banque pour chaque etablissement de type elevage que vous possedez', 'vert', 5, '[7]','industrie', 3, 'elevage', 0, 1);        \
 insert into DeluxeEXCEPT VALUES('Champ de mais', 'Si vous possedez moins de deux monuments, recevez 1 piece de la banque', 'bleu', 2, '[3, 4]','agriculture', 1, 'aucun', 0, 1);        \
 insert into DeluxeEXCEPT VALUES('Banque de Minivilles', 'Lorsque vous achetez cet etablissement, recevez 5 pieces de la banque. Payez 2 pieces a la banque', 'vert', 0, '[5, 6]', 'entreprise', -2, 'aucun', 0, 1);        \
@@ -265,15 +264,13 @@ insert into DeluxeEXCEPT VALUES('Arboretum', 'Rassemblez les pieces de tous les 
 \
 \
 drop view if exists Deluxe;       \
-CREATE VIEW Deluxe AS SELECT * FROM Marina UNION SELECT * FROM GreenValleyADD EXCEPT SELECT * FROM DeluxeEXCEPT;"  \
-;
+CREATE VIEW Deluxe AS SELECT * FROM Marina UNION SELECT * FROM GreenValleyADD EXCEPT SELECT * FROM DeluxeEXCEPT;";
 
     rc = sqlite3_exec(db, sql.data(), 0, 0, &zErrMsg);
-    
-    if (rc != SQLITE_OK ) {
-        cout<<"Creation failed"<<endl;
-    } 
-    
+
+    if (rc != SQLITE_OK) {
+        cout << "Creation failed" << endl;
+    }
+
     sqlite3_close(db);
 }
-
