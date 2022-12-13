@@ -51,11 +51,11 @@ effet varchar not null,   \
 prix integer not null check(prix>=0));   \
 CREATE VIEW MarinaMonument AS SELECT * FROM AucuneMonument UNION SELECT * FROM Marina1Monument;   \
 insert into AucuneMonument values('Gare', 'Vous pouvez lancer deux des', 4);   \
-insert into AucuneMonument values('Centre commercial','Vos etablissement de type restauration et commerce rapportent une piece de plus', 10);   \
+insert into AucuneMonument values('Centre commercial','Vos etablissements de type restauration et commerce rapportent une piece de plus', 10);   \
 insert into AucuneMonument values('Tour radio','Une fois par tour, vous pouvez choisir de relancer vos des', 22);   \
 insert into AucuneMonument values('Parc dattractions','Si votre jet de des est un double, rejouez un tour apres celui-ci', 16);   \
-insert into Marina1Monument values('Port','Une fois par tour, vous pouvez choisir de relancer vos des', 22);   \
-insert into Marina1Monument values('Aeroport','Si votre jet de des est un double, rejouez un tour apres celui-ci', 16);   \
+insert into Marina1Monument values('Port','Si le resultat de votre jet de des est de 10 ou plus, vous pouvez ajouter 2 a ce resultat', 2);   \
+insert into Marina1Monument values('Aeroport','Si vous n''avez rien construit pendant votre tour, recevez 10 pieces de la banque', 30);   \
 \
 drop view if exists GreenValleyMonument;   \
 CREATE VIEW GreenValleyMonument AS SELECT * FROM AucuneMonument;   \
@@ -151,7 +151,7 @@ type_effet varchar NOT NULL CHECK(type_effet in ('agriculture',       \
     identificateur integer not null,       \
     PRIMARY KEY(nom, identificateur)       \
 );        \
-insert into MarinaADD VALUES('Hotel de ville','test', 'bleu', 0, '[1]', 'special', 1, 'aucun', 0, 0);       \
+insert into MarinaADD VALUES('Hotel de ville','Avant de construire un etablissement ou un monument, si vous n''avez pas de piece, recevez 1 piece de la banque', 'violet', 0, '[0]', 'special', 1, 'aucun', 0, 0);       \
 insert into MarinaADD VALUES('Sushi bar', 'Si vous avez le Port, recevez 3 pieces du joueur qui a lance les des', 'rouge', 2, '[1]', 'restauration', 3, 'aucun', 0, 1);    \
 insert into MarinaADD VALUES('Champ de fleurs', 'Recevez 1 piece de la banque', 'bleu', 2, '[4]','agriculture', 1, 'aucun', 0, 1);    \
 insert into MarinaADD VALUES('Fleuriste', 'Recevez 1 piece de la banque pour chaque Champ de fleurs que vous possedez','vert', 1, '[6]', 'commerce', 1, 'aucun', 0, 1);    \
@@ -251,7 +251,7 @@ payeur bool not null, \
 identificateur integer not null, \
 PRIMARY KEY(nom, identificateur)       \
 );        \
-""insert into DeluxeEXCEPT VALUES('Hotel de ville','test', 'bleu', 0, '[1]', 'special', 1, 'aucun', 0, 0);        \
+""insert into DeluxeEXCEPT VALUES('Hotel de ville','Avant de construire un etablissement ou un monument, si vous n''avez pas de piece, recevez 1 piece de la banque', 'violet', 0, '[0]', 'special', 1, 'aucun', 0, 0);        \
 insert into DeluxeEXCEPT VALUES('Fromagerie', 'Recevez 3 pieces de la banque pour chaque etablissement de type elevage que vous possedez', 'vert', 5, '[7]','industrie', 3, 'elevage', 0, 1);        \
 insert into DeluxeEXCEPT VALUES('Champ de mais', 'Si vous possedez moins de deux monuments, recevez 1 piece de la banque', 'bleu', 2, '[3, 4]','agriculture', 1, 'aucun', 0, 1);        \
 insert into DeluxeEXCEPT VALUES('Banque de Minivilles', 'Lorsque vous achetez cet etablissement, recevez 5 pieces de la banque. Payez 2 pieces a la banque', 'vert', 0, '[5, 6]', 'entreprise', -2, 'aucun', 0, 1);        \
