@@ -42,7 +42,10 @@ void Jeu::afficher(std::ostream& f) const {
  const Etablissement* Jeu::getEtablissementFromName(const string& name)const {
       unsigned int i = 0;
       while (i<nbEtablissements && liste_etablissements[i]->getNom().compare(name) != 0) i++;
-      if (liste_etablissements[i]->getNom().compare(name) != 0) {SetException("Cette carte n'existe pas");}
+      if (liste_etablissements[i]->getNom().compare(name) != 0) {
+        SetException("Cette carte n'existe pas");
+        return nullptr;
+        }
       else return liste_etablissements[i];
   }
 
