@@ -38,8 +38,8 @@ public:
     ~Etablissement() = default;
 
     // Methods
-    bool estActif(unsigned int n);
-    bool estSpecial();
+    bool estActif(unsigned int n)const;
+    bool estSpecial()const;
     virtual void afficher(std::ostream& f = std::cout) const;
     bool operator==(Etablissement e1) const;
     bool operator!=(Etablissement e1) const;
