@@ -33,8 +33,10 @@ bool Etablissement::estActif(unsigned int n)
     bool test = 0;
     vector<unsigned int> temp_vec = getNumDe();
     for (auto v : temp_vec) {
-        if (v == n)
+        if (v == n){
             test = 1;
+            break;
+        }
     }
     return test;
 }
