@@ -28,11 +28,10 @@ unsigned int Etablissement::getMontant() const { return montant_effet; }
 unsigned int Etablissement::getNbExemplaires() const { return nb_exemplaires; }
 bool Etablissement::getIsSpecial() const { return isSpecial; }
 
-bool Etablissement::estActif(unsigned int n)
+bool Etablissement::estActif(unsigned int n)const
 {
     bool test = 0;
-    vector<unsigned int> temp_vec = getNumDe();
-    for (auto v : temp_vec) {
+    for (auto v : getNumDe()) {
         if (v == n){
             test = 1;
             break;
@@ -41,7 +40,7 @@ bool Etablissement::estActif(unsigned int n)
     return test;
 }
 
-bool Etablissement::estSpecial()
+bool Etablissement::estSpecial()const
 {
     return getType() == Type::special;
 }
