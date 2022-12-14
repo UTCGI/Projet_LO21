@@ -90,22 +90,9 @@ void Partie::joueur_next(){
     joueur_actif++;
 }
 
-/* Joueur Partie::tour_joueur(Joueur joueur)
-{
-  int i = 0;
-  while (i < getNbJoueurs() && getJoueurActif()!= joueur)
-  {
-    i++;
-  }
-  int indice = (i + 1) % getNbJoueurs();
-  return getJoueurI(indice);
-}
-Etablissement* Partie::regarder_etablissements(Joueur joueur, Couleur couleur)
-{
-  //???
-}
 
 
+/*
 void Partie::application_regle_standards(Couleur couleur)
 {
   // TODO: A completer
