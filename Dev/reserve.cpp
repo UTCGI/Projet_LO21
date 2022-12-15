@@ -104,7 +104,7 @@ void Reserve::afficher() const
         cout.width(40);
         cout << liste_etablissements[i]->getEtablissement()->getNom() << " (" << liste_etablissements[i]->getEffectif() << ")";
         cout.width(20);
-        cout << "Prix : " << liste_etablissements[i]->getPrix() << endl;
+        if (liste_etablissements[i]->getPrix() != 0) cout << "Prix : " << liste_etablissements[i]->getPrix(); cout << " " << endl;
     }
     cout << "*****End*Reserve*****" << endl
          << endl;
