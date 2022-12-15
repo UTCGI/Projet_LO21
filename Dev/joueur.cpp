@@ -92,6 +92,7 @@ void Joueur::initialisation_etablissement_depart(const Etablissement* e)
     for (auto i = (*which).begin(); i != (*which).end(); i++) {
         if ((*i)->getEtablissement()->getNom() == e->getNom()) {
             (*i)->ajouterCarte();
+            (*i)->setMinimum();//minimum=1 pour etablissement de depart
         } else
             continue;
     }
@@ -150,8 +151,9 @@ bool Joueur::retirer_etablissement(const Etablissement* e)
     for (auto i = (*which).begin(); i != (*which).end(); i++) {
         if ((*i)->getEtablissement() == e) {
             if ((*i)->getEffectif() == (*i)->getMinimum()) {
-                throw SetException("Cette pile est déjà vide !");
                 temp = false;
+                cout << "Vous ne pouvez pas prendre dans cette pile !" << endl;
+                //throw SetException("Cette pile est déjà vide !");
             }
 
             else {
@@ -209,17 +211,17 @@ void Joueur::printJoueurConcise(ostream& f) const
       << endl;
     f << "Pile Rouge" << endl;
     for (auto i : pileRouge)
-        f << "  " << i->getEtablissement()->getNom() << "  Effectif :  " << i->getEffectif() << endl;
+        f << "  " << i->getEtablissement()->getNom() << "  Effectif :  " << i->getEffectif() << endl;// "  Minimum :  " << i->getMinimum() << endl;
     f << "Pile Bleu" << endl;
     for (auto i : pileBleu)
-        f << "  " << i->getEtablissement()->getNom() << "  Effectif :  " << i->getEffectif() << endl;
+        f << "  " << i->getEtablissement()->getNom() << "  Effectif :  " << i->getEffectif() << endl;// "  Minimum :  " << i->getMinimum() << endl;
     f << "Pile Violet" << endl;
     for (auto i : pileViolet) {
-        f << "  " << i->getEtablissement()->getNom() << "  Effectif :  " << i->getEffectif() << endl;
+        f << "  " << i->getEtablissement()->getNom() << "  Effectif :  " << i->getEffectif() << endl;// "  Minimum :  " << i->getMinimum() << endl;
     }
     f << "Pile Vert" << endl;
     for (auto i : pileVert)
-        f << "  " << i->getEtablissement()->getNom() << "  Effectif :  " << i->getEffectif() << endl;
+        f << "  " << i->getEtablissement()->getNom() << "  Effectif :  " << i->getEffectif() << endl;// "  Minimum :  " << i->getMinimum() << endl;
 }
 
 void Joueur::printJoueur(ostream& f) const
