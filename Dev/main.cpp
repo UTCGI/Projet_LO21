@@ -257,6 +257,7 @@ void menu(Partie &p)
             {
             case 1:
                 choix = 0; // Si qqn gagne, partie terminée
+                break;
             case 2:
                 goto revenir; // Si quitter, rééssayer
             }
@@ -282,9 +283,43 @@ int main()
     /*Jeu* j = new Jeu;//(Extension::Deluxe);//(Extension::Marina);//(Extension::GreenValley);// (Extension::Deluxe);
     cout << *j;
     Joueur* Josephine = new Joueur(j);
+    cout << "JOSEPHINE" << endl;
+    Josephine->printJoueurConcise();
+    Joueur* Jingfang = new Joueur(j);
+    cout << "JINGFANG" << endl;
+    Jingfang->printJoueurConcise();
+    cout << j->getEtablissements()[0][0];
+    p.transaction_carte(Josephine, Jingfang, j->getEtablissements()[0]);
+    cout << "JOSEPHINE" << endl; 
+    Josephine->printJoueurConcise();
+    cout << "JINGFANG" << endl;
+    Jingfang->printJoueurConcise();
     cout << Josephine->getNbDes() << endl;
     Josephine->setNbDes();
     cout << Josephine->getNbDes() << endl;*/
+
+    /*Partie p;
+    p.initialisation();
+    p.joueur_next();
+    p.getJoueurActif()->ajouterMontant(20);
+    cout<<p.getJoueurActif()->getCompte()<<endl;//J2 : 23
+    p.achat_carte(p.getReserve()->getListeEtablissement()[6]);//J2 : Stade
+    p.achat_carte(p.getReserve()->getListeEtablissement()[7]);//J2 : Centre d'affaires
+    cout << p.getJoueurActif()->getCompte() << endl;//J2 : 9
+    p.getJoueurActif()->printJoueurConcise();
+    p.joueur_next();
+    cout << p.getJoueurActif()->getCompte() << endl;//J3 : 3
+    p.achat_carte(p.getReserve()->getListeEtablissement()[0]);//J3 : Champ de ble
+    cout << p.getJoueurActif()->getCompte() << endl;//J3 : 2
+    p.transaction_carte(p.getJoueurs()[2], p.getJoueurs()[1], p.getJeu()->getEtablissements()[0]);//J3 donne Champ de ble à J2
+    cout << endl << endl << endl << "J3 donne Champ de ble à J2" << endl;
+    p.getJoueurs()[1]->printJoueurConcise();//J2
+    p.getJoueurs()[2]->printJoueurConcise();//J3
+    p.transaction_carte(p.getJoueurs()[1], p.getJoueurs()[2], p.getJeu()->getEtablissements()[6]);//J2 donne Stade à J3
+    cout << endl << endl << endl << "J2 donne Stade à J3" << endl;
+    p.getJoueurs()[1]->printJoueurConcise();//J2
+    p.getJoueurs()[2]->printJoueurConcise();//J3*/
+    //p.find_carte_des(6);
 
 
     /* const Etablissement** e = j->getEtablissements();

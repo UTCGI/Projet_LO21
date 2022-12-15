@@ -123,8 +123,8 @@ void Partie::transaction_piece(Joueur* emetteur, Joueur*destinataire, int montan
 }
 
 void Partie::transaction_carte(Joueur* emetteur, Joueur*destinataire, const Etablissement* etab){
-  if (destinataire->retirer_etablissement(etab))
-    emetteur->ajouter_etablissement(etab);
+  if (emetteur->retirer_etablissement(etab))
+    destinataire->ajouter_etablissement(etab);
 }
 
 bool Partie::achat_carte(Pile_Etablissement* pile_reserve) {
@@ -203,20 +203,28 @@ int Partie::fonction_service_verte(Type t){
   else{
     int nombreactive=0;
     for (auto p : getJoueurActif()->getPileBleu()){
-      if (p->getEtablissement()->getType()==t)
-          nombreactive += p->getEffectif(); //nombreactive++;
+        if (p->getEtablissement()->getType() == t) {
+            nombreactive += p->getEffectif(); //nombreactive++;
+            cout << "            " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
+      }
     }
     for (auto p : getJoueurActif()->getPileRouge()){
-      if (p->getEtablissement()->getType()==t)
-          nombreactive += p->getEffectif(); //nombreactive++;   
+      if (p->getEtablissement()->getType()==t) {
+          nombreactive += p->getEffectif(); //nombreactive++;
+          cout << "            " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
+      }
     }
     for (auto p : getJoueurActif()->getPileVert()){
-      if (p->getEtablissement()->getType()==t)
-          nombreactive += p->getEffectif(); //nombreactive++;   
+      if (p->getEtablissement()->getType()==t) {
+          nombreactive += p->getEffectif(); //nombreactive++;
+          cout << "            " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
+      }
     }
     for (auto p : getJoueurActif()->getPileViolet()){
-      if (p->getEtablissement()->getType()==t)
-          nombreactive += p->getEffectif(); //nombreactive++;  
+      if (p->getEtablissement()->getType()==t) {
+          nombreactive += p->getEffectif(); //nombreactive++;
+          cout << "            " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
+      }
     }
     return nombreactive;
   }
@@ -263,8 +271,9 @@ void Partie::find_carte_des(int des)
         {
           if (k == des)
           {
-            joueur->ajouterMontant(p->getEtablissement()->getMontant() * p->getEffectif()*fonction_service_verte(p->getEtablissement()->getTypeEffet()));
             cout << "      " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
+            cout << "      " << p->getEtablissement()->getEffet() << endl;
+            joueur->ajouterMontant(p->getEtablissement()->getMontant() * p->getEffectif()*fonction_service_verte(p->getEtablissement()->getTypeEffet()));
             break;
           }
         }
@@ -308,156 +317,150 @@ void Partie::find_carte_des(int des)
         {
           if (k == des)
           {
-            //joueur->ajouterMontant(p->getEtablissement()->getMontant() * p->getEffectif());
-            //cout << "      " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
-            //break;
-            if (p->getEtablissement()->getNom() == "Stade")
+            //joueur->ajouterMontant(p->getEtablissement()->getMontant() * (getNbJoueurs() - 1) * p->getEffectif());
+            //pas obligé de faire * p->getEffectif() car on ne peut avoir qu'un seul établissement spécial
+            cout << "      *" << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
+            cout << "      " << p->getEtablissement()->getEffet() << endl;
+            if (p->getEtablissement()->getNom() == "Stade" && p->getEffectif() == 1)
             {
-                //joueur->ajouterMontant(p->getEtablissement()->getMontant() * (getNbJoueurs() - 1) * p->getEffectif());
-                //pas obligé de faire * p->getEffectif() car on ne peut avoir qu'un seul établissement spécial
-                cout << "      *" << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
-                cout << "      " << p->getEtablissement()->getEffet() << endl;
-                if (p->getEffectif() == 1) {
-                    cout << "Voici les comptes des autres joueurs" << endl;
-                    int j = 1;
-                    for (auto joueurADebiter : getJoueurs()) {
-                        if (joueur != joueurADebiter) {
-                            cout << "J" << j++ << endl;
-                            cout << "AVANT : " << joueurADebiter->getCompte() << endl;
+                cout << "Voici les comptes des autres joueurs" << endl;
+                int j = 1;
+                for (auto joueurADebiter : getJoueurs()) {
+                    if (joueur != joueurADebiter) {
+                        cout << "J" << j++ << endl;
+                        cout << "AVANT : " << joueurADebiter->getCompte() << endl;
 
-                            if (joueurADebiter->getCompte() >= p->getEtablissement()->getMontant()) {
-                                joueurADebiter->ajouterMontant((-1) * p->getEtablissement()->getMontant());
-                                joueur->ajouterMontant(p->getEtablissement()->getMontant()); //* p->getEffectif());
-                            }
-                            else {
-                                joueur->ajouterMontant(joueurADebiter->getCompte());
-                                joueurADebiter->ajouterMontant((-1) * joueurADebiter->getCompte());
-                            }
-                            cout << "APRES : " << joueurADebiter->getCompte() << endl << endl;
-                        }
-                        else j++;
-                    }
-                }
-            }
-            if (p->getEtablissement()->getNom() == "Centre d'affaires")
-            {
-                //joueur->ajouterMontant(p->getEtablissement()->getMontant() * (getNbJoueurs() - 1) * p->getEffectif());
-                //pas obligé de faire * p->getEffectif() car on ne peut avoir qu'un seul établissement spécial
-                cout << "      *" << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
-                cout << "      " << p->getEtablissement()->getEffet() << endl;
-                if (p->getEffectif() == 1) {
-                    cout << "Voici les cartes de chaque joueur" << endl;
-                    int i = 1;
-                    for (auto joueurAEchanger : getJoueurs()) {
-                        cout << "J" << i++ << endl;
-                        joueurAEchanger->printJoueurConcise(); cout << endl << endl;
-                    }
-
-                    //getJoueurs()[choix]->printJoueurConcise(cout);
-                    //p.getJoueurActif()->printJoueurConcise(cout);
-                    int choix = -1;
-                    while (true)
-                    {
-                        cout << "Contre quel joueur souhaitez-vous échanger une de vos cartes ?" << endl;
-                        cout << "Le numéro du joueur doit être compris entre 1 et " << getNbJoueurs() << endl;
-                        cout << "Choisir 0 pour quitter" << endl;
-
-                        try
-                        { // Cette partie sert à détecter les erreurs eventuelles de saisie (Exemple : saisir une lettre à la place d'un nombre)
-                            cin >> choix;
-                        }
-                        catch (exception ex)
-                        {
-                            cin.clear();           // Reset failbit à 0
-                            cin.ignore(100, '\n'); // Vider buffer
-                            cout << "Erreur ! Ce que vous avez saisi n'est pas un nombre." << endl;
-                            choix = -1;
-                            continue;
-                        }
-                        if (choix == 0)
-                        {
-                            break;
-                        }
-                        else if (choix < 1 || choix > getNbJoueurs() || choix == getJoueurActif()->getId())
-                        {
-                            cout << "Erreur ! Vous n'avez pas saisi un nombre valide." << endl;
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-                    //getJoueurs()[choix - 1]->getPileBleu();
-                    //getJoueurs()[choix - 1]->getPileVert();
-                    //getJoueurs()[choix - 1]->getPileRouge();
-                    // 
-                    // TO DO : à continuer
-                    // 
-                    //getJoueurs()[choix - 1]->printJoueurConcise(cout);
-                    //transaction_carte(Joueur * emetteur, Joueur * destinataire, const Etablissement * etab);
-                    //transaction_carte(getJoueurs()[choix - 1], getJoueurActif(), const Etablissement * etab);
-                }
-            }
-            if (p->getEtablissement()->getNom() == "Chaine de television")
-            {
-                //joueur->ajouterMontant(p->getEtablissement()->getMontant() * (getNbJoueurs() - 1) * p->getEffectif());
-                //pas obligé de faire * p->getEffectif() car on ne peut avoir qu'un seul établissement spécial
-                cout << "      *" << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
-                cout << "      " << p->getEtablissement()->getEffet() << endl;
-                //
-                if (p->getEffectif() == 1) {
-                    cout << "Voici les comptes de chaque joueur" << endl;
-                    int i = 1;
-                    for (auto joueurADepouiller : getJoueurs()) {
-                        cout << "J" << i++ << endl;
-                        cout << joueurADepouiller->getCompte() << endl << endl;
-                    }
-
-                    //getJoueurs()[choix]->printJoueurConcise(cout);
-                    //p.getJoueurActif()->printJoueurConcise(cout);
-                    int choix = -1;
-                    while (true)
-                    {
-                        cout << "De quel joueur souhaitez-vous obtenir 5 pieces ?" << endl;
-                        cout << "Le numéro du joueur doit être compris entre 1 et " << getNbJoueurs() << endl;
-                        cout << "Choisir 0 pour quitter" << endl;
-
-                        try
-                        { // Cette partie sert à détecter les erreurs eventuelles de saisie (Exemple : saisir une lettre à la place d'un nombre)
-                            cin >> choix;
-                        }
-                        catch (exception ex)
-                        {
-                            cin.clear();           // Reset failbit à 0
-                            cin.ignore(100, '\n'); // Vider buffer
-                            cout << "Erreur ! Ce que vous avez saisi n'est pas un nombre." << endl;
-                            choix = -1;
-                            continue;
-                        }
-                        if (choix == 0)
-                        {
-                            break;
-                        }
-                        else if (choix < 1 || choix > getNbJoueurs() || choix == getJoueurActif()->getId())
-                        {
-                            cout << "Erreur ! Vous n'avez pas saisi un nombre valide." << endl;
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-
-                    //ATTENTION A choix==0 !!!!!!!!!!!!!!!!!!!!!
-                    if (choix > 0) {
-                        if (getJoueurs()[choix - 1]->getCompte() >= p->getEtablissement()->getMontant()) {
-                            getJoueurs()[choix - 1]->ajouterMontant((-1) * p->getEtablissement()->getMontant());
+                        if (joueurADebiter->getCompte() >= p->getEtablissement()->getMontant()) {
+                            joueurADebiter->ajouterMontant((-1) * p->getEtablissement()->getMontant());
                             joueur->ajouterMontant(p->getEtablissement()->getMontant()); //* p->getEffectif());
                         }
                         else {
-                            joueur->ajouterMontant(getJoueurs()[choix - 1]->getCompte());
-                            getJoueurs()[choix - 1]->ajouterMontant((-1) * getJoueurs()[choix - 1]->getCompte());
+                            joueur->ajouterMontant(joueurADebiter->getCompte());
+                            joueurADebiter->ajouterMontant((-1) * joueurADebiter->getCompte());
                         }
+                        cout << "APRES : " << joueurADebiter->getCompte() << endl << endl;
+                    }
+                    else j++;
+                }
+            }
+            if (p->getEtablissement()->getNom() == "Centre d'affaires" && p->getEffectif() == 1)
+            {
+                //joueur->ajouterMontant(p->getEtablissement()->getMontant() * (getNbJoueurs() - 1) * p->getEffectif());
+                //pas obligé de faire * p->getEffectif() car on ne peut avoir qu'un seul établissement spécial
+                //cout << "      *" << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
+                //cout << "      " << p->getEtablissement()->getEffet() << endl;
+                cout << "Voici les cartes des autres joueurs" << endl;
+                int i = 1;
+                for (auto joueurAEchanger : getJoueurs()) {
+                    if (joueur != joueurAEchanger) {
+                        cout << "J" << i++ << endl;
+                        joueurAEchanger->printJoueurConcise(); cout << endl << endl;
+                    }
+                    else i++;
+                }
+                cout << "Voici vos cartes" << endl;
+                joueur->printJoueurConcise(); cout << endl << endl;
+
+                int choix = -1;
+                while (true)
+                {
+                    cout << "Avec quel joueur souhaitez-vous échanger une de vos cartes ?" << endl;
+                    cout << "Le numéro du joueur doit être compris entre 1 et " << getNbJoueurs() << endl;
+                    cout << "Choisir 0 pour quitter" << endl;
+
+                    try
+                    { // Cette partie sert à détecter les erreurs eventuelles de saisie (Exemple : saisir une lettre à la place d'un nombre)
+                        cin >> choix;
+                    }
+                    catch (exception ex)
+                    {
+                        cin.clear();           // Reset failbit à 0
+                        cin.ignore(100, '\n'); // Vider buffer
+                        cout << "Erreur ! Ce que vous avez saisi n'est pas un nombre." << endl;
+                        choix = -1;
+                        continue;
+                    }
+                    if (choix == 0)
+                    {
+                        break;
+                    }
+                    else if (choix < 1 || choix > getNbJoueurs() || choix == getJoueurActif()->getId())
+                    {
+                        cout << "Erreur ! Vous n'avez pas saisi un nombre valide." << endl;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                //getJoueurs()[choix - 1]->getPileBleu();
+                //getJoueurs()[choix - 1]->getPileVert();
+                //getJoueurs()[choix - 1]->getPileRouge();
+                // 
+                // TO DO : à continuer
+                // 
+                //getJoueurs()[choix - 1]->printJoueurConcise(cout);
+                //transaction_carte(Joueur * emetteur, Joueur * destinataire, const Etablissement * etab);
+                //transaction_carte(getJoueurs()[choix - 1], getJoueurActif(), const Etablissement * etab);
+            }
+
+            if (p->getEtablissement()->getNom() == "Chaine de television" && p->getEffectif() == 1)
+            {
+                //joueur->ajouterMontant(p->getEtablissement()->getMontant() * (getNbJoueurs() - 1) * p->getEffectif());
+                //pas obligé de faire * p->getEffectif() car on ne peut avoir qu'un seul établissement spécial
+                //cout << "      *" << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
+                //cout << "      " << p->getEtablissement()->getEffet() << endl;
+                //
+                cout << "Voici les comptes de chaque joueur" << endl;
+                int i = 1;
+                for (auto joueurADepouiller : getJoueurs()) {
+                    cout << "J" << i; if (i == getJoueurActif()->getId()) cout << " (vous)"; cout << endl; i++;
+                    cout << joueurADepouiller->getCompte() << endl << endl;
+                }
+
+                //getJoueurs()[choix]->printJoueurConcise(cout);
+                //p.getJoueurActif()->printJoueurConcise(cout);
+                int choix = -1;
+                while (true)
+                {
+                    cout << "De quel joueur souhaitez-vous obtenir 5 pieces ?" << endl;
+                    cout << "Le numéro du joueur doit être compris entre 1 et " << getNbJoueurs() << endl;
+                    cout << "Choisir 0 pour quitter" << endl;
+
+                    try
+                    { // Cette partie sert à détecter les erreurs eventuelles de saisie (Exemple : saisir une lettre à la place d'un nombre)
+                        cin >> choix;
+                    }
+                    catch (exception ex)
+                    {
+                        cin.clear();           // Reset failbit à 0
+                        cin.ignore(100, '\n'); // Vider buffer
+                        cout << "Erreur ! Ce que vous avez saisi n'est pas un nombre." << endl;
+                        choix = -1;
+                        continue;
+                    }
+                    if (choix == 0)
+                    {
+                        break;
+                    }
+                    else if (choix < 1 || choix > getNbJoueurs() || choix == getJoueurActif()->getId())
+                    {
+                        cout << "Erreur ! Vous n'avez pas saisi un nombre valide." << endl;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                if (choix > 0) {
+                    if (getJoueurs()[choix - 1]->getCompte() >= p->getEtablissement()->getMontant()) {
+                        getJoueurs()[choix - 1]->ajouterMontant((-1) * p->getEtablissement()->getMontant());
+                        joueur->ajouterMontant(p->getEtablissement()->getMontant()); //* p->getEffectif());
+                    }
+                    else {
+                        joueur->ajouterMontant(getJoueurs()[choix - 1]->getCompte());
+                        getJoueurs()[choix - 1]->ajouterMontant((-1) * getJoueurs()[choix - 1]->getCompte());
                     }
                 }
             }
