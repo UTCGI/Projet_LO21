@@ -275,8 +275,8 @@ int main()
 {
     setlocale(LC_ALL, "fr_FR.UTF-8");
     //setlocale(LC_ALL, "");
-    Partie p;
-    menu(p);
+    //Partie p;
+    //menu(p);
 
     // A CONTINUER
 
@@ -298,7 +298,7 @@ int main()
     Josephine->setNbDes();
     cout << Josephine->getNbDes() << endl;*/
 
-    /*Partie p;
+    Partie p;
     p.initialisation();
     p.joueur_next();
     p.getJoueurActif()->ajouterMontant(20);
@@ -318,8 +318,14 @@ int main()
     p.transaction_carte(p.getJoueurs()[1], p.getJoueurs()[2], p.getJeu()->getEtablissements()[6]);//J2 donne Stade à J3
     cout << endl << endl << endl << "J2 donne Stade à J3" << endl;
     p.getJoueurs()[1]->printJoueurConcise();//J2
-    p.getJoueurs()[2]->printJoueurConcise();//J3*/
-    //p.find_carte_des(6);
+    p.getJoueurs()[2]->printJoueurConcise();//J3
+    p.getJoueurActif()->ajouterMontant(20);
+    cout << p.getJoueurActif()->getCompte() << endl;//J3 : 22
+    p.achat_carte(p.getReserve()->getListeEtablissement()[7]);//J3 : Centre d'affaires
+    p.achat_carte(p.getReserve()->getListeEtablissement()[8]);//J3 : Chaine de television
+    cout << p.getJoueurActif()->getCompte() << endl;//J3 : 7
+    p.getJoueurs()[2]->printJoueurConcise();//J3
+    p.find_carte_des(6);
 
 
     /* const Etablissement** e = j->getEtablissements();
