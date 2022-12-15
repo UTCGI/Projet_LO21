@@ -9,12 +9,12 @@ class Pile_Etablissement {
 private:
     const Etablissement* etablissement;
     unsigned int effectif;
-    unsigned int minimum = 0; // Utile pour les établissement de départ
+    unsigned int minimum; // = 0; // Utile pour les établissement de départ
 
 public:
     // Setters
 
-    void setMinimum(int a) { minimum = a; }
+    void setMinimum() { minimum = 1; }
 
     // Getters
     int getMinimum() { return minimum; }
@@ -53,7 +53,7 @@ public:
   */
     Pile_Etablissement() = default;
 
-    Pile_Etablissement(const Etablissement* et, unsigned int ef = 0);
+    Pile_Etablissement(const Etablissement* et, unsigned int ef = 0, unsigned int m = 0);
 
     /*
   Specification: ~Pile_Etablissement()
