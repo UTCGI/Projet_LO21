@@ -51,7 +51,7 @@ CREATE VIEW MarinaMonument AS SELECT * FROM AucuneMonument UNION SELECT * FROM M
 insert into AucuneMonument values('Gare', 'Vous pouvez lancer deux des', 4);   \
 insert into AucuneMonument values('Centre commercial','Vos etablissements de type restauration et commerce rapportent une piece de plus', 10);   \
 insert into AucuneMonument values('Tour radio','Une fois par tour, vous pouvez choisir de relancer vos des', 22);   \
-insert into AucuneMonument values('Parc dattractions','Si votre jet de des est un double, rejouez un tour apres celui-ci', 16);   \
+insert into AucuneMonument values('Parc d''attractions','Si votre jet de des est un double, rejouez un tour apres celui-ci', 16);   \
 insert into Marina1Monument values('Port','Si le resultat de votre jet de des est de 10 ou plus, vous pouvez ajouter 2 a ce resultat', 2);   \
 insert into Marina1Monument values('Aeroport','Si vous n''avez rien construit pendant votre tour, recevez 10 pieces de la banque', 30);   \
 \
