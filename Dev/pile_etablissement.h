@@ -86,6 +86,17 @@ public:
   */
     void ajouterCarte(unsigned int nb_cartes = 1);
 
+    /*
+    Specification: estPresqueVide();
+    Entree : aucune
+    Sortie : true=pile vide ou avec seulement 1 etablissement de depart
+    false=pile avec au moins 1 etablissement qui n'est pas de depart
+    Description : Cette methode permet de savoir si l'effectif 
+    d'une pile est superieur au minimum
+    Utilité : Centre d'affaires
+    */
+    bool estPresqueVide();
+
     // Operators
 
     /*
@@ -107,6 +118,8 @@ Sortie : Affichage
 Description : Cette fonction permet d'effectuer l'affichage d'une
 Pile_Etablissement sur un flux f
 */
-ostream& operator<<(ostream& f, Pile_Etablissement& pile);
+ostream& operator<<(ostream& f, const Pile_Etablissement& pile);
+
+ostream& operator<<(ostream& f, const vector<Pile_Etablissement*>& pile);
 
 #endif
