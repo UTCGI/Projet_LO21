@@ -185,18 +185,49 @@ bool Joueur::victoire() const
     return getNombreMonumentsConstruits() == monuments.size();
 }
 
-
 int Joueur::lancerDes(int desALancer) const
 {
     srand(time(NULL));
     if (desALancer == 1) {
         return rand() % 6 + 1;
-    } else if (desALancer == 2) {
+    }
+    else if (desALancer == 2) {
         return 2 * (rand() % 6) + 2;
-    } else {
+    }
+    else {
         throw SetException("Nombre de dés non autorisé !");
         return -1; // Code d'erreur si on envoie un mauvais nombre
     }
+}
+
+/*bool Partie::lancerDes(int desALancer) const
+{
+    int de1, de2;
+    srand(time(NULL));
+    if (desALancer == 1) {
+        setNumDe(rand() % 6 + 1);
+    }
+    else if (desALancer == 2) {
+        de1=rand() % 6;
+        de2=rand() % 6;
+        setNumDe(de1+de2);
+        return de1==de2;
+    }
+    else {
+        throw SetException("Nombre de dés non autorisé !");
+        return -1; // Code d'erreur si on envoie un mauvais nombre
+    }
+        return false;
+}*/
+
+
+bool Joueur::estPresqueVide(const vector<Pile_Etablissement*>& pile)
+{
+    for (auto p : pile) {
+        if (!p->estPresqueVide())
+            return false;
+    }
+    return true;
 }
 
 void Joueur::printJoueurConcise(ostream& f) const

@@ -74,6 +74,8 @@ public:
 
     int lancerDes(int desALancer) const;
 
+    bool estPresqueVide(const vector<Pile_Etablissement*>& pile);
+
     void printJoueur(ostream& f = std::cout) const;
 
     void printJoueurConcise(ostream& f = cout) const; // Affichage plus concis
