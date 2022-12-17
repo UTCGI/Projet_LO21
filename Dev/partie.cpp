@@ -1,5 +1,5 @@
 #include "partie.h"
-
+#include "effets_speciaux.h"
 #include <iostream>
 
 #include <vector>
@@ -187,6 +187,11 @@ bool Partie::construire_monument(const Monument *monument_choisi)
       getJoueurActif()->ajouterMontant((-1) * cible->getMonument()->getPrix());
       if (monument_choisi->getNom() == "Gare")
         getJoueurActif()->setNbDes();
+      else if (monument_choisi->getNom() == "Centre commercial"){
+          effetHotelDeVille(*this);
+      }
+
+      
       return true;
     }
   }
@@ -376,7 +381,7 @@ void Partie::find_carte_des(int des)
       {
         cout << "hello" << endl;
         cout << "      " << pileRouge->getEtablissement()->getNom() << "  Quantité : " << pileRouge->getEffectif() << endl;
-        transaction_piece(getJoueurActif(), getJoueurs()[id_sens_inverse], pileRouge->getEtablissement()->getMontant() * pileRouge->getEffectif());
+        transaction_piece(getJoueurActif(), getJoueurs()[id_sens_inverse], pileRouge->getMontant() * pileRouge->getEffectif());
       }
     }
     cout << "    "<< "Montant APRES : " << getJoueurs()[id_sens_inverse]->getCompte() << endl;
@@ -405,7 +410,7 @@ void Partie::find_carte_des(int des)
                 {
                     cout << "      " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
                     cout << "      " << p->getEtablissement()->getEffet() << endl;
-                    joueur->ajouterMontant(p->getEtablissement()->getMontant() * p->getEffectif() * fonction_service_verte(p->getEtablissement()->getTypeEffet()));
+                    joueur->ajouterMontant(p->getMontant() * p->getEffectif() * fonction_service_verte(p->getEtablissement()->getTypeEffet()));
                     break;
                 }
             }
@@ -416,7 +421,7 @@ void Partie::find_carte_des(int des)
         {
             if (p->getEtablissement()->estActif(des))
             {
-                joueur->ajouterMontant(p->getEtablissement()->getMontant() * p->getEffectif());
+                joueur->ajouterMontant(p->getMontant() * p->getEffectif());
                 cout << "      " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
                 break;
             }
@@ -433,8 +438,8 @@ void Partie::find_carte_des(int des)
                 {
                     cout << "      *" << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
                     cout << "      " << p->getEtablissement()->getEffet() << endl;
-                    // joueur->ajouterMontant(p->getEtablissement()->getMontant() * (getNbJoueurs() - 1) * p->getEffectif());
-                    // joueur->ajouterMontant(p->getEtablissement()->getMontant() * p->getEffectif());
+                    // joueur->ajouterMontant(p->getMontant() * (getNbJoueurs() - 1) * p->getEffectif());
+                    // joueur->ajouterMontant(p->getMontant() * p->getEffectif());
                     // pas obligé de faire * p->getEffectif() car on ne peut avoir qu'un SEUL établissement spécial !!!!!!!!!!!!!!!!!!!!!!!!!
 
                     if (p->getEtablissement()->getNom() == "Stade" && p->getEffectif() == 1)
@@ -443,7 +448,7 @@ void Partie::find_carte_des(int des)
                         for (auto joueurADebiter : getJoueurs())
                         {
                             if (joueur != joueurADebiter)
-                                transaction_piece(joueurADebiter, joueur, p->getEtablissement()->getMontant());
+                                transaction_piece(joueurADebiter, joueur, p->getMontant());
                         }
                     }
 
@@ -488,7 +493,7 @@ void Partie::find_carte_des(int des)
                         }
                         int c = choix("De quel joueur souhaitez-vous obtenir 5 pieces ?\nLe numéro du joueur doit être compris entre 1 et ", getNbJoueurs(), "Choisir 0 pour quitter", getJoueurActif()->getId());
                         if (c > 0)
-                            transaction_piece(getJoueurs()[c - 1], joueur, p->getEtablissement()->getMontant());
+                            transaction_piece(getJoueurs()[c - 1], joueur, p->getMontant());
                     }
                     //break;
                 }
