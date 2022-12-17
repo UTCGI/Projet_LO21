@@ -101,14 +101,14 @@ void Partie::transaction_piece(Joueur *emetteur, Joueur *destinataire, int monta
     cout << "J" << emetteur->getId() << endl;
     cout << "AVANT : " << emetteur->getCompte() << endl;
     if (emetteur->getCompte() >= montant) {
-        emetteur->ajouterMontant(montant * (-1));
+        emetteur->ajouterMontant(0-montant);
         destinataire->ajouterMontant(montant);
     }
     else
     {
         cout << "Le joueur J" << emetteur->getId() << " n'a pas assez de pieces pour tout payer !" << endl;
         destinataire->ajouterMontant(emetteur->getCompte());
-        emetteur->ajouterMontant(emetteur->getCompte() * (-1));
+        emetteur->ajouterMontant(0-emetteur->getCompte());
     }
     cout << "APRES : " << emetteur->getCompte() << endl << endl;
 }
