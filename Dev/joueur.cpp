@@ -230,6 +230,16 @@ bool Joueur::estPresqueVide(const vector<Pile_Etablissement*>& pile)
     return true;
 }
 
+int nombreDePileActive(const vector<Pile_Etablissement*>& pile)
+{
+    int c = 0;
+    for (auto p : pile) {
+        if (p->getEffectif() > p->getMinimum())
+            c++;
+    }
+    return c;
+}
+
 void Joueur::printJoueurConcise(ostream& f) const
 {
     f << "Monument" << endl

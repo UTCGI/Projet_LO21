@@ -81,4 +81,6 @@ public:
     void printJoueurConcise(ostream& f = cout) const; // Affichage plus concis
 };
 
+int nombreDePileActive(const vector<Pile_Etablissement*>& pile);
+
 ostream& operator<<(ostream& f, const Joueur& j);
