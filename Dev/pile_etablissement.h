@@ -10,20 +10,23 @@ private:
     const Etablissement* etablissement;
     unsigned int effectif;
     unsigned int minimum; // = 0; // Utile pour les établissement de départ
-
+    unsigned int montant_effet;
 public:
     // Setters
 
     void setMinimum() { minimum = 1; }
 
     // Getters
-    int getMinimum() { return minimum; }
+    int getMinimum()const { return minimum; }
 
-    int getPrix()
+    int getPrix()const
     {
         return effectif == minimum ? 0 : etablissement->getPrix(); // getMontant();
     }
 
+    int getMontant()const{return montant_effet;}
+
+    int augmenterMontant(int a){montant_effet += a;}//Pour Hotel de ville
     /*
     Specification: getEtablissement()
     Entree : None
