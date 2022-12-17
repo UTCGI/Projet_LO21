@@ -33,6 +33,24 @@ public:
     void retirer_etablissement(const Etablissement& etablissement, unsigned int quantite = 1);
     void ajouter_etablissement(const Etablissement& etablissement, unsigned int quantite = 1);
     void afficher() const;
+
+
+    class Iterator{
+    private:
+        int count=0;
+        int nombre;
+        Pile_Etablissement** liste;
+        Iterator(Reserve* reserve):liste(reserve->liste_etablissements), nombre(reserve->nb_piles){}
+        friend class Reserve;
+    public:
+        ~Iterator() = default;
+        void next(){count++;}
+        bool contiditon(){return count<nombre?true:false;}
+        Pile_Etablissement* operator*(){return liste[count];}
+    };
+    Iterator get_Iterator(){return Iterator(this);}
+
+
 };
 
 ostream& operator<<(ostream& f, Reserve& carte);
