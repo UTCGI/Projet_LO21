@@ -26,7 +26,7 @@ public:
 
     int getMontant()const{return montant_effet;}
 
-    int augmenterMontant(int a){montant_effet += a;}//Pour Hotel de ville
+    void augmenterMontant(int a){montant_effet += a;}//Pour Hotel de ville
     /*
     Specification: getEtablissement()
     Entree : None
