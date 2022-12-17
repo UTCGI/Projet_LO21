@@ -197,7 +197,7 @@ void lancer(Partie &p)
         }
         des = p.getJoueurActif()->lancerDes(choix);
     }
-    cout << "Le dé obtenu est :  " << des << endl;
+    cout << "Le dé obtenu est :  " << des << endl;//getNumDe()
 
     p.find_carte_des(des); // Trouver les cartes à appliquer effet
 }
@@ -275,11 +275,57 @@ int main()
 {
     setlocale(LC_ALL, "fr_FR.UTF-8");
     //setlocale(LC_ALL, "");
-    //Partie p;
-    //menu(p);
+    Partie p;
+    menu(p);
 
-    // A CONTINUER
+    //TEST CENTRE D'AFFAIRES
+    /*Partie p;
+    p.initialisation();
 
+    //---------------------------------------------------------------------------------------------------------------------
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!/!\CHOISIR AU MOINS 3 JOUEURS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //---------------------------------------------------------------------------------------------------------------------
+
+    p.achat_carte(p.getReserve()->getListeEtablissement()[3]);//J1 : Cafe
+    p.joueur_next();
+    p.getJoueurActif()->ajouterMontant(30);
+    cout<<p.getJoueurActif()->getCompte()<<endl;//J2 : 33
+    p.achat_carte(p.getReserve()->getListeEtablissement()[6]);//J2 : Stade
+    p.achat_carte(p.getReserve()->getListeEtablissement()[7]);//J2 : Centre d'affaires
+    p.achat_carte(p.getReserve()->getListeEtablissement()[3]);//J2 : Cafe
+    p.achat_carte(p.getReserve()->getListeEtablissement()[3]);//J2 : Cafe
+    p.achat_carte(p.getReserve()->getListeEtablissement()[11]);//J2 : Mine
+    cout << p.getJoueurActif()->getCompte() << endl;//J2 : 9
+    p.getJoueurActif()->printJoueurConcise();
+    p.joueur_next();
+    p.getJoueurActif()->ajouterMontant(4);
+    cout << p.getJoueurActif()->getCompte() << endl;//J3 : 7
+    p.achat_carte(p.getReserve()->getListeEtablissement()[0]);//J3 : Champ de ble
+    p.achat_carte(p.getReserve()->getListeEtablissement()[0]);//J3 : Champ de ble
+    p.achat_carte(p.getReserve()->getListeEtablissement()[1]);//J3 : Boulangerie //2 : Ferme
+    cout << p.getJoueurActif()->getCompte() << endl;//J3 : 4
+    p.transaction_carte(p.getJoueurs()[2], p.getJoueurs()[1], p.getJeu()->getEtablissements()[0]);//J3 donne Champ de ble à J2
+    cout << endl << endl << endl << "J3 donne Champ de ble à J2" << endl;
+    p.getJoueurs()[1]->printJoueurConcise();//J2
+    p.getJoueurs()[2]->printJoueurConcise();//J3
+    p.transaction_carte(p.getJoueurs()[1], p.getJoueurs()[2], p.getJeu()->getEtablissements()[6]);//J2 donne Stade à J3
+    cout << endl << endl << endl << "J2 donne Stade à J3" << endl;
+    p.getJoueurs()[1]->printJoueurConcise();//J2
+    p.getJoueurs()[2]->printJoueurConcise();//J3
+    p.getJoueurActif()->ajouterMontant(20);
+    cout << p.getJoueurActif()->getCompte() << endl;//J3 : 24
+    p.achat_carte(p.getReserve()->getListeEtablissement()[7]);//J3 : Centre d'affaires
+    p.achat_carte(p.getReserve()->getListeEtablissement()[8]);//J3 : Chaine de television
+    cout << p.getJoueurActif()->getCompte() << endl;//J3 : 9
+    cout << endl << endl << endl << "Je souhaite débiter 7 du compte de J3" << endl;
+    p.getJoueurActif()->ajouterMontant(-7);
+    cout << endl << "Resultat" << endl;
+    cout << p.getJoueurActif()->getCompte() << endl;//J3 : 2
+    p.getJoueurs()[2]->printJoueurConcise();//J3
+    //p.find_carte_des(3);
+    p.find_carte_des(6);*/
+
+    //TEST DON DE CARTES
     /*Jeu* j = new Jeu;//(Extension::Deluxe);//(Extension::Marina);//(Extension::GreenValley);// (Extension::Deluxe);
     cout << *j;
     Joueur* Josephine = new Joueur(j);
@@ -290,43 +336,13 @@ int main()
     Jingfang->printJoueurConcise();
     cout << j->getEtablissements()[0][0];
     p.transaction_carte(Josephine, Jingfang, j->getEtablissements()[0]);
-    cout << "JOSEPHINE" << endl; 
+    cout << "JOSEPHINE" << endl;
     Josephine->printJoueurConcise();
     cout << "JINGFANG" << endl;
     Jingfang->printJoueurConcise();
     cout << Josephine->getNbDes() << endl;
     Josephine->setNbDes();
     cout << Josephine->getNbDes() << endl;*/
-
-    Partie p;
-    p.initialisation();
-    p.joueur_next();
-    p.getJoueurActif()->ajouterMontant(20);
-    cout<<p.getJoueurActif()->getCompte()<<endl;//J2 : 23
-    p.achat_carte(p.getReserve()->getListeEtablissement()[6]);//J2 : Stade
-    p.achat_carte(p.getReserve()->getListeEtablissement()[7]);//J2 : Centre d'affaires
-    cout << p.getJoueurActif()->getCompte() << endl;//J2 : 9
-    p.getJoueurActif()->printJoueurConcise();
-    p.joueur_next();
-    cout << p.getJoueurActif()->getCompte() << endl;//J3 : 3
-    p.achat_carte(p.getReserve()->getListeEtablissement()[0]);//J3 : Champ de ble
-    cout << p.getJoueurActif()->getCompte() << endl;//J3 : 2
-    p.transaction_carte(p.getJoueurs()[2], p.getJoueurs()[1], p.getJeu()->getEtablissements()[0]);//J3 donne Champ de ble à J2
-    cout << endl << endl << endl << "J3 donne Champ de ble à J2" << endl;
-    p.getJoueurs()[1]->printJoueurConcise();//J2
-    p.getJoueurs()[2]->printJoueurConcise();//J3
-    p.transaction_carte(p.getJoueurs()[1], p.getJoueurs()[2], p.getJeu()->getEtablissements()[6]);//J2 donne Stade à J3
-    cout << endl << endl << endl << "J2 donne Stade à J3" << endl;
-    p.getJoueurs()[1]->printJoueurConcise();//J2
-    p.getJoueurs()[2]->printJoueurConcise();//J3
-    p.getJoueurActif()->ajouterMontant(20);
-    cout << p.getJoueurActif()->getCompte() << endl;//J3 : 22
-    p.achat_carte(p.getReserve()->getListeEtablissement()[7]);//J3 : Centre d'affaires
-    p.achat_carte(p.getReserve()->getListeEtablissement()[8]);//J3 : Chaine de television
-    cout << p.getJoueurActif()->getCompte() << endl;//J3 : 7
-    p.getJoueurs()[2]->printJoueurConcise();//J3
-    p.find_carte_des(6);
-
 
     /* const Etablissement** e = j->getEtablissements();
      for(unsigned int i=0; i<15;i++)e[i]->afficher();
