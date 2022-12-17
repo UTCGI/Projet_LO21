@@ -82,12 +82,13 @@ retry:
   // TODO : initialisation pioche
 }
 
-void Partie::joueur_next()
+void Partie::joueur_next(bool effet_parc_attration)
 {
-  if (joueur_actif == joueurs1.size() - 1) // Quand c'est le dernier joueur
+  if (!effet_parc_attration)
+  {if (joueur_actif == joueurs1.size() - 1) // Quand c'est le dernier joueur
     joueur_actif = 0;
   else
-    joueur_actif++;
+    joueur_actif++;}
 }
 
 /*
@@ -188,9 +189,14 @@ bool Partie::construire_monument(const Monument *monument_choisi)
       if (monument_choisi->getNom() == "Gare")
         getJoueurActif()->setNbDes();
       else if (monument_choisi->getNom() == "Centre commercial"){
-          effetHotelDeVille(*this);
+          effetHotelDeVille(this);
       }
-
+      else if (monument_choisi->getNom() == "Parc d'attractions"){
+          effetParcDAttractions(this);
+      }
+      else if (monument_choisi->getNom() == "Tour radio"){
+          effetTourRadio(this);
+      }
       
       return true;
     }

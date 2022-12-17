@@ -29,9 +29,20 @@ class Joueur {
     std::vector<Pile_Etablissement*> pileVert;
     std::vector<Pile_Etablissement*> pileViolet;
 
+    bool effet_parc_attaction = false;
+    bool effet_tour_radio = false;
+
 public:
     Joueur(const Jeu* jeu);
     ~Joueur();
+
+
+    //Section effet
+    bool getEffet_parc_attaction()const{return effet_parc_attaction;}
+    void setEffet_parc_attaction(){ effet_parc_attaction = true;}
+
+    bool getEffet_tour_radio()const{return effet_tour_radio;}
+    void setEffet_tour_radio(){ effet_tour_radio = true;}
 
     // Getter
     int getId() const { return id; }
@@ -54,6 +65,8 @@ public:
 
     const vector<Pile_Etablissement*>& getPileViolet() const { return pileViolet; }
 
+    
+
     // Setter
 
     void setPseudo(string pseudo) { this->pseudo = pseudo; };
@@ -72,7 +85,7 @@ public:
 
     bool victoire() const;
 
-    int lancerDes(int desALancer) const;
+    int lancerDes() const;
 
     bool estPresqueVide(const vector<Pile_Etablissement*>& pile);
 
