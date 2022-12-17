@@ -66,7 +66,6 @@ retry:
         cout << "Compte après achat :  " << p.getJoueurActif()->getCompte() << endl
              << endl;
 
-        p.joueur_next(); // changer de joueur, un peu arbitaire de laisser juste cette ligne pour l'instant mais suffit pour voir les résultats attendus
     }
 
     return quitter;
@@ -149,7 +148,6 @@ retry:
         }
         else
         {
-            p.joueur_next(); // changer de joueur, un peu arbitaire de laisser juste cette ligne pour l'instant mais suffit pour voir les résultats attendus
             return 0;        // 0 : Cas normal
         }
     }
@@ -157,12 +155,13 @@ retry:
         return 2; // Reçu par menu pour redonner un choix
 }
 
-void lancer(Partie &p)
+bool lancer(Partie &p)
 {
     int des;
+    int des2 = 0;
     if (p.getJoueurActif()->getNbDes() == 1)
     {
-        des = p.getJoueurActif()->lancerDes(1);
+        des = p.getJoueurActif()->lancerDes();
     }
     else
     {
@@ -186,7 +185,7 @@ void lancer(Partie &p)
                 continue;
             }
 
-            if (choix < 1 || choix > p.getJoueurActif()->getNbDes())
+            if (choix < 1 || choix > 2)
             {
                 cout << "Erreur ! Vous n'avez pas saisi un nombre valide." << endl;
             }
@@ -195,17 +194,26 @@ void lancer(Partie &p)
                 break;
             }
         }
-        des = p.getJoueurActif()->lancerDes(choix);
+        des = p.getJoueurActif()->lancerDes();
+        if (choix==2){
+            des2 = p.getJoueurActif()->lancerDes();
+        }
     }
-    cout << "Le dé obtenu est :  " << des << endl;//getNumDe()
+    cout << "Le dé obtenu est :  " << des+des2 << endl;//getNumDe()
 
-    p.find_carte_des(des); // Trouver les cartes à appliquer effet
+    p.find_carte_des(des+des2); // Trouver les cartes à appliquer effet
+    
+    if (p.getJoueurActif()->getEffet_parc_attaction())
+        return des==des2?true:false;
+    else
+        return false;
 }
 
 void menu(Partie &p)
 {
     p.initialisation();
     int choix = -1;
+    bool effet_parc_attraction = false;
     cin.exceptions(std::istream::failbit); // Activer module exception dans std::cin
 
     cout << endl << "Bienvenue !" << endl;
@@ -216,8 +224,7 @@ void menu(Partie &p)
         cout << "Montant AVANT : " << p.getJoueurActif()->getCompte() << endl;
 
         //cout << "\tCombien de dés souhaitez-vous lancer ?" << endl;
-        lancer(p); // Le menu qui traite le lancement de dès
-
+        effet_parc_attraction = lancer(p); // Le menu qui traite le lancement de dès
         cout << "Compte de J" << p.getJoueurActif()->getId() << " : " << p.getJoueurActif()->getCompte() << endl;
     revenir:
         cout << "Faire votre choix" << endl;
@@ -246,15 +253,19 @@ void menu(Partie &p)
             cout << endl << "Au revoir" << endl;
             break;
         case 1:
-            p.joueur_next();
+            p.joueur_next(effet_parc_attraction);
             break;
         case 2:
             if(choix2(p)) goto revenir;
+            p.joueur_next(effet_parc_attraction);
             break;
 
         case 3:
             switch (choix3(p))
             {
+            case 0:
+                p.joueur_next(effet_parc_attraction);
+                break;
             case 1:
                 choix = 0; // Si qqn gagne, partie terminée
                 break;
