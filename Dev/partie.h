@@ -97,7 +97,7 @@ class Partie {
       Objectif: Cette fonction revoie le joueur suivant du joueur passé en
   argument Elle permet de passer d'un joueur à l'autre.
   */
-  void joueur_next();
+  void joueur_next(bool effet_parc_attration);
 
   /*A SUPPRIMER ????????????????????????????,
   SPECIFICATION : Partie::regarder_etablissements(Joueur joueur, Couleur
