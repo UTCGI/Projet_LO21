@@ -129,8 +129,13 @@ void transaction_piece(Joueur* emetteur, Joueur*destinataire, int montant);
 
 void transaction_carte(Joueur* emetteur, Joueur*destinataire, const Etablissement* etab);
 
+void echanger_cartes(Joueur* emetteur, Joueur* destinataire, const Etablissement* etab1, const Etablissement* etab2);
+
 void find_carte_des(int des);//Sert à déterminer quelles cartes à en apporter du profit
 
+int choix(const string& m1, int n=0, const string& m2="Choisir 0 pour quitter", int c=0, const vector<Pile_Etablissement*>* p=nullptr); //"Choisir 0 pour quitter"
+
+const vector<Pile_Etablissement*>*/*&*/ choixPile(const string& m1, const string& m2 = "Choisir 0 pour quitter", int cj = 0); //, int c=0);
 
 bool achat_carte(Pile_Etablissement* pile_reserve);
 
