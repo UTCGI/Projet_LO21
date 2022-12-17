@@ -157,8 +157,12 @@ retry:
 
 bool lancer(Partie &p)
 {
+    bool effet_tour_radio_applicable = true;
+
     int des;
     int des2 = 0;
+again:
+    des2 = 0;
     if (p.getJoueurActif()->getNbDes() == 1)
     {
         des = p.getJoueurActif()->lancerDes();
@@ -199,7 +203,21 @@ bool lancer(Partie &p)
             des2 = p.getJoueurActif()->lancerDes();
         }
     }
+   
     cout << "Le dé obtenu est :  " << des+des2 << endl;//getNumDe()
+    
+    
+    //Effet tour radio
+    if (effet_tour_radio_applicable&&p.getJoueurActif()->getEffet_tour_radio()){
+        cout << "Vous voulez relancer ? Taper 1 si oui, 0 sinon" << endl;
+        int choix;
+        cin >> choix;
+        if (choix==1){ 
+            effet_tour_radio_applicable = false;//Effet applicable une fois par tour
+            goto again;
+        }
+    }
+
 
     p.find_carte_des(des+des2); // Trouver les cartes à appliquer effet
     
