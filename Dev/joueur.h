@@ -30,10 +30,19 @@ class Joueur {
     std::vector<Pile_Etablissement*> pileViolet;
 
     bool effet_parc_attaction = false;
+    bool effet_tour_radio = false;
 
 public:
     Joueur(const Jeu* jeu);
     ~Joueur();
+
+
+    //Section effet
+    bool getEffet_parc_attaction()const{return effet_parc_attaction;}
+    void setEffet_parc_attaction(){ effet_parc_attaction = true;}
+
+    bool getEffet_tour_radio()const{return effet_tour_radio;}
+    void setEffet_tour_radio(){ effet_tour_radio = true;}
 
     // Getter
     int getId() const { return id; }
@@ -56,7 +65,7 @@ public:
 
     const vector<Pile_Etablissement*>& getPileViolet() const { return pileViolet; }
 
-    bool getEffet_parc_attaction()const{return effet_parc_attaction;}
+    
 
     // Setter
 
@@ -65,8 +74,6 @@ public:
     void setNbDes();
 
     void setCompte(int montant); // inutile ? redondant avec ajouterMontant(int montant);
-
-    void setEffet_parc_attaction(){ effet_parc_attaction = true;}
 
     void initialisation_etablissement_depart(const Etablissement* e);
 
