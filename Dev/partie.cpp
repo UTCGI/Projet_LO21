@@ -365,10 +365,10 @@ void Partie::find_carte_des(int des)
     /* La partie pile rouge est désormais extraite pour assurer un déroulement en sens inverse */
   cout << "      " << "**********************Partie avant transcation**********************" << endl;
   int id_sens_inverse = joueur_actif;
-  do
+  id_sens_inverse = id_sens_inverse == 0 ? getNbJoueurs() - 1 : id_sens_inverse - 1;
+  while (id_sens_inverse != joueur_actif)
   {
-    id_sens_inverse = id_sens_inverse == 0 ? getNbJoueurs() - 1 : id_sens_inverse - 1;
-    cout << "  " << getJoueurs()[id_sens_inverse]->getId() << " Montant AVANT : " << getJoueurs()[id_sens_inverse]->getCompte() << endl;
+    cout << "  " << id_sens_inverse+1 << " Montant AVANT : " << getJoueurs()[id_sens_inverse]->getCompte() << endl;
     cout << "    "<< "Cartes activées :" << endl;
     for (auto pileRouge : getJoueurs()[id_sens_inverse]->getPileRouge())
     {
@@ -380,7 +380,8 @@ void Partie::find_carte_des(int des)
       }
     }
     cout << "    "<< "Montant APRES : " << getJoueurs()[id_sens_inverse]->getCompte() << endl;
-  } while (id_sens_inverse != getJoueurActif()->getId());
+    id_sens_inverse = id_sens_inverse == 0 ? getNbJoueurs() - 1 : id_sens_inverse - 1;
+  } 
 
 
   cout << "      " << "**********************Partie après transcation**********************" << endl;
