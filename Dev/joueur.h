@@ -72,7 +72,7 @@ public:
 
     bool victoire() const;
 
-    int lancerDes(int desALancer) const;
+    int lancerDes() const;
 
     bool estPresqueVide(const vector<Pile_Etablissement*>& pile);
 

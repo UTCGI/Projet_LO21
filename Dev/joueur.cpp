@@ -185,19 +185,10 @@ bool Joueur::victoire() const
     return getNombreMonumentsConstruits() == monuments.size();
 }
 
-int Joueur::lancerDes(int desALancer) const
+int Joueur::lancerDes() const
 {
     srand(time(NULL));
-    if (desALancer == 1) {
-        return rand() % 6 + 1;
-    }
-    else if (desALancer == 2) {
-        return 2 * (rand() % 6) + 2;
-    }
-    else {
-        throw SetException("Nombre de dés non autorisé !");
-        return -1; // Code d'erreur si on envoie un mauvais nombre
-    }
+    return rand() % 6 + 1;
 }
 
 /*bool Partie::lancerDes(int desALancer) const
