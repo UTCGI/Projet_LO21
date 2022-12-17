@@ -29,6 +29,8 @@ class Joueur {
     std::vector<Pile_Etablissement*> pileVert;
     std::vector<Pile_Etablissement*> pileViolet;
 
+    bool effet_parc_attaction = false;
+
 public:
     Joueur(const Jeu* jeu);
     ~Joueur();
@@ -54,6 +56,8 @@ public:
 
     const vector<Pile_Etablissement*>& getPileViolet() const { return pileViolet; }
 
+    bool getEffet_parc_attaction()const{return effet_parc_attaction;}
+
     // Setter
 
     void setPseudo(string pseudo) { this->pseudo = pseudo; };
@@ -61,6 +65,8 @@ public:
     void setNbDes();
 
     void setCompte(int montant); // inutile ? redondant avec ajouterMontant(int montant);
+
+    void setEffet_parc_attaction(){ effet_parc_attaction = true;}
 
     void initialisation_etablissement_depart(const Etablissement* e);
 
