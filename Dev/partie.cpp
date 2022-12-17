@@ -361,23 +361,39 @@ void Partie::find_carte_des(int des)
 {
     cout << endl
         << "Bilan des comptes :" << endl;
+
+    /* La partie pile rouge est désormais extraite pour assurer un déroulement en sens inverse */
+  cout << "      " << "**********************Partie avant transcation**********************" << endl;
+  int id_sens_inverse = joueur_actif;
+  do
+  {
+    id_sens_inverse = id_sens_inverse == 0 ? getNbJoueurs() - 1 : id_sens_inverse - 1;
+    cout << "  " << getJoueurs()[id_sens_inverse]->getId() << " Montant AVANT : " << getJoueurs()[id_sens_inverse]->getCompte() << endl;
+    cout << "    "<< "Cartes activées :" << endl;
+    for (auto pileRouge : getJoueurs()[id_sens_inverse]->getPileRouge())
+    {
+      if (pileRouge->getEtablissement()->estActif(des))
+      {
+        cout << "hello" << endl;
+        cout << "      " << pileRouge->getEtablissement()->getNom() << "  Quantité : " << pileRouge->getEffectif() << endl;
+        transaction_piece(getJoueurActif(), getJoueurs()[id_sens_inverse], pileRouge->getEtablissement()->getMontant() * pileRouge->getEffectif());
+      }
+    }
+    cout << "    "<< "Montant APRES : " << getJoueurs()[id_sens_inverse]->getCompte() << endl;
+  } while (id_sens_inverse != getJoueurActif()->getId());
+
+
+  cout << "      " << "**********************Partie après transcation**********************" << endl;
+
+
+
+
+
     for (auto joueur : getJoueurs())
     {
         cout << "  " << joueur->getId() << " Montant AVANT : " << joueur->getCompte() << endl;
         cout << "    "
             << "Cartes activées :" << endl;
-
-        // Pile Rouge
-        if (joueur != getJoueurActif())
-        {
-            for (auto pileRouge : joueur->getPileRouge())
-            {
-                if (pileRouge->getEtablissement()->estActif(des)) {
-                    cout << "      " << pileRouge->getEtablissement()->getNom() << "  Quantité : " << pileRouge->getEffectif() << endl;
-                    transaction_piece(getJoueurActif(), joueur, pileRouge->getEtablissement()->getMontant() * pileRouge->getEffectif());
-                }
-            }
-        }
 
         // Pile Verte
         if (joueur == getJoueurActif())
