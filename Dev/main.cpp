@@ -165,11 +165,8 @@ bool lancer(Partie &p)
 again:
     des2 = 0;
     resultat = 0;
-    if (p.getJoueurActif()->getNbDes() == 1)
-    {
-        des = p.getJoueurActif()->lancerDes();
-    }
-    else
+    des = p.getJoueurActif()->lancerDes();
+    if (p.getJoueurActif()->getNbDes() == 2)
     {
         int choix = -1;
         while (true)
@@ -200,13 +197,13 @@ again:
                 break;
             }
         }
-        des = p.getJoueurActif()->lancerDes();
+        
         if (choix==2){
             des2 = p.getJoueurActif()->lancerDes();
         }
     }
     resultat = des+des2;
-    cout << "Le dé obtenu est :  " << resultat << endl;//getNumDe()
+    cout << "Le dé obtenu est :  " << des << " " << des2 << ". La somme est " << resultat << endl;//getNumDe()
     
     
     //Effet tour radio
