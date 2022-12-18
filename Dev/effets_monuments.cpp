@@ -22,3 +22,7 @@ void effetTourRadio(Partie* p){
 void effetPort(Partie* p){
     p->getJoueurActif()->setEffet_port();
 }
+
+void effeAeroport(Partie* p){
+    p->getJoueurActif()->setEffet_aeroport();
+}

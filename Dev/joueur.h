@@ -32,6 +32,7 @@ class Joueur {
     bool effet_parc_attaction = false;
     bool effet_tour_radio = false;
     bool effet_port = false;
+    bool effet_aeroport = false;
 
 public:
     Joueur(const Jeu* jeu);
@@ -47,6 +48,9 @@ public:
 
     bool getEffet_port()const{return effet_port;}
     void setEffet_port(){ effet_port = true;}
+
+    bool getEffet_aeroport()const{return effet_aeroport;}
+    void setEffet_aeroport(){ effet_aeroport = true;}
 
     // Getter
     int getId() const { return id; }

@@ -284,6 +284,8 @@ void menu(Partie &p)
             cout << endl << "Au revoir" << endl;
             break;
         case 1:
+            //Effet aéroport
+            if (p.getJoueurActif()->getEffet_aeroport()) p.getJoueurActif()->ajouterMontant(10);   
             p.joueur_next(effet_parc_attraction);
             break;
         case 2:
