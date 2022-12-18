@@ -1,13 +1,5 @@
 @startuml
-' TODO :
-'   -Partie
 
-
-' On ajoute ces modules dans l'UML ou pas ?
-'  - miniville
-'  - buildfonction
-'  - create_database
-'  - sqlite3
 
 enum Type
 enum Extension
@@ -56,7 +48,7 @@ class Jeu{
 -nb_lignes_reserve_MAX : size_t
 -nb_colonnes_reserve_MAX : size_t
 -nbEtablissements_Depart : size_t
--nbEtablissements : size_t {nb d'etablissements DIFFERENTS}
+-nbEtablissements : size_t {nb d etablissements DIFFERENTS}
 -nbMonuments : size_t {nb de monuments DIFFERENTS}
 -liste_etablissements[] : const Etablissement* 
 -liste_monuments[] : const Monument* 
@@ -226,7 +218,6 @@ Pile_Etablissement : +ajouterCarte(unsigned int nb_cartes = 1) : void
 Pile_Etablissement : +operator+(Pile_Etablissement &p) : Pile_Etablissement& 
 
 
-' TODO : reprendre ici 
 
 class Pioche{
  -etablissements :*Pile_Etablissement[]
@@ -279,13 +270,15 @@ Partie : + ~Partie()
 
 Partie : +initialisation()
 Partie : +distribuer()
+Partie : +joueur_next()
 Partie : +tour_joueur(joueur : Joueur)
 Partie : +regarder_etablissements (joueur : Joueur, couleur : Couleur)
 Partie : +application_regle_standard (couleur : Couleur)
 Partie : +application_regle_speciale (pile_joueur : Pile)
 Partie : +transaction_pièce(émetteur : Joueur, destinataire : Joueur, montant : int)
 Partie : +transaction_carte(émetteur : Joueur, destinataire : Joueur, pile : Pile)
-Partie : +achat_carte (joueur : Joueur, pile_reserve : Pile)
+Partie : +achat_carte (joueur : Joueur, pile_reserve : Pile) : bool
+Partie : +construire_monument(const Monument* monument_choisi) : bool
 
 
 
