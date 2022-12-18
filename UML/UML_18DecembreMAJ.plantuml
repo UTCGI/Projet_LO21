@@ -1,0 +1,356 @@
+@startuml
+
+
+enum Type
+enum Extension
+enum Couleur
+class Partie
+class Jeu
+class Monument
+class Reserve
+class Joueur
+class Pile_Etablissement
+class Pioche
+class Etablissement
+
+enum Type{
+aucun
+agriculture
+elevage
+ressources
+maritime
+commerce
+industrie
+maraichage
+entreprise
+restauration
+special
+}
+enum Couleur {
+bleu
+vert
+rouge
+violet
+}
+enum Extension {
+Aucune
+Marina
+GreenValley
+Deluxe
+}
+
+
+class Jeu{
+-extension : Extension
+-condition_de_victoire : size_t
+-nb_joueurs_MAX : size_t
+-nb_pile_reserve_MAX : size_t
+-nb_lignes_reserve_MAX : size_t
+-nb_colonnes_reserve_MAX : size_t
+-nbEtablissements_Depart : size_t
+-nbEtablissements : size_t {nb d etablissements DIFFERENTS}
+-nbMonuments : size_t {nb de monuments DIFFERENTS}
+-liste_etablissements[] : const Etablissement* 
+-liste_monuments[] : const Monument* 
+{nb de monuments à construire pour gagner}
+-liste_etablissements_depart[] : const Etablissement*
+-nbCartes : size_t
+}
+Jeu : +Jeu(extension : Extension)
+' Jeu : +Jeu(Extension e = Extension::Aucune, const size_t& cdv = 4, size_t nbj = 4,size_t nbpr = 15, size_t nblr = 3,
+' Jeu : size_t nbcr = 5, size_t nbed = 2, size_t nbe = 15, size_t nbm = 4, size_t nbc = 108)
+Jeu : + ~Jeu()=default
+
+Jeu : +getExtension() const: Extension
+Jeu : +getCondition_de_victoire() const: size_t
+Jeu : +getNb_joueurs_MAX() const: size_t
+Jeu : +getNb_pile_reserve_MAX() const: size_t
+Jeu : +getNb_lignes_reserve_MAX() const: size_t
+Jeu : +getNb_colonnes_reserve_MAX() const: size_t
+Jeu : +getNbEtablissements_Depart() const: size_t
+Jeu : +getNbEtablissements() const: size_t
+Jeu : +getNbMonuments() const: size_t
+Jeu : +getNbCartes() const: size_t
+Jeu : +getMonument() const : const Monument**
+Jeu : +getEtablissements() const : const Etablissement**
+Jeu : +getEtablissementsDepart() const : const Etablissement** 
+Jeu : +getEtablissementFromName(const string& name)const : const Etablissement* 
+
+Jeu : +afficher(std::ostream& f = std::cout) const : void
+Jeu : +printE_D(std::ostream& f = cout) const : void
+Jeu : +printE(std::ostream& f = cout) const : void
+Jeu : +printM(std::ostream& f = cout) const : void
+
+class Etablissement{
+ -nom : const string {KEY}
+ -effet : const string
+ -couleur : Couleur
+ -prix : unsigned int
+ -num_de : vector<unsigned int>
+ -type : Type
+ -montant_effet : unsigned int
+ -nb_exemplaires : unsigned int
+ -isSpecial : bool
+}
+Etablissement : +Etablissement(nom1 : const string&, effet1 : const string&,couleur1 : Couleur,prix1 : unsigned int,
+Etablissement : num_de1 : vector<unsigned int>, type1 : Type, montant_effet1 : unsigned int, isSpecial1 : bool)
+Etablissement : + ~Etablissement()=default
+
+Etablissement : +getNom() const : string
+Etablissement : +getEffet() const : string
+Etablissement : +getCouleur() const : Couleur
+Etablissement : +getPrix() const : unsigned int
+Etablissement : +getNumDe() const : vector<unsigned int>
+Etablissement : +getType() const : Type
+Etablissement : +getMontant() const : unsigned int
+Etablissement : +getNbExemplaires() const : unsigned int 
+Etablissement : +getIsSpecial()const : bool
+Etablissement : +getTypeEffet() : virtual Type const
+
+Etablissement : +estActif(n : unsigned int) : bool
+Etablissement : +estSpecial() : bool
+Etablissement : +afficher(std::ostream& f= std::cout) const : virtual void
+Etablissement : +operator==(Etablissement e1)const : bool
+Etablissement : +operator!=(Etablissement e1)const : bool
+
+class Etablissement_Violet{
+ -payeur : bool
+} 
+'  TODO : Modifier l'ordre des types
+Etablissement_Violet : +Etablissement_Violet(const string& nom1, const string& effet1, Couleur couleur1,unsigned int prix1,
+Etablissement_Violet : vector<unsigned int> num_de1, Type type1,unsigned int montant_effet1,bool isSpecial1,bool payeur1);
+
+Etablissement_Violet : +getPayeur() const : bool
+
+Etablissement_Violet : +afficher(std::ostream& f= std::cout) const : void
+
+
+class Etablissement_VertTE{
+  -type_effet : const Type 
+}
+Etablissement_VertTE : +Etablissement_VertTE(const string& nom1, const string& effet1, Couleur couleur1,unsigned int prix1,    
+Etablissement_VertTE : vector<unsigned int> num_de1, Type type1, unsigned int montant_effet1,bool isSpecial1, Type type_effet1);
+
+Etablissement_VertTE : +getTypeEffet() const : Type 
+
+Etablissement_VertTE : +afficher(std::ostream& f= std::cout) const : void
+
+class Carte_Monument {
+ -monument : const *Monument
+ -construit : bool
+}
+Carte_Monument : +Carte_Monument(const Monument *mo, bool construct = false)
+Carte_Monument : + ~Carte_Monument() = default
+
+Carte_Monument : +getMonument() const : const Monument* 
+
+Carte_Monument : +estConstruit() const : bool
+Carte_Monument : +construire() : void
+
+
+class  Joueur{
+ -id : int
+ -$nombre_actuel : int
+ -pseudo : string
+ -de : 1..2
+ -compte : int
+  -effet_parc_attaction = false : bool
+  -effet_tour_radio = false : bool
+  -effet_port = false : bool
+  -effet_aeroport = false : bool
+-monuments : vector<Carte_Monument *> 
+-pileRouge : vector<Pile_Etablissement *>
+-pileBleu : vector<Pile_Etablissement *>
+-pileVert : vector<Pile_Etablissement *>
+-pileViolet : vector<Pile_Etablissement *>
+}
+Joueur : +Joueur(const Jeu* jeu)
+Joueur : + ~Joueur()
+
+Joueur : +getId() const : int 
+Joueur : +getPseudo() const : string 
+Joueur : +getNbDes() const : int
+Joueur : +getCompte() const : int
+Joueur : +getNombreMonumentsConstruits() const : int
+Joueur : +$getNbMaxJoueurs() : int
+Joueur : +getMonuments() const : const vector<Carte_Monument *> &
+Joueur : +getPileRouge() const : const vector<Pile_Etablissement *> & 
+Joueur : +getPileBleu() const : const vector<Pile_Etablissement *> &
+Joueur : +getPileVert() const : const vector<Pile_Etablissement *> &
+Joueur : +getPileViolet() const : const vector<Pile_Etablissement *> &
+Joueur : +getEffet_parc_attaction() const : bool
+Joueur : +getEffet_tour_radio()const : bool
+Joueur : +getEffet_port()const : bool
+Joueur : +getEffet_aeroport()const : bool
+
+Joueur : +setEffet_parc_attaction() : void
+Joueur : +setEffet_tour_radio() : void
+Joueur : +setEffet_port() : void
+Joueur : +setEffet_aeroport() : void
+
+Joueur : +setPseudo(string pseudo) : void
+Joueur : +setNbDes() : void
+Joueur : +setCompte(int montant) : void
+
+Joueur : +initialisation_etablissement_depart(const Etablissement* e) : void
+Joueur : +ajouter_etablissement(const Etablissement *e) : void
+Joueur : +ajouterMontant(int montant) : void
+Joueur : +retirer_etablissement(const Etablissement *e) : bool
+Joueur : +victoire() const : bool
+Joueur : +estPresqueVide(const vector<Pile_Etablissement*>& pile) : bool
+Joueur : +lancerDes()const : int
+Joueur : +printJoueur(ostream &f = std::cout) const : void
+Joueur : +printJoueurConcise(ostream& f = cout) const : void
+'Joueur : +nombreDePileActive(const vector<Pile_Etablissement*>& pile) : int
+
+class Monument {
+ -nom : const string {KEY}
+ -effet : const string
+ -prix : const unsigned int
+ -nb_exemplaires : const unsigned int
+}
+Monument : +Monument(nom : string&, effet : string&, prix : const unsigned int)
+Monument : + ~Monument() = default
+Monument : +Monument(const Monument& m) = delete
+
+Monument : +getNom() const : string
+Monument : +getEffet() const : string
+Monument : +getPrix() const : unsigned int
+Monument : +getExemplaire() const : unsigned int
+
+Monument : +operator=(const Monument& m) = delete
+
+
+class Pile_Etablissement{
+ -etablissement : const *Etablissement
+ -effectif : unsigned int
+  -minimum : unsigned int
+  -montant_effet : unsigned int
+}
+Pile_Etablissement : +Pile_Etablissement(const Etablissement *et, unsigned int ef = 1, unsigned int m = 0)
+Pile_Etablissement : +Pile_Etablissement() = default
+Pile_Etablissement : + ~Pile_Etablissement() = default
+
+Pile_Etablissement : +getEtablissement() const : const Etablissement * 
+Pile_Etablissement : +getEffectif() const : unsigned int 
+Pile_Etablissement : +getMinimum() const : int
+Pile_Etablissement : +getPrix() const : int
+Pile_Etablissement : +getMontant() const : int
+
+Pile_Etablissement : +setMinimum() : void
+
+Pile_Etablissement : +estPresqueVide() : bool 
+Pile_Etablissement : +augmenterMontant(int a) : void 
+Pile_Etablissement : +retirerCarte(unsigned int nb_cartes = 1) : void
+Pile_Etablissement : +ajouterCarte(unsigned int nb_cartes = 1) : void
+Pile_Etablissement : +operator+(Pile_Etablissement &p) : Pile_Etablissement& 
+
+
+
+class Pioche{
+' -etablissements :*Pile_Etablissement[]
+  -nb_etablissements : unsigned int 
+  -nb_piles : unsigned int 
+  -piles_etablissement : Pile_Etablissement* 
+}
+Pioche : +Pioche(const Jeu& jeu)
+Pioche : + ~Pioche()
+
+Pioche : +getNb_etablissements() const : unsigned int 
+Pioche : +getNb_piles() const : unsigned int 
+Pioche : +getPiles_etablissement() const : Pile_Etablissement*
+Pioche : +getRandomEtablissement() const : const Etablissement& 
+Pioche : +getIndexPile(const Etablissement& etablissement) const : unsigned int
+Pioche : +retirerRandomEtablissement() : const Etablissement& 
+
+Pioche : +afficher()const : void
+Pioche : +retirer_Etablissement(const Etablissement& etablissement, unsigned int quantite= 1) : void
+
+class  Reserve{
+    -nb_etablissements : unsigned int 
+    -nb_piles : unsigned int 
+    -nb_piles_max : unsigned int
+    -liste_etablissements : Pile_Etablissement** 
+}
+Reserve : +Reserve(Jeu& j, Pioche& p);
+Reserve : +Reserve(Jeu& j);
+Reserve : + ~Reserve();
+
+Reserve : +getNbPile() const : unsigned int 
+Reserve : +getNbPileMax() const : unsigned int 
+Reserve : +getNbEtablissements() const : unsigned int 
+Reserve : +getListeEtablissement() const : Pile_Etablissement** 
+
+Reserve : +retirer_etablissement(const Etablissement& etablissement, unsigned int quantite=1) : void 
+Reserve : +ajouter_etablissement(const Etablissement& etablissement, unsigned int quantite=1) : void 
+Reserve : +afficher() const : void
+Reserve : +get_Iterator() : Iterator
+
+class  Partie{
+ -manche : int
+ -num_de :int
+ -nb_joueurs : int
+ -jeu : Jeu*
+'  -nb_monuments :int
+'  -nb_etablissements :int
+ -joueur_actif : int
+ -joueurs1 : vector<Joueur*>
+ -reserve : Reserve*
+ -fonction_service_verte(Type t) : int 
+}
+Partie : + Partie()
+Partie : + ~Partie()
+
+
+Partie : +getManche() const : int
+Partie : +getNumDe() const : int
+Partie : +getNbJoueurs() const : int
+Partie : +getJeu() const : Jeu* 
+Partie : +getJoueurActif() : Joueur* 
+Partie : +getReserve() const : Reserve* 
+Partie : +getJoueurs() const : const vector<Joueur*>& 
+
+
+Partie : +setManche(int nbManche) : void
+Partie : +setNumDe(int nbDe) : void
+Partie : +setNbJoueurs(int nbJoueurs) : void
+
+
+Partie : +initialisation() : void
+Partie : +distribuer() : void
+Partie : +joueur_next(bool effet_parc_attration) : void
+Partie : +transaction_piece(emetteur : Joueur*, destinataire : Joueur*, montant : int) : void
+Partie : +transaction_carte(émetteur : Joueur*, destinataire : Joueur*, etab : const Etablissement* ) : void
+Partie : +echanger_cartes(Joueur* emetteur, Joueur* destinataire, const Etablissement* etab1, const Etablissement* etab2) : void
+Partie : +find_carte_des(int des) : void
+Partie : +choix(const string& m1, int n=0, const string& m2="Choisir 0 pour quitter", int c=0, const vector<Pile_Etablissement*>* p=nullptr): int
+Partie : +choixPile(const string& m1, const string& m2 = "Choisir 0 pour quitter", int cj = 0) : const vector<Pile_Etablissement*>* 
+Partie : +achat_carte(Pile_Etablissement* pile_reserve) : bool
+Partie : +construire_monument(const Monument* monument_choisi) : bool
+
+
+' Partie : +tour_joueur(joueur : Joueur)
+' Partie : +regarder_etablissements (joueur : Joueur, couleur : Couleur)
+' Partie : +application_regle_standard (couleur : Couleur)
+' Partie : +application_regle_speciale (pile_joueur : Pile)
+' Partie : +achat_carte (joueur : Joueur, pile_reserve : Pile) : bool
+' Partie : +construire_monument(const Monument* monument_choisi) : bool
+
+
+
+
+
+Etablissement <|-- Etablissement_Violet : "est_un"
+Etablissement <|-- Etablissement_VertTE : "est_un"
+Jeu "1" <--o Partie:"gère"
+Reserve "1" <--o Partie:"gère"
+Pioche "1" <--o Partie:"gère"
+Partie "1..*" <-- "2..5" Joueur :"joue"
+Jeu "1" *-- "4..6" Monument :"possède"
+Jeu "1" *-- "15..28" Etablissement :"possède"
+Joueur o-- "4..6" Carte_Monument :"possède"
+Joueur  o-- "2..28" Pile_Etablissement
+Reserve o-- "15..28" Pile_Etablissement
+Etablissement  "1"<-- "2..5" Pile_Etablissement : "sont des piles d'exemplaires de"
+Monument "1" <-- "2..5" Carte_Monument :"sont des exemplaires de"
+@enduml
