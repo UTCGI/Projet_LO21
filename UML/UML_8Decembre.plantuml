@@ -57,8 +57,8 @@ class Jeu{
 -nbCartes : size_t
 }
 Jeu : +Jeu(extension : Extension)
-Jeu : +Jeu(Extension e = Extension::Aucune, const size_t& cdv = 4, size_t nbj = 4,size_t nbpr = 15, size_t nblr = 3,
-Jeu : size_t nbcr = 5, size_t nbed = 2, size_t nbe = 15, size_t nbm = 4, size_t nbc = 108)
+' Jeu : +Jeu(Extension e = Extension::Aucune, const size_t& cdv = 4, size_t nbj = 4,size_t nbpr = 15, size_t nblr = 3,
+' Jeu : size_t nbcr = 5, size_t nbed = 2, size_t nbe = 15, size_t nbm = 4, size_t nbc = 108)
 Jeu : + ~Jeu()=default
 
 Jeu : +getExtension() const: Extension
@@ -105,6 +105,7 @@ Etablissement : +getType() const : Type
 Etablissement : +getMontant() const : unsigned int
 Etablissement : +getNbExemplaires() const : unsigned int 
 Etablissement : +getIsSpecial()const : bool
+Etablissement : +getTypeEffet() : virtual Type const
 
 Etablissement : +estActif(n : unsigned int) : bool
 Etablissement : +estSpecial() : bool
@@ -153,6 +154,8 @@ class  Joueur{
  -pseudo : string
  -de : 1..2
  -compte : int
+  -effet_parc_attaction : bool
+  -effet_tour_radio : bool
 -monuments : vector<Carte_Monument *> 
 -pileRouge : vector<Pile_Etablissement *>
 -pileBleu : vector<Pile_Etablissement *>
@@ -162,6 +165,8 @@ class  Joueur{
 Joueur : +Joueur(const Jeu* jeu)
 Joueur : + ~Joueur()
 
+Joueur : +getId() const : int 
+Joueur : +getPseudo() const : string 
 Joueur : +getNbDes() const : int
 Joueur : +getCompte() const : int
 Joueur : +getNombreMonumentsConstruits() const : int
@@ -171,18 +176,25 @@ Joueur : +getPileRouge() const : const vector<Pile_Etablissement *> &
 Joueur : +getPileBleu() const : const vector<Pile_Etablissement *> &
 Joueur : +getPileVert() const : const vector<Pile_Etablissement *> &
 Joueur : +getPileViolet() const : const vector<Pile_Etablissement *> &
+Joueur : +getEffet_parc_attaction() const : bool
+Joueur : +getEffet_tour_radio()const : bool
 
+Joueur : +setEffet_parc_attaction() : void
+Joueur : +setEffet_tour_radio() : void
 Joueur : +setPseudo(string pseudo) : void
 Joueur : +setNbDes() : void
 Joueur : +setCompte(int montant) : void
 
+Joueur : +initialisation_etablissement_depart(const Etablissement* e) : void
 Joueur : +ajouter_etablissement(const Etablissement *e) : void
 Joueur : +ajouterMontant(int montant) : void
 Joueur : +retirer_etablissement(const Etablissement *e) : void
 Joueur : +victoire() const : bool
+Joueur : +estPresqueVide(const vector<Pile_Etablissement*>& pile) : bool
 Joueur : +lancerDes(int desALancer)const : int
 Joueur : +printJoueur(ostream &f = std::cout) const : void
-
+Joueur : +printJoueurConcise(ostream& f = cout) const : void
+Joueur : +nombreDePileActive(const vector<Pile_Etablissement*>& pile) : int
 
 abstract Monument {
  -nom : const string {KEY}
@@ -205,6 +217,8 @@ Monument : +operator=(const Monument& m) = delete
 class Pile_Etablissement{
  -etablissement :*Etablissement
  -effectif : unsigned int
+  -minimum : unsigned int
+  -montant_effet : unsigned int
 }
 Pile_Etablissement : +Pile_Etablissement(const Etablissement *et, unsigned int ef = 1)
 Pile_Etablissement : +Pile_Etablissement() = default
@@ -212,7 +226,14 @@ Pile_Etablissement : + ~Pile_Etablissement() = default
 
 Pile_Etablissement : +getEtablissement() const : const Etablissement * 
 Pile_Etablissement : +getEffectif() const : unsigned int 
+Pile_Etablissement : +getMinimum() const : int
+Pile_Etablissement : +getPrix() const : int
+Pile_Etablissement : +getMontant() const : int
 
+Pile_Etablissement : +setMinimum() : void
+
+Pile_Etablissement : +estPresqueVide() : bool 
+Pile_Etablissement : +augmenterMontant(int a) : void 
 Pile_Etablissement : +retirerCarte(unsigned int nb_cartes = 1) : void
 Pile_Etablissement : +ajouterCarte(unsigned int nb_cartes = 1) : void
 Pile_Etablissement : +operator+(Pile_Etablissement &p) : Pile_Etablissement& 
@@ -238,47 +259,74 @@ Pioche : +afficher()const : void
 Pioche : +retirer_Etablissement(const Etablissement& etablissement, unsigned int quantite= 1) : void
 
 class  Reserve{
-    -nb_etablissements : int 
-    -nb_piles : int 
+    -nb_etablissements : unsigned int 
+    -nb_piles : unsigned int 
+    -nb_piles_max : unsigned int
     -liste_etablissements : Pile_Etablissement* 
 }
-Reserve : +Reserve(Pioche& p);
+Reserve : +Reserve(Jeu& j, Pioche& p);
 Reserve : +Reserve(Jeu& j);
 Reserve : + ~Reserve();
 
-Reserve : +getNbPile() const : int 
-Reserve : +getNbEtablissements() const : int 
+Reserve : +getNbPile() const : unsigned int 
+Reserve : +getNbPileMax() const : unsigned int 
+Reserve : +getNbEtablissements() const : unsigned int 
 Reserve : +getListeEtablissement() const : Pile_Etablissement* 
 
 Reserve : +retirer_etablissement(const Etablissement& etablissement) : void 
 Reserve : +ajouter_etablissement(const Etablissement& etablissement) : void 
-
+Reserve : +ajouter_etablissement() const : void
+Reserve : +get_Iterator() : Iterator
 
 class  Partie{
  -manche : int
  -num_de :int
  -nb_joueurs : int
- -nb_monuments :int
- -nb_etablissements :int
+'  -nb_monuments :int
+'  -nb_etablissements :int
  -joueur_actif : int
  -jeu : Jeu
  -joueurs1 : vector<Joueur*>
  -reserve : Reserve
+ fonction_service_verte(Type t) : int 
 }
 Partie : + Partie()
 Partie : + ~Partie()
 
-Partie : +initialisation()
-Partie : +distribuer()
-Partie : +joueur_next()
-Partie : +tour_joueur(joueur : Joueur)
-Partie : +regarder_etablissements (joueur : Joueur, couleur : Couleur)
-Partie : +application_regle_standard (couleur : Couleur)
-Partie : +application_regle_speciale (pile_joueur : Pile)
-Partie : +transaction_pièce(émetteur : Joueur, destinataire : Joueur, montant : int)
-Partie : +transaction_carte(émetteur : Joueur, destinataire : Joueur, pile : Pile)
-Partie : +achat_carte (joueur : Joueur, pile_reserve : Pile) : bool
+
+Partie : +getManche() const : int
+Partie : +getNumDe() const : int
+Partie : +getNbJoueurs() const : int
+Partie : +getJeu() const : Jeu* 
+Partie : +getJoueurActif() : Joueur* 
+Partie : +getReserve() const : Reserve* 
+Partie : +getJoueurs() const : const vector<Joueur*>& 
+
+
+Partie : +setManche(int nbManche) : void
+Partie : +setNumDe(int nbDe) : void
+Partie : +setNbJoueurs(int nbJoueurs) : void
+
+
+Partie : +initialisation() : void
+Partie : +distribuer() : void
+Partie : +joueur_next(bool effet_parc_attration) : void
+Partie : +transaction_pièce(émetteur : Joueur*, destinataire : Joueur*, montant : int) : void
+Partie : +transaction_carte(émetteur : Joueur*, destinataire : Joueur*, etab : const Etablissement* ) : void
+Partie : +echanger_cartes(Joueur* emetteur, Joueur* destinataire, const Etablissement* etab1, const Etablissement* etab2) : void
+Partie : +find_carte_des(int des) : void
+Partie : +choix(const string& m1, int n=0, const string& m2="Choisir 0 pour quitter", int c=0, const vector<Pile_Etablissement*>* p=nullptr): int
+Partie : +choixPile(const string& m1, const string& m2 = "Choisir 0 pour quitter", int cj = 0) : const vector<Pile_Etablissement*>* 
+Partie : +achat_carte(Pile_Etablissement* pile_reserve) : bool
 Partie : +construire_monument(const Monument* monument_choisi) : bool
+
+
+' Partie : +tour_joueur(joueur : Joueur)
+' Partie : +regarder_etablissements (joueur : Joueur, couleur : Couleur)
+' Partie : +application_regle_standard (couleur : Couleur)
+' Partie : +application_regle_speciale (pile_joueur : Pile)
+' Partie : +achat_carte (joueur : Joueur, pile_reserve : Pile) : bool
+' Partie : +construire_monument(const Monument* monument_choisi) : bool
 
 
 
