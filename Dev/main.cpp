@@ -285,7 +285,7 @@ void menu(Partie &p)
             break;
         case 1:
             //Effet aéroport
-            if (p.getJoueurActif()->getEffet_aeroport()) p.getJoueurActif()->ajouterMontant(10);   
+            if (p.getJoueurActif()->getEffet_aeroport()){ p.getJoueurActif()->ajouterMontant(10); cout << "Vous gagnez 10 pièces grâce à votre monument Aeroport construit !" <<endl;}
             p.joueur_next(effet_parc_attraction);
             break;
         case 2:
