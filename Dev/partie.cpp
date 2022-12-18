@@ -197,6 +197,13 @@ bool Partie::construire_monument(const Monument *monument_choisi)
       else if (monument_choisi->getNom() == "Tour radio"){
           effetTourRadio(this);
       }
+
+      if (getJeu()->getExtension()==Extension::Marina){
+        effetHotelDeVille(this); //En cours de développement. Faut déterminer la signification "Utilisé comme établissement de départ"
+      }
+      if (getJeu()->getExtension()==Extension::Marina || getJeu()->getExtension()==Extension::Deluxe){
+        effetPort(this);
+      }
       
       return true;
     }

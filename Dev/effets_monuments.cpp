@@ -18,3 +18,11 @@ void effetParcDAttractions(Partie* p){
 void effetTourRadio(Partie* p){
     p->getJoueurActif()->setEffet_tour_radio();
 }
+
+void effetPort(Partie* p){
+    p->getJoueurActif()->setEffet_port();
+}
+
+void effeAeroport(Partie* p){
+    p->getJoueurActif()->setEffet_aeroport();
+}
