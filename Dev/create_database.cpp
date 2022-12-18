@@ -29,7 +29,7 @@ nbMonuments integer NOT NULL CHECK(nbMonuments>=4),     \
 nbCartes integer NOT NULL CHECK(nbCartes>=108)     \
 );     \
 insert into Jeu VALUES('Aucune', 4, 4, 15, 3, 5, 2, 15, 4, 108);     \
-insert into Jeu VALUES('Marina', 6, 4, 10, 2, 5, 3, 25, 6, 176);     \
+insert into Jeu VALUES('Marina', 6, 4, 25, 2, 5, 3, 25, 6, 176);     \
 insert into Jeu VALUES('GreenValley', 4, 4, 10, 2, 5, 2, 28, 4, 180);     \
 insert into Jeu VALUES('Deluxe', 5, 5, 9, 3, 3, 2, 28, 6, 165);     \
   \
