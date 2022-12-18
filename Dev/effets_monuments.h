@@ -4,3 +4,4 @@
 void effetHotelDeVille(Partie* p);
 void effetParcDAttractions(Partie* p);
 void effetTourRadio(Partie* p);
+void effetPort(Partie* p);

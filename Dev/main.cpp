@@ -160,9 +160,11 @@ bool lancer(Partie &p)
     bool effet_tour_radio_applicable = true;
 
     int des;
-    int des2 = 0;
+    int des2;
+    int resultat; //Utile pour effets spéciaux
 again:
     des2 = 0;
+    resultat = 0;
     if (p.getJoueurActif()->getNbDes() == 1)
     {
         des = p.getJoueurActif()->lancerDes();
@@ -203,8 +205,8 @@ again:
             des2 = p.getJoueurActif()->lancerDes();
         }
     }
-   
-    cout << "Le dé obtenu est :  " << des+des2 << endl;//getNumDe()
+    resultat = des+des2;
+    cout << "Le dé obtenu est :  " << resultat << endl;//getNumDe()
     
     
     //Effet tour radio
@@ -217,10 +219,21 @@ again:
             goto again;
         }
     }
-
-
-    p.find_carte_des(des+des2); // Trouver les cartes à appliquer effet
     
+    //Effet port
+    if (p.getJoueurActif()->getEffet_port() && (resultat)>=10){
+        cout << "Vous voulez ajouter 2 à au résultat obtenu ? Taper 1 si oui, 0 sinon" << endl;
+        int choix;
+        cin >> choix;
+        if (choix==1){ 
+            resultat += 2;
+        }
+    }
+
+
+    p.find_carte_des(resultat); // Trouver les cartes à appliquer effet
+    
+    //Effet parc d'attaction
     if (p.getJoueurActif()->getEffet_parc_attaction())
         return des==des2?true:false;
     else

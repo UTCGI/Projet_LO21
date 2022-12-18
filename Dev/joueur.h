@@ -31,6 +31,7 @@ class Joueur {
 
     bool effet_parc_attaction = false;
     bool effet_tour_radio = false;
+    bool effet_port = false;
 
 public:
     Joueur(const Jeu* jeu);
@@ -43,6 +44,9 @@ public:
 
     bool getEffet_tour_radio()const{return effet_tour_radio;}
     void setEffet_tour_radio(){ effet_tour_radio = true;}
+
+    bool getEffet_port()const{return effet_port;}
+    void setEffet_port(){ effet_port = true;}
 
     // Getter
     int getId() const { return id; }
