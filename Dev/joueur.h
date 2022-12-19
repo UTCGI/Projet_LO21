@@ -4,6 +4,7 @@
 #include "miniville.h"
 #include "pile_etablissement.h"
 #include <string>
+#include <cstdlib>
 
 /* Note : Jingfang Yuan 01/12
     1 La vérification du montant restant dans le compte devrait se faire ailleurs que dans les fonctions de la classe Joueur
@@ -20,7 +21,7 @@
 class Joueur {
     static int nombre_actuel; // Compteur du nombre actuel de joueur
     int id;
-    string pseudo;
+    string pseudo = "J";
     int de = 1;
     int compte = 3;
     std::vector<Carte_Monument*> monuments;
