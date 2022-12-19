@@ -164,6 +164,7 @@ bool lancer(Partie &p)
     int resultat; //Utile pour effets spéciaux
 again:
     des2 = 0;
+//<<<<<<< Updated upstream
     resultat = 0;
     des = p.getJoueurActif()->lancerDes();
     if (p.getJoueurActif()->getNbDes() == 2)
@@ -171,8 +172,23 @@ again:
         int choix = -1;
         while (true)
         {
-            cout << "Combien de dés voulez-vous lancer ?" << endl; 
+            cout << "Combien de dés voulez-vous lancer ?" << endl;
             cout << "Le nombre de dés doit être compris entre 1 et 2" << endl;
+            /*=======
+                //if (p.getJoueurActif()->getNbDes() == 1)
+                //{
+                    des = p.getJoueurActif()->lancerDes();
+                //}
+                //else
+                //{
+                    if (p.getJoueurActif()->getNbDes() != 1) {
+                        des = p.getJoueurActif()->lancerDes();
+                        int choix = -1;
+                        while (true)
+                        {
+                            cout << "Combien de dés voulez-vous lancer ?" << endl;
+                            cout << "Le nombre de dés doit être compris entre 1 et 2" << endl;
+            >>>>>>> Stashed changes*/
 
 
             try
@@ -197,13 +213,25 @@ again:
                 break;
             }
         }
+        //des = p.getJoueurActif()->lancerDes();
+        if (choix == 2) {
+            des2 = p.getJoueurActif()->lancerDes();
+        }
+    }
+/*<<<<<<< Updated upstream
         
         if (choix==2){
             des2 = p.getJoueurActif()->lancerDes();
         }
-    }
+    }*/
     resultat = des+des2;
     cout << "Le dé obtenu est :  " << des << " " << des2 << ". La somme est " << resultat << endl;//getNumDe()
+/*=======
+
+    cout << "Dé 1 :  " << des << "\tDé 2 :  " << des2 << endl;//getNumDe()
+    cout << "Le dé obtenu est :  " << des + des2 << endl;//getNumDe()
+    //des2=0;
+>>>>>>> Stashed changes*/
     
     
     //Effet tour radio

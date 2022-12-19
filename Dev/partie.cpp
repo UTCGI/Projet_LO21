@@ -99,19 +99,21 @@ void Partie::application_regle_standards(Couleur couleur)
 
 void Partie::transaction_piece(Joueur *emetteur, Joueur *destinataire, int montant)
 {
-    cout << "J" << emetteur->getId() << endl;
-    cout << "AVANT : " << emetteur->getCompte() << endl;
-    if (emetteur->getCompte() >= montant) {
-        emetteur->ajouterMontant(0-montant);
-        destinataire->ajouterMontant(montant);
+    if (montant != 0) {
+        cout << "      J" << emetteur->getId() << endl;
+        cout << "      AVANT : " << emetteur->getCompte() << endl;
+        if (emetteur->getCompte() >= montant) {
+            emetteur->ajouterMontant(0 - montant);
+            destinataire->ajouterMontant(montant);
+        }
+        else
+        {
+            cout << "      Le joueur J" << emetteur->getId() << " n'a pas assez de pieces pour tout payer !" << endl;
+            destinataire->ajouterMontant(emetteur->getCompte());
+            emetteur->ajouterMontant(0 - emetteur->getCompte());
+        }
+        cout << "      APRES : " << emetteur->getCompte() << endl;
     }
-    else
-    {
-        cout << "Le joueur J" << emetteur->getId() << " n'a pas assez de pieces pour tout payer !" << endl;
-        destinataire->ajouterMontant(emetteur->getCompte());
-        emetteur->ajouterMontant(0-emetteur->getCompte());
-    }
-    cout << "APRES : " << emetteur->getCompte() << endl << endl;
 }
 /* {
   if (montant > emetteur->getCompte())
@@ -147,6 +149,13 @@ bool Partie::achat_carte(Pile_Etablissement *pile_reserve)
   {
     if (pile_reserve->getEtablissement()->getPrix() <= getJoueurActif()->getCompte())
     {
+        //check s'il a pas déjà cet établissement violet
+        for (auto p : getJoueurActif()->getPileViolet()) {
+            if (p->getEtablissement()->getNom() == pile_reserve->getEtablissement()->getNom() && p->getEffectif() == 1) {
+                cout << "Achat impossible : vous ne pouvez posséder qu'un SEUL exemplaire de chaque établissement violet !" << endl;
+                return false;
+            }
+        }
       getJoueurActif()->ajouterMontant(0 - pile_reserve->getEtablissement()->getPrix());
       getJoueurActif()->ajouter_etablissement(pile_reserve->getEtablissement());
       pile_reserve->retirerCarte();
@@ -382,7 +391,7 @@ void Partie::find_carte_des(int des)
         << "Bilan des comptes :" << endl;
 
     /* La partie pile rouge est désormais extraite pour assurer un déroulement en sens inverse */
-  cout << "      " << "**********************Partie avant transcation**********************" << endl;
+  cout << "      " << "**********************Partie avant transaction**********************" << endl;
   int id_sens_inverse = joueur_actif;
   id_sens_inverse = id_sens_inverse == 0 ? getNbJoueurs() - 1 : id_sens_inverse - 1;
   while (id_sens_inverse != joueur_actif)
@@ -393,17 +402,18 @@ void Partie::find_carte_des(int des)
     {
       if (pileRouge->getEtablissement()->estActif(des))
       {
-        cout << "hello" << endl;
+        //cout << "hello" << endl;
         cout << "      " << pileRouge->getEtablissement()->getNom() << "  Quantité : " << pileRouge->getEffectif() << endl;
+        cout << "      " << pileRouge->getEtablissement()->getEffet() << endl;
         transaction_piece(getJoueurActif(), getJoueurs()[id_sens_inverse], pileRouge->getMontant() * pileRouge->getEffectif());
       }
     }
-    cout << "    "<< "Montant APRES : " << getJoueurs()[id_sens_inverse]->getCompte() << endl;
+    cout << "    " << "Montant APRES : " << getJoueurs()[id_sens_inverse]->getCompte() << endl << endl;
     id_sens_inverse = id_sens_inverse == 0 ? getNbJoueurs() - 1 : id_sens_inverse - 1;
   } 
 
 
-  cout << "      " << "**********************Partie après transcation**********************" << endl;
+  cout << "      " << "**********************Partie après transaction**********************" << endl;
 
 
 
