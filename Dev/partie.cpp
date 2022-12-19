@@ -417,7 +417,14 @@ void Partie::find_carte_des(int des)
               //cout << "hello" << endl;
               cout << "      " << pileRouge->getEtablissement()->getNom() << "  Quantité : " << pileRouge->getEffectif() << endl;
               cout << "      " << pileRouge->getEtablissement()->getEffet() << endl;
-              transaction_piece(getJoueurActif(), getJoueurs()[id_sens_inverse], pileRouge->getMontant() * pileRouge->getEffectif());
+              if (pileRouge->getEtablissement()->getNom() == "Sushi bar") {
+                  if (getJoueurs()[id_sens_inverse]->getEffet_port())
+                      transaction_piece(getJoueurActif(), getJoueurs()[id_sens_inverse], pileRouge->getMontant() * pileRouge->getEffectif());
+                  else
+                      cout << "      " << "L'effet ne s'applique pas : vous n'avez pas le port !" << endl;
+              }
+              else
+                  transaction_piece(getJoueurActif(), getJoueurs()[id_sens_inverse], pileRouge->getMontant() * pileRouge->getEffectif());
           }
       }
       cout << "    " << "Montant APRES : " << getJoueurs()[id_sens_inverse]->getCompte() << endl << endl;

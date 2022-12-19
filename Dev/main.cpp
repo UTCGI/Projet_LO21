@@ -218,7 +218,7 @@ again:
     
     //Effet port
     if (p.getJoueurActif()->getEffet_port() && (resultat)>=10){
-        cout << "Vous voulez ajouter 2 à au résultat obtenu ? Taper 1 si oui, 0 sinon" << endl;
+        cout << "Voulez-vous ajouter 2 au résultat obtenu ? Taper 1 si oui, 0 sinon" << endl;
         int choix;
         cin >> choix;
         if (choix==1){ 
@@ -316,8 +316,27 @@ int main()
 {
     setlocale(LC_ALL, "fr_FR.UTF-8");
     //setlocale(LC_ALL, "");
-    Partie p;
-    menu(p);
+    //Partie p;
+    //menu(p);
+
+    //TEST SUSHI BAR
+    /*Partie p;
+    p.initialisation();
+    auto q = p.getJeu()->getEtablissements()[23];
+    //cout << *q;
+    auto r = p.getJeu()->getEtablissements()[1];
+    //cout << *r;
+    auto m = p.getJeu()->getMonument()[4];
+    //cout << *m;
+    Pile_Etablissement* Sushi_bar = new Pile_Etablissement(q, q->getNbExemplaires());
+    Pile_Etablissement* Cafe = new Pile_Etablissement(r, r->getNbExemplaires());
+    p.getJoueurActif()->ajouterMontant(10);
+    cout << p.getJoueurActif()->getCompte() << endl; //J1 : 13
+    p.achat_carte(Sushi_bar);//J1 : Sushi bar
+    p.achat_carte(Cafe);//J1 : Cafe
+    p.construire_monument(m);//J1 : avec Port
+    p.joueur_next(lancer(p));//J2
+    p.find_carte_des(3);*/
 
     //TEST CENTRE D'AFFAIRES
     /*Partie p;
