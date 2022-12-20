@@ -20,7 +20,6 @@ HEADERS += \
     partie.h \
     pile_etablissement.h \
     pioche.h \
-    principal.h \
     reserve.h \
     sqlite3.h
 
@@ -42,6 +41,5 @@ SOURCES += \
     partie.cpp \
     pile_etablissement.cpp \
     pioche.cpp \
-    principal.cpp \
     reserve.cpp \
     sqlite3.c
