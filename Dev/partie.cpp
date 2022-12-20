@@ -72,13 +72,24 @@ retry:
   }
   setNbJoueurs(lectureNbJoueurs);
 
-  // Initialisation reserve
-  reserve = new Reserve(*jeu);
+  //renseigner les pseudos
+  int choixPseudo = choix("Voulez-vous renseigner les pseudos des joueurs ?\nTaper ", 1, 0, nullptr, " si oui, 0 sinon");
+
   // Initialisation joueur
   for (size_t i = 0; i < getNbJoueurs(); i++)
   {
-    joueurs1.push_back(new Joueur(jeu));
+      joueurs1.push_back(new Joueur(jeu));
+      if (choixPseudo) {
+          string pseudo;
+          cout << endl << getJoueurs()[i]->getPseudo() << " Quel est votre pseudo ?" << endl;
+          cin >> pseudo;
+          getJoueurs()[i]->setPseudo(pseudo);
+      }
   }
+
+  // Initialisation reserve
+  reserve = new Reserve(*jeu);
+
   // TODO : initialisation pioche
 }
 
@@ -100,7 +111,7 @@ void Partie::application_regle_standards(Couleur couleur)
 void Partie::transaction_piece(Joueur *emetteur, Joueur *destinataire, int montant)
 {
     if (montant != 0) {
-        cout << "      J" << emetteur->getId() << endl;
+        cout << endl << "      " << emetteur->getPseudo() << endl;
         cout << "      AVANT : " << emetteur->getCompte() << endl;
         if (emetteur->getCompte() >= montant) {
             emetteur->ajouterMontant(0 - montant);
@@ -108,7 +119,7 @@ void Partie::transaction_piece(Joueur *emetteur, Joueur *destinataire, int monta
         }
         else
         {
-            cout << "      Le joueur J" << emetteur->getId() << " n'a pas assez de pieces pour tout payer !" << endl;
+            cout << "      " << emetteur->getPseudo() << " n'a pas assez de pieces pour tout payer !" << endl;
             destinataire->ajouterMontant(emetteur->getCompte());
             emetteur->ajouterMontant(0 - emetteur->getCompte());
         }
@@ -245,11 +256,11 @@ void Partie::achat_carte(Joueur *joueur, Pile_Etablissement *pile)
 */
 
 
-int Partie::choix(const string& m1, int n, const string& m2, int c, const vector<Pile_Etablissement*>* p) {
+int Partie::choix(const string& m1, int n, int c, const vector<Pile_Etablissement*>* p, const string& m2) {
     int choix = -1;
     while (true)
     {
-        cout << m1 << n << endl;
+        cout << m1 << n; if (m2 == "Choisir 0 pour quitter") cout << endl;
         cout << m2 << endl; //"Choisir 0 pour quitter"
         try
         { // Cette partie sert à détecter les erreurs eventuelles de saisie (Exemple : saisir une lettre à la place d'un nombre)
@@ -396,21 +407,29 @@ void Partie::find_carte_des(int des)
   id_sens_inverse = id_sens_inverse == 0 ? getNbJoueurs() - 1 : id_sens_inverse - 1;
   while (id_sens_inverse != joueur_actif)
   {
-    cout << "  " << id_sens_inverse+1 << " Montant AVANT : " << getJoueurs()[id_sens_inverse]->getCompte() << endl;
-    cout << "    "<< "Cartes activées :" << endl;
-    for (auto pileRouge : getJoueurs()[id_sens_inverse]->getPileRouge())
-    {
-      if (pileRouge->getEtablissement()->estActif(des))
+      cout << "  " << id_sens_inverse + 1 << " " << getJoueurs()[id_sens_inverse]->getPseudo() << endl;
+      cout << "  " << "Montant AVANT : " << getJoueurs()[id_sens_inverse]->getCompte() << endl;
+      cout << "    " << "Cartes activées :" << endl;
+      for (auto pileRouge : getJoueurs()[id_sens_inverse]->getPileRouge())
       {
-        //cout << "hello" << endl;
-        cout << "      " << pileRouge->getEtablissement()->getNom() << "  Quantité : " << pileRouge->getEffectif() << endl;
-        cout << "      " << pileRouge->getEtablissement()->getEffet() << endl;
-        transaction_piece(getJoueurActif(), getJoueurs()[id_sens_inverse], pileRouge->getMontant() * pileRouge->getEffectif());
+          if (pileRouge->getEtablissement()->estActif(des))
+          {
+              //cout << "hello" << endl;
+              cout << "      " << pileRouge->getEtablissement()->getNom() << "  Quantité : " << pileRouge->getEffectif() << endl;
+              cout << "      " << pileRouge->getEtablissement()->getEffet() << endl;
+              if (pileRouge->getEtablissement()->getNom() == "Sushi bar") {
+                  if (getJoueurs()[id_sens_inverse]->getEffet_port())
+                      transaction_piece(getJoueurActif(), getJoueurs()[id_sens_inverse], pileRouge->getMontant() * pileRouge->getEffectif());
+                  else
+                      cout << "      " << "L'effet ne s'applique pas : vous n'avez pas le port !" << endl;
+              }
+              else
+                  transaction_piece(getJoueurActif(), getJoueurs()[id_sens_inverse], pileRouge->getMontant() * pileRouge->getEffectif());
+          }
       }
-    }
-    cout << "    " << "Montant APRES : " << getJoueurs()[id_sens_inverse]->getCompte() << endl << endl;
-    id_sens_inverse = id_sens_inverse == 0 ? getNbJoueurs() - 1 : id_sens_inverse - 1;
-  } 
+      cout << "    " << "Montant APRES : " << getJoueurs()[id_sens_inverse]->getCompte() << endl << endl;
+      id_sens_inverse = id_sens_inverse == 0 ? getNbJoueurs() - 1 : id_sens_inverse - 1;
+  }
 
 
   cout << "      " << "**********************Partie après transaction**********************" << endl;
@@ -421,9 +440,9 @@ void Partie::find_carte_des(int des)
 
     for (auto joueur : getJoueurs())
     {
-        cout << "  " << joueur->getId() << " Montant AVANT : " << joueur->getCompte() << endl;
-        cout << "    "
-            << "Cartes activées :" << endl;
+        cout << "  " << joueur->getId() << " " << joueur->getPseudo() << endl;
+        cout << "  " << "Montant AVANT : " << joueur->getCompte() << endl;
+        cout << "    " << "Cartes activées :" << endl;
 
         // Pile Verte
         if (joueur == getJoueurActif())
@@ -468,7 +487,7 @@ void Partie::find_carte_des(int des)
 
                     if (p->getEtablissement()->getNom() == "Stade" && p->getEffectif() == 1)
                     {
-                        cout << "Voici les comptes des autres joueurs" << endl;
+                        cout << "      " << "Voici les comptes des autres joueurs" << endl;
                         for (auto joueurADebiter : getJoueurs())
                         {
                             if (joueur != joueurADebiter)
@@ -478,7 +497,7 @@ void Partie::find_carte_des(int des)
 
                     if (p->getEtablissement()->getNom() == "Centre d'affaires" && p->getEffectif() == 1)
                     {
-                        cout << "Voici les cartes des autres joueurs" << endl;
+                        cout << "      " << "Voici les cartes des autres joueurs" << endl;
                         for (auto joueurAEchanger : getJoueurs())
                         {
                             if (joueur != joueurAEchanger) {
@@ -487,17 +506,17 @@ void Partie::find_carte_des(int des)
                                 cout << endl << endl;
                             }
                         }
-                        int choixJoueur = choix("Avec quel joueur souhaitez-vous échanger une de vos cartes ?\nLe numéro du joueur doit être compris entre 1 et ", getNbJoueurs(), "Choisir 0 pour quitter", getJoueurActif()->getId());
+                        int choixJoueur = choix("Avec quel joueur souhaitez-vous échanger une de vos cartes ?\nLe numéro du joueur doit être compris entre 1 et ", getNbJoueurs(), getJoueurActif()->getId());
                         if (choixJoueur != 0) {
                             auto pileChoisie = choixPile("Dans quelle pile du joueur choisi se trouve la carte à échanger contre l'une des vôtres ?\nFaire votre choix\n1\tPile Rouge\n2\tPile Bleu\n3\tPile Vert\n", "Choisir 0 pour quitter", choixJoueur);
                             if (pileChoisie != nullptr) {
-                                int choixCarte = choix("Quel est le numéro de la pile dans laquelle se trouve la carte à échanger contre l'une des vôtres ? \nLe numéro de la pile doit être compris entre 1 et ", (*pileChoisie).size(), "Choisir 0 pour quitter", 0, pileChoisie);
+                                int choixCarte = choix("Quel est le numéro de la pile dans laquelle se trouve la carte à échanger contre l'une des vôtres ? \nLe numéro de la pile doit être compris entre 1 et ", (*pileChoisie).size(), 0, pileChoisie);
                                 if (choixCarte != 0) { //cout << pileChoisie[choixCarte - 1]->getEtablissement()[0];
                                     cout << "Voici vos cartes" << endl;
                                     joueur->printJoueurConcise(); cout << endl << endl;
                                     auto pile2Choisie = choixPile("Dans laquelle de vos piles se trouve la carte à échanger ?\nFaire votre choix\n1\tPile Rouge\n2\tPile Bleu\n3\tPile Vert\n");
                                     if (pile2Choisie != nullptr) {
-                                        int choixCarte2 = choix("Quel est le numéro de la pile dans laquelle se trouve la carte à échanger ? \nLe numéro de la pile doit être compris entre 1 et ", (*pile2Choisie).size(), "Choisir 0 pour quitter", 0, pile2Choisie); //nombreDePileActive(pile2Choisie)
+                                        int choixCarte2 = choix("Quel est le numéro de la pile dans laquelle se trouve la carte à échanger ? \nLe numéro de la pile doit être compris entre 1 et ", (*pile2Choisie).size(), 0, pile2Choisie); //nombreDePileActive(pile2Choisie)
                                         if (choixCarte2 != 0)
                                             echanger_cartes(getJoueurs()[choixJoueur - 1], getJoueurActif(), (*pileChoisie)[choixCarte - 1]->getEtablissement(), (*pile2Choisie)[choixCarte2 - 1]->getEtablissement());
                                     }
@@ -508,14 +527,14 @@ void Partie::find_carte_des(int des)
 
                     if (p->getEtablissement()->getNom() == "Chaine de television" && p->getEffectif() == 1)
                     {
-                        cout << "Voici les comptes de chaque joueur" << endl;
+                        cout << "      " << "Voici les comptes de chaque joueur" << endl;
                         for (auto joueurADepouiller : getJoueurs())
                         {
                             cout << "J" << joueurADepouiller->getId(); if (joueurADepouiller == getJoueurActif()) cout << " (vous)"; cout << endl;
                             cout << joueurADepouiller->getCompte() << endl
                                 << endl;
                         }
-                        int c = choix("De quel joueur souhaitez-vous obtenir 5 pieces ?\nLe numéro du joueur doit être compris entre 1 et ", getNbJoueurs(), "Choisir 0 pour quitter", getJoueurActif()->getId());
+                        int c = choix("De quel joueur souhaitez-vous obtenir 5 pieces ?\nLe numéro du joueur doit être compris entre 1 et ", getNbJoueurs(), getJoueurActif()->getId());
                         if (c > 0)
                             transaction_piece(getJoueurs()[c - 1], joueur, p->getMontant());
                     }
@@ -523,7 +542,7 @@ void Partie::find_carte_des(int des)
                 }
             }
         }
-        cout << "    " << "Montant APRES : " << joueur->getCompte() << endl;
+        cout << "  " << "Montant APRES : " << joueur->getCompte() << endl;
         cout << endl;
     }
 }

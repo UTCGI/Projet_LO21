@@ -164,7 +164,6 @@ bool lancer(Partie &p)
     int resultat; //Utile pour effets spéciaux
 again:
     des2 = 0;
-//<<<<<<< Updated upstream
     resultat = 0;
     des = p.getJoueurActif()->lancerDes();
     if (p.getJoueurActif()->getNbDes() == 2)
@@ -174,22 +173,6 @@ again:
         {
             cout << "Combien de dés voulez-vous lancer ?" << endl;
             cout << "Le nombre de dés doit être compris entre 1 et 2" << endl;
-            /*=======
-                //if (p.getJoueurActif()->getNbDes() == 1)
-                //{
-                    des = p.getJoueurActif()->lancerDes();
-                //}
-                //else
-                //{
-                    if (p.getJoueurActif()->getNbDes() != 1) {
-                        des = p.getJoueurActif()->lancerDes();
-                        int choix = -1;
-                        while (true)
-                        {
-                            cout << "Combien de dés voulez-vous lancer ?" << endl;
-                            cout << "Le nombre de dés doit être compris entre 1 et 2" << endl;
-            >>>>>>> Stashed changes*/
-
 
             try
             { // Cette partie sert à détecter les erreurs eventuelles de saisie (Exemple : saisir une lettre à la place d'un nombre)
@@ -218,21 +201,9 @@ again:
             des2 = p.getJoueurActif()->lancerDes();
         }
     }
-/*<<<<<<< Updated upstream
-        
-        if (choix==2){
-            des2 = p.getJoueurActif()->lancerDes();
-        }
-    }*/
-    resultat = des+des2;
-    cout << "Le dé obtenu est :  " << des << " " << des2 << ". La somme est " << resultat << endl;//getNumDe()
-/*=======
 
-    cout << "Dé 1 :  " << des << "\tDé 2 :  " << des2 << endl;//getNumDe()
-    cout << "Le dé obtenu est :  " << des + des2 << endl;//getNumDe()
-    //des2=0;
->>>>>>> Stashed changes*/
-    
+    resultat = des+des2;
+    cout << "Dés obtenus :  " << des << " " << des2 << endl << "Somme : " << resultat << endl;//getNumDe()    
     
     //Effet tour radio
     if (effet_tour_radio_applicable&&p.getJoueurActif()->getEffet_tour_radio()){
@@ -247,7 +218,7 @@ again:
     
     //Effet port
     if (p.getJoueurActif()->getEffet_port() && (resultat)>=10){
-        cout << "Vous voulez ajouter 2 à au résultat obtenu ? Taper 1 si oui, 0 sinon" << endl;
+        cout << "Voulez-vous ajouter 2 au résultat obtenu ? Taper 1 si oui, 0 sinon" << endl;
         int choix;
         cin >> choix;
         if (choix==1){ 
@@ -334,6 +305,7 @@ void menu(Partie &p)
 
         default: // Les nombres unbound
             cout << "Erreur ! Vous n'avez pas saisi un nombre valide." << endl;
+            goto revenir;
             break;
         }
         cout << endl;
@@ -344,8 +316,27 @@ int main()
 {
     setlocale(LC_ALL, "fr_FR.UTF-8");
     //setlocale(LC_ALL, "");
-    Partie p;
-    menu(p);
+    //Partie p;
+    //menu(p);
+
+    //TEST SUSHI BAR
+    /*Partie p;
+    p.initialisation();
+    auto q = p.getJeu()->getEtablissements()[23];
+    //cout << *q;
+    auto r = p.getJeu()->getEtablissements()[1];
+    //cout << *r;
+    auto m = p.getJeu()->getMonument()[4];
+    //cout << *m;
+    Pile_Etablissement* Sushi_bar = new Pile_Etablissement(q, q->getNbExemplaires());
+    Pile_Etablissement* Cafe = new Pile_Etablissement(r, r->getNbExemplaires());
+    p.getJoueurActif()->ajouterMontant(10);
+    cout << p.getJoueurActif()->getCompte() << endl; //J1 : 13
+    p.achat_carte(Sushi_bar);//J1 : Sushi bar
+    p.achat_carte(Cafe);//J1 : Cafe
+    p.construire_monument(m);//J1 : avec Port
+    p.joueur_next(lancer(p));//J2
+    p.find_carte_des(3);*/
 
     //TEST CENTRE D'AFFAIRES
     /*Partie p;
@@ -356,7 +347,7 @@ int main()
     //---------------------------------------------------------------------------------------------------------------------
 
     p.achat_carte(p.getReserve()->getListeEtablissement()[3]);//J1 : Cafe
-    p.joueur_next();
+    p.joueur_next(lancer(p));
     p.getJoueurActif()->ajouterMontant(30);
     cout<<p.getJoueurActif()->getCompte()<<endl;//J2 : 33
     p.achat_carte(p.getReserve()->getListeEtablissement()[6]);//J2 : Stade
@@ -366,7 +357,7 @@ int main()
     p.achat_carte(p.getReserve()->getListeEtablissement()[11]);//J2 : Mine
     cout << p.getJoueurActif()->getCompte() << endl;//J2 : 9
     p.getJoueurActif()->printJoueurConcise();
-    p.joueur_next();
+    p.joueur_next(lancer(p));
     p.getJoueurActif()->ajouterMontant(4);
     cout << p.getJoueurActif()->getCompte() << endl;//J3 : 7
     p.achat_carte(p.getReserve()->getListeEtablissement()[0]);//J3 : Champ de ble

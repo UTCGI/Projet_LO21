@@ -3,9 +3,12 @@
 #include <random>
 int Joueur::nombre_actuel = 0;
 
-Joueur::Joueur(const Jeu* jeu)
-    : id(++nombre_actuel)
+Joueur::Joueur(const Jeu* jeu) :
+    id(++nombre_actuel)
 {
+    char num[2];
+    _itoa_s(nombre_actuel, num, 10);
+    pseudo += num;
     // Partie : Distributions des cartes monument (pile)
     const Monument** monuments_temp = jeu->getMonument();
     for (size_t i = 0; i < jeu->getNbMonuments(); i++)
