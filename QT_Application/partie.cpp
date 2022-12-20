@@ -35,52 +35,28 @@ void Partie::setNbJoueurs(int nbJoueurs) { nb_joueurs = nbJoueurs; }
 // ----------------------------------------------------------------
 // Constructors and destructors functions
 // ----------------------------------------------------------------
-Partie::Partie()
-    : manche(0),
-      num_de(1),
-      nb_joueurs(2) //,
+Partie::Partie(Jeu* jeu, int nbJoueurs):nb_joueurs(nbJoueurs),jeu(jeu)
 {
+    // Initialisation reserve
+    reserve = new Reserve(*jeu);
+    // Initialisation joueur
+    for (int i = 0; i < getNbJoueurs(); i++)
+    {
+      joueurs1.push_back(new Joueur(jeu));
+    }
+    // TODO : initialisation pioche
 }
 
-Partie::~Partie() {}
+Partie::~Partie() {
+    delete reserve;
+    for (auto joueur:joueurs1){
+        delete joueur;
+    }
+}
 
 // ----------------------------------------------------------------
 // Methods
 // ----------------------------------------------------------------
-void Partie::initialisation()
-{
-  cout << "Bonjour, bienvenue dans le jeu MachiKoro" << endl;
-  // Lire l'extension
-  int lectureExtension;
-retry:
-  cout << "Entrez l'extension à laquelle vous voulez jouer" << endl;
-  cout << "\t0. Originale\t1. Marina \t2. GreenValley\t3. Deluxe" << endl;
-  do
-  {
-    cout << "L'extension doit être comprise entre 0 et 3" << endl;
-    cin >> lectureExtension;
-
-  } while (lectureExtension < 0 || lectureExtension > 3);
-  jeu = new Jeu(Extensions[lectureExtension]);
-  // Lire le nombre de joueurs
-  cout << "Entrez le nombre de joueurs :" << endl;
-  int lectureNbJoueurs = 0;
-  while (lectureNbJoueurs < 2 || lectureNbJoueurs > jeu->getNb_joueurs_MAX())
-  {
-    cout << "Le nombre de joueur doit être compris entre 2 et " << jeu->getNb_joueurs_MAX() << endl;
-    cin >> lectureNbJoueurs;
-  }
-  setNbJoueurs(lectureNbJoueurs);
-
-  // Initialisation reserve
-  reserve = new Reserve(*jeu);
-  // Initialisation joueur
-  for (size_t i = 0; i < getNbJoueurs(); i++)
-  {
-    joueurs1.push_back(new Joueur(jeu));
-  }
-  // TODO : initialisation pioche
-}
 
 void Partie::joueur_next(bool effet_parc_attration)
 {
