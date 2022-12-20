@@ -60,6 +60,7 @@ void Dialog::demarrer(){
 
 void Dialog::setmaxjoueur(){
     tester->setText(QString::fromStdString(toString1(Extensions[versions->checkedId()])));
+    delete jeu;
     jeu = new Jeu(Extensions[versions->checkedId()]);
     nbPersonne->setMaximum(jeu->getNb_joueurs_MAX());
     this->update();
