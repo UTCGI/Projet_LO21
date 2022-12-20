@@ -5,6 +5,7 @@ DISTFILES += \
 
 HEADERS += \
     Carte_Monument.h \
+    VueCarte.h \
     buildfonctions.h \
     create_database.h \
     dialog.h \
@@ -25,6 +26,7 @@ HEADERS += \
 
 SOURCES += \
     Carte_Monument.cpp \
+    VueCarte.cpp \
     buildfonctions.cpp \
     create_database.cpp \
     dialog.cpp \
