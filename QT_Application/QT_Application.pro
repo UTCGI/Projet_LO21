@@ -13,6 +13,7 @@ HEADERS += \
     etablissements_speciaux.h \
     jeu.h \
     joueur.h \
+    manche.h \
     miniville.h \
     monument.h \
     partie.h \
@@ -33,6 +34,7 @@ SOURCES += \
     jeu.cpp \
     joueur.cpp \
     main.cpp \
+    manche.cpp \
     miniville.cpp \
     monument.cpp \
     partie.cpp \

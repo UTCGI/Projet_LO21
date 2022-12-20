@@ -54,12 +54,15 @@ Dialog::Dialog(QWidget *parent):QWidget(parent)
 void Dialog::demarrer(){
     //this->hide();
     //tester->setText(QString::fromStdString(toString1(Extensions[versions->checkedId()])));
-
-    this->update();
+    manche = new Manche(nullptr, new Partie(jeu, nbPersonne->value()));
+    connect(manche, SIGNAL(relancer_menu()), this, SLOT(relancer()));
+    this->hide();
+    manche->show();
 }
 
 void Dialog::setmaxjoueur(){
     tester->setText(QString::fromStdString(toString1(Extensions[versions->checkedId()])));
+    delete jeu;
     jeu = new Jeu(Extensions[versions->checkedId()]);
     nbPersonne->setMaximum(jeu->getNb_joueurs_MAX());
     this->update();

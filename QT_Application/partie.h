@@ -10,9 +10,7 @@ class Partie {
   int manche;
   int num_de;
   int nb_joueurs;
-  //int nb_monuments; //inutile on les a deja dans jeu !
-  //int nb_etablissements; //inutile on les a deja dans jeu !
-  // Est ce qu'on a besoin de pointeurs ou pas ??
+
   Jeu* jeu;
   int joueur_actif = 0;//Indice du joueur qui a la main
   vector<Joueur*> joueurs1;
@@ -56,7 +54,8 @@ class Partie {
       Elle devra initialiser chaque attributs de la classe partie avec des
   valeurs par default.
   */
-  Partie();
+  //Partie();
+  Partie(Jeu* jeu, int nbJoueurs);
 
   /*
   SPECIFICATION : Partie::~Partie()
@@ -79,7 +78,7 @@ class Partie {
       -> Si elle est vraiment utile, je n'ai pas compris ce qu'elle devais
   faire.
   */
-  void initialisation();
+  //void initialisation();
 
   /*
   SPECIFICATION : Partie::distribuer()
