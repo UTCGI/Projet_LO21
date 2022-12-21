@@ -78,7 +78,7 @@ int testPioche()
 
     // EtablissementTest();
     //std::cout << "avant pioche";
-    Jeu jeu1 = Jeu();
+    Jeu& jeu1 = Jeu::getInstance();
     // CONSTRUIRE LA PIOCHE
     Pioche pioche1 = Pioche(jeu1);
     cout << "ici";

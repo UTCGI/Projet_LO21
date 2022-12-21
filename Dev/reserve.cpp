@@ -120,7 +120,7 @@ ostream& operator<<(ostream& f, Reserve& carte)
 
 void testReserve()
 {
-    Jeu j = Jeu(Extension::Marina);
+    Jeu& j = Jeu::getInstance(Extension::Marina);
     Pioche p = Pioche(j);
     //p.afficher();
     // Reserve r = Reserve(j);

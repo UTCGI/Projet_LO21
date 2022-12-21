@@ -1,6 +1,20 @@
 #include "jeu.h"
 #include "buildfonctions.h"
 
+//SINGLETON
+Jeu::Handler Jeu::handler = Jeu::Handler();
+
+Jeu& Jeu::getInstance(Extension e) { 
+    if (handler.instance == nullptr) 
+        handler.instance = new Jeu(e);
+    return *handler.instance; 
+}
+
+void Jeu::libererInstance() { 
+    delete handler.instance; 
+    handler.instance=nullptr;
+}
+
 Jeu::Jeu(Extension e)
     : extension(e)
 {

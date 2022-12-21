@@ -3,20 +3,20 @@
 #include <random>
 int Joueur::nombre_actuel = 0;
 
-Joueur::Joueur(const Jeu* jeu) :
+Joueur::Joueur(const Jeu& jeu) :
     id(++nombre_actuel)
 {
     char num[2];
     _itoa_s(nombre_actuel, num, 10); num[strlen(num)] = '\0';
     pseudo += num;
     // Partie : Distributions des cartes monument (pile)
-    const Monument** monuments_temp = jeu->getMonument();
-    for (size_t i = 0; i < jeu->getNbMonuments(); i++)
+    const Monument** monuments_temp = jeu.getMonument();
+    for (size_t i = 0; i < jeu.getNbMonuments(); i++)
         monuments.push_back(new Carte_Monument(monuments_temp[i]));
 
     // Partie : Initialisation des piles
-    const Etablissement** etablissements_temp = jeu->getEtablissements();
-    for (size_t i = 0; i < jeu->getNbEtablissements(); i++) {
+    const Etablissement** etablissements_temp = jeu.getEtablissements();
+    for (size_t i = 0; i < jeu.getNbEtablissements(); i++) {
 
         switch (etablissements_temp[i]->getCouleur()) {
         case Couleur::bleu:
@@ -38,8 +38,8 @@ Joueur::Joueur(const Jeu* jeu) :
         }
     }
     // Partie : Distributions des cartes de départ
-    const Etablissement** depart = jeu->getEtablissementsDepart();
-    for (size_t i = 0; i < jeu->getNbEtablissements_Depart(); i++) {
+    const Etablissement** depart = jeu.getEtablissementsDepart();
+    for (size_t i = 0; i < jeu.getNbEtablissements_Depart(); i++) {
         initialisation_etablissement_depart(depart[i]);
     }
 }

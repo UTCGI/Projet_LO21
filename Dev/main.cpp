@@ -238,7 +238,7 @@ again:
 
 void menu(Partie &p)
 {
-    p.initialisation();
+    //p.initialisation();
     int choix = -1;
     bool effet_parc_attraction = false;
     cin.exceptions(std::istream::failbit); // Activer module exception dans std::cin

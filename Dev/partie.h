@@ -10,10 +10,13 @@ class Partie {
   int manche;
   int num_de;
   int nb_joueurs;
+  //SINGLETON
+  int lectureExtension;
   //int nb_monuments; //inutile on les a deja dans jeu !
   //int nb_etablissements; //inutile on les a deja dans jeu !
   // Est ce qu'on a besoin de pointeurs ou pas ??
-  Jeu* jeu;
+  //SINGLETON
+  //static Jeu& jeu;
   int joueur_actif = 0;//Indice du joueur qui a la main
   vector<Joueur*> joueurs1;
   Reserve* reserve;
@@ -27,7 +30,8 @@ class Partie {
   int getNbJoueurs() const;
   //int getNbMonuments() const; //inutile on les a deja dans jeu !
   //int getNbEtablissements() const; //inutile on les a deja dans jeu !
-  Jeu* getJeu() const;
+  //SINGLETON
+  //Jeu& getJeu() const;
     Joueur* getJoueurActif() ;
   //Joueur* getEnsenbleJoueurs() const;
   //Joueur getJoueurI(const int i) const; // C'EST QUOI ?

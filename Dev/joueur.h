@@ -36,7 +36,7 @@ class Joueur {
     bool effet_aeroport = false;
 
 public:
-    Joueur(const Jeu* jeu);
+    Joueur(const Jeu& jeu);
     ~Joueur();
 
 
