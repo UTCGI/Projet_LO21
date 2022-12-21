@@ -52,7 +52,7 @@ void Partie::initialisation()
   cout << "Bonjour, bienvenue dans le jeu MachiKoro" << endl;
   // Lire l'extension
   int lectureExtension;
-retry:
+//retry:
   cout << "Entrez l'extension à laquelle vous voulez jouer" << endl;
   cout << "\t0. Originale\t1. Marina \t2. GreenValley\t3. Deluxe" << endl;
   do
@@ -108,7 +108,7 @@ void Partie::application_regle_standards(Couleur couleur)
   // TODO: A completer
 } */
 
-void Partie::transaction_piece(Joueur *emetteur, Joueur *destinataire, int montant)
+void Partie::transaction_piece(Joueur *emetteur, Joueur *destinataire, unsigned int montant)
 {
     if (montant != 0) {
         cout << endl << "      " << emetteur->getPseudo() << endl;

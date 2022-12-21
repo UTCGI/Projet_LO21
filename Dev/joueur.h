@@ -23,7 +23,7 @@ class Joueur {
     int id;
     string pseudo = "J";
     int de = 1;
-    int compte = 3;
+    unsigned int compte = 3;
     std::vector<Carte_Monument*> monuments;
     std::vector<Pile_Etablissement*> pileRouge;
     std::vector<Pile_Etablissement*> pileBleu;
@@ -60,7 +60,7 @@ public:
 
     int getNbDes() const;
 
-    int getCompte() const;
+    unsigned int getCompte() const;
 
     int getNombreMonumentsConstruits() const;
 

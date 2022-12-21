@@ -7,7 +7,7 @@ Joueur::Joueur(const Jeu* jeu) :
     id(++nombre_actuel)
 {
     char num[2];
-    _itoa_s(nombre_actuel, num, 10);
+    _itoa_s(nombre_actuel, num, 10); num[strlen(num)] = '\0';
     pseudo += num;
     // Partie : Distributions des cartes monument (pile)
     const Monument** monuments_temp = jeu->getMonument();
@@ -61,7 +61,7 @@ Joueur::~Joueur()
 // Getter
 int Joueur::getNbDes() const { return de; }
 
-int Joueur::getCompte() const { return compte; }
+unsigned int Joueur::getCompte() const { return compte; }
 
 // Setter
 void Joueur::setNbDes() { de = de == 1 ? 2 : 1; }

@@ -125,7 +125,7 @@ class Partie {
   */
 //void achat_carte(Joueur* joueur, Pile_Etablissement* pile);
 
-void transaction_piece(Joueur* emetteur, Joueur*destinataire, int montant);
+void transaction_piece(Joueur* emetteur, Joueur*destinataire, unsigned int montant);
 
 void transaction_carte(Joueur* emetteur, Joueur*destinataire, const Etablissement* etab);
 
