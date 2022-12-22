@@ -10,7 +10,6 @@ Pioche::Pioche(const Jeu& jeu)
 {
     nb_piles = jeu.getNbEtablissements();
     nb_etablissements = 0;
-    // piles_etablissement= new Pile_Etablissement [nb_piles];
     piles_etablissement = new Pile_Etablissement[nb_piles];
     for (unsigned int i = 0; i < nb_piles; i++) {
         piles_etablissement[i] = Pile_Etablissement(jeu.getEtablissements()[i], jeu.getEtablissements()[i]->getNbExemplaires());
@@ -78,8 +77,8 @@ int testPioche()
 {
 
     // EtablissementTest();
-    std::cout << "avant pioche";
-    Jeu jeu1 = Jeu();
+    //std::cout << "avant pioche";
+    Jeu& jeu1 = Jeu::getInstance();
     // CONSTRUIRE LA PIOCHE
     Pioche pioche1 = Pioche(jeu1);
     cout << "ici";

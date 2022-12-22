@@ -238,7 +238,7 @@ again:
 
 void menu(Partie &p)
 {
-    p.initialisation();
+    //p.initialisation();
     int choix = -1;
     bool effet_parc_attraction = false;
     cin.exceptions(std::istream::failbit); // Activer module exception dans std::cin
@@ -316,8 +316,8 @@ int main()
 {
     setlocale(LC_ALL, "fr_FR.UTF-8");
     //setlocale(LC_ALL, "");
-    //Partie p;
-    //menu(p);
+    Partie p;
+    menu(p);
 
     //TEST SUSHI BAR
     /*Partie p;

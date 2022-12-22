@@ -37,6 +37,7 @@ Reserve::Reserve(Jeu& j)
 Reserve::Reserve(Jeu& j, Pioche& p)
 {
     nb_piles_max = j.getNb_pile_reserve_MAX();
+    nb_etablissements=0;
     nb_piles = 0;
     liste_etablissements = new Pile_Etablissement*[nb_piles_max];
     for (unsigned int i = 0; i < nb_piles_max; i++)
@@ -59,7 +60,7 @@ void Reserve::ajouter_etablissement(const Etablissement& etablissement, unsigned
     while (i < nb_piles && etablissement != *liste_etablissements[i]->getEtablissement()) {
         i++;
     }
-    if (liste_etablissements[i]->getEtablissement() && etablissement == *liste_etablissements[i]->getEtablissement()) {
+    if (liste_etablissements[i] && liste_etablissements[i]->getEtablissement() && etablissement == *liste_etablissements[i]->getEtablissement()) {
         liste_etablissements[i]->ajouterCarte(quantite);
         nb_etablissements += quantite;
     } else {
@@ -104,7 +105,7 @@ void Reserve::afficher() const
         cout.width(40);
         cout << liste_etablissements[i]->getEtablissement()->getNom() << " (" << liste_etablissements[i]->getEffectif() << ")";
         cout.width(20);
-        if (liste_etablissements[i]->getPrix() != 0) cout << "Prix : " << liste_etablissements[i]->getPrix(); cout << " " << endl;
+        if (liste_etablissements[i]->getEffectif() != 0) cout << "Prix : " << liste_etablissements[i]->getPrix(); cout << " " << endl;
     }
     cout << "*****End*Reserve*****" << endl
          << endl;
@@ -119,9 +120,9 @@ ostream& operator<<(ostream& f, Reserve& carte)
 
 void testReserve()
 {
-    Jeu j = Jeu(Extension::Aucune);
+    Jeu& j = Jeu::getInstance(Extension::Marina);
     Pioche p = Pioche(j);
-    p.afficher();
+    //p.afficher();
     // Reserve r = Reserve(j);
     // r.afficher();
     // r.retirer_etablissement(*j.getEtablissementFromName("Champs de ble"),4);
@@ -130,6 +131,6 @@ void testReserve()
     // r.afficher();
     Reserve* r = new Reserve(j, p);
     r->afficher();
-    p.afficher();
-    delete r;
+    //p.afficher();
+    //delete r;
 }

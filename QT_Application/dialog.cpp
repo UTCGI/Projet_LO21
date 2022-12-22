@@ -12,7 +12,7 @@ Dialog::Dialog(QWidget *parent):QWidget(parent)
     versions = new QButtonGroup();
     versions->exclusive();//Seulement un bouton à la fois
     tester = new QLabel(QString::fromStdString(toString1(Extensions[0])));//utiliser pour tester, essayer de cliquer sur valider
-    jeu = new Jeu(Extensions[versions->checkedId()]);
+    jeu = new Jeu(Extensions[0]);
 
     layoutversions = new QHBoxLayout();
     layoutcontrols = new QHBoxLayout();

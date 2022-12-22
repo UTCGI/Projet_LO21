@@ -10,7 +10,7 @@ unsigned int Pile_Etablissement::getEffectif() const { return effectif; }
 // Constructors and Destructors functions
 Pile_Etablissement::Pile_Etablissement(const Etablissement* et, unsigned int ef, unsigned int m)
     : etablissement(et), effectif(ef), minimum(m), montant_effet(et->getMontant()) {};
-
+Pile_Etablissement::Pile_Etablissement():etablissement(nullptr),effectif(0){};
 // Methods
 bool Pile_Etablissement::retirerCarte(unsigned int nb_cartes)
 {

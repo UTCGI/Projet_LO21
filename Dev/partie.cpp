@@ -14,7 +14,8 @@ int Partie::getNumDe() const { return num_de; }
 
 int Partie::getNbJoueurs() const { return nb_joueurs; }
 
-Jeu *Partie::getJeu() const { return jeu; }
+//SINGLETON
+//Jeu *Partie::getJeu() const { return jeu; }
 
 Joueur *Partie::getJoueurActif() { return joueurs1[joueur_actif]; }
 
@@ -35,11 +36,8 @@ void Partie::setNbJoueurs(int nbJoueurs) { nb_joueurs = nbJoueurs; }
 // ----------------------------------------------------------------
 // Constructors and destructors functions
 // ----------------------------------------------------------------
-Partie::Partie()
-    : manche(0),
-      num_de(1),
-      nb_joueurs(2) //,
-{
+Partie::Partie() : manche(0), num_de(1),  nb_joueurs(2) {//,
+    initialisation();
 }
 
 Partie::~Partie() {}
@@ -51,8 +49,8 @@ void Partie::initialisation()
 {
   cout << "Bonjour, bienvenue dans le jeu MachiKoro" << endl;
   // Lire l'extension
-  int lectureExtension;
-retry:
+  //int lectureExtension;
+//retry:
   cout << "Entrez l'extension à laquelle vous voulez jouer" << endl;
   cout << "\t0. Originale\t1. Marina \t2. GreenValley\t3. Deluxe" << endl;
   do
@@ -61,13 +59,14 @@ retry:
     cin >> lectureExtension;
 
   } while (lectureExtension < 0 || lectureExtension > 3);
-  jeu = new Jeu(Extensions[lectureExtension]);
+  Jeu& jeu = Jeu::getInstance(Extensions[lectureExtension]);
+  //jeu = new Jeu(Extensions[lectureExtension]);
   // Lire le nombre de joueurs
   cout << "Entrez le nombre de joueurs :" << endl;
   int lectureNbJoueurs = 0;
-  while (lectureNbJoueurs < 2 || lectureNbJoueurs > jeu->getNb_joueurs_MAX())
+  while (lectureNbJoueurs < 2 || lectureNbJoueurs > jeu.getNb_joueurs_MAX())
   {
-    cout << "Le nombre de joueur doit être compris entre 2 et " << jeu->getNb_joueurs_MAX() << endl;
+    cout << "Le nombre de joueur doit être compris entre 2 et " << jeu.getNb_joueurs_MAX() << endl;
     cin >> lectureNbJoueurs;
   }
   setNbJoueurs(lectureNbJoueurs);
@@ -88,7 +87,7 @@ retry:
   }
 
   // Initialisation reserve
-  reserve = new Reserve(*jeu);
+  reserve = new Reserve(jeu);
 
   // TODO : initialisation pioche
 }
@@ -108,7 +107,7 @@ void Partie::application_regle_standards(Couleur couleur)
   // TODO: A completer
 } */
 
-void Partie::transaction_piece(Joueur *emetteur, Joueur *destinataire, int montant)
+void Partie::transaction_piece(Joueur *emetteur, Joueur *destinataire, unsigned int montant)
 {
     if (montant != 0) {
         cout << endl << "      " << emetteur->getPseudo() << endl;
@@ -183,6 +182,7 @@ bool Partie::achat_carte(Pile_Etablissement *pile_reserve)
 // ACHAT MONUMENTS
 bool Partie::construire_monument(const Monument *monument_choisi)
 {
+  Jeu& jeu = Jeu::getInstance(Extensions[lectureExtension]);
   Carte_Monument *cible = nullptr;
   for (auto i : getJoueurActif()->getMonuments())
   {
@@ -218,10 +218,10 @@ bool Partie::construire_monument(const Monument *monument_choisi)
           effetTourRadio(this);
       }
 
-      if (getJeu()->getExtension()==Extension::Marina){
+      if (jeu.getExtension()==Extension::Marina){
         if (monument_choisi->getNom() == "Tour radio") effetHotelDeVille(this); //En cours de développement. Faut déterminer la signification "Utilisé comme établissement de départ"
       }
-      if (getJeu()->getExtension()==Extension::Marina || getJeu()->getExtension()==Extension::Deluxe){
+      if (jeu.getExtension()==Extension::Marina || jeu.getExtension()==Extension::Deluxe){
         if (monument_choisi->getNom() == "Port") effetPort(this);
         else if (monument_choisi->getNom() == "Aeroport") effeAeroport(this);
       }
