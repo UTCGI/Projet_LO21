@@ -423,6 +423,20 @@ void Partie::find_carte_des(int des)
                   else
                       cout << "      " << "L'effet ne s'applique pas : vous n'avez pas le port !" << endl;
               }
+              else if (pileRouge->getEtablissement()->getNom() == "Restaurant 5 etoiles") {
+                  //getNombreMonumentsConstruits()/*'Recevez 5 pieces du joueur qui a lance les des si celui-ci possede au moins deux monuments construits'*/
+                  if (getJoueurActif()->getNombreMonumentsConstruits() > 1)
+                      transaction_piece(getJoueurActif(), getJoueurs()[id_sens_inverse], pileRouge->getMontant() * pileRouge->getEffectif());
+                  else
+                      cout << "      " << "L'effet ne s'applique pas : " << getJoueurActif()->getPseudo() << " possède moins de 2 monuments construits !" << endl;
+              }
+              else if (pileRouge->getEtablissement()->getNom() == "Club prive") {
+                  //getNombreMonumentsConstruits()/*'Recevez toutes les pieces du joueur qui a lance les des si celui-ci possede au moins trois etablissements construits'*/
+                  if (getJoueurActif()->getNombreMonumentsConstruits() > 2)
+                      transaction_piece(getJoueurActif(), getJoueurs()[id_sens_inverse], getJoueurActif()->getCompte());
+                  else
+                      cout << "      " << "L'effet ne s'applique pas : " << getJoueurActif()->getPseudo() << " possède moins de 3 monuments construits !" << endl;
+              }
               else
                   transaction_piece(getJoueurActif(), getJoueurs()[id_sens_inverse], pileRouge->getMontant() * pileRouge->getEffectif());
           }

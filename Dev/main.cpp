@@ -315,18 +315,58 @@ void menu(Partie &p)
 int main()
 {
     setlocale(LC_ALL, "fr_FR.UTF-8");
-    //setlocale(LC_ALL, "");
+    //cout << Jeu::getInstance(Extension::Deluxe);
     Partie p;
     menu(p);
 
+    //TEST CLUB PRIVÉ / RESTAURANT 5 ÉTOILES
+    /*Partie p;
+    //---------------------------------------------------------------------------------------------------------------------
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!/!\ CHOISIR 3 DELUXE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //---------------------------------------------------------------------------------------------------------------------
+    auto q = Jeu::getInstance().getEtablissements()[7]; //Club prive
+    //cout << *q << endl << endl;
+    auto r = Jeu::getInstance().getEtablissements()[1]; //Cafe
+    //cout << *r << endl;
+            //auto s = Jeu::getInstance().getEtablissements()[23]; //Restaurant 5 etoiles
+            //cout << *s << endl;
+    auto m4 = Jeu::getInstance().getMonument()[4]; //Port
+    //cout << *m4 << endl;
+    auto m2 = Jeu::getInstance().getMonument()[2]; //Gare
+    //cout << *m2 << endl;
+    auto m1 = Jeu::getInstance().getMonument()[1]; //Centre commercial
+    //cout << *m2 << endl;
+    Pile_Etablissement* Club_prive = new Pile_Etablissement(q, q->getNbExemplaires());
+            //Pile_Etablissement* Restaurant_5_etoiles = new Pile_Etablissement(s, s->getNbExemplaires());
+    Pile_Etablissement* Cafe = new Pile_Etablissement(r, r->getNbExemplaires());
+    p.getJoueurActif()->ajouterMontant(10);
+    cout << p.getJoueurActif()->getCompte() << endl; //J1 : 13
+            //p.achat_carte(Restaurant_5_etoiles);//J1 : Restaurant 5 etoiles
+    p.achat_carte(Club_prive);//J1 : Club prive
+    p.achat_carte(Cafe);//J1 : Cafe
+    p.joueur_next(lancer(p));//J2
+    p.getJoueurActif()->ajouterMontant(20);
+            //p.achat_carte(Restaurant_5_etoiles);//J2 : Restaurant 5 etoiles
+    p.construire_monument(m4);//J2 : avec Port
+    p.construire_monument(m2);//J2 : avec Gare
+    p.construire_monument(m1);//J2 : avec Centre commercial
+    p.getJoueurActif()->printJoueurConcise();//J2
+    p.find_carte_des(13);
+    p.joueur_next(lancer(p));//J3
+    p.find_carte_des(13);
+    p.find_carte_des(3);*/
+
     //TEST SUSHI BAR
     /*Partie p;
-    p.initialisation();
-    auto q = p.getJeu()->getEtablissements()[23];
-    //cout << *q;
-    auto r = p.getJeu()->getEtablissements()[1];
-    //cout << *r;
-    auto m = p.getJeu()->getMonument()[4];
+    //p.initialisation();
+    //---------------------------------------------------------------------------------------------------------------------
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!/!\ CHOISIR 1 MARINA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //---------------------------------------------------------------------------------------------------------------------
+    auto q = p.getJeu().getEtablissements()[23]; //Sushi bar
+    //cout << *q;      
+    auto r = p.getJeu().getEtablissements()[1]; //Cafe
+    //cout << *r;      
+    auto m = p.getJeu().getMonument()[4];
     //cout << *m;
     Pile_Etablissement* Sushi_bar = new Pile_Etablissement(q, q->getNbExemplaires());
     Pile_Etablissement* Cafe = new Pile_Etablissement(r, r->getNbExemplaires());
@@ -340,12 +380,10 @@ int main()
 
     //TEST CENTRE D'AFFAIRES
     /*Partie p;
-    p.initialisation();
-
+    //p.initialisation();
     //---------------------------------------------------------------------------------------------------------------------
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!/!\CHOISIR AU MOINS 3 JOUEURS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //---------------------------------------------------------------------------------------------------------------------
-
     p.achat_carte(p.getReserve()->getListeEtablissement()[3]);//J1 : Cafe
     p.joueur_next(lancer(p));
     p.getJoueurActif()->ajouterMontant(30);
