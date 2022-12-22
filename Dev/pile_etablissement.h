@@ -17,7 +17,7 @@ public:
     void setMinimum() { minimum = 1; }
 
     // Getters
-    int getMinimum()const { return minimum; }
+    unsigned int getMinimum()const { return minimum; }
 
     int getPrix()const
     {
