@@ -356,27 +356,50 @@ int main()
     p.find_carte_des(13);
     p.find_carte_des(3);*/
 
-    //TEST SUSHI BAR
+    //TEST PETIT BATEAU DE PECHE
+            //TEST FLEURISTE   
+                    //TEST SUSHI BAR
     /*Partie p;
-    //p.initialisation();
     //---------------------------------------------------------------------------------------------------------------------
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!/!\ CHOISIR 1 MARINA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //---------------------------------------------------------------------------------------------------------------------
-    auto q = p.getJeu().getEtablissements()[23]; //Sushi bar
-    //cout << *q;      
-    auto r = p.getJeu().getEtablissements()[1]; //Cafe
-    //cout << *r;      
-    auto m = p.getJeu().getMonument()[4];
-    //cout << *m;
-    Pile_Etablissement* Sushi_bar = new Pile_Etablissement(q, q->getNbExemplaires());
-    Pile_Etablissement* Cafe = new Pile_Etablissement(r, r->getNbExemplaires());
-    p.getJoueurActif()->ajouterMontant(10);
-    cout << p.getJoueurActif()->getCompte() << endl; //J1 : 13
-    p.achat_carte(Sushi_bar);//J1 : Sushi bar
-    p.achat_carte(Cafe);//J1 : Cafe
-    p.construire_monument(m);//J1 : avec Port
-    p.joueur_next(lancer(p));//J2
-    p.find_carte_des(3);*/
+            //auto q = Jeu::getInstance().getEtablissements()[23]; //Sushi bar
+                    ////cout << *q;      
+    //auto r = Jeu::getInstance().getEtablissements()[1]; //Cafe
+    //        //cout << *r;      
+    //auto m = Jeu::getInstance().getMonument()[4]; //Port
+    //        //cout << *m;
+    //auto q = Jeu::getInstance().getEtablissementFromName("Petit bateau de peche"); //Petit bateau de peche      
+            auto m1 = Jeu::getInstance().getMonument()[1]; //Centre commercial
+            cout << *m1;
+            auto q = Jeu::getInstance().getEtablissementFromName("Fleuriste"); //Fleuriste
+            auto c = Jeu::getInstance().getEtablissementFromName("Champ de fleurs"); //Champ de fleurs
+            cout << *Jeu::getInstance().getEtablissementFromName("Fleuriste") << endl;
+            cout << *Jeu::getInstance().getEtablissementFromName("Champ de fleurs") << endl;
+                    //Pile_Etablissement* Sushi_bar = new Pile_Etablissement(q, q->getNbExemplaires());
+    //Pile_Etablissement* Cafe = new Pile_Etablissement(r, r->getNbExemplaires());
+    //Pile_Etablissement* Petit_bateau_de_peche = new Pile_Etablissement(q, q->getNbExemplaires());
+            Pile_Etablissement* Fleuriste = new Pile_Etablissement(q, q->getNbExemplaires());
+            Pile_Etablissement* Champ_de_fleurs = new Pile_Etablissement(c, c->getNbExemplaires());
+    p.getJoueurActif()->ajouterMontant(15);
+    cout << p.getJoueurActif()->getCompte() << endl; //J1 : 18
+                    //p.achat_carte(Sushi_bar);//J1 : Sushi bar
+            p.achat_carte(Fleuriste);//J1 : Fleuriste
+            p.achat_carte(Fleuriste);//J1 : Fleuriste
+            p.achat_carte(Champ_de_fleurs);//J1 : Champ de fleurs
+            p.achat_carte(Champ_de_fleurs);//J1 : Champ de fleurs
+            p.achat_carte(Champ_de_fleurs);//J1 : Champ de fleurs
+            p.construire_monument(m1);//J1 : avec Centre commercial
+    //p.achat_carte(Cafe);//J1 : Cafe
+    //p.achat_carte(Petit_bateau_de_peche);//J1 : Petit bateau de peche
+    //p.achat_carte(Petit_bateau_de_peche);//J1 : Petit bateau de peche
+    //p.construire_monument(m);//J1 : avec Port
+    //p.find_carte_des(8);
+    p.getJoueurActif()->printJoueurConcise();//J1
+    //p.joueur_next(lancer(p));//J2
+            p.find_carte_des(6);
+            p.joueur_next(lancer(p));//J2
+                    //p.find_carte_des(1);*/
 
     //TEST CENTRE D'AFFAIRES
     /*Partie p;
