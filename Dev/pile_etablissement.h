@@ -125,4 +125,6 @@ ostream& operator<<(ostream& f, const Pile_Etablissement& pile);
 
 ostream& operator<<(ostream& f, const vector<Pile_Etablissement*>& pile);
 
+const Pile_Etablissement* getPileFromName(const string& name, const vector<Pile_Etablissement*>& pile);
+
 #endif
