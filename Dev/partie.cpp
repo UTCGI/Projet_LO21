@@ -533,10 +533,14 @@ void Partie::find_carte_des(int des)
                 else if (p->getEtablissement()->getNom() == "Chalutier") {
                     /*'Le joueur dont c''est le tour lance 2 des. Si vous avez le Port recevez de la banque autant de pieces que le total des 2 des'*/
                     cout << "      " << p->getEtablissement()->getEffet() << endl;
-                    /*if (getJoueurActif()->getNombreMonumentsConstruits() > 1)
-                        joueur->ajouterMontant(p->getMontant() * p->getEffectif() * fonction_service_type(p->getEtablissement()->getTypeEffet(),joueur));
+                    if (joueur->getEffet_port()) {
+                        srand(time(NULL));
+                        int DeuxDes = rand() % 11 + 2;
+                        cout << "      Somme des deux dés : " << DeuxDes << endl;
+                        joueur->ajouterMontant(DeuxDes * p->getEffectif());
+                    }
                     else
-                        cout << "      " << "L'effet ne s'applique pas : " << getJoueurActif()->getPseudo() << " possède moins de 2 monuments construits !" << endl;*/
+                        cout << "      " << "L'effet ne s'applique pas : vous n'avez pas le port !" << endl;
                 }
                 else
                     joueur->ajouterMontant(p->getMontant() * p->getEffectif());
