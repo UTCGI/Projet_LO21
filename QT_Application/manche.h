@@ -4,7 +4,7 @@
 #include <QWidget>
 #include "partie.h"
 #include "VueCarte.h"
-
+#include "vue_monument.h"
 
 class QPushButton;
 class QVBoxLayout;
@@ -12,33 +12,52 @@ class QHBoxLayout;
 class QGridLayout;
 class QLCDNumber;
 class QLabel;
+class QTableWidget;
 class Manche : public QWidget
 {
     Q_OBJECT
 public:
     explicit Manche(QWidget *parent = nullptr, Partie* p = nullptr);
 
+
 private:
     Partie* p;
 
     //Partie layout
     QHBoxLayout* couche;
-    QGridLayout* layoutCartes; // grille des cartes
+
+
+    QGridLayout* layoutCartes; // grille des cartes réserve
+
+    QVBoxLayout* layoutJoueur; // grille des cartes joueur (y compris monuments)
+    QGridLayout* layoutMonument;
+    QGridLayout* layoutCartesJoueur;
+
     QVBoxLayout* layoutButtons;
 
     //Partie réserve
     std::vector<VueCarte*> vueCartesReserve;
     QButtonGroup* reserveGroup;
-    VueCarte* cartechoisie = nullptr;
+
 
     //Partie joueur
+    std::vector<vue_monument*> vueMonuments;
+    QButtonGroup* monumentGroup;
+    QTableWidget* bilan;
+    //Partie Bouton
     QLabel* affichageIDJoueur;
-    QLabel* displayCarte;
+    QLabel* montantJoueur;
+    QLabel* displayCarte;//Temp
     QPushButton* acheter;
+    QPushButton* construire;
     QPushButton* passerMonTour;
     QPushButton* quitter;
 
 
+    void rafraichir_etats_monuments();
+    void miseajour(){miseajourCompte(); miseajourBilan();}
+    void miseajourCompte();
+    void miseajourBilan();
 
 
 signals:
@@ -47,10 +66,10 @@ public slots:
 
 private slots:
     void fermer();
-    void setcartechoisie(VueCarte* vs);
-    void choisirCarte();
+    void acheter_reserve();
+    void construire_monument();
     void eliminerCarteChere();
-    void passertour();
+    void terminertour();
 };
 
 #endif // MANCHE_H

@@ -21,7 +21,8 @@ HEADERS += \
     pile_etablissement.h \
     pioche.h \
     reserve.h \
-    sqlite3.h
+    sqlite3.h \
+    vue_monument.h
 
 SOURCES += \
     Carte_Monument.cpp \
@@ -42,4 +43,5 @@ SOURCES += \
     pile_etablissement.cpp \
     pioche.cpp \
     reserve.cpp \
-    sqlite3.c
+    sqlite3.c \
+    vue_monument.cpp

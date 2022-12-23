@@ -9,13 +9,13 @@ class VueCarte : public QPushButton
 {
     Q_OBJECT
 public:
-    VueCarte(const Pile_Etablissement* p, QWidget *parent = nullptr);
+    VueCarte(Pile_Etablissement* p, QWidget *parent = nullptr);
     explicit VueCarte(QWidget *parent = nullptr);
     // affecter une nouvelle carte à la vue
-    void setCarte(const Pile_Etablissement* p) { setCheckable(true); setChecked(false); pile=p; update(); }
-    const Pile_Etablissement* getCarte() const { return pile; }
+    void setCarte(Pile_Etablissement* p) { setCheckable(true); setChecked(false); pile=p; update(); }
+    Pile_Etablissement* getCarte() const { return pile; }
 private:
-    const Pile_Etablissement* pile = nullptr;
+    Pile_Etablissement* pile = nullptr;
 signals:
     // quand la vude de carte est cliquée, elle émet un signal en transmettant son adresse
     void carteClicked(VueCarte*);

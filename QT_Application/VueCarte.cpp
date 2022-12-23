@@ -6,7 +6,7 @@
 #define x_scale 0.6
 #define y_scale 0.6
 
-VueCarte::VueCarte(const Pile_Etablissement* p, QWidget *parent) : QPushButton(parent),pile (p)
+VueCarte::VueCarte(Pile_Etablissement* p, QWidget *parent) : QPushButton(parent),pile (p)
 {
     setText(QString::fromStdString(p->getEtablissement()->getNom()));
     setBackgroundRole(QPalette::Base);
