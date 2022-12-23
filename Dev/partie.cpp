@@ -110,7 +110,7 @@ void Partie::application_regle_standards(Couleur couleur)
 void Partie::transaction_piece(Joueur *emetteur, Joueur *destinataire, unsigned int montant)
 {
     if (montant != 0) {
-        cout << endl << "      " << emetteur->getPseudo() << endl;
+        cout << "      " << emetteur->getPseudo() << endl;//endl << 
         cout << "      AVANT : " << emetteur->getCompte() << endl;
         if (emetteur->getCompte() >= montant) {
             emetteur->ajouterMontant(0 - montant);
@@ -361,31 +361,31 @@ const vector<Pile_Etablissement*>*/*&*/ Partie::choixPile(const string & m1, con
 }
 
 // TODO: renommer CompterNbEtablissementdeType()
-int Partie::fonction_service_verte(Type t)
+int Partie::fonction_service_type(Type t, Joueur* j)
 {
   if (t == Type::aucun)
     return 1;
   else{
     int nombreactive=0;
-    for (auto p : getJoueurActif()->getPileBleu()){
+    for (auto p : j->getPileBleu()){
         if (p->getEtablissement()->getType() == t) {
             nombreactive += p->getEffectif(); //nombreactive++;
             cout << "            " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
       }
     }
-    for (auto p : getJoueurActif()->getPileRouge()){
+    for (auto p : j->getPileRouge()){
       if (p->getEtablissement()->getType()==t) {
           nombreactive += p->getEffectif(); //nombreactive++;
           cout << "            " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
       }
     }
-    for (auto p : getJoueurActif()->getPileVert()){
+    for (auto p : j->getPileVert()){
       if (p->getEtablissement()->getType()==t) {
           nombreactive += p->getEffectif(); //nombreactive++;
           cout << "            " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
       }
     }
-    for (auto p : getJoueurActif()->getPileViolet()){
+    for (auto p : j->getPileViolet()){
       if (p->getEtablissement()->getType()==t) {
           nombreactive += p->getEffectif(); //nombreactive++;
           cout << "            " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
@@ -430,7 +430,7 @@ void Partie::find_carte_des(int des)
                   else
                       cout << "      " << "L'effet ne s'applique pas : " << getJoueurActif()->getPseudo() << " possède moins de 2 monuments construits !" << endl;
               }
-              else if (pileRouge->getEtablissement()->getNom() == "Club prive") {
+              else if (pileRouge->getEtablissement()->getNom() == "Club prive" && pileRouge->getEffectif() == 1) {
                   //getNombreMonumentsConstruits()/*'Recevez toutes les pieces du joueur qui a lance les des si celui-ci possede au moins trois etablissements construits'*/
                   if (getJoueurActif()->getNombreMonumentsConstruits() > 2)
                       transaction_piece(getJoueurActif(), getJoueurs()[id_sens_inverse], getJoueurActif()->getCompte());
@@ -467,8 +467,49 @@ void Partie::find_carte_des(int des)
                 {
                     cout << "      " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
                     cout << "      " << p->getEtablissement()->getEffet() << endl;
-                    joueur->ajouterMontant(p->getMontant() * p->getEffectif() * fonction_service_verte(p->getEtablissement()->getTypeEffet()));
-                    break;
+                    if (Jeu::getInstance().getExtension() == Extension::Aucune) {
+                        joueur->ajouterMontant(p->getMontant() * p->getEffectif() * fonction_service_type(p->getEtablissement()->getTypeEffet(),joueur));
+                        break;//car toutes les cartes vertes ont un num de de différent dans la version de base
+                    }
+                    else if (p->getEtablissement()->getNom() == "Fleuriste") {
+                        /*'Recevez 1 piece de la banque pour chaque Champ de fleurs que vous possedez'*/
+                        auto pileChamps_de_fleurs = getPileFromName("Champ de fleurs", joueur->getPileBleu());
+                        unsigned int nbChamps_de_fleurs = pileChamps_de_fleurs->getEffectif();
+                        cout << "            " << pileChamps_de_fleurs->getEtablissement()->getNom() << "  Quantité : " << nbChamps_de_fleurs << endl;
+                        joueur->ajouterMontant(p->getMontant() * p->getEffectif() * nbChamps_de_fleurs);
+                    }
+                    else if (p->getEtablissement()->getNom() == "Epicerie") {
+                        /*'Si vous possedez moins de deux monuments, recevez 2 pieces de la banque'*/
+                        /*if (getJoueurActif()->getNombreMonumentsConstruits() > 1)
+                            joueur->ajouterMontant(p->getMontant() * p->getEffectif() * fonction_service_type(p->getEtablissement()->getTypeEffet(),joueur));
+                        else
+                            cout << "      " << "L'effet ne s'applique pas : " << getJoueurActif()->getPseudo() << " possède moins de 2 monuments construits !" << endl;*/
+                    }
+                    else if (p->getEtablissement()->getNom() == "Entreprise de travaux publics") {
+                        /*'Vous devez retourner une de vos cartes monuments sur sa face en travaux. Ce faisant, recevez 8 pieces de la banque'*/
+                        /*if (getJoueurActif()->getNombreMonumentsConstruits() > 1)
+                            joueur->ajouterMontant(p->getMontant() * p->getEffectif() * fonction_service_type(p->getEtablissement()->getTypeEffet(),joueur));
+                        else
+                            cout << "      " << "L'effet ne s'applique pas : " << getJoueurActif()->getPseudo() << " possède moins de 2 monuments construits !" << endl;*/
+                    }
+                    else if (p->getEtablissement()->getNom() == "Entreprise de demenagement") {
+                        /*'Donnez a un autre joueur, un de vos etablissements qui ne soit pas de type special. Puis recevez 4 pieces de la banque'*/
+                        /*if (getJoueurActif()->getNombreMonumentsConstruits() > 1)
+                            joueur->ajouterMontant(p->getMontant() * p->getEffectif() * fonction_service_type(p->getEtablissement()->getTypeEffet(),joueur));
+                        else
+                            cout << "      " << "L'effet ne s'applique pas : " << getJoueurActif()->getPseudo() << " possède moins de 2 monuments construits !" << endl;*/
+                    }
+                    else if (p->getEtablissement()->getNom() == "Moonster soda") {
+                        /*'Recevez 1 piece de la banque pour chaque etablissement de type restauration que possedent tous les joueurs'*/
+                        /*if (getJoueurActif()->getNombreMonumentsConstruits() > 1)
+                            joueur->ajouterMontant(p->getMontant() * p->getEffectif() * fonction_service_type(p->getEtablissement()->getTypeEffet(),joueur));
+                        else
+                            cout << "      " << "L'effet ne s'applique pas : " << getJoueurActif()->getPseudo() << " possède moins de 2 monuments construits !" << endl;*/
+                    }
+                    else
+                        joueur->ajouterMontant(p->getMontant()* p->getEffectif()* fonction_service_type(p->getEtablissement()->getTypeEffet(), joueur));
+
+                    
                 }
             }
         }
@@ -478,9 +519,33 @@ void Partie::find_carte_des(int des)
         {
             if (p->getEtablissement()->estActif(des))
             {
-                joueur->ajouterMontant(p->getMontant() * p->getEffectif());
                 cout << "      " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
-                break;
+                if (Jeu::getInstance().getExtension() == Extension::Aucune)
+                    joueur->ajouterMontant(p->getMontant() * p->getEffectif());
+                else if (p->getEtablissement()->getNom() == "Petit bateau de peche") {
+                    /*'Si vous avez le Port, recevez 3 pieces de la banque'*/
+                    cout << "      " << p->getEtablissement()->getEffet() << endl;
+                    if (joueur->getEffet_port())
+                        joueur->ajouterMontant(p->getMontant() * p->getEffectif());
+                    else
+                        cout << "      " << "L'effet ne s'applique pas : vous n'avez pas le port !" << endl;
+                }
+                else if (p->getEtablissement()->getNom() == "Chalutier") {
+                    /*'Le joueur dont c''est le tour lance 2 des. Si vous avez le Port recevez de la banque autant de pieces que le total des 2 des'*/
+                    cout << "      " << p->getEtablissement()->getEffet() << endl;
+                    if (joueur->getEffet_port()) {
+                        srand(time(NULL));
+                        int DeuxDes = rand() % 11 + 2;
+                        cout << "      Somme des deux dés : " << DeuxDes << endl;
+                        joueur->ajouterMontant(DeuxDes * p->getEffectif());
+                    }
+                    else
+                        cout << "      " << "L'effet ne s'applique pas : vous n'avez pas le port !" << endl;
+                }
+                else
+                    joueur->ajouterMontant(p->getMontant() * p->getEffectif());
+                break;//car toutes les cartes bleues ont un num de de différent toutes versions confondues
+
             }
 
         }
@@ -498,6 +563,35 @@ void Partie::find_carte_des(int des)
                     // joueur->ajouterMontant(p->getMontant() * (getNbJoueurs() - 1) * p->getEffectif());
                     // joueur->ajouterMontant(p->getMontant() * p->getEffectif());
                     // pas obligé de faire * p->getEffectif() car on ne peut avoir qu'un SEUL établissement spécial !!!!!!!!!!!!!!!!!!!!!!!!!
+
+                    if (p->getEtablissement()->getNom() == "Maison d'edition" && p->getEffectif() == 1)
+                    {
+                        /*'Recevez 1 piece de chaque joueur pour chaque etablissement de type restauration et commerce qu''il possede'*/
+                        int nbEtRestauration, nbEtCommerce;
+                        for (auto joueurADebiter : getJoueurs())
+                        {
+                            if (joueur != joueurADebiter){ //cout << "TypeEffet : " << p->getEtablissement()->getTypeEffet() << endl; TRES BIZARRE
+                                cout << "      " << "Voici les établissements de type restauration et commerce que possède ";
+                                cout << joueurADebiter->getPseudo() << endl;
+                                nbEtRestauration = 0; nbEtCommerce = 0;
+                                nbEtRestauration = fonction_service_type(Type::restauration, joueurADebiter);
+                                nbEtCommerce = fonction_service_type(Type::commerce, joueurADebiter);
+                                transaction_piece(joueurADebiter, joueur, p->getMontant() * (nbEtRestauration + nbEtCommerce));
+                            }
+                        }
+                        break;//car cette carte violette a un num de dé différent toutes versions confondues
+                    }
+
+                    if (p->getEtablissement()->getNom() == "Centre des impots" && p->getEffectif() == 1)
+                    {
+                        /*'Recevez la moitie (arrondie a l''inferieur) des pieces de chaque joueur qui en possede 10 ou plus'*/
+                        for (auto joueurADebiter : getJoueurs())
+                        {
+                            if (joueur != joueurADebiter && joueurADebiter->getCompte() > 9)
+                                transaction_piece(joueurADebiter, joueur, joueurADebiter->getCompte()/2);
+                        }
+                        break;//car cette carte violette a un num de dé différent toutes versions confondues
+                    }
 
                     if (p->getEtablissement()->getNom() == "Stade" && p->getEffectif() == 1)
                     {
@@ -563,4 +657,4 @@ void Partie::find_carte_des(int des)
 
 // TO DO :
 // 1 acheter donc construire monument !!!! : OK
-// 2 checker UN SEUL exemplaire d'établissement special !!!
+// 2 checker UN SEUL exemplaire d'établissement special !!! : OK

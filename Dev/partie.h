@@ -21,7 +21,7 @@ class Partie {
   vector<Joueur*> joueurs1;
   Reserve* reserve;
 
-  int fonction_service_verte(Type t);//fonction_service_verte, réservée pour find_carte_des()
+  int fonction_service_type(Type t, Joueur* j);//fonction_service_verte, réservée pour find_carte_des()
 
  public:
   // Getter functions

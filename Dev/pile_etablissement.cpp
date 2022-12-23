@@ -66,3 +66,12 @@ ostream& operator<<(ostream& f, const vector<Pile_Etablissement*>& pile) //(*(pi
     }
     return f;
 }
+
+const Pile_Etablissement* getPileFromName(const string& name, const vector<Pile_Etablissement*>& pile)
+{
+    for (auto p : pile) {//for *(pile.size());
+        if (p->getEtablissement()->getNom() == name)
+            return p;
+    }
+    return nullptr;
+}
