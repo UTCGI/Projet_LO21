@@ -1,6 +1,7 @@
 #include "joueur.h"
 #include "time.h"
 #include <random>
+#include <string.h>
 int Joueur::nombre_actuel = 0;
 
 Joueur::Joueur(const Jeu& jeu) :
