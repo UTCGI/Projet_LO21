@@ -415,8 +415,10 @@ void Partie::find_carte_des(int des)
           if (pileRouge->getEtablissement()->estActif(des))
           {
               //cout << "hello" << endl;
-              cout << "      " << pileRouge->getEtablissement()->getNom() << "  Quantité : " << pileRouge->getEffectif() << endl;
+              if (pileRouge->getEffectif()>0){
+              cout << "      " << pileRouge->getEtablissement()->getNom() << " (" << pileRouge->getEffectif() <<")"<< endl;
               cout << "      " << pileRouge->getEtablissement()->getEffet() << endl;
+              }
               if (pileRouge->getEtablissement()->getNom() == "Sushi bar") {
                   if (getJoueurs()[id_sens_inverse]->getEffet_port())
                       transaction_piece(getJoueurActif(), getJoueurs()[id_sens_inverse], pileRouge->getMontant() * pileRouge->getEffectif());
@@ -517,9 +519,10 @@ void Partie::find_carte_des(int des)
         // Pile Bleue
         for (auto p : joueur->getPileBleu())
         {
-            if (p->getEtablissement()->estActif(des))
+            if (p->getEtablissement()->estActif(des) && p->getEffectif()>0)
             {
-                cout << "      " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
+                    cout << "      " << p->getEtablissement()->getNom() << "  (" << p->getEffectif() << ")"<<endl;
+                
                 if (Jeu::getInstance().getExtension() == Extension::Aucune)
                     joueur->ajouterMontant(p->getMontant() * p->getEffectif());
                 else if (p->getEtablissement()->getNom() == "Petit bateau de peche") {
@@ -556,7 +559,7 @@ void Partie::find_carte_des(int des)
             for (auto p : joueur->getPileViolet()) // à discuter, maintenant je liste simplement les 3 cartes dans la version basique
             {
 
-                if (p->getEtablissement()->estActif(des))
+                if (p->getEtablissement()->estActif(des) && p->getEffectif()>0)
                 {
                     cout << "      *" << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
                     cout << "      " << p->getEtablissement()->getEffet() << endl;
@@ -655,6 +658,3 @@ void Partie::find_carte_des(int des)
     }
 }
 
-// TO DO :
-// 1 acheter donc construire monument !!!! : OK
-// 2 checker UN SEUL exemplaire d'établissement special !!! : OK
