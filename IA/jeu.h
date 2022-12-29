@@ -33,8 +33,8 @@ private:
         ~Handler() { delete instance; instance = nullptr; }
     };
     static Handler handler;
-    Jeu(Extension e = Extension::Aucune);
-    ~Jeu()=default;
+    //Jeu(Extension e = Extension::Aucune); En public pour les tests TODO décommenter
+    //~Jeu()=default;
 
 public:
     //SINGLETON
@@ -44,7 +44,8 @@ public:
     Jeu& operator=(const Jeu&) = delete;
     //Jeu(Extension e = Extension::Aucune);
     //~Jeu() = default;
-
+    Jeu(Extension e = Extension::Aucune); 
+    ~Jeu()=default;
     Extension getExtension() const { return extension; }
     size_t getCondition_de_victoire() const { return condition_de_victoire; }
     size_t getNb_joueurs_MAX() const { return nb_joueurs_MAX; }
