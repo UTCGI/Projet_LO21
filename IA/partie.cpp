@@ -101,12 +101,6 @@ void Partie::joueur_next(bool effet_parc_attration)
     joueur_actif++;}
 }
 
-/*
-void Partie::application_regle_standards(Couleur couleur)
-{
-  // TODO: A completer
-} */
-
 void Partie::transaction_piece(Joueur *emetteur, Joueur *destinataire, unsigned int montant)
 {
     if (montant != 0) {
@@ -125,15 +119,6 @@ void Partie::transaction_piece(Joueur *emetteur, Joueur *destinataire, unsigned 
         cout << "      APRES : " << emetteur->getCompte() << endl;
     }
 }
-/* {
-  if (montant > emetteur->getCompte())
-    cout << "Erreur ! Le joueur " << emetteur->getPseudo() << " n'a pas assez de ressources pour effectuer la transaction.";
-  else
-  {
-    emetteur->ajouterMontant(montant * (-1));
-    destinataire->ajouterMontant(montant);
-  }
-}*/
 
 void Partie::transaction_carte(Joueur* emetteur, Joueur*destinataire, const Etablissement* etab){
   if (emetteur->retirer_etablissement(etab))
@@ -230,31 +215,6 @@ bool Partie::construire_monument(const Monument *monument_choisi)
     }
   }
 }
-
-// void Partie::regarder_etablissements(Joueur* joueur, Couleur couleur) {
-
-/*
-void Partie::achat_carte(Joueur *joueur, Pile_Etablissement *pile)
-{
-  if (joueur->getCompte() >= pile->getPrix())
-  {
-    if (pile->retirerCarte(1))
-    {
-      joueur->ajouter_etablissement(pile->getEtablissement());
-      joueur->ajouterMontant((-1)*pile->getPrix());
-      cout << "Achat terminé !" << endl;
-    }
-    else
-    {
-      cout << "Plus de carte disponible !" << endl;
-    }
-  }
-  else
-  {
-    cout << "Le joueur" << joueur->getId() << "n'a pas de ressource suffisante !" << endl;
-  }
-*/
-
 
 int Partie::choix(const string& m1, int n, int c, const vector<Pile_Etablissement*>* p, const string& m2) {
     int choix = -1;
@@ -658,3 +618,314 @@ void Partie::find_carte_des(int des)
     }
 }
 
+// ----------------------------------------------------------------
+// Methods for the menu
+// ----------------------------------------------------------------
+bool Partie::choix2()
+{ // Cette fonction traite achatcarte
+    this->getReserve()->afficher();
+    cout << "Choisir 0 pour quitter" <<endl;
+    int choix = -1;
+    bool etatAchat = false; // Drapeau, pour voir si l'achat a réussi
+    bool quitter;
+retry:
+    while (true)
+    {
+        cout << "Faire votre choix" << endl;
+        try
+        { // Cette partie sert à détecter les erreurs eventuelles de saisie (Exemple : saisir une lettre à la place d'un nombre)
+            cin >> choix;
+        }
+        catch (exception ex)
+        {
+            cin.clear();           // Reset failbit à 0
+            cin.ignore(100, '\n'); // Vider buffer
+            cout << "Erreur ! Ce que vous avez saisi n'est pas un nombre." << endl;
+            choix = -1;
+            continue;
+        }
+        if (choix == 0)
+        {
+            quitter = true;
+            break;
+        }
+
+        else if (choix < 1 || choix > this->getReserve()->getNbPile() + 1)
+        {
+            cout << "Erreur ! Vous n'avez pas saisi un nombre valide." << endl;
+        }
+        else
+        {
+            quitter = false;
+            break;
+        }
+    }
+
+    if (!quitter)
+    {
+        try
+        {
+            etatAchat = this->achat_carte(*(this->getReserve()->getListeEtablissement() + choix - 1));
+        }
+        catch (SetException &ex)
+        {
+            cout << ex.getInfo();
+        }
+
+        // Si achat échoué, donne encore une fois
+        if (!etatAchat)
+            goto retry;
+
+        this->getReserve()->afficher();
+
+        // cout << *this->getJoueurActif();
+        this->getJoueurActif()->printJoueurConcise(cout);
+
+        cout << "Compte après achat :  " << this->getJoueurActif()->getCompte() << endl
+             << endl;
+
+    }
+
+    return quitter;
+}
+
+size_t Partie::choix3()
+{ // Cette fonction traite achat monument
+
+    cout << "Monument" << endl
+         << endl;
+    int count = 1;
+    for (auto i : this->getJoueurActif()->getMonuments()){
+        cout << "\t" << count++;
+        cout.width(30);
+        cout << i->getMonument()->getNom(); if (i->estConstruit() == 0) cout << " NON"; else cout << "    "; cout << " construit";
+        cout.width(20);
+        cout << "Prix : " <<i->getMonument()->getPrix() << endl;
+    }
+    cout << endl;
+    cout << "Choisir 0 pour quitter" << endl;
+    int choix = -1;
+    bool etatAchat = false;
+    bool quitter;
+
+retry:
+    while (true)
+    {
+        cout << "Faire votre choix" << endl;
+        try
+        { // Cette partie sert à détecter les erreurs eventuelles de saisie (Exemple : saisir une lettre à la place d'un nombre)
+            cin >> choix;
+        }
+        catch (exception ex)
+        {
+            cin.clear();           // Reset failbit à 0
+            cin.ignore(100, '\n'); // Vider buffer
+            cout << "Erreur ! Ce que vous avez saisi n'est pas un nombre." << endl;
+            choix = -1;
+            continue;
+        }
+        if (choix == 0)
+        {
+            quitter = true;
+            break;
+        }
+        else if (choix < 1 || choix > this->getJoueurActif()->getMonuments().size())
+        {
+            cout << "Erreur ! Vous n'avez pas saisi un nombre valide." << endl;
+        }
+        else
+        {
+            quitter = false;
+            break;
+        }
+    }
+
+    if (!quitter) // Construction normale
+    {
+        try
+        {
+            etatAchat = this->construire_monument(this->getJoueurActif()->getMonuments()[choix - 1]->getMonument());
+        }
+        catch (SetException &ex)
+        {
+            cout << ex.getInfo();
+        }
+
+        if (!etatAchat) // Si achat échoué, donne encore une fois
+            goto retry;
+
+        // cout << *this->getJoueurActif();
+        this->getJoueurActif()->printJoueurConcise(cout);
+
+        cout << "Compte après achat :  " << this->getJoueurActif()->getCompte() << endl
+             << endl;
+        if (this->getJoueurActif()->victoire())
+        {
+            cout << "Bravo ! Vous avez gagné !" << endl;
+            return 1; // 1 : Fin de partie
+        }
+        else
+        {
+            return 0;        // 0 : Cas normal
+        }
+    }
+    else          // Si l'utilisateur choisi de ne pas en construire un
+        return 2; // Reçu par menu pour redonner un choix
+}
+
+bool Partie::lancer()
+{
+    bool effet_tour_radio_applicable = true;
+
+    int des;
+    int des2;
+    int resultat; //Utile pour effets spéciaux
+again:
+    des2 = 0;
+    resultat = 0;
+    des = this->getJoueurActif()->lancerDes();
+    if (this->getJoueurActif()->getNbDes() == 2)
+    {
+        int choix = -1;
+        while (true)
+        {
+            cout << "Combien de dés voulez-vous lancer ?" << endl;
+            cout << "Le nombre de dés doit être compris entre 1 et 2" << endl;
+
+            try
+            { // Cette partie sert à détecter les erreurs eventuelles de saisie (Exemple : saisir une lettre à la place d'un nombre)
+                cin >> choix;
+            }
+            catch (exception ex)
+            {
+                cin.clear();           // Reset failbit à 0
+                cin.ignore(100, '\n'); // Vider buffer
+                cout << "Erreur ! Ce que vous avez saisi n'est pas un nombre." << endl;
+                choix = -1;
+                continue;
+            }
+
+            if (choix < 1 || choix > 2)
+            {
+                cout << "Erreur ! Vous n'avez pas saisi un nombre valide." << endl;
+            }
+            else
+            {
+                break;
+            }
+        }
+        //des = this->getJoueurActif()->lancerDes();
+        if (choix == 2) {
+            des2 = this->getJoueurActif()->lancerDes();
+        }
+    }
+
+    resultat = des+des2;
+    cout << "Dés obtenus :  " << des << " " << des2 << endl << "Somme : " << resultat << endl;//getNumDe()    
+    
+    //Effet tour radio
+    if (effet_tour_radio_applicable&&this->getJoueurActif()->getEffet_tour_radio()){
+        cout << "Vous voulez relancer ? Taper 1 si oui, 0 sinon" << endl;
+        int choix;
+        cin >> choix;
+        if (choix==1){ 
+            effet_tour_radio_applicable = false;//Effet applicable une fois par tour
+            goto again;
+        }
+    }
+    
+    //Effet port
+    if (this->getJoueurActif()->getEffet_port() && (resultat)>=10){
+        cout << "Voulez-vous ajouter 2 au résultat obtenu ? Taper 1 si oui, 0 sinon" << endl;
+        int choix;
+        cin >> choix;
+        if (choix==1){ 
+            resultat += 2;
+        }
+    }
+
+
+    this->find_carte_des(resultat); // Trouver les cartes à appliquer effet
+    
+    //Effet parc d'attaction
+    if (this->getJoueurActif()->getEffet_parc_attaction())
+        return des==des2?true:false;
+    else
+        return false;
+}
+
+
+void Partie::menu()
+{
+    int choix = -1;
+    bool effet_parc_attraction = false;
+    cin.exceptions(std::istream::failbit); // Activer module exception dans std::cin
+
+    cout << endl << "Bienvenue !" << endl;
+
+    while (choix != 0)
+    {
+        cout << "Joueur en cours : " << this->getJoueurActif()->getId() << endl;
+        cout << "Montant AVANT : " << this->getJoueurActif()->getCompte() << endl;
+
+        //cout << "\tCombien de dés souhaitez-vous lancer ?" << endl;
+        effet_parc_attraction = this->lancer(); // Le menu qui traite le lancement de dès
+        cout << "Compte de J" << this->getJoueurActif()->getId() << " : " << this->getJoueurActif()->getCompte() << endl;
+    revenir:
+        cout << "Faire votre choix" << endl;
+        // Partie Menu
+        cout << "0\tQuitter" << endl;
+        cout << "1\tPasser mon tour" << endl;
+        cout << "2\tAcheter une carte de la réserve" << endl;
+        cout << "3\tConstruire un monument" << endl;
+
+        try
+        { // Cette partie sert à détecter les erreurs eventuelles de saisie (Exemple : saisir une lettre à la place d'un nombre)
+            cin >> choix;
+        }
+        catch (exception ex)
+        {
+            cin.clear();           // Reset failbit à 0
+            cin.ignore(100, '\n'); // Vider buffer
+            cout << "Erreur ! Ce que vous avez saisi n'est pas un nombre." << endl;
+            choix = -1;
+            continue;
+        }
+
+        switch (choix)
+        {
+        case 0:
+            cout << endl << "Au revoir" << endl;
+            break;
+        case 1:
+            //Effet aéroport
+            if (this->getJoueurActif()->getEffet_aeroport()){ this->getJoueurActif()->ajouterMontant(10); cout << "Vous gagnez 10 pièces grâce à votre monument Aeroport construit !" <<endl;}
+            this->joueur_next(effet_parc_attraction);
+            break;
+        case 2:
+            if(this->choix2()) goto revenir;
+            this->joueur_next(effet_parc_attraction);
+            break;
+
+        case 3:
+            switch (this->choix3())
+            {
+            case 0:
+                this->joueur_next(effet_parc_attraction);
+                break;
+            case 1:
+                choix = 0; // Si qqn gagne, partie terminée
+                break;
+            case 2:
+                goto revenir; // Si quitter, rééssayer
+            }
+            break;
+
+        default: // Les nombres unbound
+            cout << "Erreur ! Vous n'avez pas saisi un nombre valide." << endl;
+            goto revenir;
+            break;
+        }
+        cout << endl;
+    }
+}

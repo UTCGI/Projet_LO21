@@ -1,7 +1,7 @@
 #ifndef PARTIE_H
 #define PARTIE_H
 
-
+#include <clocale>
 #include "jeu.h"
 #include "joueur.h"
 #include "reserve.h"
@@ -12,9 +12,6 @@ class Partie {
   int nb_joueurs;
   //SINGLETON
   int lectureExtension;
-  //int nb_monuments; //inutile on les a deja dans jeu !
-  //int nb_etablissements; //inutile on les a deja dans jeu !
-  // Est ce qu'on a besoin de pointeurs ou pas ??
   //SINGLETON
   //static Jeu& jeu;
   int joueur_actif = 0;//Indice du joueur qui a la main
@@ -28,13 +25,9 @@ class Partie {
   int getManche() const;
   int getNumDe() const;
   int getNbJoueurs() const;
-  //int getNbMonuments() const; //inutile on les a deja dans jeu !
-  //int getNbEtablissements() const; //inutile on les a deja dans jeu !
   //SINGLETON
   //Jeu& getJeu() const;
     Joueur* getJoueurActif() ;
-  //Joueur* getEnsenbleJoueurs() const;
-  //Joueur getJoueurI(const int i) const; // C'EST QUOI ?
   Reserve* getReserve() const;
   const vector<Joueur*>& getJoueurs() const;
 
@@ -43,14 +36,7 @@ class Partie {
   void setManche(int nbManche);
   void setNumDe(int nbDe);//inutile ?
   void setNbJoueurs(int nbJoueurs);
-  //void setNbMonuments(int nbMonuments); //inutile on les a deja dans jeu !
-  //void setNbEtablissements(int nbEtablissements); //inutile on les a deja dans jeu !
 
-  //Jeu* setJeu(Jeu* jeu);//inutile ?
-  //Joueur* setJoueurActif(Joueur* joueur);//inutile
-  //Joueur* setEnsenbleJoueurs(Joueur* EnsembreJoueurs);//inutile
-  //Reserve* setReserve(Reserve* Reserve);//inutile
- 
   // Constructors and destructors functions
   /*
   SPECIFICATION : Partie::Partie()
@@ -143,11 +129,11 @@ const vector<Pile_Etablissement*>*/*&*/ choixPile(const string& m1, const string
 
 bool achat_carte(Pile_Etablissement* pile_reserve);
 
-//La raison pour la quelle j'ai choisi const Monument* monument_choisi comme paramètre au lieu d'une Carte_Monument
-//est que l'on est pas censé à modifier aucune Carte_Monument sauf celle que le joueurActif possède. Càd on ne peut pas passer n'importe quelle Carte_Monument
 bool construire_monument(const Monument* monument_choisi);
-
-//void regarder_etablissements(Joueur* joueur, Couleur couleur);
-
+//migration fonctions dans main
+bool choix2();
+size_t choix3();
+bool lancer();
+void menu();
 };
 #endif
