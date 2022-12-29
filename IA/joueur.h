@@ -19,6 +19,7 @@
  */
 
 class Joueur {
+protected:
     static int nombre_actuel; // Compteur du nombre actuel de joueur
     int id;
     string pseudo = "J";
