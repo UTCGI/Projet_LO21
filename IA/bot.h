@@ -1,12 +1,17 @@
 #ifndef BOT_H
 #define BOT_H
 #include "joueur.h"
+#include "jeu.h"
+#include "miniville.h"
+#include "string"
 class Bot : public Joueur{
-};
-void testBot(){
+       public:
+       Bot(const Jeu& jeu, unsigned int i):Joueur(jeu){
+              string ps="IA ";
+              ps+=to_string(i);
+              setPseudo(ps);
+       }
 
-/* reconnaître un objet de la classe dérivée et lui appliquer un traitement particulier*/
-       // Bot joueur;
-       // if (dynamic_cast<Bot*>(joueur)!=nullptr) cout<< "it's a bot"<<endl;
 };
+void testBot();
 #endif
