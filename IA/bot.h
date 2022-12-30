@@ -7,7 +7,7 @@
 class Bot : public Joueur{
        public:
        Bot(const Jeu& jeu, unsigned int i):Joueur(jeu){
-              string ps="IA ";
+              string ps="bot";
               ps+=to_string(i);
               setPseudo(ps);
        }

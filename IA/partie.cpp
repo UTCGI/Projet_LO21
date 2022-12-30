@@ -37,7 +37,8 @@ void Partie::setNbJoueurs(int nbJoueurs) { nb_joueurs = nbJoueurs; }
 // Constructors and destructors functions
 // ----------------------------------------------------------------
 Partie::Partie() : manche(0), num_de(1),  nb_joueurs(2) {//,
-    initialisation();
+    //cout<<typeid(this).name()<<endl;
+    //this->initialisation();
 }
 
 Partie::~Partie() {}
@@ -83,6 +84,9 @@ void Partie::initialisation()
           cout << endl << getJoueurs()[i]->getPseudo() << " Quel est votre pseudo ?" << endl;
           cin >> pseudo;
           getJoueurs()[i]->setPseudo(pseudo);
+      }
+      else{
+        getJoueurs()[i]->setPseudo("J"+to_string(i+1));
       }
   }
 
@@ -870,7 +874,7 @@ void Partie::menu()
 
         //cout << "\tCombien de dés souhaitez-vous lancer ?" << endl;
         effet_parc_attraction = this->lancer(); // Le menu qui traite le lancement de dès
-        cout << "Compte de J" << this->getJoueurActif()->getId() << " : " << this->getJoueurActif()->getCompte() << endl;
+        cout << "Compte de " << this->getJoueurActif()->getPseudo()<< " : " << this->getJoueurActif()->getCompte() << endl;
     revenir:
         cout << "Faire votre choix" << endl;
         // Partie Menu

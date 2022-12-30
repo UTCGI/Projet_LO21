@@ -7,6 +7,7 @@
 #include "reserve.h"
 
 class Partie {
+    protected:
   int manche;
   int num_de;
   int nb_joueurs;
@@ -69,7 +70,8 @@ class Partie {
       -> Si elle est vraiment utile, je n'ai pas compris ce qu'elle devais
   faire.
   */
-  void initialisation();
+
+  virtual void initialisation();
 
   /*
   SPECIFICATION : Partie::distribuer()
@@ -134,6 +136,6 @@ bool construire_monument(const Monument* monument_choisi);
 bool choix2();
 size_t choix3();
 bool lancer();
-void menu();
+virtual void menu();
 };
 #endif
