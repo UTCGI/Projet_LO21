@@ -37,8 +37,9 @@ void PartieWithBot::initialisation()
   }
   setNb_JH(getNbJoueurs()-getNb_IA());
   //renseigner les pseudos
+  if (nb_JH != 0){
   int choixPseudo = choix("Voulez-vous renseigner les pseudos des joueurs ?\nTaper ", 1, 0, nullptr, " si oui, 0 sinon");
-
+  
   // Initialisation joueur
   for (size_t i = 0; i < getNb_JH(); i++)
   {
@@ -52,6 +53,7 @@ void PartieWithBot::initialisation()
       else{
           getJoueurs()[i]->setPseudo("J"+to_string(i+1));
       }
+  }
   }
   //Initialisation IA
     for (size_t i = getNb_JH(); i < getNbJoueurs(); i++)
@@ -68,13 +70,9 @@ int PartieWithBot::choisirAction(){
   bool action;
   //Si possible de construire un monument on le construit le moins cher
   Carte_Monument* cheapest = getCheapestMonument();
-  cout<<cheapest->getMonument()->getNom()<<endl;
-  cout<<cheapest->getMonument()->getPrix()<<endl;
-  cout<<getJoueurActif()->getCompte();
-
   if(getJoueurActif()->getCompte()>=cheapest->getMonument()->getPrix()){
     action = construire_monument(cheapest->getMonument());
-    cout<<"de construire le monument "<<cheapest->getMonument()->getNom();
+    cout<<"de construire le monument "<<cheapest->getMonument()->getNom()<<endl;
     cout<<"Nouveau compte de "<<joueurs1[joueur_actif]->getPseudo()<<": "<<joueurs1[joueur_actif]->getCompte()<<endl;
     return 3;
     }
@@ -82,13 +80,14 @@ int PartieWithBot::choisirAction(){
     // On prend une carte de la réserve au hasard et on répète l’opération -
     //  jusqu’à en trouver une dans le budget/jusqu’à arriver à 5 tentatives
     bool ok = 1;
-    unsigned int i = 5;
+    unsigned int i = 0;
     while (ok && i<5){
     int random = rand() % getReserve()->getNbPile();
-    if(getReserve()->getListeEtablissement()[random]->getEtablissement()->getPrix() <= getJoueurActif()->getCompte()){
+    const Etablissement* etablissement_random = getReserve()->getListeEtablissement()[random]->getEtablissement();
+    if(etablissement_random->getPrix() <= getJoueurActif()->getCompte()){
       action = achat_carte(getReserve()->getListeEtablissement()[random]);
       //TODO : affichage
-      cout<<"d'acheter la carte "<<cheapest->getMonument()->getNom()<<endl;
+      cout<<"d'acheter la carte "<<etablissement_random->getNom()<<endl;
       cout<<"Nouveau compte de "<<joueurs1[joueur_actif]->getPseudo()<<": "<<joueurs1[joueur_actif]->getCompte()<<endl;
       ok = 0;
       return 2;
@@ -208,7 +207,8 @@ void test_PWB()
 {
     PartieWithBot p;
     p.initialisation(); 
-    p.getCheapestMonument();
-    cout<<p.getCheapestMonument()->getMonument()->getNom()<<endl;
+    //p.getCheapestMonument();
+    //cout<<p.getCheapestMonument()->getMonument()->getNom()<<endl;
+    int a = p.choisirAction();
     //p.menu();
 }
