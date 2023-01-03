@@ -774,7 +774,7 @@ retry:
         }
     }
     else          // Si l'utilisateur choisi de ne pas en construire un
-        return 2; // Reçu par menu pour redonner un choix
+        return 2; // Reçu par   pour redonner un choix
 }
 
 bool Partie::lancer()

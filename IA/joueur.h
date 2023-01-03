@@ -38,7 +38,7 @@ protected:
 
 public:
     Joueur(const Jeu& jeu);
-    ~Joueur();
+    virtual ~Joueur();
 
 
     //Section effet
@@ -66,6 +66,7 @@ public:
     int getNombreMonumentsConstruits() const;
 
     const vector<Carte_Monument*>& getMonuments() const { return monuments; }
+    const Carte_Monument* getMonument(unsigned int i) const { return monuments[i]; }
 
     const vector<Pile_Etablissement*>& getPileRouge() const { return pileRouge; }
 
