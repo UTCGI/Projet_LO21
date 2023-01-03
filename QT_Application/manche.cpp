@@ -16,7 +16,7 @@
 Manche::Manche(QWidget *parent,Partie* p)
     : QWidget{parent}, p(p)
 {
-    p->getJoueurActif()->ajouterMontant(8);
+
     couche = new QHBoxLayout();
     //Première colonne
     layoutCartes = new QGridLayout();
