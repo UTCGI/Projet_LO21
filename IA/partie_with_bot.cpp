@@ -74,6 +74,11 @@ int PartieWithBot::choisirAction(){
     action = construire_monument(cheapest->getMonument());
     cout<<"de construire le monument "<<cheapest->getMonument()->getNom()<<endl;
     cout<<"Nouveau compte de "<<joueurs1[joueur_actif]->getPseudo()<<": "<<joueurs1[joueur_actif]->getCompte()<<endl;
+         if (this->getJoueurActif()->victoire())
+        {
+            cout <<getJoueurActif()->getPseudo()<<" a gagné la partie."<<endl;
+            return 4; // 1 : Fin de partie
+        }
     return 3;
     }
   else{
@@ -82,8 +87,13 @@ int PartieWithBot::choisirAction(){
     bool ok = 1;
     unsigned int i = 0;
     while (ok && i<5){
+    srand(time(NULL));
     int random = rand() % getReserve()->getNbPile();
     const Etablissement* etablissement_random = getReserve()->getListeEtablissement()[random]->getEtablissement();
+    //Vérification pile non nulle
+    // while(getReserve()->getListeEtablissement()[random]->getEffectif() == 0){
+
+    // }
     if(etablissement_random->getPrix() <= getJoueurActif()->getCompte()){
       action = achat_carte(getReserve()->getListeEtablissement()[random]);
       //TODO : affichage
@@ -128,22 +138,25 @@ void PartieWithBot::menu()
     int choix = -1;
     bool effet_parc_attraction = false;
     cin.exceptions(std::istream::failbit); // Activer module exception dans std::cin
-    //Détection de bot
-   if (dynamic_cast<Bot*>(this->getJoueurs()[joueur_actif])!=nullptr) {
-    cout<<"C'est un bot"<<endl;
-          choix=this->choisirAction();
-        }else{
+  
     cout << endl << "Bienvenue !" << endl;
 
     while (choix != 0)
     {
         cout << "Joueur en cours : " << this->getJoueurActif()->getId() << endl;
         cout << "Montant AVANT : " << this->getJoueurActif()->getCompte() << endl;
-
-        //cout << "\tCombien de dés souhaitez-vous lancer ?" << endl;
         effet_parc_attraction = this->lancer(); // Le menu qui traite le lancement de dès
         cout << "Compte de " << this->getJoueurActif()->getPseudo()<< " : " << this->getJoueurActif()->getCompte() << endl;
     revenir:
+      //Détection de bot
+   if (dynamic_cast<Bot*>(this->getJoueurs()[joueur_actif])!=nullptr) {
+          choix=this->choisirAction();
+          if  (choix == 4){
+          cout << endl << "Au revoir" << endl;
+          }else{
+          this->joueur_next(effet_parc_attraction);
+          }
+        }else{
         cout << "Faire votre choix" << endl;
         // Partie Menu
         cout << "0\tQuitter" << endl;
@@ -163,7 +176,6 @@ void PartieWithBot::menu()
             choix = -1;
             continue;
         }
-    }
 
         switch (choix)
         {
@@ -201,6 +213,105 @@ void PartieWithBot::menu()
         }
         cout << endl;
     }
+    }
+}
+
+bool PartieWithBot::lancer()
+{
+    bool effet_tour_radio_applicable = true;
+
+    int des;
+    int des2;
+    int resultat; //Utile pour effets spéciaux
+again:
+    des2 = 0;
+    resultat = 0;
+    int choixNb_des = -1;
+    des = this->getJoueurActif()->lancerDes();
+    if (this->getJoueurActif()->getNbDes() == 2)
+    {
+        if (dynamic_cast<Bot*>(this->getJoueurs()[joueur_actif])!=nullptr) {
+          srand(time(NULL));
+          int random = rand()%(2) + 1;
+          int choixNb_des = random;
+          cout<<this->getJoueurActif()->getPseudo()<<" choisit de relancer";
+          switch(choixNb_des){
+            case 1 :
+            cout<<" 1 dé."<<endl;
+            break;
+            case 2 :
+            cout<<" 2 dés."<<endl;
+            break;
+          }
+          
+        }
+        else{
+        while (true)
+        {
+            cout << "Combien de dés voulez-vous lancer ?" << endl;
+            cout << "Le nombre de dés doit être compris entre 1 et 2" << endl;
+
+            try
+            { // Cette partie sert à détecter les erreurs eventuelles de saisie (Exemple : saisir une lettre à la place d'un nombre)
+                cin >> choixNb_des;
+            }
+            catch (exception ex)
+            {
+                cin.clear();           // Reset failbit à 0
+                cin.ignore(100, '\n'); // Vider buffer
+                cout << "Erreur ! Ce que vous avez saisi n'est pas un nombre." << endl;
+                choixNb_des = -1;
+                continue;
+            }
+
+            if (choixNb_des < 1 || choixNb_des > 2)
+            {
+                cout << "Erreur ! Vous n'avez pas saisi un nombre valide." << endl;
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+        //des = this->getJoueurActif()->lancerDes();
+        if (choixNb_des == 2) {
+            des2 = this->getJoueurActif()->lancerDes();
+        }
+    }
+
+    resultat = des+des2;
+    cout << "Dés obtenus :  " << des << " " << des2 << endl << "Somme : " << resultat << endl;//getNumDe()    
+    
+    //Effet tour radio
+    if (effet_tour_radio_applicable&&this->getJoueurActif()->getEffet_tour_radio()){
+        cout << "Vous voulez relancer ? Taper 1 si oui, 0 sinon" << endl;
+        int choix;
+        cin >> choix;
+        if (choix==1){ 
+            effet_tour_radio_applicable = false;//Effet applicable une fois par tour
+            goto again;
+        }
+    }
+    
+    //Effet port
+    if (this->getJoueurActif()->getEffet_port() && (resultat)>=10){
+        cout << "Voulez-vous ajouter 2 au résultat obtenu ? Taper 1 si oui, 0 sinon" << endl;
+        int choix;
+        cin >> choix;
+        if (choix==1){ 
+            resultat += 2;
+        }
+    }
+
+
+    this->find_carte_des(resultat); // Trouver les cartes à appliquer effet
+    
+    //Effet parc d'attaction
+    if (this->getJoueurActif()->getEffet_parc_attaction())
+        return des==des2?true:false;
+    else
+        return false;
 }
 
 void test_PWB()
@@ -209,6 +320,6 @@ void test_PWB()
     p.initialisation(); 
     //p.getCheapestMonument();
     //cout<<p.getCheapestMonument()->getMonument()->getNom()<<endl;
-    int a = p.choisirAction();
-    //p.menu();
+    //int a = p.choisirAction();
+    p.menu();
 }
