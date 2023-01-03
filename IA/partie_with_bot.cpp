@@ -67,7 +67,7 @@ void PartieWithBot::initialisation()
 
 int PartieWithBot::choisirAction(){
   cout<<this->joueurs1[joueur_actif]->getPseudo()<<" choisit ";
-  bool action;
+  bool action = 0;
   //Si possible de construire un monument on le construit le moins cher
   Carte_Monument* cheapest = getCheapestMonument();
   if(getJoueurActif()->getCompte()>=cheapest->getMonument()->getPrix()){
@@ -97,12 +97,26 @@ int PartieWithBot::choisirAction(){
     etablissement_random = getReserve()->getListeEtablissement()[random]->getEtablissement();
     }
     if(etablissement_random->getPrix() <= getJoueurActif()->getCompte()){
-      action = achat_carte(getReserve()->getListeEtablissement()[random]);
-      //TODO : affichage
+              
+              if(etablissement_random->getCouleur()==Couleur::violet){
+                //Si violet, on check s'il n'est pas déjà présent
+        bool etablissement_unique = 1;
+        for (auto p : getJoueurActif()->getPileViolet()) {
+            if (p->getEtablissement()->getNom() == etablissement_random->getNom()) {
+              etablissement_unique = 0;
+            }
+        }
+        if(etablissement_unique){action = achat_carte(getReserve()->getListeEtablissement()[random]);}
+              }
+              else{
+              action = achat_carte(getReserve()->getListeEtablissement()[random]);
+              if(action == true){
       cout<<"d'acheter la carte "<<etablissement_random->getNom()<<endl;
       cout<<"Nouveau compte de "<<joueurs1[joueur_actif]->getPseudo()<<": "<<joueurs1[joueur_actif]->getCompte()<<endl;
       ok = 0;
       return 2;
+      }
+              }
     }
     i++;
     }
