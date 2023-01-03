@@ -91,9 +91,11 @@ int PartieWithBot::choisirAction(){
     int random = rand() % getReserve()->getNbPile();
     const Etablissement* etablissement_random = getReserve()->getListeEtablissement()[random]->getEtablissement();
     //Vérification pile non nulle
-    // while(getReserve()->getListeEtablissement()[random]->getEffectif() == 0){
-
-    // }
+    while(getReserve()->getListeEtablissement()[random]->getEffectif() == 0){
+    srand(time(NULL));
+    random = rand() % getReserve()->getNbPile();
+    etablissement_random = getReserve()->getListeEtablissement()[random]->getEtablissement();
+    }
     if(etablissement_random->getPrix() <= getJoueurActif()->getCompte()){
       action = achat_carte(getReserve()->getListeEtablissement()[random]);
       //TODO : affichage
@@ -153,6 +155,7 @@ void PartieWithBot::menu()
           choix=this->choisirAction();
           if  (choix == 4){
           cout << endl << "Au revoir" << endl;
+          exit(0);
           }else{
           this->joueur_next(effet_parc_attraction);
           }
