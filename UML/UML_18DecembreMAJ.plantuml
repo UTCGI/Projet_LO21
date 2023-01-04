@@ -342,15 +342,15 @@ Partie : +construire_monument(const Monument* monument_choisi) : bool
 
 Etablissement <|-- Etablissement_Violet : "est_un"
 Etablissement <|-- Etablissement_VertTE : "est_un"
-Jeu "1" <--o Partie:"gère"
-Reserve "1" <--o Partie:"gère"
-Pioche "1" <--o Partie:"gère"
-Partie "1" <--o"2..5" Joueur :"joue"
+Jeu "1" *-- Partie
+Reserve "1" *-- Partie
+Pioche "1" *-- Partie
+Partie "1" *--"2..5" Joueur :"joue"
 Jeu "1" *-- "4..6" Monument :"possède"
 Jeu "1" *-- "15..28" Etablissement :"possède"
-Joueur o-- "4..6" Carte_Monument :"possède"
-Joueur  o-- "2..28" Pile_Etablissement
-Reserve o-- "15..28" Pile_Etablissement
+Joueur *-- "4..6" Carte_Monument :"possède"
+Joueur  *-- "2..28" Pile_Etablissement
+Reserve *-- "15..28" Pile_Etablissement
 Etablissement  "1"<-- "2..5" Pile_Etablissement : "sont des piles d'exemplaires de"
 Monument "1" <-- "2..5" Carte_Monument :"sont des exemplaires de"
 @enduml
