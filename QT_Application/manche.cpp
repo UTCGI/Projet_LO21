@@ -88,7 +88,6 @@ Manche::Manche(QWidget *parent,Partie* p)
 
     //Troisième colonne
     affichageIDJoueur = new QLabel();
-    affichageIDJoueur->setNum(p->getJoueurActif()->getId());
     layoutButtons->addWidget(affichageIDJoueur);
 
     montantJoueur = new QLabel();
@@ -216,7 +215,7 @@ void Manche::eliminerCarteChere(){
 
 void Manche::terminertour(){
     p->joueur_next(false);//False pour l'intant, faut modifier joueur_next
-    affichageIDJoueur->setNum(p->getJoueurActif()->getId());
+    affichageIDJoueur->setText(QString::fromStdString(p->getJoueurActif()->getPseudo()));
     eliminerCarteChere();
     rafraichir_etats_monuments();
     miseajour();

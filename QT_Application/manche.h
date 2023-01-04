@@ -58,7 +58,8 @@ private:
     void miseajour(){miseajourCompte(); miseajourBilan();}
     void miseajourCompte();
     void miseajourBilan();
-
+    Partie* getPartie(){return p;}
+    friend class Dialog;
 
 signals:
     void relancer_menu();
