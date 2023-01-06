@@ -8,10 +8,9 @@ using namespace std;
 int main()
 {
     setlocale(LC_ALL, "fr_FR.UTF-8");
-   // Partie p;
-    //p.initialisation();
-    //p.menu();
-    //testBot();
+    /*Partie p;
+    p.initialisation();
+    p.menu();*/
    test_PWB();
     return 0;
 }

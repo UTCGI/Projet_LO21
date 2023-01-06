@@ -60,9 +60,14 @@ void PartieWithBot::initialisation()
   { joueurs1.push_back(new Bot(jeu,i));}
 
   // Initialisation reserve
-  reserve = new Reserve(jeu);
-
-  // TODO : initialisation pioche
+if(jeu.getExtension()==Extension::Aucune){
+reserve = new Reserve(jeu);
+}else{
+  this->pioche = new Pioche(jeu);
+  reserve = new Reserve(jeu,*pioche);
+ // Initialisation pioche
+ //reserve = new Reserve(jeu);
+}
 }
 
 int PartieWithBot::choisirAction(){
@@ -86,7 +91,7 @@ int PartieWithBot::choisirAction(){
     //  jusqu’à en trouver une dans le budget/jusqu’à arriver à 5 tentatives
     bool ok = 1;
     unsigned int i = 0;
-    while (ok && i<5){
+    while (ok && i<10){
     srand(time(NULL));
     int random = rand() % getReserve()->getNbPile();
     const Etablissement* etablissement_random = getReserve()->getListeEtablissement()[random]->getEtablissement();
@@ -302,9 +307,16 @@ again:
     
     //Effet tour radio
     if (effet_tour_radio_applicable&&this->getJoueurActif()->getEffet_tour_radio()){
+      int choix;
+        if (dynamic_cast<Bot*>(this->getJoueurs()[joueur_actif])!=nullptr) {
+          srand(time(NULL));
+          int random = rand()%(1) + 0;
+          choix = random;
+          cout<<this->getJoueurActif()->getPseudo()<<" choisit de relancer";
+        }else{
         cout << "Vous voulez relancer ? Taper 1 si oui, 0 sinon" << endl;
-        int choix;
         cin >> choix;
+        }
         if (choix==1){ 
             effet_tour_radio_applicable = false;//Effet applicable une fois par tour
             goto again;
@@ -313,9 +325,16 @@ again:
     
     //Effet port
     if (this->getJoueurActif()->getEffet_port() && (resultat)>=10){
+      int choix;
+       if (dynamic_cast<Bot*>(this->getJoueurs()[joueur_actif])!=nullptr) {
+          srand(time(NULL));
+          int random = rand()%(1) + 0;
+          choix = random;
+          cout<<this->getJoueurActif()->getPseudo()<<" choisit d'ajouter deux au résultat.";
+        }else{
         cout << "Voulez-vous ajouter 2 au résultat obtenu ? Taper 1 si oui, 0 sinon" << endl;
-        int choix;
         cin >> choix;
+        }
         if (choix==1){ 
             resultat += 2;
         }
@@ -330,6 +349,7 @@ again:
     else
         return false;
 }
+
 
 void test_PWB()
 {

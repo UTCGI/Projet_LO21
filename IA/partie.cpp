@@ -89,9 +89,10 @@ void Partie::initialisation()
         getJoueurs()[i]->setPseudo("J"+to_string(i+1));
       }
   }
+  reserve = new Reserve(jeu);
 
   // Initialisation reserve
-  reserve = new Reserve(jeu);
+ 
 
   // TODO : initialisation pioche
 }
@@ -362,8 +363,8 @@ int Partie::fonction_service_type(Type t, Joueur* j)
 // TODO : renommer
 void Partie::find_carte_des(int des)
 {
-    cout << endl
-        << "Bilan des comptes :" << endl;
+   /* cout << endl
+        << "Bilan des comptes :" << endl;*/
 
     /* La partie pile rouge est désormais extraite pour assurer un déroulement en sens inverse */
   cout << "      " << "**********************Partie avant transaction**********************" << endl;
