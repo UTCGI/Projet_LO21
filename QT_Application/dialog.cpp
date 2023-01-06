@@ -79,6 +79,7 @@ void Dialog::demarrer(){
     manche->affichageIDJoueur->setText(QString::fromStdString(manche->p->getJoueurActif()->getPseudo()));
     connect(manche, SIGNAL(relancer_menu()), this, SLOT(relancer()));
     this->hide();
+    manche->showFullScreen();
     manche->show();
 }
 

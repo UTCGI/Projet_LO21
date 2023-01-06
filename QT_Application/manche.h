@@ -22,11 +22,12 @@ public:
 
 private:
     Partie* p;
+    int deObtenu;
 
     //Partie layout
     QHBoxLayout* couche;
 
-
+    QVBoxLayout* layoutReserve;
     QGridLayout* layoutCartes; // grille des cartes réserve
 
     QVBoxLayout* layoutJoueur; // grille des cartes joueur (y compris monuments)
@@ -36,6 +37,7 @@ private:
     QVBoxLayout* layoutButtons;
 
     //Partie réserve
+    QLabel* affichageEffet;
     std::vector<VueCarte*> vueCartesReserve;
     QButtonGroup* reserveGroup;
 
@@ -44,10 +46,12 @@ private:
     std::vector<vue_monument*> vueMonuments;
     QButtonGroup* monumentGroup;
     QTableWidget* bilan;
+
+
     //Partie Bouton
     QLabel* affichageIDJoueur;
     QLabel* montantJoueur;
-    QLabel* displayCarte;//Temp
+    QLabel* displayDes;
     QPushButton* acheter;
     QPushButton* construire;
     QPushButton* passerMonTour;
@@ -67,6 +71,7 @@ public slots:
 
 private slots:
     void fermer();
+    void afficher_effet();
     void acheter_reserve();
     void construire_monument();
     void eliminerCarteChere();

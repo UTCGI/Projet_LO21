@@ -1,17 +1,64 @@
 #include "VueCarte.h"
 #include <QPainter>
 #include <QString>
+#include <QLabel>
+#include <QVBoxLayout>
 #include <QStaticText>
+#include <string>
 
 #define x_scale 0.6
 #define y_scale 0.6
 
 VueCarte::VueCarte(Pile_Etablissement* p, QWidget *parent) : QPushButton(parent),pile (p)
 {
-    setText(QString::fromStdString(p->getEtablissement()->getNom()));
-    setBackgroundRole(QPalette::Base);
+    //setBackgroundRole(QPalette::Base);
+    QPalette pal = this->palette();
+    switch (p->getEtablissement()->getCouleur()) {
+    case Couleur::bleu:
+        pal.setColor(QPalette::Button, QColor(61,115,173));
+        break;
+    case Couleur::rouge:
+        pal.setColor(QPalette::Button, QColor(145,46,58));
+        break;
+    case Couleur::vert:
+        pal.setColor(QPalette::Button, QColor(87,126,66));
+        break;
+    case Couleur::violet:
+        pal.setColor(QPalette::Button, QColor(114,61,140));
+        break;
+    default:
+        break;
+    }
+
+    //carteNom->setText(QString::fromStdString(p->getEtablissement()->getNom()+"\n\n"+p->getEtablissement()->getEffet()+"\n\n"+"Prix : "+std::to_string(p->getEtablissement()->getPrix())));
+    QLabel * carteNom = new QLabel(this);
+    carteNom->setText(QString::fromStdString(p->getEtablissement()->getNom()));
+    carteNom->setAlignment(Qt::AlignCenter);
+    carteNom->setMouseTracking(false);
+    carteNom->setWordWrap(true);
+    carteNom->setTextInteractionFlags(Qt::NoTextInteraction);
+    QLabel * carteEffet = new QLabel(this);
+    carteEffet->setText(QString::fromStdString(p->getEtablissement()->getEffet()));
+    carteEffet->setAlignment(Qt::AlignCenter);
+    carteEffet->setStyleSheet("font-size: 12px;");
+    carteEffet->setMouseTracking(false);
+    carteEffet->setWordWrap(true);
+    carteEffet->setTextInteractionFlags(Qt::NoTextInteraction);
+    QLabel * cartePrix = new QLabel(this);
+    cartePrix->setText(QString::fromStdString("Prix : "+std::to_string(p->getEtablissement()->getPrix())));
+    cartePrix->setAlignment(Qt::AlignCenter);
+    cartePrix->setMouseTracking(false);
+    cartePrix->setWordWrap(true);
+    cartePrix->setTextInteractionFlags(Qt::NoTextInteraction);
+    this->setLayout(new QVBoxLayout(this));
+    this->layout()->addWidget(carteNom);
+    this->layout()->addWidget(carteEffet);
+    this->layout()->addWidget(cartePrix);
+
+
     setAutoFillBackground(true);
-    setFixedSize(120*x_scale,200*y_scale);
+    setPalette(pal);
+    setFixedSize(260*x_scale,220*y_scale);
     connect(this,SIGNAL(clicked()),this,SLOT(clickedEvent()));
     setCheckable(true);
 }
@@ -20,7 +67,7 @@ VueCarte::VueCarte(QWidget *parent): QPushButton(parent)
 {
     setBackgroundRole(QPalette::Base);
     setAutoFillBackground(true);
-    setFixedSize(120*x_scale,200*y_scale);
+    setFixedSize(260*x_scale,200*y_scale);
     connect(this,SIGNAL(clicked()),this,SLOT(clickedEvent()));
     setCheckable(false);
 }

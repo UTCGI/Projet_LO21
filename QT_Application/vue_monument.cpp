@@ -8,10 +8,11 @@
 
 vue_monument::vue_monument(const Monument* p, QWidget *parent) : QPushButton(parent), monument(p)
 {
-    setText(QString::fromStdString(p->getNom()));
-    setBackgroundRole(QPalette::Base);
+    setText(QString::fromStdString(p->getNom()+"\n\n\n"+std::to_string(p->getPrix())));
+
     setAutoFillBackground(true);
-    setFixedSize(120*x_scale,120*y_scale);
+
+    setFixedSize(220*x_scale,150*y_scale);
     connect(this,SIGNAL(clicked()),this,SLOT(clickedEvent()));
     setCheckable(true);
 }
@@ -19,9 +20,11 @@ vue_monument::vue_monument(const Monument* p, QWidget *parent) : QPushButton(par
 void vue_monument::repaint(Carte_Monument* c){
     if (c){
         if (c->estConstruit()){
-            //setBackgroundRole(QPalette::Base);
+
+            setDisabled(true);
         }else{
-            //setBackgroundRole(QPalette::Shadow);
+
+            setDisabled(false);
         }
     }
     update();

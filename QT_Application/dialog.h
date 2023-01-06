@@ -48,7 +48,7 @@ private:
 signals:
     void creationpartie(Partie*);
 public slots:
-    void relancer(){this->show();}
+    void relancer(){showNormal();delete manche;this->show();}
 private slots:
     void demarrer();
     void setmaxjoueur();//Une fonction utilisée pour changer le nombre maximum de joueur selon la version
