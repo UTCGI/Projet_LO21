@@ -36,7 +36,8 @@ Reserve::Reserve(Jeu& j)
 
 Reserve::Reserve(Jeu& j, Pioche& p)
 {
-    nb_piles_max = j.getNb_pile_reserve_MAX();
+    //nb_piles_max = j.getNb_pile_reserve_MAX();
+    nb_piles_max = 10;
     nb_etablissements=0;
     nb_piles = 0;
     liste_etablissements = new Pile_Etablissement*[nb_piles_max];

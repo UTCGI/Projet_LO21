@@ -6,6 +6,7 @@ class PartieWithBot:public Partie{
 private:
     size_t nb_IA = 0;
     size_t nb_JH = 0;
+    Pioche* pioche;
 public:
 //surcharges
 //PartieWithBot();
