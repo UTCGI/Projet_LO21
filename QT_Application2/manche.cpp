@@ -183,12 +183,13 @@ void Manche::fermer(){
 
 void Manche::acheter_reserve(){
     //vueCartesReserve[reserveGroup->checkedId()] pour accéder à la vuecarte choisie
-    p->achat_carte(vueCartesReserve[reserveGroup->checkedId()]->getCarte());
+    if (reserveGroup->checkedId()>=0)
+    {p->achat_carte(vueCartesReserve[reserveGroup->checkedId()]->getCarte());
     vueCartesReserve[reserveGroup->checkedId()]->setQuantite();
     montantJoueur->setText("Montant restant : "+QString::number(p->getJoueurActif()->getCompte()));
     eliminerCarteChere();
     miseajour();
-    update();
+    update();}
 
 }
 
