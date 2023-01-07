@@ -53,7 +53,6 @@ private:
     QLabel* affichageIDJoueur;
     QLabel* montantJoueur;
     QLabel* displayDes;
-    QSpinBox* nbDes;
     QPushButton* acheter;
     QPushButton* construire;
     QPushButton* passerMonTour;
@@ -71,6 +70,7 @@ private:
     //Dialogs
     int deschoisirdialog(QWidget* parent);
     bool effet_tour_radio_dialog(QWidget* parent, int lastvalue);
+    void gagner_dialog(QWidget* parent);
 
 
 signals:
