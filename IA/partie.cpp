@@ -96,11 +96,6 @@ void Partie::initialisation()
       }
   }
   reserve = new Reserve(jeu);
-
-  // Initialisation reserve
- 
-
-  // TODO : initialisation pioche
 }
 
 void Partie::joueur_next(bool effet_parc_attration)
@@ -365,8 +360,6 @@ int Partie::fonction_service_type(Type t, Joueur* j)
     return nombreactive;
   }
 }
-
-// TODO : renommer
 void Partie::find_carte_des(int des)
 {
    /* cout << endl
