@@ -47,7 +47,11 @@ VueCarte::VueCarte(Pile_Etablissement* p, QWidget *parent) : QPushButton(parent)
     carteEffet->setWordWrap(true);
     carteEffet->setTextInteractionFlags(Qt::NoTextInteraction);
     carteQuantite = new QLabel(this);
-    carteQuantite->setText(QString::fromStdString("Quantité : "+std::to_string(p->getEffectif())));
+    QString temp = QString::fromStdString("Quantité : "+std::to_string(p->getEffectif())+" NB_dès :");
+    for (auto k : p->getEtablissement()->getNumDe()){
+        temp += " "+QString::number(k);
+    }
+    carteQuantite->setText(temp);
     carteQuantite->setAlignment(Qt::AlignCenter);
     carteQuantite->setMouseTracking(false);
     carteQuantite->setWordWrap(true);
@@ -67,9 +71,7 @@ VueCarte::VueCarte(Pile_Etablissement* p, QWidget *parent) : QPushButton(parent)
 
     setAutoFillBackground(true);
     setPalette(pal);
-    //setFixedSize(300*x_scale,220*y_scale);
-    //setFixedHeight(220*y_scale);
-    //setMinimumHeight(250*y_scale);
+
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect  screenGeometry = screen->geometry();
     setFixedHeight(screenGeometry.height()*y_scale);

@@ -287,6 +287,9 @@ int Manche::deschoisirdialog(QWidget* parent){
     QHBoxLayout* templayout = new QHBoxLayout();
     temp->setLayout(templayout);
 
+    QLabel* affichage = new QLabel("Combien de dès vous voulez lancer ?");
+    templayout->addWidget(affichage);
+
     QSpinBox* nbDes = new QSpinBox();
     nbDes->setMinimum(1);
     nbDes->setMaximum(2);
@@ -295,14 +298,6 @@ int Manche::deschoisirdialog(QWidget* parent){
     QPushButton* choisir = new QPushButton("OK !");
     templayout->addWidget(choisir);
     connect(choisir, &QPushButton::clicked, temp, &QDialog::accept);
-
-    /*QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
-    templayout->addWidget(buttonBox);
-    connect(buttonBox, &QDialogButtonBox::accepted, temp, &QDialog::accept);
-    connect(temp, &QDialog::accepted, );
-    connect(buttonBox, &QDialogButtonBox::rejected, temp, &QDialog::reject);
-    */
-
     temp->exec();
     int i = nbDes->value();
     delete temp;
@@ -325,12 +320,6 @@ bool Manche::effet_tour_radio_dialog(QWidget* parent, int lastvalue){
     templayout->addWidget(non);
     connect(non, &QPushButton::clicked, temp, &QDialog::reject);
 
-    /*QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
-    templayout->addWidget(buttonBox);
-    connect(buttonBox, &QDialogButtonBox::accepted, temp, &QDialog::accept);
-    connect(temp, &QDialog::accepted, );
-    connect(buttonBox, &QDialogButtonBox::rejected, temp, &QDialog::reject);
-    */
     int dialogCode = temp->exec();
     delete temp;
     return dialogCode == QDialog::Accepted?1:0;
@@ -342,8 +331,11 @@ void Manche::terminertour(){
     affichageIDJoueur->setText(QString::fromStdString(p->getJoueurActif()->getPseudo()));
 
     //Effet Gare
-    if (p->getJoueurActif()->getNbDes()==2 && deschoisirdialog(this)==2){//Effet Gare
+    if (p->getJoueurActif()->getNbDes()==2){
+        displayDes->setText("Des obtenu : En attente");
+        if (deschoisirdialog(this)==2){
         deObtenu += p->getJoueurActif()->lancerDes();
+        }
     }
 
     //Effet Tour Radio
