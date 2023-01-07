@@ -14,6 +14,7 @@ int Partie::getNumDe() const { return num_de; }
 
 int Partie::getNbJoueurs() const { return nb_joueurs; }
 
+Pioche* Partie::getPioche() const { return pioche; }
 //SINGLETON
 //Jeu *Partie::getJeu() const { return jeu; }
 
@@ -159,7 +160,8 @@ bool Partie::achat_carte(Pile_Etablissement *pile_reserve)
         }
       getJoueurActif()->ajouterMontant(0 - pile_reserve->getEtablissement()->getPrix());
       getJoueurActif()->ajouter_etablissement(pile_reserve->getEtablissement());
-      pile_reserve->retirerCarte();
+      reserve->retirer_etablissement(pile_reserve->getEtablissement(),*this->getPioche());
+      //pile_reserve->retirerCarte();
       return true;
     }
     else

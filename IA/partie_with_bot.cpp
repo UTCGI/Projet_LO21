@@ -64,8 +64,6 @@ reserve = new Reserve(jeu);
 }else{
   this->pioche = new Pioche(jeu);
   reserve = new Reserve(jeu,*pioche);
- // Initialisation pioche
- //reserve = new Reserve(jeu);
 }
 }
 
