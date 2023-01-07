@@ -108,7 +108,6 @@ void Etablissement_Violet::Etablissement_Violet::afficher(std::ostream& f) const
 }
 
 // AUTRES METHODES
-// UTILISER DE PREFERENCE LA METHODE DE CLASSE AFFICHEE POUR AVOIR TOUTES LES DONNES
 ostream& operator<<(ostream& f, const Etablissement& e)
 {
 
