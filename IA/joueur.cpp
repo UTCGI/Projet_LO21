@@ -1,16 +1,13 @@
 #include "joueur.h"
-#include "time.h"
 #include <random>
+//#include <QDateTime>
+//#include <chrono>
 #include <string.h>
 int Joueur::nombre_actuel = 0;
 
 Joueur::Joueur(const Jeu& jeu) :
     id(++nombre_actuel)
 {
-    char num[2];
-    _itoa_s(nombre_actuel, num, 10); num[strlen(num)] = '\0';
-    pseudo += num;
-    // Partie : Distributions des cartes monument (pile)
     const Monument** monuments_temp = jeu.getMonument();
     for (size_t i = 0; i < jeu.getNbMonuments(); i++)
         monuments.push_back(new Carte_Monument(monuments_temp[i]));
@@ -189,10 +186,26 @@ bool Joueur::victoire() const
     return getNombreMonumentsConstruits() == monuments.size();
 }
 
+
+int getRand(int min, int max){
+    //unsigned int ms = static_cast<unsigned>(QDateTime::currentMSecsSinceEpoch());
+    /*unsigned int ms = static_cast<unsigned>(std::chrono::system_clock::now().time_since_epoch());
+    std::mt19937 gen(ms);
+    std::uniform_int_distribution<> uid(min, max);
+    return uid(gen);
+    */
+    std::random_device rd; // obtain a random number from hardware
+    std::mt19937 gen(rd()); // seed the generator
+    std::uniform_int_distribution<> distr(min, max); // define the range
+    return distr(gen);
+}
+
 int Joueur::lancerDes() const
 {
-    srand(time(NULL));
+    /*srand(time(NULL));
     return rand() % 6 + 1;
+    */
+    return getRand(1,6);
 }
 
 /*bool Partie::lancerDes(int desALancer) const
