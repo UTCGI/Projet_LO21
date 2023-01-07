@@ -1,5 +1,5 @@
 QT += widgets
-
+QT += gui
 DISTFILES += \
     CMakeLists.txt \
     Final.sql

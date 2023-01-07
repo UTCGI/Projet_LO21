@@ -12,6 +12,9 @@
 #include <QVBoxLayout>
 #include <QDialog>
 #include <QDialogButtonBox>
+#include <QScreen>
+#include<QGuiApplication>
+
 
 
 Manche::Manche(QWidget *parent,Partie* p)
@@ -153,8 +156,11 @@ Manche::Manche(QWidget *parent,Partie* p)
 
 
     affichageEffet->setText(reserveGroup->checkedId()<0?"Veuillez choisir":QString::fromStdString(vueCartesReserve[reserveGroup->checkedId()]->getCarte()->getEtablissement()->getEffet()));
-    this->setMinimumSize(1400, 600);
+    //this->setMinimumSize(1400, 600);
 
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect  screenGeometry = screen->geometry();
+    this->setGeometry(screenGeometry);
 
     setLayout(couche);
 

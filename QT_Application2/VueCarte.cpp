@@ -5,9 +5,11 @@
 #include <QVBoxLayout>
 #include <QStaticText>
 #include <string>
+#include <QGuiApplication>
+#include <QScreen>
 
-#define x_scale 0.6
-#define y_scale 0.6
+#define x_scale 0.14
+#define y_scale 0.16
 
 VueCarte::VueCarte(Pile_Etablissement* p, QWidget *parent) : QPushButton(parent),pile (p)
 {
@@ -40,7 +42,7 @@ VueCarte::VueCarte(Pile_Etablissement* p, QWidget *parent) : QPushButton(parent)
     QLabel * carteEffet = new QLabel(this);
     carteEffet->setText(QString::fromStdString(p->getEtablissement()->getEffet()));
     carteEffet->setAlignment(Qt::AlignCenter);
-    carteEffet->setStyleSheet("font-size: 12px;");
+    carteEffet->setStyleSheet("font-size: 10px;");
     carteEffet->setMouseTracking(false);
     carteEffet->setWordWrap(true);
     carteEffet->setTextInteractionFlags(Qt::NoTextInteraction);
@@ -60,7 +62,12 @@ VueCarte::VueCarte(Pile_Etablissement* p, QWidget *parent) : QPushButton(parent)
     setPalette(pal);
     //setFixedSize(300*x_scale,220*y_scale);
     //setFixedHeight(220*y_scale);
-    setMinimumHeight(250*y_scale);
+    //setMinimumHeight(250*y_scale);
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect  screenGeometry = screen->geometry();
+    setFixedHeight(screenGeometry.height()*y_scale);
+    setFixedWidth(screenGeometry.width()*x_scale);
+
     connect(this,SIGNAL(clicked()),this,SLOT(clickedEvent()));
     setCheckable(true);
 }
