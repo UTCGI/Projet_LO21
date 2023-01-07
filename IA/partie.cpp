@@ -44,7 +44,6 @@ Partie::Partie() : manche(0), num_de(1),  nb_joueurs(2) {//,
 Partie::~Partie() {
     delete reserve;
     delete pioche;
-   // delete jeu;
     for(unsigned int i=0;i<nb_joueurs;i++){
         delete joueurs1[i];
         }
