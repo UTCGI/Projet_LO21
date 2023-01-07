@@ -11,7 +11,6 @@ void PartieWithBot::initialisation()
 
   } while (lectureExtension < 0 || lectureExtension > 3);
   Jeu& jeu = Jeu::getInstance(Extensions[lectureExtension]);
-  //jeu = new Jeu(Extensions[lectureExtension]);
   // Lire le nombre de joueurs
   cout << "Entrez le nombre total de joueurs (humains et IA):" << endl;
   int lectureNbJoueurs = 0;
@@ -21,7 +20,6 @@ void PartieWithBot::initialisation()
     cin >> lectureNbJoueurs;
   }
   setNbJoueurs(lectureNbJoueurs);
-  //lire le nombre d'IA 
   int choixIA = choix("Voulez-vous jouer avec IA ?\nTaper ", 1, 0, nullptr, " si oui, 0 sinon");
   if(choixIA){
     int lectureNbIA = 0;
@@ -35,6 +33,7 @@ void PartieWithBot::initialisation()
     setNb_IA(lectureNbIA);
   }
   setNb_JH(getNbJoueurs()-getNb_IA());
+
   //renseigner les pseudos
   if (nb_JH != 0){
   int choixPseudo = choix("Voulez-vous renseigner les pseudos des joueurs ?\nTaper ", 1, 0, nullptr, " si oui, 0 sinon");
@@ -64,8 +63,6 @@ reserve = new Reserve(jeu);
 }else{
   this->pioche = new Pioche(jeu);
   reserve = new Reserve(jeu,*pioche);
- // Initialisation pioche
- //reserve = new Reserve(jeu);
 }
 }
 
@@ -354,8 +351,5 @@ void test_PWB()
 {
     PartieWithBot p;
     p.initialisation(); 
-    //p.getCheapestMonument();
-    //cout<<p.getCheapestMonument()->getMonument()->getNom()<<endl;
-    //int a = p.choisirAction();
     p.menu();
 }

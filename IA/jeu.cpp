@@ -19,7 +19,7 @@ Jeu::Jeu(Extension e)
     : extension(e)
 {
     buildcaracteristics1(this, extension);
-    buildetablissement(liste_etablissements, liste_etablissements_depart /* , liste_etablissements_speciaux */, extension);
+    buildetablissement(liste_etablissements, liste_etablissements_depart, extension);
     buildmonument(liste_monuments, extension);
 }
 

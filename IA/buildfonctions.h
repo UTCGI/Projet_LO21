@@ -10,7 +10,7 @@
 
 void buildmonument(const Monument** liste_monuments, Extension e);
 
-void buildetablissement(const Etablissement** liste_etablissements, const Etablissement** liste_etablissements_depart /* , const Etablissement **liste_etablissements_speiciaux */, Extension e);
+void buildetablissement(const Etablissement** liste_etablissements, const Etablissement** liste_etablissements_depart, Extension e);
 
 void lancerdatabase(sqlite3** db);
 void buildcaracteristics1(Jeu* j, Extension e);

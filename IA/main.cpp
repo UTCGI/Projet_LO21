@@ -3,8 +3,7 @@
 #include "partie_with_bot.h"
 using namespace std;
 
-int main()
-{
+int main(){
     setlocale(LC_ALL, "fr_FR.UTF-8");
     PartieWithBot* p = new PartieWithBot;
     p->initialisation(); 

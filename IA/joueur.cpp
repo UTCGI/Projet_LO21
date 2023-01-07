@@ -1,7 +1,5 @@
 #include "joueur.h"
 #include <random>
-//#include <QDateTime>
-//#include <chrono>
 #include <string.h>
 int Joueur::nombre_actuel = 0;
 
@@ -9,7 +7,6 @@ Joueur::Joueur(const Jeu& jeu) :
     id(++nombre_actuel)
 {
     char num[2];
-    _itoa_s(nombre_actuel, num, 10); num[strlen(num)] = '\0';
     pseudo += num;
     const Monument** monuments_temp = jeu.getMonument();
     for (size_t i = 0; i < jeu.getNbMonuments(); i++)
@@ -34,7 +31,6 @@ Joueur::Joueur(const Jeu& jeu) :
             break;
 
         default:
-            // A compléter
             break;
         }
     }
@@ -96,7 +92,7 @@ void Joueur::initialisation_etablissement_depart(const Etablissement* e)
     for (auto i = (*which).begin(); i != (*which).end(); i++) {
         if ((*i)->getEtablissement()->getNom() == e->getNom()) {
             (*i)->ajouterCarte();
-            (*i)->setMinimum();//minimum=1 pour etablissement de depart
+            (*i)->setMinimum(); //minimum=1 pour etablissement de depart
         } else
             continue;
     }
@@ -149,7 +145,6 @@ bool Joueur::retirer_etablissement(const Etablissement* e)
         which = &pileViolet;
         break;
     default:
-        // A compléter
         break;
     }
     for (auto i = (*which).begin(); i != (*which).end(); i++) {
@@ -157,9 +152,7 @@ bool Joueur::retirer_etablissement(const Etablissement* e)
             if ((*i)->getEffectif() == (*i)->getMinimum()) {
                 temp = false;
                 cout << "Vous ne pouvez pas prendre dans cette pile !" << endl;
-                //throw SetException("Cette pile est déjà vide !");
             }
-
             else {
                 (*i)->retirerCarte();
                 temp = true;
@@ -191,12 +184,6 @@ bool Joueur::victoire() const
 
 
 int getRand(int min, int max){
-    //unsigned int ms = static_cast<unsigned>(QDateTime::currentMSecsSinceEpoch());
-    /*unsigned int ms = static_cast<unsigned>(std::chrono::system_clock::now().time_since_epoch());
-    std::mt19937 gen(ms);
-    std::uniform_int_distribution<> uid(min, max);
-    return uid(gen);
-    */
     std::random_device rd; // obtain a random number from hardware
     std::mt19937 gen(rd()); // seed the generator
     std::uniform_int_distribution<> distr(min, max); // define the range
@@ -205,32 +192,8 @@ int getRand(int min, int max){
 
 int Joueur::lancerDes() const
 {
-    /*srand(time(NULL));
-    return rand() % 6 + 1;
-    */
     return getRand(1,6);
 }
-
-/*bool Partie::lancerDes(int desALancer) const
-{
-    int de1, de2;
-    srand(time(NULL));
-    if (desALancer == 1) {
-        setNumDe(rand() % 6 + 1);
-    }
-    else if (desALancer == 2) {
-        de1=rand() % 6;
-        de2=rand() % 6;
-        setNumDe(de1+de2);
-        return de1==de2;
-    }
-    else {
-        throw SetException("Nombre de dés non autorisé !");
-        return -1; // Code d'erreur si on envoie un mauvais nombre
-    }
-        return false;
-}*/
-
 
 bool Joueur::estPresqueVide(const vector<Pile_Etablissement*>& pile)
 {

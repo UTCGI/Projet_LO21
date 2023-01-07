@@ -75,33 +75,4 @@ void Pioche::afficher() const
     cout << "******EndPioche******" << endl
          << endl;
 }
-// FONCTION DE TEST
-int testPioche()
-{
 
-    // EtablissementTest();
-    //std::cout << "avant pioche";
-    Jeu& jeu1 = Jeu::getInstance();
-    // CONSTRUIRE LA PIOCHE
-    Pioche pioche1 = Pioche(jeu1);
-    cout << "ici";
-    pioche1.afficher();
-
-    // PIOCHER UN ETABLISSEMENT
-    /*cout<<"Etablissement pioche au hasard : "<<endl;
-    pioche1.getRandomEtablissement().afficher();*/
-
-    // RETIRER UN ETABLISSEMENT
-    /*const Etablissement& e1 = *pioche1.piles_etablissement[14].getEtablissement();
-    cout<<"Etablissement a retirer : "<<endl;
-    cout<<e1;
-    try{
-        pioche1.retirer_Etablissement(e1,9);
-    }catch(const SetException e){
-        cout<<e.getInfo();
-    }
-    cout<<"Nouvelle pioche : "<<endl;
-    pioche1.afficher();
-    */
-    return 0;
-}

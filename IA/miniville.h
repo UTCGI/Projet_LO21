@@ -38,6 +38,7 @@ enum class Type {
     restauration,
     special
 };
+
 // versions du jeu
 enum class Extension {
     Aucune,
@@ -52,7 +53,7 @@ string toString(Type t);
 // conversion d'une version du jeu en string
 string toString(Extension e);
 
-// Nouveaux trucs introduits pour SQLite3
+// introduits pour SQLite3
 string toString1(Extension e);
 Type toType(const char* t);
 Couleur toCouleur(const char* t);
@@ -67,7 +68,6 @@ ostream& operator<<(ostream& f, Extension e);
 extern initializer_list<Couleur> Couleurs;
 extern initializer_list<Type> Types;
 // liste contenant les valeurs possibles pour chaque extension
-// extern std::initializer_list<Extension> Extensions;
 extern vector<Extension> Extensions;
 
 // affichage des valeurs possibles pour chaque caract�ristique

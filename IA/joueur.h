@@ -6,18 +6,6 @@
 #include <string>
 #include <cstdlib>
 
-/* Note : Jingfang Yuan 01/12
-    1 La vérification du montant restant dans le compte devrait se faire ailleurs que dans les fonctions de la classe Joueur
-    2 La fonction setNbDes() n'a plus de paramètre, le nombre de dès bascule à chaque appel entre 1 et 2
-    3 Constructeur :  Initialisation des description du joueur
-                    Création des Pile_Etablissements et Carte_Monuments
-                    Distribution des cartes de départ
-    4 Déstrcuteur : résponsable des durées de vie des piles ?
-      Pour moi oui mais sur l'UML le lien est marqué agrégation.
-      Maintenant dans le code je considère qu'il s'agit d'une composition
-    5 static const int max_joueurs = 4; static const int min_joueurs = 2; si besoin, doit être gérés par partie/jeu
- */
-
 class Joueur {
 protected:
     static int nombre_actuel; // Compteur du nombre actuel de joueur
@@ -84,7 +72,7 @@ public:
 
     void setNbDes();
 
-    void setCompte(int montant); // inutile ? redondant avec ajouterMontant(int montant);
+    void setCompte(int montant);
 
     void initialisation_etablissement_depart(const Etablissement* e);
 

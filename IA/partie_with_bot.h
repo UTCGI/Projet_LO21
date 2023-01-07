@@ -9,10 +9,7 @@ private:
     Pioche* pioche;
 public:
 //surcharges
-//PartieWithBot();
 virtual void initialisation();
-//virtual int choix(const string& m1, int n = 0, int c = 0, const vector<Pile_Etablissement*>* p = nullptr, const string& m2 = "Choisir 0 pour quitter"); 
-//virtual const vector<Pile_Etablissement*>*/*&*/ choixPile(const string& m1, const string& m2 = "Choisir 0 pour quitter", int cj = 0);
 virtual void menu();
 virtual bool lancer();
 //nouvelles fonctions

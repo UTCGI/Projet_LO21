@@ -55,6 +55,4 @@ public:
 
 ostream& operator<<(ostream& f, Reserve& carte);
 
-void testReserve();
-
 #endif

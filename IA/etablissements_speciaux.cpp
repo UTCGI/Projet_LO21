@@ -12,8 +12,6 @@ void traiterCentredAffaire(){
 
 };
 void traiterStade(const vector<Joueur*>& joueurs, Joueur* joueur, Pile_Etablissement* p){
-           //joueur->ajouterMontant(p->getEtablissement()->getMontant() * (getNbJoueurs() - 1) * p->getEffectif());
-                //pas obligé de faire * p->getEffectif() car on ne peut avoir qu'un seul établissement spécial
                 cout << "      *" << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
                 cout << "      " << p->getEtablissement()->getEffet() << endl;
                 if (p->getEffectif() == 1) {
@@ -26,7 +24,7 @@ void traiterStade(const vector<Joueur*>& joueurs, Joueur* joueur, Pile_Etablisse
 
                             if (joueurADebiter->getCompte() >= p->getEtablissement()->getMontant()) {
                                 joueurADebiter->ajouterMontant((-1) * p->getEtablissement()->getMontant());
-                                joueur->ajouterMontant(p->getEtablissement()->getMontant()); //* p->getEffectif());
+                                joueur->ajouterMontant(p->getEtablissement()->getMontant());
                             }
                             else {
                                 joueur->ajouterMontant(joueurADebiter->getCompte());

@@ -60,17 +60,6 @@ class Partie {
   ~Partie();
 
   // Methods
-  /*
-  SPECIFICATION : Partie::initialisation()
-      Entree: None
-      Sortie: None
-      Objectif: ??? Cette fonction est elle vraiment utilise ?? puisque
-  l'initialisation se faire déjà dans le construicteur de la classe partie. A
-  vérifier
-      -> Si elle est vraiment utile, je n'ai pas compris ce qu'elle devais
-  faire.
-  */
-
   virtual void initialisation();
 
   /*
@@ -91,32 +80,6 @@ class Partie {
   */
   void joueur_next(bool effet_parc_attration);
 
-  /*A SUPPRIMER ????????????????????????????,
-  SPECIFICATION : Partie::regarder_etablissements(Joueur joueur, Couleur
-  couleur) Entree: Joueur joueur, Couleur couleur Sortie: Tableau
-  d'établissements Objectif: Cette fonction renvoie tout les établissements que
-  dispose le joueur selon la couleur passée en paramêtre.
-  
-  Etablissement* regarder_etablissements(Joueur joueur, Couleur couleur);*/
-
-  /*A SUPPRIMER ????????????????????????????,
-  SPECIFICATION : Partie::application_regle_standards(Couleur couleur)
-      Entree: Couleur couleur
-      Sortie: None
-      Objectif: Cette fonction permet d'appliquer les règles ???
-      Jsp trop ce que doit faire cette fonction ??
-  
-  void application_regle_standards(Couleur couleur);*/
-
-  /*
-  SPECIFICATION : Partie::application_regle_speciales(Pile pile_joueur)
-      Entree: Pile pile_joueur
-      Sortie: None
-      Objectif: Cette fonction permet d'appliquer les règles ???
-      Jsp trop ce que doit faire cette fonction ??
-  */
-//void achat_carte(Joueur* joueur, Pile_Etablissement* pile);
-
 void transaction_piece(Joueur* emetteur, Joueur*destinataire, unsigned int montant);
 
 void transaction_carte(Joueur* emetteur, Joueur*destinataire, const Etablissement* etab);
@@ -127,7 +90,7 @@ void find_carte_des(int des);//Sert à déterminer quelles cartes à en apporter
 
 virtual int choix(const string& m1, int n = 0, int c = 0, const vector<Pile_Etablissement*>* p = nullptr, const string& m2 = "Choisir 0 pour quitter"); //"Choisir 0 pour quitter"
 
-virtual const vector<Pile_Etablissement*>*/*&*/ choixPile(const string& m1, const string& m2 = "Choisir 0 pour quitter", int cj = 0); //, int c=0);
+virtual const vector<Pile_Etablissement*>* choixPile(const string& m1, const string& m2 = "Choisir 0 pour quitter", int cj = 0);
 
 bool achat_carte(Pile_Etablissement* pile_reserve);
 

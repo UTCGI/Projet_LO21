@@ -11,7 +11,6 @@ class Bot : public Joueur{
               ps+=to_string(i);
               setPseudo(ps);
        }
-
 };
 void testBot();
 #endif

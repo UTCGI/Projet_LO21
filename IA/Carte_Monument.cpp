@@ -1,8 +1,5 @@
 #include "Carte_Monument.h"
-
-// Ces includes int été ajoutés pour le test
 #include "buildfonctions.h"
-// #include "jeu.h"
 #include "monument.h"
 // Getters
 const Monument* Carte_Monument::getMonument() const { return monument; }

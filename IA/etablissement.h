@@ -71,7 +71,7 @@ public:
     void afficher(std::ostream& f = std::cout) const;
 };
 
-// Ecriture d'un Etablissement sur un flux ostream (UTILISER AFFICHER PLUTOT)
+// Ecriture d'un Etablissement sur un flux ostream
 ostream& operator<<(ostream& f, const Etablissement& e);
 
 #endif
