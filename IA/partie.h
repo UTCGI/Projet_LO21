@@ -14,7 +14,7 @@ class Partie {
   //SINGLETON
   int lectureExtension;
   //SINGLETON
-  //static Jeu& jeu;
+  static Jeu& jeu;
   int joueur_actif = 0;//Indice du joueur qui a la main
   vector<Joueur*> joueurs1;
   Reserve* reserve;
@@ -27,7 +27,7 @@ class Partie {
   int getNumDe() const;
   int getNbJoueurs() const;
   //SINGLETON
-  //Jeu& getJeu() const;
+  Jeu& getJeu() const;
     Joueur* getJoueurActif() ;
   Reserve* getReserve() const;
   const vector<Joueur*>& getJoueurs() const;

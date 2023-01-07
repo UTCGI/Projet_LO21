@@ -41,7 +41,13 @@ Partie::Partie() : manche(0), num_de(1),  nb_joueurs(2) {//,
     //this->initialisation();
 }
 
-Partie::~Partie() {}
+Partie::~Partie() {
+    delete reserve;
+    delete pioche;
+    for(unsigned int i=0;i<nb_joueurs;i++){
+        delete joueurs1[i];
+        }
+  }
 
 // ----------------------------------------------------------------
 // Methods

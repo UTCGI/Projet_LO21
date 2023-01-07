@@ -17,7 +17,10 @@ Pioche::Pioche(const Jeu& jeu)
     }
 }
 
-Pioche::~Pioche() { delete[] piles_etablissement; }
+Pioche::~Pioche() { 
+    for (unsigned int i = 0; i < nb_piles; i++)
+        delete &piles_etablissement[i];
+        }
 
 // Autres methodes de classe
 const Etablissement& Pioche::getRandomEtablissement() const
