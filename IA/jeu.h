@@ -34,7 +34,11 @@ private:
     };
     static Handler handler;
     Jeu(Extension e = Extension::Aucune); 
-    ~Jeu();
+    ~Jeu(){
+        for(unsigned int i=0;i<nbEtablissements;i++){delete liste_etablissements[i];}
+        for(unsigned int i=0;i<nbEtablissements_Depart;i++){delete liste_etablissements_depart[i];}
+        for(unsigned int i=0;i<nbMonuments;i++){delete liste_monuments[i];}
+    }
 
 public:
     //SINGLETON
