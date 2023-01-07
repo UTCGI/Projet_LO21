@@ -8,6 +8,9 @@ int Joueur::nombre_actuel = 0;
 Joueur::Joueur(const Jeu& jeu) :
     id(++nombre_actuel)
 {
+    char num[2];
+    _itoa_s(nombre_actuel, num, 10); num[strlen(num)] = '\0';
+    pseudo += num;
     const Monument** monuments_temp = jeu.getMonument();
     for (size_t i = 0; i < jeu.getNbMonuments(); i++)
         monuments.push_back(new Carte_Monument(monuments_temp[i]));
