@@ -59,7 +59,7 @@ private:
     QPushButton* passerMonTour;
     QPushButton* quitter;
 
-
+    void rafraichir_quantite_reserve();
     void rafraichir_etats_monuments();
     void miseajour(){miseajourCompte(); miseajourBilan();}
     void miseajourCompte();
@@ -71,6 +71,7 @@ private:
     //Dialogs
     int deschoisirdialog(QWidget* parent);
     bool effet_tour_radio_dialog(QWidget* parent, int lastvalue);
+
 
 signals:
     void relancer_menu();

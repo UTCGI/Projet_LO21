@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include "pile_etablissement.h"
 
+class QLabel;
 class VueCarte : public QPushButton
 {
     Q_OBJECT
@@ -14,8 +15,10 @@ public:
     // affecter une nouvelle carte à la vue
     void setCarte(Pile_Etablissement* p) { setCheckable(true); setChecked(false); pile=p; update(); }
     Pile_Etablissement* getCarte() const { return pile; }
+    void setQuantite();
 private:
     Pile_Etablissement* pile = nullptr;
+    QLabel* carteQuantite;
 signals:
     // quand la vude de carte est cliquée, elle émet un signal en transmettant son adresse
     void carteClicked(VueCarte*);

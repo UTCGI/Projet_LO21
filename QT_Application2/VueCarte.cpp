@@ -46,6 +46,12 @@ VueCarte::VueCarte(Pile_Etablissement* p, QWidget *parent) : QPushButton(parent)
     carteEffet->setMouseTracking(false);
     carteEffet->setWordWrap(true);
     carteEffet->setTextInteractionFlags(Qt::NoTextInteraction);
+    carteQuantite = new QLabel(this);
+    carteQuantite->setText(QString::fromStdString("Quantité : "+std::to_string(p->getEffectif())));
+    carteQuantite->setAlignment(Qt::AlignCenter);
+    carteQuantite->setMouseTracking(false);
+    carteQuantite->setWordWrap(true);
+    carteQuantite->setTextInteractionFlags(Qt::NoTextInteraction);
     QLabel * cartePrix = new QLabel(this);
     cartePrix->setText(QString::fromStdString("Prix : "+std::to_string(p->getEtablissement()->getPrix())));
     cartePrix->setAlignment(Qt::AlignCenter);
@@ -56,6 +62,7 @@ VueCarte::VueCarte(Pile_Etablissement* p, QWidget *parent) : QPushButton(parent)
     this->layout()->addWidget(carteNom);
     this->layout()->addWidget(carteEffet);
     this->layout()->addWidget(cartePrix);
+    this->layout()->addWidget(carteQuantite);
 
 
     setAutoFillBackground(true);
@@ -80,3 +87,6 @@ VueCarte::VueCarte(QWidget *parent): QPushButton(parent)
     connect(this,SIGNAL(clicked()),this,SLOT(clickedEvent()));
     setCheckable(false);
 }
+
+
+void VueCarte::setQuantite(){carteQuantite->setText(QString::fromStdString("Quantité : "+std::to_string(pile->getEffectif())));};

@@ -161,6 +161,15 @@ Manche::Manche(QWidget *parent,Partie* p)
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect  screenGeometry = screen->geometry();
     this->setGeometry(screenGeometry);
+    bilan->setMaximumWidth(screenGeometry.width()*0.2);
+    affichageIDJoueur->setMaximumWidth(screenGeometry.width()*0.2);
+    montantJoueur->setMaximumWidth(screenGeometry.width()*0.2);
+    displayDes->setMaximumWidth(screenGeometry.width()*0.1);
+    nbDes->setMaximumWidth(screenGeometry.width()*0.1);
+    acheter->setMaximumWidth(screenGeometry.width()*0.2);
+    construire->setMaximumWidth(screenGeometry.width()*0.2);
+    passerMonTour->setMaximumWidth(screenGeometry.width()*0.2);
+    quitter->setMaximumWidth(screenGeometry.width()*0.2);
 
     setLayout(couche);
 
@@ -181,6 +190,7 @@ void Manche::fermer(){
 void Manche::acheter_reserve(){
     //vueCartesReserve[reserveGroup->checkedId()] pour accéder à la vuecarte choisie
     p->achat_carte(vueCartesReserve[reserveGroup->checkedId()]->getCarte());
+    vueCartesReserve[reserveGroup->checkedId()]->setQuantite();
     montantJoueur->setText("Montant restant : "+QString::number(p->getJoueurActif()->getCompte()));
     eliminerCarteChere();
     miseajour();
@@ -220,6 +230,9 @@ void Manche::miseajourBilan(){
         bilan->item(count++, 1)->setText(QString::fromStdString(std::to_string(k->getEffectif())));
     }
 }
+
+
+
 
 void Manche::rafraichir_etats_monuments(){//Mise à jour état construction des monuments
     auto monumentsJoueurEnCours = p->getJoueurActif()->getMonuments();
