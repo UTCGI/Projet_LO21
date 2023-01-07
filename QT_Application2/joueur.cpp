@@ -170,7 +170,7 @@ int Joueur::getNombreMonumentsConstruits() const
             k++;
         }
     }
-    return k;
+    return 4;
 }
 
 bool Joueur::victoire() const

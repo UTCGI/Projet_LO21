@@ -30,8 +30,8 @@ public:
     ~Reserve();
 
     // Methods
-    void retirer_etablissement(const Etablissement& etablissement, unsigned int quantite = 1);
-    void ajouter_etablissement(const Etablissement& etablissement, unsigned int quantite = 1);
+    void retirer_etablissement(const Etablissement* etablissement, Pioche& p, unsigned int quantite = 1);
+    void ajouter_etablissement(const Etablissement* etablissement, unsigned int quantite = 1);
     void afficher() const;
 
 

@@ -13,7 +13,8 @@
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QScreen>
-#include<QGuiApplication>
+#include <QGuiApplication>
+#include <QHeaderView>
 
 
 
@@ -80,6 +81,7 @@ Manche::Manche(QWidget *parent,Partie* p)
     rafraichir_etats_monuments();
 
     bilan = new QTableWidget(Jeu::getInstance().getNbEtablissements(), 2);
+    bilan->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
     int count = 0;
     for (auto k : p->getJoueurActif()->getPileRouge()){
@@ -123,13 +125,6 @@ Manche::Manche(QWidget *parent,Partie* p)
     layoutButtons->addLayout(layoutMonument);
     layoutButtons->addWidget(bilan);
 
-    QHBoxLayout* nbDesLayout = new QHBoxLayout();
-    nbDesLayout->addWidget(new QLabel("Nombre de des : "));
-    nbDes = new QSpinBox();
-    nbDes->setMinimum(1);
-    nbDes->setMaximum(1);
-    nbDesLayout->addWidget(nbDes);
-    layoutButtons->addLayout(nbDesLayout);
 
     acheter = new QPushButton("Acheter");
     connect(acheter, SIGNAL(clicked()), this, SLOT(acheter_reserve()));
@@ -159,7 +154,6 @@ Manche::Manche(QWidget *parent,Partie* p)
     affichageIDJoueur->setMaximumWidth(screenGeometry.width()*0.2);
     montantJoueur->setMaximumWidth(screenGeometry.width()*0.2);
     displayDes->setMaximumWidth(screenGeometry.width()*0.1);
-    nbDes->setMaximumWidth(screenGeometry.width()*0.1);
     acheter->setMaximumWidth(screenGeometry.width()*0.2);
     construire->setMaximumWidth(screenGeometry.width()*0.2);
     passerMonTour->setMaximumWidth(screenGeometry.width()*0.2);
@@ -183,12 +177,13 @@ void Manche::fermer(){
 
 void Manche::acheter_reserve(){
     //vueCartesReserve[reserveGroup->checkedId()] pour accéder à la vuecarte choisie
-    p->achat_carte(vueCartesReserve[reserveGroup->checkedId()]->getCarte());
+    if (reserveGroup->checkedId()>=0)
+    {p->achat_carte(vueCartesReserve[reserveGroup->checkedId()]->getCarte());
     vueCartesReserve[reserveGroup->checkedId()]->setQuantite();
     montantJoueur->setText("Montant restant : "+QString::number(p->getJoueurActif()->getCompte()));
     eliminerCarteChere();
     miseajour();
-    update();
+    update();}
 
 }
 
@@ -196,6 +191,7 @@ void Manche::construire_monument(){
     auto k = vueMonuments[monumentGroup->checkedId()];
     p->construire_monument(k->get_monument());
     k->repaint(p->getJoueurActif()->getMonuments()[monumentGroup->checkedId()]);
+    eliminerCarteChere();
     miseajour();
     update();
 }
@@ -281,6 +277,9 @@ int Manche::deschoisirdialog(QWidget* parent){
     QHBoxLayout* templayout = new QHBoxLayout();
     temp->setLayout(templayout);
 
+    QLabel* affichage = new QLabel("Combien de dès vous voulez lancer ?");
+    templayout->addWidget(affichage);
+
     QSpinBox* nbDes = new QSpinBox();
     nbDes->setMinimum(1);
     nbDes->setMaximum(2);
@@ -289,14 +288,6 @@ int Manche::deschoisirdialog(QWidget* parent){
     QPushButton* choisir = new QPushButton("OK !");
     templayout->addWidget(choisir);
     connect(choisir, &QPushButton::clicked, temp, &QDialog::accept);
-
-    /*QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
-    templayout->addWidget(buttonBox);
-    connect(buttonBox, &QDialogButtonBox::accepted, temp, &QDialog::accept);
-    connect(temp, &QDialog::accepted, );
-    connect(buttonBox, &QDialogButtonBox::rejected, temp, &QDialog::reject);
-    */
-
     temp->exec();
     int i = nbDes->value();
     delete temp;
@@ -319,42 +310,60 @@ bool Manche::effet_tour_radio_dialog(QWidget* parent, int lastvalue){
     templayout->addWidget(non);
     connect(non, &QPushButton::clicked, temp, &QDialog::reject);
 
-    /*QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
-    templayout->addWidget(buttonBox);
-    connect(buttonBox, &QDialogButtonBox::accepted, temp, &QDialog::accept);
-    connect(temp, &QDialog::accepted, );
-    connect(buttonBox, &QDialogButtonBox::rejected, temp, &QDialog::reject);
-    */
     int dialogCode = temp->exec();
     delete temp;
     return dialogCode == QDialog::Accepted?1:0;
 }
 
+void Manche::gagner_dialog(QWidget* parent){
+    QDialog* temp = new QDialog(parent);
+    QVBoxLayout* templayout = new QVBoxLayout();
+    temp->setLayout(templayout);
+
+    QLabel* affichage = new QLabel(QString::fromStdString(p->getJoueurActif()->getPseudo())+" a gagné(e) !");
+    templayout->addWidget(affichage);
+
+    QPushButton* oui = new QPushButton("Quitter");
+    templayout->addWidget(oui);
+    connect(oui, &QPushButton::clicked, temp, &QDialog::accept);
+    temp->exec();
+    delete temp;
+}
+
 void Manche::terminertour(){
-    p->joueur_next(false);//False pour l'intant, faut modifier joueur_next
-    deObtenu = p->getJoueurActif()->lancerDes();
-    affichageIDJoueur->setText(QString::fromStdString(p->getJoueurActif()->getPseudo()));
+    if (p->getJoueurActif()->victoire()){
+        gagner_dialog(this);
+        fermer();
+    }else{
+        p->joueur_next(false);
+        deObtenu = p->getJoueurActif()->lancerDes();
+        affichageIDJoueur->setText(QString::fromStdString(p->getJoueurActif()->getPseudo()));
 
-    //Effet Gare
-    if (p->getJoueurActif()->getNbDes()==2 && deschoisirdialog(this)==2){//Effet Gare
-        deObtenu += p->getJoueurActif()->lancerDes();
-    }
-
-    //Effet Tour Radio
-    if (p->getJoueurActif()->getEffet_tour_radio()){
-        if (effet_tour_radio_dialog(this, deObtenu)){
-            deObtenu = p->getJoueurActif()->lancerDes();
-            if (p->getJoueurActif()->getNbDes()==2 && deschoisirdialog(this)==2){
-                deObtenu += p->getJoueurActif()->lancerDes();
+        //Effet Gare
+        if (p->getJoueurActif()->getNbDes()==2){
+            displayDes->setText("Des obtenu : En attente");
+            if (deschoisirdialog(this)==2){
+            deObtenu += p->getJoueurActif()->lancerDes();
             }
         }
+
+        //Effet Tour Radio
+        if (p->getJoueurActif()->getEffet_tour_radio()){
+            if (effet_tour_radio_dialog(this, deObtenu)){
+                deObtenu = p->getJoueurActif()->lancerDes();
+                if (p->getJoueurActif()->getNbDes()==2 && deschoisirdialog(this)==2){
+                    deObtenu += p->getJoueurActif()->lancerDes();
+                }
+            }
+        }
+
+
+        displayDes->setText("Des obtenu : "+QString::number(deObtenu));
+        p->find_carte_des(deObtenu);
+        eliminerCarteChere();
+        rafraichir_etats_monuments();
+        miseajour();
+        update();
     }
 
-
-    displayDes->setText("Des obtenu : "+QString::number(deObtenu));
-    p->find_carte_des(deObtenu);
-    eliminerCarteChere();
-    rafraichir_etats_monuments();
-    miseajour();
-    update();
 }

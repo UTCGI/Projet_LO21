@@ -30,6 +30,7 @@ class Partie {
   Jeu& getJeu() const;
     Joueur* getJoueurActif() ;
   Reserve* getReserve() const;
+  Pioche* getPioche() const;
   const vector<Joueur*>& getJoueurs() const;
 
 

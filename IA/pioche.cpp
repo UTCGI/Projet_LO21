@@ -23,17 +23,18 @@ Pioche::~Pioche() {
         }
 
 // Autres methodes de classe
-const Etablissement& Pioche::getRandomEtablissement() const
+const Etablissement* Pioche::getRandomEtablissement() const
 {
+    unsigned int numero_etablissement = 0;
     srand(time(NULL));
-    unsigned int numero_etablissement = rand() % nb_etablissements;
+    numero_etablissement = rand() % (nb_etablissements-1);
     unsigned int nb_etablissements_parcourus = 0;
     unsigned int i = 0;
     while (nb_etablissements_parcourus < numero_etablissement) {
         nb_etablissements_parcourus += piles_etablissement[i].getEffectif();
         i++;
     }
-    return *piles_etablissement[i].getEtablissement();
+    return piles_etablissement[i].getEtablissement();
 }
 
 unsigned int Pioche::getIndexPile(const Etablissement& etablissement) const
@@ -58,10 +59,10 @@ void Pioche::retirer_Etablissement(const Etablissement& etablissement, unsigned 
     }
 }
 
-const Etablissement& Pioche::retirerRandomEtablissement()
+const Etablissement* Pioche::retirerRandomEtablissement()
 {
-    const Etablissement& random_etablissement = getRandomEtablissement();
-    retirer_Etablissement(random_etablissement, 1);
+    const Etablissement* random_etablissement = getRandomEtablissement();
+    retirer_Etablissement(*random_etablissement, 1);
     return random_etablissement;
 }
 
@@ -75,4 +76,3 @@ void Pioche::afficher() const
     cout << "******EndPioche******" << endl
          << endl;
 }
-

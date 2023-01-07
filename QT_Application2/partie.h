@@ -135,7 +135,7 @@ bool construire_monument(const Monument* monument_choisi);
 //migration fonctions dans main
 bool choix2();
 size_t choix3();
-virtual bool lancer();
-virtual void menu();
+bool lancer();
+void menu();
 };
 #endif

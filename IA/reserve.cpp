@@ -40,7 +40,8 @@ Reserve::Reserve(Jeu& j, Pioche& p)
     for (unsigned int i = 0; i < nb_piles_max; i++)
         liste_etablissements[i] = new Pile_Etablissement;
     while (nb_piles < nb_piles_max) {
-        ajouter_etablissement(p.retirerRandomEtablissement());
+       const Etablissement* e = p.retirerRandomEtablissement();
+        ajouter_etablissement(e);
     }
 };
 Reserve::~Reserve()
@@ -51,18 +52,18 @@ Reserve::~Reserve()
 };
 
 // Methodes de classe
-void Reserve::ajouter_etablissement(const Etablissement& etablissement, unsigned int quantite)
+void Reserve::ajouter_etablissement(const Etablissement* etablissement,unsigned int quantite)
 {
     unsigned int i = 0;
-    while (i < nb_piles && etablissement != *liste_etablissements[i]->getEtablissement()) {
+    while (i < nb_piles && etablissement != liste_etablissements[i]->getEtablissement()) {
         i++;
     }
-    if (liste_etablissements[i] && liste_etablissements[i]->getEtablissement() && etablissement == *liste_etablissements[i]->getEtablissement()) {
+    if (liste_etablissements[i] && liste_etablissements[i]->getEtablissement() && etablissement == liste_etablissements[i]->getEtablissement()) {
         liste_etablissements[i]->ajouterCarte(quantite);
         nb_etablissements += quantite;
     } else {
         if (i < nb_piles_max) {
-            liste_etablissements[i] = new Pile_Etablissement(&etablissement, quantite);
+            liste_etablissements[i] = new Pile_Etablissement(etablissement, quantite);
             nb_etablissements += quantite;
             nb_piles++;
         } else {
@@ -71,24 +72,33 @@ void Reserve::ajouter_etablissement(const Etablissement& etablissement, unsigned
     }
 }
 
-void Reserve::retirer_etablissement(const Etablissement& etablissement, unsigned int quantite)
+void Reserve::retirer_etablissement(const Etablissement* etablissement, Pioche& p,  unsigned int quantite)
 {
     unsigned int indexPile = 0;
-    while (indexPile < nb_piles && etablissement != *liste_etablissements[indexPile]->getEtablissement()) {
+    while (indexPile < nb_piles && etablissement != liste_etablissements[indexPile]->getEtablissement()) {
         indexPile++;
     }
-    if (liste_etablissements[indexPile]->getEtablissement() && etablissement == *liste_etablissements[indexPile]->getEtablissement()) {
+    if (liste_etablissements[indexPile]->getEtablissement() && *etablissement == *liste_etablissements[indexPile]->getEtablissement()) {
         liste_etablissements[indexPile]->retirerCarte(quantite);
         nb_etablissements -= quantite;
+        // Si la pile est désormais vide
         if (liste_etablissements[indexPile]->getEffectif() == 0) {
+            //on la supprime
+            Pile_Etablissement* old = liste_etablissements[indexPile];
             for (unsigned int i = indexPile; i < nb_piles - 1; i++)
-                liste_etablissements[i] = liste_etablissements[i + 1];
-            liste_etablissements[nb_piles] = nullptr;
+                {liste_etablissements[i] = liste_etablissements[i + 1];}
+            liste_etablissements[nb_piles-1]=nullptr;
+            delete old;
             nb_piles--;
-        }
+            while (nb_piles < nb_piles_max) {
+        const Etablissement* e = p.getRandomEtablissement();
+        this->ajouter_etablissement(e);
+    }
+       // }
     } else {
         SetException("l'etablissement n'est pas dans la reserve");
     }
+}
 }
 
 void Reserve::afficher() const

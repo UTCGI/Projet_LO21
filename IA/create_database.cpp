@@ -8,11 +8,10 @@ void database(const string name)
 {
     // Variable Sqlite3
     sqlite3* db;
-    sqlite3_stmt* stmt;
+
     char* zErrMsg = 0;
-    int rc;
     string sql;
-    rc = sqlite3_open(name.data(), &db);
+    sqlite3_open(name.data(), &db);
 
     sql = "drop table if exists Jeu;     \
 CREATE TABLE Jeu(     \
@@ -265,11 +264,6 @@ insert into DeluxeEXCEPT VALUES('Arboretum', 'Rassemblez les pieces de tous les 
 drop view if exists Deluxe;       \
 CREATE VIEW Deluxe AS SELECT * FROM Marina UNION SELECT * FROM GreenValleyADD EXCEPT SELECT * FROM DeluxeEXCEPT;";
 
-    rc = sqlite3_exec(db, sql.data(), 0, 0, &zErrMsg);
-
-    if (rc != SQLITE_OK) {
-        cout << "Creation failed" << endl;
-    }
-
+    sqlite3_exec(db, sql.data(), 0, 0, &zErrMsg);
     sqlite3_close(db);
 }
