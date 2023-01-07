@@ -1,5 +1,4 @@
 #include "partie_with_bot.h"
-//PartieWithBot::PartieWithBot() : Partie(){ }
 void PartieWithBot::initialisation()
 {
   cout << "Bonjour, bienvenue dans le jeu MachiKoro." << endl;
