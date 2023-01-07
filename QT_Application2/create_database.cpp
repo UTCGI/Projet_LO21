@@ -7,7 +7,6 @@ using namespace std;
 void database(const string name)
 {
     // Variable Sqlite3
-   // cout << "Creation database" << endl;
     sqlite3* db;
 
     char* zErrMsg = 0;

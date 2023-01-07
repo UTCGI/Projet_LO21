@@ -38,10 +38,6 @@ private:
     QHBoxLayout* formAndControls;
     QVBoxLayout* couche;
 
-
-
-    //QSpinBox* nbPersonne;
-
     void paintPlayerform();
 
 signals:

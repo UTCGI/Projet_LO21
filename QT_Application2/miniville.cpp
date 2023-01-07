@@ -20,8 +20,7 @@ initializer_list<Type> Types = {
     Type::restauration, 
     Type::special 
 };
-// initializer_list<Extension> Extensions = {Extension::Aucune, Extension::Marina,
-//										  Extension::GreenValley, Extension::Deluxe};
+
 vector<Extension> Extensions = { 
     Extension::Aucune, 
     Extension::Marina,

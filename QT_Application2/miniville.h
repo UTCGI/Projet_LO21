@@ -52,7 +52,7 @@ string toString(Type t);
 // conversion d'une version du jeu en string
 string toString(Extension e);
 
-// Nouveaux trucs introduits pour SQLite3
+// introduits pour SQLite3
 string toString1(Extension e);
 Type toType(const char* t);
 Couleur toCouleur(const char* t);

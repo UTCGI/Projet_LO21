@@ -69,8 +69,6 @@ Dialog::Dialog(QWidget *parent):QWidget(parent)
 }
 
 void Dialog::demarrer(){
-    //this->hide();
-    //tester->setText(QString::fromStdString(toString1(Extensions[versions->checkedId()])));
     manche = new Manche(nullptr, new Partie(form->rowCount()));
 
     int counter = 0;

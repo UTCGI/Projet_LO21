@@ -41,12 +41,6 @@ Manche::Manche(QWidget *parent,Partie* p)
     layoutJoueur = new QVBoxLayout();
     layoutMonument = new QGridLayout();
 
-
-    //layoutJoueur->addLayout(layoutMonument);
-    //layoutJoueur->addLayout(layoutCartesJoueur);
-    //couche->addLayout(layoutJoueur, 1);
-
-    //couche->addStretch();
     //Troisième colonne
     layoutButtons = new QVBoxLayout();
     couche->addLayout(layoutButtons, 0);
