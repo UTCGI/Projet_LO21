@@ -42,21 +42,11 @@ void buildcaracteristics1(Jeu* j, Extension e)
 
     sqlite3* db;
     sqlite3_stmt* stmt;
-    int rc;
-    int row = 0;
     string sql;
 
     // Variable objets
     // Extension extension;// = Extension::Aucune;
-    size_t cdv;
-    size_t nbj;
-    size_t nbpr;
-    size_t nblr;
-    size_t nbcr;
-    size_t nbed;
-    size_t nbe;
-    size_t nbm;
-    size_t nbc;
+
 
     lancerdatabase(&db);
     sql = "select * from Jeu where nom='" + toString1(e) + "';";
@@ -76,7 +66,6 @@ void buildcaracteristics1(Jeu* j, Extension e)
             j->nbEtablissements = sqlite3_column_int(stmt, 7);
             j->nbMonuments = sqlite3_column_int(stmt, 8);
             j->nbCartes = sqlite3_column_int(stmt, 9);
-            row++;
             break;
 
         case SQLITE_DONE:
@@ -159,8 +148,6 @@ void buildetablissement(const Etablissement** liste_etablissements, const Etabli
     Type type_effet; // nouveau
     bool payeur; // nouveau
     int identificateur;
-    unsigned int nb_exemplaires;
-    const Etablissement* temp = nullptr;
 
     int nombreCarteDepart;
     int nombreCarteNormale;

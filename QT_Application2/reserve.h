@@ -40,7 +40,7 @@ public:
         int count=0;
         int nombre;
         Pile_Etablissement** liste;
-        Iterator(Reserve* reserve):liste(reserve->liste_etablissements), nombre(reserve->nb_piles){}
+        Iterator(Reserve* reserve):nombre(reserve->nb_piles), liste(reserve->liste_etablissements){}
         friend class Reserve;
     public:
         ~Iterator() = default;

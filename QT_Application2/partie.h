@@ -125,9 +125,9 @@ void echanger_cartes(Joueur* emetteur, Joueur* destinataire, const Etablissement
 
 void find_carte_des(int des);//Sert à déterminer quelles cartes à en apporter du profit
 
-virtual int choix(const string& m1, int n = 0, int c = 0, const vector<Pile_Etablissement*>* p = nullptr, const string& m2 = "Choisir 0 pour quitter"); //"Choisir 0 pour quitter"
+int choix(const string& m1, int n = 0, int c = 0, const vector<Pile_Etablissement*>* p = nullptr, const string& m2 = "Choisir 0 pour quitter"); //"Choisir 0 pour quitter"
 
-virtual const vector<Pile_Etablissement*>*/*&*/ choixPile(const string& m1, const string& m2 = "Choisir 0 pour quitter", int cj = 0); //, int c=0);
+const vector<Pile_Etablissement*>*/*&*/ choixPile(const string& m1, const string& m2 = "Choisir 0 pour quitter", int cj = 0); //, int c=0);
 
 bool achat_carte(Pile_Etablissement* pile_reserve);
 
