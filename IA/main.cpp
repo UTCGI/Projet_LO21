@@ -10,5 +10,6 @@ int main()
     p->initialisation(); 
     p->menu();
     delete p;
+    //testPioche();
     return 0;
 }
