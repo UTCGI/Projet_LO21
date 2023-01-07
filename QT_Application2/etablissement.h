@@ -35,7 +35,7 @@ public:
     Etablissement(const string& nom1, const string& effet1, Couleur couleur1,
         unsigned int prix1, vector<unsigned int> num_de1, Type type1,
         unsigned int montant_effet1, bool isSpecial1, int nb_exemplaires);
-    ~Etablissement() = default;
+    virtual ~Etablissement() = default;
 
     // Methods
     bool estActif(unsigned int n)const;

@@ -467,7 +467,14 @@ void Partie::find_carte_des(int des)
                     }
                     else
                         cout << "      " << "L'effet ne s'applique pas : vous n'avez pas le port !" << endl;
-                }
+                } else if (p->getEtablissement()->getNom() == "Epicerie") {
+                    }
+                    else if (p->getEtablissement()->getNom() == "Entreprise de travaux publics") {
+                    }
+                    else if (p->getEtablissement()->getNom() == "Entreprise de demenagement") {
+                    }
+                    else if (p->getEtablissement()->getNom() == "Moonster soda") {
+                    }
                 else
                     joueur->ajouterMontant(p->getMontant() * p->getEffectif());
                 break;//car toutes les cartes bleues ont un num de de différent toutes versions confondues
