@@ -29,14 +29,11 @@ Reserve::Reserve(Jeu& j)
     for (unsigned int i = 0; i < nb_piles_max; i++) {
         liste_etablissements[i] = new Pile_Etablissement(etablissements[i], etablissements[i]->getNbExemplaires());
         nb_piles++;
-        // ajouter_etablissement(*j.getEtablissementFromName(ordre_reserve[i]),j.getEtablissementFromName(ordre_reserve[i])->getNbExemplaires());
-        // ajouter_etablissement(*etablissements[i],etablissements[i]->getNbExemplaires());
     }
 }
 
 Reserve::Reserve(Jeu& j, Pioche& p)
 {
-    //nb_piles_max = j.getNb_pile_reserve_MAX();
     nb_piles_max = 10;
     nb_etablissements=0;
     nb_piles = 0;
@@ -96,7 +93,7 @@ void Reserve::retirer_etablissement(const Etablissement& etablissement, unsigned
 }
 
 void Reserve::afficher() const
-{ // Fomatage, pas parfait
+{
     cout << "******Reserve******" << endl
          << endl;
     for (unsigned int i = 0; i < nb_piles; i++) {
@@ -117,21 +114,4 @@ ostream& operator<<(ostream& f, Reserve& carte)
 {
     f << "" << endl;
     return f;
-}
-
-void testReserve()
-{
-    Jeu& j = Jeu::getInstance(Extension::Marina);
-    Pioche p = Pioche(j);
-    //p.afficher();
-    // Reserve r = Reserve(j);
-    // r.afficher();
-    // r.retirer_etablissement(*j.getEtablissementFromName("Champs de ble"),4);
-    // r.retirer_etablissement(*j.getEtablissementFromName("Verger"),6);
-    // r.ajouter_etablissement(*j.getEtablissementFromName("Verger"),6);
-    // r.afficher();
-    Reserve* r = new Reserve(j, p);
-    r->afficher();
-    //p.afficher();
-    //delete r;
 }

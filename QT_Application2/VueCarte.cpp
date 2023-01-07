@@ -13,7 +13,6 @@
 
 VueCarte::VueCarte(Pile_Etablissement* p, QWidget *parent) : QPushButton(parent),pile (p)
 {
-    //setBackgroundRole(QPalette::Base);
     QPalette pal = this->palette();
     switch (p->getEtablissement()->getCouleur()) {
     case Couleur::bleu:
@@ -32,7 +31,6 @@ VueCarte::VueCarte(Pile_Etablissement* p, QWidget *parent) : QPushButton(parent)
         break;
     }
 
-    //carteNom->setText(QString::fromStdString(p->getEtablissement()->getNom()+"\n\n"+p->getEtablissement()->getEffet()+"\n\n"+"Prix : "+std::to_string(p->getEtablissement()->getPrix())));
     QLabel * carteNom = new QLabel(this);
     carteNom->setText(QString::fromStdString(p->getEtablissement()->getNom()));
     carteNom->setAlignment(Qt::AlignCenter);

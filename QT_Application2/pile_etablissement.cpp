@@ -56,10 +56,10 @@ ostream& operator<<(ostream& f, const Pile_Etablissement& pile)
     return f;
 }
 
-ostream& operator<<(ostream& f, const vector<Pile_Etablissement*>& pile) //(*(pile.begin()))->getEffectif()
+ostream& operator<<(ostream& f, const vector<Pile_Etablissement*>& pile)
 {
     int i = 1;
-    for (auto p : pile) {//for *(pile.size());
+    for (auto p : pile) {
         if (p->getEffectif() > p->getMinimum())
             f << "N°" << i << "      " << (*p) << endl;
         i++;
@@ -69,7 +69,7 @@ ostream& operator<<(ostream& f, const vector<Pile_Etablissement*>& pile) //(*(pi
 
 const Pile_Etablissement* getPileFromName(const string& name, const vector<Pile_Etablissement*>& pile)
 {
-    for (auto p : pile) {//for *(pile.size());
+    for (auto p : pile) {
         if (p->getEtablissement()->getNom() == name)
             return p;
     }

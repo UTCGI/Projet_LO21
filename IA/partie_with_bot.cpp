@@ -292,14 +292,13 @@ again:
             }
         }
     }
-        //des = this->getJoueurActif()->lancerDes();
         if (choixNb_des == 2) {
             des2 = this->getJoueurActif()->lancerDes();
         }
     }
 
     resultat = des+des2;
-    cout << "Dés obtenus :  " << des << " " << des2 << endl << "Somme : " << resultat << endl;//getNumDe()    
+    cout << "Dés obtenus :  " << des << " " << des2 << endl << "Somme : " << resultat << endl;   
     
     //Effet tour radio
     if (effet_tour_radio_applicable&&this->getJoueurActif()->getEffet_tour_radio()){
@@ -344,12 +343,4 @@ again:
         return des==des2?true:false;
     else
         return false;
-}
-
-
-void test_PWB()
-{
-    PartieWithBot p;
-    p.initialisation(); 
-    p.menu();
 }

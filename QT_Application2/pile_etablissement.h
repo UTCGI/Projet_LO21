@@ -9,7 +9,7 @@ class Pile_Etablissement {
 private:
     const Etablissement* etablissement;
     unsigned int effectif;
-    unsigned int minimum; // = 0; // Utile pour les établissement de départ
+    unsigned int minimum; // Utile pour les établissement de départ
     unsigned int montant_effet;
 public:
     // Setters
@@ -21,7 +21,7 @@ public:
 
     int getPrix()const
     {
-        return effectif == minimum ? 0 : etablissement->getPrix(); // getMontant();
+        return effectif == minimum ? 0 : etablissement->getPrix();
     }
 
     int getMontant()const{return montant_effet;}
@@ -45,15 +45,6 @@ public:
     unsigned int getEffectif() const;
 
     // Constructors and Destructors functions
-
-    /*
-  Specification: Pile_Etablissement(const Etablissement *et, unsigned int ef = 1)
-  Entree :
-    - et : Pointeur vers un etablissement
-    - ef : entier indiquant le nombre d'etablissements presents dans la pile
-  Sortie : Classe Pile_Etablissement Initialisée
-  Description : Cette methode permet de construire la classe
-  */
     Pile_Etablissement();
 
     Pile_Etablissement(const Etablissement* et, unsigned int ef = 0, unsigned int m = 0);

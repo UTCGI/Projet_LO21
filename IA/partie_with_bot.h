@@ -24,6 +24,5 @@ bool choisirPlusDeux();
 int choisirAction();
 Carte_Monument* getCheapestMonument();
 };
-void test_PWB();
 
 # endif

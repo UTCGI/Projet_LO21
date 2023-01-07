@@ -19,5 +19,3 @@ class Pioche {
     const Etablissement& retirerRandomEtablissement();
     ~Pioche();
 };
-
-int testPioche();

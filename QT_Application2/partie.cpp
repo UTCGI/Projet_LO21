@@ -15,7 +15,6 @@ int Partie::getNumDe() const { return num_de; }
 int Partie::getNbJoueurs() const { return nb_joueurs; }
 
 //SINGLETON
-//Jeu *Partie::getJeu() const { return jeu; }
 
 Joueur *Partie::getJoueurActif() { return joueurs1[joueur_actif]; }
 
@@ -26,7 +25,6 @@ const vector<Joueur *> &Partie::getJoueurs() const { return joueurs1; }
 // Setter functions
 // ----------------------------------------------------------------
 
-// ce n'est pas plutôt des void le type de retour des setters ?
 void Partie::setManche(int nbManche) { manche = nbManche; }
 
 void Partie::setNumDe(int nbDe) { num_de = nbDe; } // inutile ?
@@ -70,7 +68,7 @@ void Partie::joueur_next(bool effet_parc_attration)
 void Partie::transaction_piece(Joueur *emetteur, Joueur *destinataire, unsigned int montant)
 {
     if (montant != 0) {
-        cout << "      " << emetteur->getPseudo() << endl;//endl << 
+        cout << "      " << emetteur->getPseudo() << endl;
         cout << "      AVANT : " << emetteur->getCompte() << endl;
         if (emetteur->getCompte() >= montant) {
             emetteur->ajouterMontant(0 - montant);
@@ -90,7 +88,6 @@ void Partie::transaction_carte(Joueur* emetteur, Joueur*destinataire, const Etab
   if (emetteur->retirer_etablissement(etab))
     destinataire->ajouter_etablissement(etab);
 }
-//J2 //J3
 void Partie::echanger_cartes(Joueur* emetteur, Joueur* destinataire, const Etablissement* etab1, const Etablissement* etab2) {
     if (emetteur == nullptr || destinataire == nullptr || etab1 == nullptr || etab2 == nullptr) {
         cout << "Echange impossible : un des joueurs ou un des établissements n'est pas correctement choisi" << endl;
@@ -170,7 +167,7 @@ bool Partie::construire_monument(const Monument *monument_choisi)
       }
 
       if (jeu.getExtension()==Extension::Marina){
-        if (monument_choisi->getNom() == "Tour radio") effetHotelDeVille(this); //En cours de développement. Faut déterminer la signification "Utilisé comme établissement de départ"
+        if (monument_choisi->getNom() == "Tour radio") effetHotelDeVille(this); 
       }
       if (jeu.getExtension()==Extension::Marina || jeu.getExtension()==Extension::Deluxe){
         if (monument_choisi->getNom() == "Port") effetPort(this);
@@ -222,11 +219,11 @@ int Partie::choix(const string& m1, int n, int c, const vector<Pile_Etablissemen
                 break;
         }
     }
-    return choix;//false;
+    return choix;
 }
 
 
-const vector<Pile_Etablissement*>*/*&*/ Partie::choixPile(const string & m1, const string & m2, int cj) { //, int c){
+const vector<Pile_Etablissement*>*/*&*/ Partie::choixPile(const string & m1, const string & m2, int cj) {
     int choixPile = -1;
     const vector<Pile_Etablissement*>* pile=nullptr;
     while (choixPile != 0)
@@ -235,7 +232,6 @@ const vector<Pile_Etablissement*>*/*&*/ Partie::choixPile(const string & m1, con
         if (cj == 0)
             cj = getJoueurActif()->getId();
         cout << m2 << endl;
-        //fonction_service_verte(Type::special);//etablissement de type special interdit à l'échange : ils se trouvent tous dans la PileViolet
         try
         { // Cette Partie sert à détecter les erreurs eventuelles de saisie (Exemple : saisir une lettre à la place d'un nombre)
             cin >> choixPile;
@@ -255,7 +251,7 @@ const vector<Pile_Etablissement*>*/*&*/ Partie::choixPile(const string & m1, con
             break;
         case 1:
             if (!(getJoueurs()[cj - 1]->estPresqueVide(getJoueurs()[cj - 1]->getPileRouge()))) {
-                cout << getJoueurs()[cj - 1]->getPileRouge();// [0] [0] ;
+                cout << getJoueurs()[cj - 1]->getPileRouge();
                 pile = &getJoueurs()[cj - 1]->getPileRouge();
                 choixPile = 0;
             }
@@ -263,7 +259,7 @@ const vector<Pile_Etablissement*>*/*&*/ Partie::choixPile(const string & m1, con
             break;
         case 2:
             if (!(getJoueurs()[cj - 1]->estPresqueVide(getJoueurs()[cj - 1]->getPileBleu()))) {
-                cout << getJoueurs()[cj - 1]->getPileBleu();// [0] [0] ;
+                cout << getJoueurs()[cj - 1]->getPileBleu();
                 pile = &getJoueurs()[cj - 1]->getPileBleu();
                 choixPile = 0;
             }
@@ -271,7 +267,7 @@ const vector<Pile_Etablissement*>*/*&*/ Partie::choixPile(const string & m1, con
             break;
         case 3:
             if (!(getJoueurs()[cj - 1]->estPresqueVide(getJoueurs()[cj - 1]->getPileVert()))) {
-                cout << getJoueurs()[cj - 1]->getPileVert();// [0] [0] ;
+                cout << getJoueurs()[cj - 1]->getPileVert();
                 pile = &getJoueurs()[cj - 1]->getPileVert();
                 choixPile = 0;
             }
@@ -286,7 +282,6 @@ const vector<Pile_Etablissement*>*/*&*/ Partie::choixPile(const string & m1, con
     return pile;
 }
 
-// TODO: renommer CompterNbEtablissementdeType()
 int Partie::fonction_service_type(Type t, Joueur* j)
 {
   if (t == Type::aucun)
@@ -295,25 +290,25 @@ int Partie::fonction_service_type(Type t, Joueur* j)
     int nombreactive=0;
     for (auto p : j->getPileBleu()){
         if (p->getEtablissement()->getType() == t) {
-            nombreactive += p->getEffectif(); //nombreactive++;
+            nombreactive += p->getEffectif();
             cout << "            " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
       }
     }
     for (auto p : j->getPileRouge()){
       if (p->getEtablissement()->getType()==t) {
-          nombreactive += p->getEffectif(); //nombreactive++;
+          nombreactive += p->getEffectif();
           cout << "            " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
       }
     }
     for (auto p : j->getPileVert()){
       if (p->getEtablissement()->getType()==t) {
-          nombreactive += p->getEffectif(); //nombreactive++;
+          nombreactive += p->getEffectif();
           cout << "            " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
       }
     }
     for (auto p : j->getPileViolet()){
       if (p->getEtablissement()->getType()==t) {
-          nombreactive += p->getEffectif(); //nombreactive++;
+          nombreactive += p->getEffectif();
           cout << "            " << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
       }
     }
@@ -321,13 +316,8 @@ int Partie::fonction_service_type(Type t, Joueur* j)
   }
 }
 
-// TODO : renommer
 void Partie::find_carte_des(int des)
 {
-   /* cout << endl
-        << "Bilan des comptes :" << endl;*/
-
-    /* La Partie pile rouge est désormais extraite pour assurer un déroulement en sens inverse */
   cout << "      " << "**********************Partie avant transaction**********************" << endl;
   int id_sens_inverse = joueur_actif;
   id_sens_inverse = id_sens_inverse == 0 ? getNbJoueurs() - 1 : id_sens_inverse - 1;
@@ -340,7 +330,6 @@ void Partie::find_carte_des(int des)
       {
           if (pileRouge->getEtablissement()->estActif(des))
           {
-              //cout << "hello" << endl;
               if (pileRouge->getEffectif()>0){
               cout << "      " << pileRouge->getEtablissement()->getNom() << " (" << pileRouge->getEffectif() <<")"<< endl;
               cout << "      " << pileRouge->getEtablissement()->getEffet() << endl;
@@ -352,14 +341,12 @@ void Partie::find_carte_des(int des)
                       cout << "      " << "L'effet ne s'applique pas : vous n'avez pas le port !" << endl;
               }
               else if (pileRouge->getEtablissement()->getNom() == "Restaurant 5 etoiles") {
-                  //getNombreMonumentsConstruits()/*'Recevez 5 pieces du joueur qui a lance les des si celui-ci possede au moins deux monuments construits'*/
                   if (getJoueurActif()->getNombreMonumentsConstruits() > 1)
                       transaction_piece(getJoueurActif(), getJoueurs()[id_sens_inverse], pileRouge->getMontant() * pileRouge->getEffectif());
                   else
                       cout << "      " << "L'effet ne s'applique pas : " << getJoueurActif()->getPseudo() << " possède moins de 2 monuments construits !" << endl;
               }
               else if (pileRouge->getEtablissement()->getNom() == "Club prive" && pileRouge->getEffectif() == 1) {
-                  //getNombreMonumentsConstruits()/*'Recevez toutes les pieces du joueur qui a lance les des si celui-ci possede au moins trois etablissements construits'*/
                   if (getJoueurActif()->getNombreMonumentsConstruits() > 2)
                       transaction_piece(getJoueurActif(), getJoueurs()[id_sens_inverse], getJoueurActif()->getCompte());
                   else
@@ -405,34 +392,6 @@ void Partie::find_carte_des(int des)
                         unsigned int nbChamps_de_fleurs = pileChamps_de_fleurs->getEffectif();
                         cout << "            " << pileChamps_de_fleurs->getEtablissement()->getNom() << "  Quantité : " << nbChamps_de_fleurs << endl;
                         joueur->ajouterMontant(p->getMontant() * p->getEffectif() * nbChamps_de_fleurs);
-                    }
-                    else if (p->getEtablissement()->getNom() == "Epicerie") {
-                        /*'Si vous possedez moins de deux monuments, recevez 2 pieces de la banque'*/
-                        /*if (getJoueurActif()->getNombreMonumentsConstruits() > 1)
-                            joueur->ajouterMontant(p->getMontant() * p->getEffectif() * fonction_service_type(p->getEtablissement()->getTypeEffet(),joueur));
-                        else
-                            cout << "      " << "L'effet ne s'applique pas : " << getJoueurActif()->getPseudo() << " possède moins de 2 monuments construits !" << endl;*/
-                    }
-                    else if (p->getEtablissement()->getNom() == "Entreprise de travaux publics") {
-                        /*'Vous devez retourner une de vos cartes monuments sur sa face en travaux. Ce faisant, recevez 8 pieces de la banque'*/
-                        /*if (getJoueurActif()->getNombreMonumentsConstruits() > 1)
-                            joueur->ajouterMontant(p->getMontant() * p->getEffectif() * fonction_service_type(p->getEtablissement()->getTypeEffet(),joueur));
-                        else
-                            cout << "      " << "L'effet ne s'applique pas : " << getJoueurActif()->getPseudo() << " possède moins de 2 monuments construits !" << endl;*/
-                    }
-                    else if (p->getEtablissement()->getNom() == "Entreprise de demenagement") {
-                        /*'Donnez a un autre joueur, un de vos etablissements qui ne soit pas de type special. Puis recevez 4 pieces de la banque'*/
-                        /*if (getJoueurActif()->getNombreMonumentsConstruits() > 1)
-                            joueur->ajouterMontant(p->getMontant() * p->getEffectif() * fonction_service_type(p->getEtablissement()->getTypeEffet(),joueur));
-                        else
-                            cout << "      " << "L'effet ne s'applique pas : " << getJoueurActif()->getPseudo() << " possède moins de 2 monuments construits !" << endl;*/
-                    }
-                    else if (p->getEtablissement()->getNom() == "Moonster soda") {
-                        /*'Recevez 1 piece de la banque pour chaque etablissement de type restauration que possedent tous les joueurs'*/
-                        /*if (getJoueurActif()->getNombreMonumentsConstruits() > 1)
-                            joueur->ajouterMontant(p->getMontant() * p->getEffectif() * fonction_service_type(p->getEtablissement()->getTypeEffet(),joueur));
-                        else
-                            cout << "      " << "L'effet ne s'applique pas : " << getJoueurActif()->getPseudo() << " possède moins de 2 monuments construits !" << endl;*/
                     }
                     else
                         joueur->ajouterMontant(p->getMontant()* p->getEffectif()* fonction_service_type(p->getEtablissement()->getTypeEffet(), joueur));
@@ -482,24 +441,19 @@ void Partie::find_carte_des(int des)
         // Pile Violette
         if (joueur == getJoueurActif())
         {
-            for (auto p : joueur->getPileViolet()) // à discuter, maintenant je liste simplement les 3 cartes dans la version basique
+            for (auto p : joueur->getPileViolet())
             {
-
                 if (p->getEtablissement()->estActif(des) && p->getEffectif()>0)
                 {
                     cout << "      *" << p->getEtablissement()->getNom() << "  Quantité : " << p->getEffectif() << endl;
                     cout << "      " << p->getEtablissement()->getEffet() << endl;
-                    // joueur->ajouterMontant(p->getMontant() * (getNbJoueurs() - 1) * p->getEffectif());
-                    // joueur->ajouterMontant(p->getMontant() * p->getEffectif());
-                    // pas obligé de faire * p->getEffectif() car on ne peut avoir qu'un SEUL établissement spécial !!!!!!!!!!!!!!!!!!!!!!!!!
-
                     if (p->getEtablissement()->getNom() == "Maison d'edition" && p->getEffectif() == 1)
                     {
                         /*'Recevez 1 piece de chaque joueur pour chaque etablissement de type restauration et commerce qu''il possede'*/
                         int nbEtRestauration, nbEtCommerce;
                         for (auto joueurADebiter : getJoueurs())
                         {
-                            if (joueur != joueurADebiter){ //cout << "TypeEffet : " << p->getEtablissement()->getTypeEffet() << endl; TRES BIZARRE
+                            if (joueur != joueurADebiter){
                                 cout << "      " << "Voici les établissements de type restauration et commerce que possède ";
                                 cout << joueurADebiter->getPseudo() << endl;
                                 nbEtRestauration = 0; nbEtCommerce = 0;
@@ -513,7 +467,7 @@ void Partie::find_carte_des(int des)
 
                     if (p->getEtablissement()->getNom() == "Centre des impots" && p->getEffectif() == 1)
                     {
-                        /*'Recevez la moitie (arrondie a l''inferieur) des pieces de chaque joueur qui en possede 10 ou plus'*/
+                        /*'Recevez la moitie (arrondie a l'inferieur) des pieces de chaque joueur qui en possede 10 ou plus'*/
                         for (auto joueurADebiter : getJoueurs())
                         {
                             if (joueur != joueurADebiter && joueurADebiter->getCompte() > 9)
@@ -548,12 +502,12 @@ void Partie::find_carte_des(int des)
                             auto pileChoisie = choixPile("Dans quelle pile du joueur choisi se trouve la carte à échanger contre l'une des vôtres ?\nFaire votre choix\n1\tPile Rouge\n2\tPile Bleu\n3\tPile Vert\n", "Choisir 0 pour quitter", choixJoueur);
                             if (pileChoisie != nullptr) {
                                 int choixCarte = choix("Quel est le numéro de la pile dans laquelle se trouve la carte à échanger contre l'une des vôtres ? \nLe numéro de la pile doit être compris entre 1 et ", (*pileChoisie).size(), 0, pileChoisie);
-                                if (choixCarte != 0) { //cout << pileChoisie[choixCarte - 1]->getEtablissement()[0];
+                                if (choixCarte != 0) {
                                     cout << "Voici vos cartes" << endl;
                                     joueur->printJoueurConcise(); cout << endl << endl;
                                     auto pile2Choisie = choixPile("Dans laquelle de vos piles se trouve la carte à échanger ?\nFaire votre choix\n1\tPile Rouge\n2\tPile Bleu\n3\tPile Vert\n");
                                     if (pile2Choisie != nullptr) {
-                                        int choixCarte2 = choix("Quel est le numéro de la pile dans laquelle se trouve la carte à échanger ? \nLe numéro de la pile doit être compris entre 1 et ", (*pile2Choisie).size(), 0, pile2Choisie); //nombreDePileActive(pile2Choisie)
+                                        int choixCarte2 = choix("Quel est le numéro de la pile dans laquelle se trouve la carte à échanger ? \nLe numéro de la pile doit être compris entre 1 et ", (*pile2Choisie).size(), 0, pile2Choisie); 
                                         if (choixCarte2 != 0)
                                             echanger_cartes(getJoueurs()[choixJoueur - 1], getJoueurActif(), (*pileChoisie)[choixCarte - 1]->getEtablissement(), (*pile2Choisie)[choixCarte2 - 1]->getEtablissement());
                                     }
@@ -575,7 +529,6 @@ void Partie::find_carte_des(int des)
                         if (c > 0)
                             transaction_piece(getJoueurs()[c - 1], joueur, p->getMontant());
                     }
-                    //break;
                 }
             }
         }
@@ -644,7 +597,6 @@ retry:
 
         this->getReserve()->afficher();
 
-        // cout << *this->getJoueurActif();
         this->getJoueurActif()->printJoueurConcise(cout);
 
         cout << "Compte après achat :  " << this->getJoueurActif()->getCompte() << endl
@@ -720,7 +672,6 @@ retry:
         if (!etatAchat) // Si achat échoué, donne encore une fois
             goto retry;
 
-        // cout << *this->getJoueurActif();
         this->getJoueurActif()->printJoueurConcise(cout);
 
         cout << "Compte après achat :  " << this->getJoueurActif()->getCompte() << endl
@@ -780,14 +731,13 @@ again:
                 break;
             }
         }
-        //des = this->getJoueurActif()->lancerDes();
         if (choix == 2) {
             des2 = this->getJoueurActif()->lancerDes();
         }
     }
 
     resultat = des+des2;
-    cout << "Dés obtenus :  " << des << " " << des2 << endl << "Somme : " << resultat << endl;//getNumDe()    
+    cout << "Dés obtenus :  " << des << " " << des2 << endl << "Somme : " << resultat << endl;
     
     //Effet tour radio
     if (effet_tour_radio_applicable&&this->getJoueurActif()->getEffet_tour_radio()){
@@ -833,8 +783,6 @@ void Partie::menu()
     {
         cout << "Joueur en cours : " << this->getJoueurActif()->getId() << endl;
         cout << "Montant AVANT : " << this->getJoueurActif()->getCompte() << endl;
-
-        //cout << "\tCombien de dés souhaitez-vous lancer ?" << endl;
         effet_parc_attraction = this->lancer(); // Le menu qui traite le lancement de dès
         cout << "Compte de " << this->getJoueurActif()->getPseudo()<< " : " << this->getJoueurActif()->getCompte() << endl;
     revenir:
