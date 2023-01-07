@@ -58,7 +58,9 @@ VueCarte::VueCarte(Pile_Etablissement* p, QWidget *parent) : QPushButton(parent)
 
     setAutoFillBackground(true);
     setPalette(pal);
-    setFixedSize(260*x_scale,220*y_scale);
+    //setFixedSize(300*x_scale,220*y_scale);
+    //setFixedHeight(220*y_scale);
+    setMinimumHeight(250*y_scale);
     connect(this,SIGNAL(clicked()),this,SLOT(clickedEvent()));
     setCheckable(true);
 }

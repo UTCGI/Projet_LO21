@@ -26,22 +26,25 @@ Manche::Manche(QWidget *parent,Partie* p)
     layoutReserve->setStretch(0, 0);
     layoutReserve->setStretch(1, 1);
     layoutReserve->addStretch();
-    layoutCartes->setVerticalSpacing(10);
-    couche->addLayout(layoutReserve, 8);
+
+    layoutCartes->setVerticalSpacing(20);
+    layoutCartes->setHorizontalSpacing(10);
+    couche->addLayout(layoutReserve, 1);
 
     //Deuxième colonne
     layoutJoueur = new QVBoxLayout();
     layoutMonument = new QGridLayout();
-    layoutCartesJoueur = new QGridLayout();
 
 
-    layoutJoueur->addLayout(layoutMonument);
-    layoutJoueur->addLayout(layoutCartesJoueur);
-    couche->addLayout(layoutJoueur, 1);
+    //layoutJoueur->addLayout(layoutMonument);
+    //layoutJoueur->addLayout(layoutCartesJoueur);
+    //couche->addLayout(layoutJoueur, 1);
 
+    //couche->addStretch();
     //Troisième colonne
     layoutButtons = new QVBoxLayout();
-    couche->addLayout(layoutButtons, 1);
+    couche->addLayout(layoutButtons, 0);
+
 
     //Première colonne
     reserveGroup = new QButtonGroup();
@@ -50,6 +53,7 @@ Manche::Manche(QWidget *parent,Partie* p)
 
     int indice = 0;//Pour donner chaque VueCarte un id, aussi pour la mise en forme
     VueCarte* temp;//Stocker vuecarte reserve temporairement
+
     for(auto reserve = p->getReserve()->get_Iterator();reserve.contiditon();reserve.next()){
 
         temp = new VueCarte(*reserve);
@@ -75,7 +79,6 @@ Manche::Manche(QWidget *parent,Partie* p)
     rafraichir_etats_monuments();
 
     bilan = new QTableWidget(p->getJeu()->getNbEtablissements(), 2);
-    layoutJoueur->addWidget(bilan);
 
     int count = 0;
     for (auto k : p->getJoueurActif()->getPileRouge()){
@@ -115,7 +118,11 @@ Manche::Manche(QWidget *parent,Partie* p)
     displayDes->setText("Des obtenu : "+QString::number(deObtenu));
     layoutButtons->addWidget(displayDes);
 
-    layoutButtons->addStretch();
+    //layoutButtons->addStretch();
+    layoutButtons->addLayout(layoutMonument);
+    layoutButtons->addWidget(bilan);
+
+
 
     acheter = new QPushButton("Acheter");
     connect(acheter, SIGNAL(clicked()), this, SLOT(acheter_reserve()));
