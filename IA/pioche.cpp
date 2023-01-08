@@ -1,4 +1,5 @@
 #include "pioche.h"
+#include "MKrandom.h"
 #include "time.h"
 // Getters
 unsigned int Pioche::getNb_etablissements() const { return nb_etablissements; }
@@ -26,15 +27,19 @@ Pioche::~Pioche() {
 const Etablissement* Pioche::getRandomEtablissement() const
 {
     unsigned int numero_etablissement = 0;
-    srand(time(NULL));
-    numero_etablissement = rand() % (nb_etablissements-1);
+    //srand(time(NULL));
+    //numero_etablissement = rand() % (nb_etablissements-1);
+    numero_etablissement = getRand(0,nb_etablissements-1);
+    cout<<"numero etablissement : "<<numero_etablissement<<endl;
     unsigned int nb_etablissements_parcourus = 0;
     unsigned int i = 0;
+    if (numero_etablissement<=piles_etablissement[0].getEffectif())return {piles_etablissement[0].getEtablissement()};
+    else{
     while (nb_etablissements_parcourus < numero_etablissement) {
         nb_etablissements_parcourus += piles_etablissement[i].getEffectif();
         i++;
-    }
-    return piles_etablissement[i].getEtablissement();
+    }    cout<<"numero de pile : "<<i-1<<endl;
+    return piles_etablissement[i-1].getEtablissement();}
 }
 
 unsigned int Pioche::getIndexPile(const Etablissement& etablissement) const

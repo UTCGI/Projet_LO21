@@ -12,7 +12,7 @@ private:
     const string nom;
     const string effet;
     Couleur couleur;
-    unsigned int prix;
+    unsigned int prix = 0;
     vector<unsigned int> num_de;
     Type type;
     unsigned int montant_effet;
