@@ -72,7 +72,7 @@ void Reserve::ajouter_etablissement(const Etablissement* etablissement,unsigned 
     }
 }
 
-void Reserve::retirer_etablissement(const Etablissement* etablissement, Pioche& p,  unsigned int quantite)
+void Reserve::retirer_etablissement(const Etablissement* etablissement, Pioche* p,  unsigned int quantite)
 {
     unsigned int indexPile = 0;
     while (indexPile < nb_piles && etablissement != liste_etablissements[indexPile]->getEtablissement()) {
@@ -90,9 +90,11 @@ void Reserve::retirer_etablissement(const Etablissement* etablissement, Pioche& 
             liste_etablissements[nb_piles-1]=nullptr;
             delete old;
             nb_piles--;
+            if(p != nullptr){
             while (nb_piles < nb_piles_max) {
-        const Etablissement* e = p.getRandomEtablissement();
+        const Etablissement* e = p->getRandomEtablissement();
         this->ajouter_etablissement(e);
+            }
     }
        // }
     } else {

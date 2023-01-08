@@ -18,7 +18,7 @@ class Partie {
   int joueur_actif = 0;//Indice du joueur qui a la main
   vector<Joueur*> joueurs1;
   Reserve* reserve;
-  Pioche* pioche;
+  Pioche* pioche = nullptr;
   int fonction_service_type(Type t, Joueur* j);//fonction_service_verte, réservée pour find_carte_des()
 
  public:

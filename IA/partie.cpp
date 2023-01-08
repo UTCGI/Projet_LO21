@@ -153,7 +153,7 @@ bool Partie::achat_carte(Pile_Etablissement *pile_reserve)
         }
       getJoueurActif()->ajouterMontant(0 - pile_reserve->getEtablissement()->getPrix());
       getJoueurActif()->ajouter_etablissement(pile_reserve->getEtablissement());
-      reserve->retirer_etablissement(pile_reserve->getEtablissement(),*this->getPioche());
+      reserve->retirer_etablissement(pile_reserve->getEtablissement(),this->getPioche());
       //pile_reserve->retirerCarte();
       return true;
     }
